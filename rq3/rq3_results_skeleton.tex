@@ -1,0 +1,107 @@
+% ============================================================================
+% RQ3 subsection of the Results section (Assignment 3) — STRUCTURE ONLY.
+% Course rule: the prose must be written by the authors. This file gives the order of
+% paragraphs, what each must state, and the generated tables/figures to \input.
+% Copy rq3/out/tables/*.tex and rq3/out/figures/*.pdf into the Overleaf project.
+% ============================================================================
+
+\subsection{RQ3: Consistency and Stability of SHAP Explanations}
+\label{subsec:rq3}
+
+% ---- Paragraph 1 (3-4 sentences): restate RQ3 and H3 exactly as in Methods; state the two pre-set
+%      criteria (mean Spearman >= 0.8; at least four of five top reasons kept) and that logistic
+%      regression is the baseline of every comparison.
+
+% ---- Paragraph 2: what was explained (facts come from rq3/out/selection.json and rq3/out/runs/*/*.json)
+%      - 1,000 test applicants fixed once: 500 with and 500 without a credit-bureau record, drawn at random
+%        (seed 42) from the locked test set, natural default rate kept (8.6% in both groups) -> Table~\ref{tab:rq3_setup}
+%      - background: 100 random applicants of the 20k pilot training set (seed 42), the same for all models
+%      - feature level: Level 4 (322 raw features); SHAP values of one-hot and missing-indicator columns summed
+%        back to the raw feature, so all models are compared on the same 322 features
+%      - explained output: probability of default P(TARGET=1) for every model (one scale)
+%      - explainers: exact interventional Tree SHAP for RF, XGBoost, LightGBM; permutation Shapley estimator
+%        (2 permutations for LR and MLP, 1 for the ensembles, forward + reverse pass, averaged over the background)
+%        for LR, MLP, soft voting and stacking; additivity verified (max |sum - f(x)| from the json files)
+%      - DEVIATIONS from A2 to state honestly: (i) LR explained with the permutation estimator on the probability
+%        scale instead of the LinearExplainer (log-odds), because the LinearExplainer has no probability scale and
+%        one common scale was needed; the exact log-odds ranking of LR was kept as a check (pilot: global Spearman
+%        0.99, top-5 overlap 0.96 between the two); (ii) retrainings use the saved best hyper-parameters and a 90%
+%        stratified subsample of the 20k pilot training set, not of the full 80% development set;
+%        (iii) background 100 applicants (A2 did not fix the size).
+
+\begin{table}[t]
+\caption{Set-up of the explanation experiment (RQ3).}
+\label{tab:rq3_setup}
+\centering
+\small
+\begin{tabular}{ll}
+\hline
+Item & Value \\
+\hline
+Explained applicants & 1,000 from the test set (500 with, 500 without bureau record), seed 42 \\
+Default rate among them & 8.6\% in both groups \\
+Background sample & 100 applicants of the 20k pilot training set, seed 42 \\
+Feature level & Level 4, 322 raw features (755 columns after preprocessing) \\
+Explained output & probability of default $P(\mathrm{TARGET}=1)$ \\
+Exact explainers & Tree SHAP (interventional): RF, XGBoost, LightGBM \\
+Approximate explainers & permutation Shapley: LR, MLP (2 permutations), voting, stacking (1 permutation) \\
+Retrainings & 5 per model, seeds 1--5, 90\% stratified subsample of the 20k training set \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---- Paragraph 3: agreement with logistic regression on the saved fits -> Table~\ref{tab:rq3_agree},
+%      Fig.~\ref{fig:rq3_agree}, Fig.~\ref{fig:rq3_matrix}. Report: share of top-5 reasons shared with LR
+%      (mean, 95% CI), Spearman per applicant and globally; with vs without bureau record (rq3_consistency_with_LR.csv,
+%      rows group != all). State which models agree with LR on the main reasons and which do not. No interpretation.
+
+\input{rq3_consistency_with_LR}   % generated: rq3/out/tables/rq3_consistency_with_LR.tex
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{fig_rq3_agreement_with_LR.pdf}
+\caption{Share of an applicant's five largest SHAP reasons that coincide with logistic regression, by availability of a credit-bureau record (saved fits, Level 4, $n=500$ per group; bars: mean, whiskers: 95\% bootstrap CI).}
+\label{fig:rq3_agree}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.8\columnwidth]{fig_rq3_spearman_matrix.pdf}
+\caption{Spearman correlation between the global feature rankings (mean $|\mathrm{SHAP}|$ over 1,000 applicants) of every pair of models, saved fits, Level 4.}
+\label{fig:rq3_matrix}
+\end{figure}
+
+% ---- Paragraph 4: stability after retraining -> Table~\ref{tab:rq3_stability}, Fig.~\ref{fig:rq3_stability}.
+%      Report mean +- sd over the 10 run pairs, CI, criteria met / not met per model; paired Bonferroni-adjusted
+%      difference of per-applicant stability vs LR (rq3_stability_diff_vs_LR.csv) -> say for which models the
+%      difference excludes zero. H3 supported / not supported per model, strictly by the pre-set criteria.
+
+\input{rq3_stability}   % generated: rq3/out/tables/rq3_stability.tex
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{fig_rq3_stability.pdf}
+\caption{Stability of SHAP explanations across five retrainings of each model (Level 4, 1,000 applicants): (a) Spearman correlation between the global feature rankings of two retrainings (mean over the ten run pairs, 95\% bootstrap CI over applicants); (b) distribution over applicants of the share of top-5 reasons kept between two retrainings. Dashed line: pre-set criterion 0.8.}
+\label{fig:rq3_stability}
+\end{figure*}
+
+% ---- Paragraph 5: explainer noise floor and sub-groups (rq3_explainer_noise.csv; group rows of the two CSVs).
+%      For the approximate explainers, the same fit explained twice with another seed gives the noise floor; report it
+%      and say that stability below this floor cannot be attributed to retraining. Report with/without bureau record.
+
+% ---- Paragraph 6: error analysis / negative results (rq3_error_analysis_*.csv, rq3_top10_features_fixed.csv,
+%      Fig.~\ref{fig:rq3_top}). Which features swap places between retrainings; applicants whose reasons change most
+%      (predicted probability, bureau record, default); the MLP case: saturated probabilities (share of applicants with
+%      p < 1e-6) and near-zero attributions, so its explanations are degenerate — report, do not interpret.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{fig_rq3_top_features.pdf}
+\caption{Rank of the most important raw features (mean $|\mathrm{SHAP}|$, saved fits) for logistic regression, LightGBM and stacking; features in the top eight of at least one model.}
+\label{fig:rq3_top}
+\end{figure}
+
+% ---- Reproducibility paragraph (whole Results section, one paragraph): repository link + commit, Python 3.13 and
+%      the package versions from docs/software_versions.json plus shap 0.54.1, seeds (42 for samples, 1-5 for
+%      retrainings, 0/1 for the explainer), hardware (CPU model, cores, RAM — fill in for the machine that ran it),
+%      running time per run from the json files (seconds / fit_seconds).
