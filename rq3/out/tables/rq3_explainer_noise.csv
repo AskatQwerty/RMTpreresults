@@ -1,0 +1,4 @@
+model,n,explainer,n_permutations,top5_same_fit_two_seeds,top5_lo,top5_hi,spearman_applicant,spearman_global,gsp_lo,gsp_hi
+random_forest,1000,TreeExplainer,,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+xgboost,1000,TreeExplainer,,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+lightgbm,1000,TreeExplainer,,1.0,1.0,1.0,1.0,1.0,1.0,1.0
