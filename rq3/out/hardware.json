@@ -1,0 +1,19 @@
+{
+  "training_rq1_rq2_and_package_fits": {
+    "owner": "Askat Aubakirov (from msinfo32 screenshot, 2026-10-25)",
+    "machine": "ASUS TUF Gaming A15 FA507NVR (laptop)",
+    "cpu": "AMD Ryzen 7 7435HS, 3.10 GHz, 8 cores / 16 threads",
+    "ram": "16.0 GB installed (15.8 GB usable)",
+    "os": "Windows 11 Pro 10.0.26200",
+    "python": "3.13.9",
+    "note": "RandomizedSearchCV n_jobs=1, pre_dispatch=1, up to 2 threads per model (actual_training_protocol.json); total pilot time 10,640 s"
+  },
+  "rq3_shap_runs": {
+    "machine": "cloud Linux container (x86_64)",
+    "cpu": "Intel Xeon @ 2.80 GHz, 2 vCPU",
+    "ram": "7 GB",
+    "os": "Linux 6.18",
+    "python": "3.13.17",
+    "packages": "rq3/requirements-rq3.txt (training versions + shap 0.54.1)"
+  }
+}

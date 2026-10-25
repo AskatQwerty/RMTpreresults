@@ -18,12 +18,12 @@
   "group_rows": 252,
   "calibration_rows": 70,
   "files": {
-    "decision_scenarios.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_scenarios.csv",
-    "decision_scenarios.tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_scenarios.tex",
-    "decision_groups.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_groups.csv",
-    "decision_groups.tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_groups.tex",
-    "calibration_bins.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\calibration_bins.csv",
-    "decision_metadata.json": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_metadata.json"
+    "decision_scenarios.csv": "reports\\pilot_20k_5config\\decision_scenarios.csv",
+    "decision_scenarios.tex": "reports\\pilot_20k_5config\\decision_scenarios.tex",
+    "decision_groups.csv": "reports\\pilot_20k_5config\\decision_groups.csv",
+    "decision_groups.tex": "reports\\pilot_20k_5config\\decision_groups.tex",
+    "calibration_bins.csv": "reports\\pilot_20k_5config\\calibration_bins.csv",
+    "decision_metadata.json": "reports\\pilot_20k_5config\\decision_metadata.json"
   },
   "input_sha256": {
     "fairness.parquet": "3f3e48f8e55d4ab7173ed41a8dcaa5bb4da5c8165b46dec081097e79f75a93f9",

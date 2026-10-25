@@ -35,7 +35,7 @@
   "sources": [
     {
       "path": "reports/pilot_20k_5config/evaluation/actual_training_protocol.json",
-      "sha256": "042f4d2c8e62ebd3f550dee8b7943ccc8404594d3ac9be3c83a13ef4e9969437"
+      "sha256": "abe825b4cb5a8fa94769a211ed0cba63e3d5f4c69793aea2429fde25d84bbea5"
     },
     {
       "path": "reports/pilot_20k_5config/evaluation/evaluation_manifest.json",

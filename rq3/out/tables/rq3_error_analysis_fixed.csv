@@ -1,0 +1,6 @@
+model,n,share_applicants_max_abs_shap_below_1e4,median_sum_abs_shap,n_features_with_mean_abs_shap_above_1e6,share_prob_below_1e6,share_prob_above_1minus1e6
+logistic_regression,1000,0.0,0.59214707663034,314,0.0,0.0
+random_forest,1000,0.0,0.14028807987505532,288,0.0,0.0
+xgboost,1000,0.0,0.19570155388632116,251,0.0,0.0
+lightgbm,1000,0.0,0.17256412916603367,220,0.0,0.0
+mlp,1000,0.0,1.0468226994515608,314,0.389,0.005

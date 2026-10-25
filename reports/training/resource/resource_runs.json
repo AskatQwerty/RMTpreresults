@@ -3,12 +3,12 @@
   "runs_found": 2,
   "runs": [
     {
-      "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_7395f1912586",
+      "root": "artifacts\\training\\resource_pilot\\resource_7395f1912586",
       "status": "partial",
       "completed_models": 6,
       "attempted_models": 7,
-      "metrics_csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_7395f1912586\\resource_metrics.csv",
-      "warnings_csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_7395f1912586\\resource_warnings.csv",
+      "metrics_csv": "reports\\training\\resource\\resource_7395f1912586\\resource_metrics.csv",
+      "warnings_csv": "reports\\training\\resource\\resource_7395f1912586\\resource_warnings.csv",
       "saved_summary": {
         "attempted_models": 7,
         "completed_models": 6,
@@ -295,9 +295,9 @@
           {
             "error": {
               "elapsed_seconds": 449.39840339999864,
-              "error": "[WinError 5] Отказано в доступе: 'C:\\\\Users\\\\askat\\\\Documents\\\\ChatGPT\\\\RMT\\\\artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json.tmp' -> 'C:\\\\Users\\\\askat\\\\Documents\\\\ChatGPT\\\\RMT\\\\artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json'",
+              "error": "[WinError 5] Отказано в доступе: 'artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json.tmp' -> 'artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json'",
               "error_type": "PermissionError",
-              "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\src\\resource_pilot.py\", line 130, in worker\n    _phase(stage,'serialize')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\src\\resource_pilot.py\", line 89, in _phase\n    atomic_json(Path(stage)/'phase.json',{'phase':name,'pid':os.getpid(),\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        'wall_time':time.time(),**extras})\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\src\\model_training.py\", line 56, in atomic_json\n    os.replace(temp,path)\n    ~~~~~~~~~~^^^^^^^^^^^\nPermissionError: [WinError 5] Отказано в доступе: 'C:\\\\Users\\\\askat\\\\Documents\\\\ChatGPT\\\\RMT\\\\artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json.tmp' -> 'C:\\\\Users\\\\askat\\\\Documents\\\\ChatGPT\\\\RMT\\\\artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json'\n"
+              "traceback": "Traceback (most recent call last):\n  File \"src\\resource_pilot.py\", line 130, in worker\n    _phase(stage,'serialize')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"src\\resource_pilot.py\", line 89, in _phase\n    atomic_json(Path(stage)/'phase.json',{'phase':name,'pid':os.getpid(),\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        'wall_time':time.time(),**extras})\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"src\\model_training.py\", line 56, in atomic_json\n    os.replace(temp,path)\n    ~~~~~~~~~~^^^^^^^^^^^\nPermissionError: [WinError 5] Отказано в доступе: 'artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json.tmp' -> 'artifacts\\\\training\\\\resource_pilot\\\\resource_7395f1912586\\\\stacking\\\\phase.json'\n"
             },
             "fit_peak_process_tree_rss_bytes": 5348220928,
             "memory_measurement": "sampled100ms worker+children RSS; Windows main lifetime peak_wset also recorded. Includes runtime/data/preprocessing/fit/serialization.",
@@ -314,7 +314,7 @@
             "windows_main_peak_wset_bytes": 5340291072
           }
         ],
-        "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_7395f1912586",
+        "root": "artifacts\\training\\resource_pilot\\resource_7395f1912586",
         "rows": 221407,
         "scope": "resource_pilot",
         "selected_configurations_file": "selected_configurations.json",
@@ -324,12 +324,12 @@
       }
     },
     {
-      "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
+      "root": "artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
       "status": "completed",
       "completed_models": 7,
       "attempted_models": 7,
-      "metrics_csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_de05e94a7cb7\\resource_metrics.csv",
-      "warnings_csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_de05e94a7cb7\\resource_warnings.csv",
+      "metrics_csv": "reports\\training\\resource\\resource_de05e94a7cb7\\resource_metrics.csv",
+      "warnings_csv": "reports\\training\\resource\\resource_de05e94a7cb7\\resource_warnings.csv",
       "saved_summary": {
         "attempted_models": 7,
         "completed_models": 7,
@@ -675,7 +675,7 @@
             "worker_elapsed_seconds": 521.1999749999995
           }
         ],
-        "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
+        "root": "artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
         "rows": 221407,
         "scope": "resource_pilot",
         "selected_configurations_file": "selected_configurations.json",
@@ -943,6 +943,6 @@
       "resumed": false
     }
   ],
-  "model_metrics_csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_metrics.csv",
-  "warnings_csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_warnings.csv"
+  "model_metrics_csv": "reports\\training\\resource\\resource_metrics.csv",
+  "warnings_csv": "reports\\training\\resource\\resource_warnings.csv"
 }

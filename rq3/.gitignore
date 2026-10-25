@@ -1,0 +1,3 @@
+# per-applicant outputs and ID lists stay local (same policy as the package: no client-level data in Git)
+out/runs/
+out/*.parquet

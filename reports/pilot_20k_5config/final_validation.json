@@ -8,8 +8,8 @@
   "fit_predict_transform_called": false,
   "joblib_loaded": false,
   "require_complete": true,
-  "training_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config",
-  "prepared_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\data\\processed\\full",
+  "training_root": "artifacts\\training\\pilot_20k_5config",
+  "prepared_root": "data\\processed\\full",
   "errors": [],
   "warnings": [],
   "pairs": [

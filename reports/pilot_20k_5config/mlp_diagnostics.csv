@@ -1,5 +1,5 @@
 model,level,estimator_path,n_iter_,max_iter,tol,n_iter_no_change,loss_,loss_curve_points,loss_curve_length_matches_n_iter,source
-mlp,1,pipeline.model,300,300,0.0001,20,0.11143807123325011,300,True,C:\Users\askat\Documents\ChatGPT\RMT\artifacts\training\pilot_20k_5config\mlp\level_1\fit_checkpoint\fit_diagnostics.json
-mlp,2,pipeline.model,300,300,0.0001,20,0.06283835904433023,300,True,C:\Users\askat\Documents\ChatGPT\RMT\artifacts\training\pilot_20k_5config\mlp\level_2\fit_checkpoint\fit_diagnostics.json
-mlp,3,pipeline.model,300,300,0.0001,20,0.0346564161379441,300,True,C:\Users\askat\Documents\ChatGPT\RMT\artifacts\training\pilot_20k_5config\mlp\level_3\fit_checkpoint\fit_diagnostics.json
-mlp,4,pipeline.model,243,300,0.0001,20,0.004645238747909474,243,True,C:\Users\askat\Documents\ChatGPT\RMT\artifacts\training\pilot_20k_5config\mlp\level_4\fit_checkpoint\fit_diagnostics.json
+mlp,1,pipeline.model,300,300,0.0001,20,0.11143807123325011,300,True,artifacts\training\pilot_20k_5config\mlp\level_1\fit_checkpoint\fit_diagnostics.json
+mlp,2,pipeline.model,300,300,0.0001,20,0.06283835904433023,300,True,artifacts\training\pilot_20k_5config\mlp\level_2\fit_checkpoint\fit_diagnostics.json
+mlp,3,pipeline.model,300,300,0.0001,20,0.0346564161379441,300,True,artifacts\training\pilot_20k_5config\mlp\level_3\fit_checkpoint\fit_diagnostics.json
+mlp,4,pipeline.model,243,300,0.0001,20,0.004645238747909474,243,True,artifacts\training\pilot_20k_5config\mlp\level_4\fit_checkpoint\fit_diagnostics.json

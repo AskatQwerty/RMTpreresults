@@ -14,19 +14,19 @@
   ],
   "files": [
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.pdf",
+      "path": "reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.pdf",
       "sha256": "e416663b162b6ba931390db6aa03b05888cf6c4625f523f55407a8056a7058bf"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.svg",
+      "path": "reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.svg",
       "sha256": "954a72db3a788eac01ae08f26adef834a482a91460d5069ba3048e4fd10cd45f"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.pdf",
+      "path": "reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.pdf",
       "sha256": "4d6538bd8340f0b35c32c433053fa4b6c341f73e58d2e7f5ce4c5d366ac3999c"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.svg",
+      "path": "reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.svg",
       "sha256": "05bd2f04bb30e8cc585b0ba5d2a93ed4a472604202b3dd4c36ee8053ca6c7987"
     }
   ]

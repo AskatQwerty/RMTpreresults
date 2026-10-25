@@ -1,0 +1,85 @@
+% ============================================================================
+% DRAFT of the RQ3 subsection for the Results section — to be rewritten by the authors in their own words.
+% Every number below comes from rq3/out/tables/*.csv (saved fits, Level 4). "TBD" = not computed yet;
+% numbers marked (pilot) come from the reduced pilot design and must stay labelled preliminary.
+% \cite keys are placeholders: replace with the keys of your .bib (A2 refs [13] Lundberg & Lee 2017; [21] Lundberg et al. 2020).
+% ============================================================================
+
+\subsection{RQ3: Consistency and Stability of SHAP Explanations}
+\label{subsec:rq3}
+
+RQ3 asks how consistent SHAP explanations of credit decisions are between the simple and the complex models, and how stable they remain after the models are retrained. H3 states that the complex models give less stable explanations than logistic regression and agree with it only partly on the main reasons for a decision. Following the Methods, two measures are used: the Spearman correlation between the global feature rankings of two explanations (features ranked by mean $|\mathrm{SHAP}|$ over the explained applicants) and the share of an applicant's five largest reasons that are present in both explanations. Explanations are called stable when the mean Spearman correlation is at least 0.8; the poster added the applicant-level rule that at least four of the five top reasons must stay the same, which is reported alongside. Logistic regression is the reference for every comparison. All results of this subsection are preliminary: they are computed on the pilot models of Section~\ref{subsec:rq1} (20,000 training applicants, five search configurations) and on the retraining design described below.
+
+
+\begin{table}[t]
+\caption{Set-up of the explanation experiment (RQ3).}
+\label{tab:rq3_setup}
+\centering
+\small
+\begin{tabular}{p{2.6cm}p{5.4cm}}
+\hline
+Item & Value \\
+\hline
+Explained applicants & 1,000 from the locked test set (500 with, 500 without bureau record), seed 42; 500 for the ensembles and in all retraining runs \\
+Default rate among them & 8.6\% in both groups \\
+Background sample & 100 applicants of the 20k pilot training set, seed 42 \\
+Feature level & Level 4, 322 raw features (755 columns after preprocessing) \\
+Explained output & probability of default $P(\mathrm{TARGET}=1)$ \\
+Exact explainers & interventional Tree SHAP: random forest, XGBoost, LightGBM \\
+Approximate explainers & permutation Shapley: LR, MLP (2 permutations), soft voting, stacking (1 permutation) \\
+Retrainings & 5 per model, seeds 1--5, 90\% stratified subsample of the 20k training set \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Set-up and deviations from the plan.}
+Table~\ref{tab:rq3_setup} summarises the experiment. One list of 1,000 test applicants was fixed once and reused for every model and run: 500 applicants with and 500 without a credit-bureau record were drawn at random (seed 42) from the locked test set, which keeps each group's natural default rate (8.6\% in both groups). The background sample used by every explainer consists of 100 applicants drawn at random (seed 42) from the 20,000 pilot training applicants; no test applicant is used as background. All explanations are computed at history Level~4 (322 raw features; 755 columns after preprocessing) on one common scale, the predicted probability of default $P(\mathrm{TARGET}=1)$. SHAP values of the one-hot and missing-indicator columns are summed back to their raw feature, so all models are compared on the same 322 features. Random forest, XGBoost and LightGBM are explained with the exact interventional Tree SHAP algorithm \cite{lundberg2020local}; logistic regression, the MLP, soft voting and stacking are explained with a permutation Shapley estimator (forward and reverse pass over a random feature order, averaged over the background sample; two permutations for logistic regression and the MLP, one for the ensembles). For every model the sum of the SHAP values plus the base value reproduced the model output to within $8\times10^{-5}$. Three deviations from Assignment~2 apply. First, logistic regression is explained with the permutation estimator on the probability scale instead of the LinearExplainer, because the latter explains log-odds and one common scale was required for all models; on a pilot sample of 10 applicants the exact log-odds ranking of logistic regression and the permutation estimate agreed with a global Spearman correlation of 0.99 and a top-5 overlap of 0.96. Second, for the ensembles and for all retraining runs the first 250 applicants of each group (500 in total) were explained instead of 1,000, to stay within the computation budget; every table states the number of applicants used. Third, retrainings use the saved best hyper-parameters and a stratified 90\% subsample of the 20,000 pilot training applicants (seeds 1--5), not of the full development set.
+
+\input{rq3_consistency_with_LR}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{fig_rq3_agreement_with_LR.pdf}
+\caption{Share of an applicant's five largest SHAP reasons that coincide with those of logistic regression, by availability of a credit-bureau record (saved fits, Level 4; bars: mean, whiskers: 95\% bootstrap CI over applicants).}
+\label{fig:rq3_agree}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.85\columnwidth]{fig_rq3_spearman_matrix.pdf}
+\caption{Spearman correlation between the global feature rankings (mean $|\mathrm{SHAP}|$ over the explained applicants) of every pair of models, saved fits, Level 4.}
+\label{fig:rq3_matrix}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{fig_rq3_top_features.pdf}
+\caption{Rank of the most important raw features (mean $|\mathrm{SHAP}|$, saved fits) for logistic regression, LightGBM and stacking; features in the top eight of at least one of the three models.}
+\label{fig:rq3_top}
+\end{figure}
+
+\paragraph{Agreement with logistic regression.}
+Table~\ref{tab:rq3_agree} reports the agreement of every model with logistic regression on the saved fits. On average, between 1.4 and 1.8 of an applicant's five largest reasons coincide with those of logistic regression: random forest 0.28 [0.27, 0.29], XGBoost 0.37 [0.36, 0.38], LightGBM 0.35 [0.34, 0.36] and the MLP 0.32 [0.31, 0.33] (soft voting TBD, stacking TBD; $n$ = 1,000 for the first four, 500 for the ensembles). The Spearman correlation between the global rankings of a complex model and of logistic regression lies between 0.54 and 0.58 for the tree models and reaches 0.66 for the MLP, with bootstrap intervals that exclude 0.8 for every model. The tree models agree much more with one another than with logistic regression: the global rankings of XGBoost and LightGBM correlate at 0.93, those of random forest with either boosting model at 0.84--0.86 (Fig.~\ref{fig:rq3_matrix}), and XGBoost and LightGBM share 0.73 of their top-5 reasons per applicant. Agreement with logistic regression is lower for applicants without a bureau record than for applicants with one for random forest (0.24 versus 0.32) and slightly lower for XGBoost (0.36 versus 0.37) and LightGBM (0.33 versus 0.36), whereas the MLP shows no difference (Fig.~\ref{fig:rq3_agree}). The two external scores EXT\_SOURCE\_2 and EXT\_SOURCE\_3 are the two most important features for logistic regression, random forest, XGBoost and LightGBM alike; from the third rank onward the lists diverge (Fig.~\ref{fig:rq3_top}): logistic regression continues with the average number of future instalments, the annuity and the maximum payment count of previous applications, while the tree models continue with the credit-to-goods ratio, EXT\_SOURCE\_1 and the share of late instalments. The MLP ranks the indicators HAS\_CC and HAS\_BB, which only record whether credit-card and bureau-balance history exists, above every external score.
+
+\IfFileExists{rq3_stability.tex}{\input{rq3_stability}}{}
+\IfFileExists{rq3_refit_test_metrics.tex}{\input{rq3_refit_test_metrics}}{}
+\IfFileExists{fig_rq3_stability.pdf}{%
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{fig_rq3_stability.pdf}
+\caption{Stability of SHAP explanations across retrainings of each model (Level 4): (a) Spearman correlation between the global feature rankings of two retrainings (mean over run pairs, 95\% bootstrap CI over applicants); (b) distribution over applicants of the share of top-5 reasons kept between two retrainings. Dashed line: pre-set criterion 0.8.}
+\label{fig:rq3_stability}
+\end{figure*}}{}
+
+\paragraph{Stability after retraining.}
+TBD after the retraining runs (Table~\ref{tab:rq3_stability}, Fig.~\ref{fig:rq3_stability}): for each model, the mean and standard deviation of the Spearman correlation over the run pairs with its bootstrap interval, the mean share of top-5 reasons kept with its interval, whether the pre-set criteria are met, and the Bonferroni-adjusted paired difference in applicant-level stability relative to logistic regression (state which differences exclude zero). H3 is supported for a model only if its stability is below that of logistic regression with an interval that excludes zero. Table~\ref{tab:rq3_refit_metrics} adds the test-set PR-AUC, ROC-AUC, log-loss and Brier score of the retrained models as mean $\pm$ s.d.\ over the retrainings, which gives the retraining variability that Section~\ref{subsec:rq1} could not report for its single fits.
+
+\paragraph{Explainer noise and sub-groups.}
+TBD: for the permutation-based explanations, the same fits were explained twice with independent random feature orders at the settings of the retraining runs; the resulting top-5 overlap and Spearman correlation (Table~\ref{tab:rq3_noise} or text) give the noise floor of the explainer, and differences between retrainings that are smaller than this floor cannot be attributed to retraining. The exact Tree SHAP explanations are deterministic. Stability with and without a bureau record is reported in the same table (rows ``with bureau'' and ``no bureau'' of rq3\_stability.csv).
+
+\paragraph{Error analysis and negative results.}
+The MLP explanations are degenerate. On the saved Level-4 fit, 38.9\% of the explained applicants receive a predicted default probability below $10^{-6}$ and 0.5\% a probability above $1-10^{-6}$, so the model output is flat around most applicants; the median sum of absolute SHAP values per applicant is 1.05 for the MLP against 0.59 for logistic regression and 0.14--0.20 for the tree models, and the pilot noise check gave a top-5 overlap of only 0.32 between two explanations of the same MLP fit. The MLP is kept in all tables, as planned, but its explanation measures must be read together with this saturation. TBD after the retraining runs: the features that change rank most between retrainings (rq3\_top10\_rank\_range\_across\_retrainings.csv), the share of applicants whose top-5 reasons are kept at less than 0.6, and whether these applicants differ in predicted probability, default status or bureau record from the stable ones (rq3\_error\_analysis\_stability.csv).
+
+% ---- Reproducibility paragraph for the whole Results section (RQ3 part; merge with Askat's) -------------------
+\paragraph{Reproducibility.}
+The code of all three questions is available at \url{https://github.com/AskatQwerty/RMTpreresults} (commit \texttt{4df488e}; the RQ3 scripts are in \texttt{rq3/}). Models were trained on a laptop with an AMD Ryzen~7 7435HS (8 cores, 3.1~GHz) and 16~GB RAM under Windows~11 with Python~3.13.9, scikit-learn~1.7.2, XGBoost~3.2.0 and LightGBM~4.7.0; the whole pilot search and refit took 10,640~s. The SHAP experiment ran in a Linux container with an Intel Xeon processor (2 cores, 2.8~GHz) and 7~GB RAM under Python~3.13.17 with the same library versions and shap~0.54.1. Seeds: 42 for the train/test split, the search and all samples; 1--5 for the retrainings; 0, 11 and 12 for the permutation explainer. Explaining the saved fits took TBD~min in total (exact Tree SHAP: under 3~min for the three tree models; permutation estimator: 0.3--1.9~s per applicant); one retraining of all seven models took TBD~min.

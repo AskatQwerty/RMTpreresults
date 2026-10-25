@@ -1,6 +1,6 @@
 {
   "scope": "full",
-  "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\a2_full_v2",
+  "root": "artifacts\\training\\a2_full_v2",
   "status": "not_started",
   "expected_searches": 28,
   "expected_main_fits": 140,

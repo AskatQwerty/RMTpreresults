@@ -61,14 +61,14 @@
   ],
   "dictionary_unmatched_columns": [],
   "files": {
-    "table_summary": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\table_summary.csv",
-    "column_audit": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\column_audit.csv",
-    "relationships": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\relationships.csv",
-    "dictionary": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\column_dictionary_utf8.csv",
-    "description_coverage": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\description_coverage.csv",
-    "dictionary_extra_rows": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\dictionary_extra_rows.csv",
-    "target_balance": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\target_balance.csv",
-    "source_manifest": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\source_manifest.csv"
+    "table_summary": "reports\\audit\\table_summary.csv",
+    "column_audit": "reports\\audit\\column_audit.csv",
+    "relationships": "reports\\audit\\relationships.csv",
+    "dictionary": "reports\\audit\\column_dictionary_utf8.csv",
+    "description_coverage": "reports\\audit\\description_coverage.csv",
+    "dictionary_extra_rows": "reports\\audit\\dictionary_extra_rows.csv",
+    "target_balance": "reports\\audit\\target_balance.csv",
+    "source_manifest": "reports\\audit\\source_manifest.csv"
   },
   "notes": [
     "Нет автоматического удаления дублей или повторяющихся частичных платежей.",

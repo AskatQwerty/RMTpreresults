@@ -6,94 +6,94 @@
   "new_fit_calls": 0,
   "new_predict_calls": 0,
   "completed_bootstrap": 1000,
-  "training_protocol_file": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\actual_training_protocol.json",
+  "training_protocol_file": "reports\\pilot_20k_5config\\evaluation\\actual_training_protocol.json",
   "table_files": {
     "rq1_level4": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq1_level4.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq1_level4.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\rq1_level4.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\rq1_level4.tex",
       "caption": "Level 4 quality. Primary PR metric: PR-AUC (average precision, AP). Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "rq2_ap_levels": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq2_ap_levels.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq2_ap_levels.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\rq2_ap_levels.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\rq2_ap_levels.tex",
       "caption": "PR-AUC (average precision, AP) across information levels. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "rq2_baseline_gains": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq2_baseline_gains.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq2_baseline_gains.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\rq2_baseline_gains.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\rq2_baseline_gains.tex",
       "caption": "Paired AP gains relative to application-only Level 1. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "rq2_sequential_gains": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq2_sequential_gains.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\rq2_sequential_gains.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\rq2_sequential_gains.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\rq2_sequential_gains.tex",
       "caption": "Paired AP gains between consecutive information levels. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "ap_vs_lr_level4": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\ap_vs_lr_level4.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\ap_vs_lr_level4.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\ap_vs_lr_level4.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\ap_vs_lr_level4.tex",
       "caption": "Paired Level 4 AP differences versus logistic regression. No bootstrap p-values. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "errors_level4": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\errors_level4.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\errors_level4.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\errors_level4.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\errors_level4.tex",
       "caption": "Level 4 errors at fixed threshold 0.5. Positive class: default (TARGET=1). Undefined precision is shown as -- when no defaults are predicted; it is not zero."
     },
     "profit_fairness_all": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_all.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_all.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_all.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_all.tex",
       "caption": "All fixed scenarios. Profit per applicant in units m=1; rejected applications contribute zero. G/A: observed gender/age approval-rate gap <=5 percentage points. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "tpr_gaps_level4": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\tpr_gaps_level4.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\tpr_gaps_level4.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\tpr_gaps_level4.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\tpr_gaps_level4.tex",
       "caption": "Absolute default-detection TPR gaps. These are not the 5 percentage point approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "profit_fairness_L1": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L1.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L1.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L1.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L1.tex",
       "caption": "Fixed cost scenario L/m=1; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "profit_fairness_L5": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L5.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L5.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L5.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L5.tex",
       "caption": "Fixed cost scenario L/m=5; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "profit_fairness_L10": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L10.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L10.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L10.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_fairness_L10.tex",
       "caption": "Fixed cost scenario L/m=10; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
     },
     "profit_baselines": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_baselines.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\profit_baselines.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_baselines.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\profit_baselines.tex",
       "caption": "Approve-all and reject-all reference policies; no threshold is optimized on test."
     },
     "calibration_bin_counts": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\calibration_bin_counts.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\calibration_bin_counts.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\calibration_bin_counts.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\calibration_bin_counts.tex",
       "caption": "Level 4 calibration-bin counts. Ten equal-width intervals: Bin 1 [0,0.1), ..., Bin 10 [0.9,1]. Empty bins have n=0."
     },
     "delong_level4": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\delong_level4.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\delong_level4.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\delong_level4.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\delong_level4.tex",
       "caption": "Paired two-sided DeLong ROC-AUC tests versus logistic regression. Bonferroni correction across six comparisons; not an AP test."
     },
     "sample_balance": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\sample_balance.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\sample_balance.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\sample_balance.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\sample_balance.tex",
       "caption": "Actual saved sample sizes and class counts."
     },
     "cv_sizes": {
-      "csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\cv_sizes.csv",
-      "tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\tables\\cv_sizes.tex",
+      "csv": "reports\\pilot_20k_5config\\evaluation\\tables\\cv_sizes.csv",
+      "tex": "reports\\pilot_20k_5config\\evaluation\\tables\\cv_sizes.tex",
       "caption": "Three saved pilot CV folds, common to all models and levels."
     }
   },
   "figure_files": [
-    "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.pdf",
-    "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.svg",
-    "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.pdf",
-    "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.svg"
+    "reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.pdf",
+    "reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.svg",
+    "reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.pdf",
+    "reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.svg"
   ],
   "graphics_validation": {
     "passed": true,
@@ -111,27 +111,27 @@
     ],
     "files": [
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.pdf",
+        "path": "reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.pdf",
         "sha256": "e416663b162b6ba931390db6aa03b05888cf6c4625f523f55407a8056a7058bf"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.svg",
+        "path": "reports\\pilot_20k_5config\\evaluation\\figures\\ap_by_level.svg",
         "sha256": "954a72db3a788eac01ae08f26adef834a482a91460d5069ba3048e4fd10cd45f"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.pdf",
+        "path": "reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.pdf",
         "sha256": "4d6538bd8340f0b35c32c433053fa4b6c341f73e58d2e7f5ce4c5d366ac3999c"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.svg",
+        "path": "reports\\pilot_20k_5config\\evaluation\\figures\\calibration_level4.svg",
         "sha256": "05bd2f04bb30e8cc585b0ba5d2a93ed4a472604202b3dd4c36ee8053ca6c7987"
       }
     ]
   },
-  "latex_usage_file": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\latex_usage.txt",
+  "latex_usage_file": "reports\\pilot_20k_5config\\evaluation\\latex_usage.txt",
   "statistical_validation": {
     "status": "passed",
-    "file": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\statistical_validation.json",
+    "file": "reports\\pilot_20k_5config\\evaluation\\statistical_validation.json",
     "checks": 9
   },
   "input_integrity_unchanged": true,
@@ -404,173 +404,173 @@
   "sources": {
     "training": [
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\experiment_manifest.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\experiment_manifest.json",
         "sha256": "7e98b0f5f844880e9688af80d419a108100e0e3846b77b8e09bbd146f5482e68"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\cohort_summary.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\cohort_summary.json",
         "sha256": "ef6c082413dba45520d7c22a09aa8e4a5691079d4afe732db8074a270c231644"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\experiment_summary.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\experiment_summary.json",
         "sha256": "2ca25a3c6a555d294b7ab096991a1e5ee2fb973b1fc729d79916b838ab107d84"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_1\\metrics.json",
         "sha256": "b6479ec655a6da331cff1d47ad43c35217246965658164c1a50bb80f19739e5a"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_2\\metrics.json",
         "sha256": "54e3e090ebf0485b88b6d6ba9638590fee2a246121c20cb6493516f5fd172cb1"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_3\\metrics.json",
         "sha256": "3ef79f0ab9339cd483c2eed0b37d95cddca71e8ba52635f4d5cdec2ecd96eebb"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_4\\metrics.json",
         "sha256": "692d853cf02ada2d87d7bc21b4362536ff3179f20fbf1755081e7da42eaed8cb"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_1\\metrics.json",
         "sha256": "20c3972a9ab6a5f627980708bcd525586ba97e7ef5b978a8ada75ee9cde1290b"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_2\\metrics.json",
         "sha256": "f7774293321986f5dc02dfb209d49d6b3e8d4dab9f8a25587d9ab51d8241bb02"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_3\\metrics.json",
         "sha256": "a7df952e08f9f5fe49acb5248dcee5e31ed49a788decff82a719ad65c3501fdd"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_4\\metrics.json",
         "sha256": "8ee60fa17f3cb27e44d531ffa744da0e8c6f6adb5fe896879fcdb4d519b6b52c"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_1\\metrics.json",
         "sha256": "f584df12573e326ca930e3cf8ee49e28693a278afc8cff5f2f36d14598208fa9"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_2\\metrics.json",
         "sha256": "477a35871cc0a851f81896e42cdb50ac4d2847819814c720d7a5bca67dc790ea"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_3\\metrics.json",
         "sha256": "650420e1dbdb65de327f812d97792fd68b33a158a9705ba17f5ceee165466530"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_4\\metrics.json",
         "sha256": "f4f09c0ff5276cc94c331f8a77255ebe46e66c1b4bba50b7a7a2080f11ab4366"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_1\\metrics.json",
         "sha256": "30c27714c55f0e3d18afc9cbf3826278ec23ccc2e86f833e6faafe6188100c8a"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_2\\metrics.json",
         "sha256": "432b5d84d251918f295755b8417e45d93abf4926a9c8c282a67a97a240042b94"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_3\\metrics.json",
         "sha256": "482bd0f3b2cc9b2db2d641b505d9eead75419fb53ee604d0c2b9d08b0f7cbb50"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_4\\metrics.json",
         "sha256": "a5ea8ce9b04aee52c755dcb7bdc1635cccdc8990d399065241297ca61bc3f038"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\metrics.json",
         "sha256": "3efceadddc39e7903d56b65d624d3af20a88659ec4cd48e64ca0b1396fb8764d"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\fit_checkpoint\\fit_diagnostics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\fit_checkpoint\\fit_diagnostics.json",
         "sha256": "1a335cbd5ac114eebcd39e0506c354c5c7a313ec1c4c4c66e02c58918ee21a10"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\metrics.json",
         "sha256": "b3547878b84f93ecb419d8aff2e3dca497d436aee65a447a28221e0e260f9766"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\fit_checkpoint\\fit_diagnostics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\fit_checkpoint\\fit_diagnostics.json",
         "sha256": "15b462ddf61ebe7a9a1268c0a290810a42665141f12a0ae4df69161705ef113f"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\metrics.json",
         "sha256": "bb7e6c697ab44e142396b72fa0abc80060097f2837807669f7915c17bd481e73"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\fit_checkpoint\\fit_diagnostics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\fit_checkpoint\\fit_diagnostics.json",
         "sha256": "8fd1d576abc296de0dcb34602c7a29c88147c0bd194ef4f4af78ad1386c7c50f"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\metrics.json",
         "sha256": "27adea91099e8568bc7f56b6a2fd7ac5ba15d5b170dac449968b86c03f347f3f"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\fit_checkpoint\\fit_diagnostics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\fit_checkpoint\\fit_diagnostics.json",
         "sha256": "bcec642ea79b137bb047aa59163212c5ab053feb5735ccc0b670d7c2d9c67a75"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_1\\metrics.json",
         "sha256": "68616c5d50baf4e454b746f3c4dfa259c0d8b2dfda51d13b9ff23af1356da358"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_2\\metrics.json",
         "sha256": "f4d56f428f07e8afff79e47b89e50456d7030942d79a11941850933c50ee89f1"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_3\\metrics.json",
         "sha256": "b58438171e44a163dac10cfdb1a9fbc4262b05213db5cca0193c6c16cd536809"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_4\\metrics.json",
         "sha256": "cf39719ebe462977947d81d4d2f6d6da9d3e2e0e1409b5609439a2889762bcba"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_1\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_1\\metrics.json",
         "sha256": "1445bbe59d1b76124fd335cdcc37c8cb27de192afcb6bda904068847f2dd6624"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_2\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_2\\metrics.json",
         "sha256": "8cb1cc6c7bfb98ecdddb80c2ddb97c4e034fbb4525d385339f49d8090e89e26d"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_3\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_3\\metrics.json",
         "sha256": "939dd173b1c57f3de46d8d115991d40504419c3de2a456b352f010ae41bbaf1e"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_4\\metrics.json",
+        "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_4\\metrics.json",
         "sha256": "6decfc791a0eb565ef6fe832c71987b40cdcc29fe902541e9960965db9c7f9db"
       },
       {
-        "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\events.jsonl",
+        "path": "artifacts\\training\\pilot_20k_5config\\events.jsonl",
         "sha256": "2cd815dd700554a15186778b38b2c622fdf1e056c0e8c6ed0da5bcf9b99ab48b"
       }
     ],
-    "evaluation_manifest": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\evaluation_manifest.json",
-    "previous_reports": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config",
+    "evaluation_manifest": "reports\\pilot_20k_5config\\evaluation\\evaluation_manifest.json",
+    "previous_reports": "reports\\pilot_20k_5config",
     "evaluation_tables": {
-      "quality_point": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\quality_point.csv",
-      "quality_ci": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\quality_ci.csv",
-      "rq2_deltas": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\rq2_deltas.csv",
-      "ap_vs_lr": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\ap_vs_lr.csv",
-      "delong": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\delong.csv",
-      "profit_point": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\profit_point.csv",
-      "baselines": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\baselines.csv",
-      "fairness_groups": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\fairness_groups.csv",
-      "fairness_gaps": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\fairness_gaps.csv",
-      "profit_ci": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\profit_ci.csv",
-      "fairness_ci": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\fairness_ci.csv",
-      "threshold_metrics": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\threshold_metrics.csv",
-      "calibration_bins": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\calibration_bins.csv"
+      "quality_point": "reports\\pilot_20k_5config\\evaluation\\quality_point.csv",
+      "quality_ci": "reports\\pilot_20k_5config\\evaluation\\quality_ci.csv",
+      "rq2_deltas": "reports\\pilot_20k_5config\\evaluation\\rq2_deltas.csv",
+      "ap_vs_lr": "reports\\pilot_20k_5config\\evaluation\\ap_vs_lr.csv",
+      "delong": "reports\\pilot_20k_5config\\evaluation\\delong.csv",
+      "profit_point": "reports\\pilot_20k_5config\\evaluation\\profit_point.csv",
+      "baselines": "reports\\pilot_20k_5config\\evaluation\\baselines.csv",
+      "fairness_groups": "reports\\pilot_20k_5config\\evaluation\\fairness_groups.csv",
+      "fairness_gaps": "reports\\pilot_20k_5config\\evaluation\\fairness_gaps.csv",
+      "profit_ci": "reports\\pilot_20k_5config\\evaluation\\profit_ci.csv",
+      "fairness_ci": "reports\\pilot_20k_5config\\evaluation\\fairness_ci.csv",
+      "threshold_metrics": "reports\\pilot_20k_5config\\evaluation\\threshold_metrics.csv",
+      "calibration_bins": "reports\\pilot_20k_5config\\evaluation\\calibration_bins.csv"
     }
   },
   "a2_selection_formally_confirmed": false,
   "preregistered_claim": false,
   "readable_reports": [
-    "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\results_report.html",
-    "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\results_report.txt"
+    "reports\\pilot_20k_5config\\evaluation\\results_report.html",
+    "reports\\pilot_20k_5config\\evaluation\\results_report.txt"
   ],
   "notebook_execution": {
     "analysis_computation_source": "completed CLI evaluation; saved1000 bootstrap checkpoints reused as reports",
@@ -593,7 +593,7 @@
       8
     ],
     "status": "completed",
-    "file": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\notebooks\\04_pilot_results_analysis.ipynb",
+    "file": "notebooks\\04_pilot_results_analysis.ipynb",
     "code_cells": 3,
     "output_blocks": 17,
     "svg_outputs": 2,

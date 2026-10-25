@@ -4,17 +4,17 @@
   "new_fit_calls": 0,
   "files": {
     "profit": {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\bootstrap_profit_distribution.csv",
+      "path": "reports\\pilot_20k_5config\\evaluation\\bootstrap_profit_distribution.csv",
       "rows": 35000,
       "sha256": "b6f6520f2d64679c7f759926aa6f4664db43bf3af143fbfecd6ad3005fab61e3"
     },
     "fairness": {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\bootstrap_fairness_distribution.csv",
+      "path": "reports\\pilot_20k_5config\\evaluation\\bootstrap_fairness_distribution.csv",
       "rows": 42000,
       "sha256": "bb2b5c1c6396be200ead11b67d760f9a66642c649f979862e68c6d134f4d3d80"
     },
     "threshold": {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\evaluation\\bootstrap_threshold_distribution.csv",
+      "path": "reports\\pilot_20k_5config\\evaluation\\bootstrap_threshold_distribution.csv",
       "rows": 21000,
       "sha256": "1df603000fc6ca102ebd1d81187ad2ade18c41aab34dfdc2713e97f48d0361a0"
     }
