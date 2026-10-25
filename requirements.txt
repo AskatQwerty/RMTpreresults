@@ -1,0 +1,14 @@
+duckdb==2.0.0
+pandas==2.3.3
+numpy==2.3.5
+pyarrow==21.0.0
+scikit-learn==1.7.2
+psutil==7.0.0
+nbformat==5.10.4
+nbclient==0.10.2
+ipykernel==6.31.0
+xgboost==3.2.0
+lightgbm==4.7.0
+scipy==1.16.3
+joblib==1.5.2
+threadpoolctl==3.5.0

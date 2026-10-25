@@ -1,0 +1,7 @@
+policy,loss_to_margin,margin,rows,approved_n,approval_rate,default_rate_among_approved,realized_profit_per_applicant
+approve_all,1,1,61503,61503,1.0,0.08072776937710356,0.8385444612457928
+reject_all,1,1,61503,0,0.0,,0.0
+approve_all,5,1,61503,61503,1.0,0.08072776937710356,0.5156333837373787
+reject_all,5,1,61503,0,0.0,,0.0
+approve_all,10,1,61503,61503,1.0,0.08072776937710356,0.11199453685186088
+reject_all,10,1,61503,0,0.0,,0.0

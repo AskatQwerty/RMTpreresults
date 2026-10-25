@@ -1,0 +1,475 @@
+{
+  "scope": "pilot_20k_5config",
+  "original_labelled_rows": 307511,
+  "development_rows": 246008,
+  "test_rows": 61503,
+  "pilot_train_rows": 20000,
+  "unused_development_rows": 226008,
+  "class_balance": [
+    {
+      "sample": "Labelled data",
+      "rows": 307511,
+      "class_0": 282686,
+      "class_1": 24825
+    },
+    {
+      "sample": "Development",
+      "rows": 246008,
+      "class_0": 226148,
+      "class_1": 19860
+    },
+    {
+      "sample": "Pilot train",
+      "rows": 20000,
+      "class_0": 18385,
+      "class_1": 1615
+    },
+    {
+      "sample": "Fixed test",
+      "rows": 61503,
+      "class_0": 56538,
+      "class_1": 4965
+    }
+  ],
+  "cv_folds": [
+    {
+      "fold": 0,
+      "train_balance": [
+        {
+          "TARGET": 0,
+          "count": 12256,
+          "fraction": 0.9192229805745143,
+          "percent": 91.92229805745143
+        },
+        {
+          "TARGET": 1,
+          "count": 1077,
+          "fraction": 0.08077701942548564,
+          "percent": 8.077701942548563
+        }
+      ],
+      "train_rows": 13333,
+      "validation_balance": [
+        {
+          "TARGET": 0,
+          "count": 6129,
+          "fraction": 0.9193040347982601,
+          "percent": 91.93040347982601
+        },
+        {
+          "TARGET": 1,
+          "count": 538,
+          "fraction": 0.08069596520173991,
+          "percent": 8.069596520173992
+        }
+      ],
+      "validation_rows": 6667
+    },
+    {
+      "fold": 1,
+      "train_balance": [
+        {
+          "TARGET": 0,
+          "count": 12257,
+          "fraction": 0.9192979824495613,
+          "percent": 91.92979824495613
+        },
+        {
+          "TARGET": 1,
+          "count": 1076,
+          "fraction": 0.08070201755043876,
+          "percent": 8.070201755043877
+        }
+      ],
+      "train_rows": 13333,
+      "validation_balance": [
+        {
+          "TARGET": 0,
+          "count": 6128,
+          "fraction": 0.9191540422978851,
+          "percent": 91.9154042297885
+        },
+        {
+          "TARGET": 1,
+          "count": 539,
+          "fraction": 0.08084595770211489,
+          "percent": 8.08459577021149
+        }
+      ],
+      "validation_rows": 6667
+    },
+    {
+      "fold": 2,
+      "train_balance": [
+        {
+          "TARGET": 0,
+          "count": 12257,
+          "fraction": 0.9192290385480726,
+          "percent": 91.92290385480726
+        },
+        {
+          "TARGET": 1,
+          "count": 1077,
+          "fraction": 0.0807709614519274,
+          "percent": 8.07709614519274
+        }
+      ],
+      "train_rows": 13334,
+      "validation_balance": [
+        {
+          "TARGET": 0,
+          "count": 6128,
+          "fraction": 0.9192919291929192,
+          "percent": 91.92919291929192
+        },
+        {
+          "TARGET": 1,
+          "count": 538,
+          "fraction": 0.08070807080708071,
+          "percent": 8.070807080708072
+        }
+      ],
+      "validation_rows": 6666
+    }
+  ],
+  "feature_counts": {
+    "1": 124,
+    "2": 178,
+    "3": 264,
+    "4": 322
+  },
+  "pilot_selection_seed": 42,
+  "pilot_cv_seed": 42,
+  "search_seed": 42,
+  "saved_plan": {
+    "candidate_cv_outer_fits": 420,
+    "class_resampling": false,
+    "cohort_seed": 42,
+    "configurations_per_search": 5,
+    "cv_folds": 3,
+    "cv_random_state": 42,
+    "cv_shuffle": true,
+    "deviations_from_A2": [
+      "20,000 development clients instead of full development",
+      "5 configurations per search instead of 20",
+      "one automatic refit per pair instead of five 90-percent repeats"
+    ],
+    "final_refit_fits": 28,
+    "levels": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "manual_additional_fits": 0,
+    "models": [
+      "logistic_regression",
+      "lightgbm",
+      "xgboost",
+      "soft_voting",
+      "stacking",
+      "mlp",
+      "random_forest"
+    ],
+    "order": [
+      {
+        "level": 1,
+        "model": "logistic_regression"
+      },
+      {
+        "level": 2,
+        "model": "logistic_regression"
+      },
+      {
+        "level": 3,
+        "model": "logistic_regression"
+      },
+      {
+        "level": 4,
+        "model": "logistic_regression"
+      },
+      {
+        "level": 1,
+        "model": "lightgbm"
+      },
+      {
+        "level": 2,
+        "model": "lightgbm"
+      },
+      {
+        "level": 3,
+        "model": "lightgbm"
+      },
+      {
+        "level": 4,
+        "model": "lightgbm"
+      },
+      {
+        "level": 1,
+        "model": "xgboost"
+      },
+      {
+        "level": 2,
+        "model": "xgboost"
+      },
+      {
+        "level": 3,
+        "model": "xgboost"
+      },
+      {
+        "level": 4,
+        "model": "xgboost"
+      },
+      {
+        "level": 1,
+        "model": "soft_voting"
+      },
+      {
+        "level": 2,
+        "model": "soft_voting"
+      },
+      {
+        "level": 3,
+        "model": "soft_voting"
+      },
+      {
+        "level": 4,
+        "model": "soft_voting"
+      },
+      {
+        "level": 1,
+        "model": "stacking"
+      },
+      {
+        "level": 2,
+        "model": "stacking"
+      },
+      {
+        "level": 3,
+        "model": "stacking"
+      },
+      {
+        "level": 4,
+        "model": "stacking"
+      },
+      {
+        "level": 1,
+        "model": "mlp"
+      },
+      {
+        "level": 2,
+        "model": "mlp"
+      },
+      {
+        "level": 3,
+        "model": "mlp"
+      },
+      {
+        "level": 4,
+        "model": "mlp"
+      },
+      {
+        "level": 1,
+        "model": "random_forest"
+      },
+      {
+        "level": 2,
+        "model": "random_forest"
+      },
+      {
+        "level": 3,
+        "model": "random_forest"
+      },
+      {
+        "level": 4,
+        "model": "random_forest"
+      }
+    ],
+    "primitive_fits_including_ensembles": 1344,
+    "refit": true,
+    "repeat_fits": 0,
+    "scope": "pilot_20k_5config",
+    "scoring": "neg_log_loss",
+    "search_random_state": 42,
+    "searches": 28,
+    "shap_in_scope": false,
+    "stratified_selection": true,
+    "technical": false,
+    "test_use": "final evaluation only; no parameter/rule/threshold selection",
+    "train_rows": 20000
+  },
+  "python_version_training": "3.13.9",
+  "software_versions_training": {
+    "joblib": "1.5.2",
+    "lightgbm": "4.7.0",
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.16.3",
+    "threadpoolctl": "3.5.0",
+    "xgboost": "3.2.0"
+  },
+  "threads_configured": 2,
+  "search_n_jobs": 1,
+  "pre_dispatch": 1,
+  "hardware_recorded": false,
+  "hardware": null,
+  "hardware_note": "Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется.",
+  "completed_candidate_cv_fits": 420,
+  "completed_refits": 28,
+  "completed_primitive_fits": 1344,
+  "last_invocation_elapsed_seconds": 10640.139303599997,
+  "training_first_event_utc": "2026-10-25T09:21:30.387483+00:00",
+  "training_last_event_utc": "2026-10-25T12:18:52.224898+00:00",
+  "search_and_refit_seconds_sum": 10276.388108100004,
+  "refit_seconds_sum": 1573.0965704917908,
+  "timing_note": "refit_seconds входит в search_and_refit_seconds; их нельзя суммировать. Время invocation также включает IO и отчёты.",
+  "mlp_warning_note": "Предупреждения относятся ко всему search+refit, включая кандидатов CV; они не доказывают достижение max_iter выбранной моделью.",
+  "sources": [
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\experiment_manifest.json",
+      "sha256": "7e98b0f5f844880e9688af80d419a108100e0e3846b77b8e09bbd146f5482e68"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\cohort_summary.json",
+      "sha256": "ef6c082413dba45520d7c22a09aa8e4a5691079d4afe732db8074a270c231644"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\experiment_summary.json",
+      "sha256": "2ca25a3c6a555d294b7ab096991a1e5ee2fb973b1fc729d79916b838ab107d84"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_1\\metrics.json",
+      "sha256": "b6479ec655a6da331cff1d47ad43c35217246965658164c1a50bb80f19739e5a"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_2\\metrics.json",
+      "sha256": "54e3e090ebf0485b88b6d6ba9638590fee2a246121c20cb6493516f5fd172cb1"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_3\\metrics.json",
+      "sha256": "3ef79f0ab9339cd483c2eed0b37d95cddca71e8ba52635f4d5cdec2ecd96eebb"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_4\\metrics.json",
+      "sha256": "692d853cf02ada2d87d7bc21b4362536ff3179f20fbf1755081e7da42eaed8cb"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_1\\metrics.json",
+      "sha256": "20c3972a9ab6a5f627980708bcd525586ba97e7ef5b978a8ada75ee9cde1290b"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_2\\metrics.json",
+      "sha256": "f7774293321986f5dc02dfb209d49d6b3e8d4dab9f8a25587d9ab51d8241bb02"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_3\\metrics.json",
+      "sha256": "a7df952e08f9f5fe49acb5248dcee5e31ed49a788decff82a719ad65c3501fdd"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_4\\metrics.json",
+      "sha256": "8ee60fa17f3cb27e44d531ffa744da0e8c6f6adb5fe896879fcdb4d519b6b52c"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_1\\metrics.json",
+      "sha256": "f584df12573e326ca930e3cf8ee49e28693a278afc8cff5f2f36d14598208fa9"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_2\\metrics.json",
+      "sha256": "477a35871cc0a851f81896e42cdb50ac4d2847819814c720d7a5bca67dc790ea"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_3\\metrics.json",
+      "sha256": "650420e1dbdb65de327f812d97792fd68b33a158a9705ba17f5ceee165466530"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_4\\metrics.json",
+      "sha256": "f4f09c0ff5276cc94c331f8a77255ebe46e66c1b4bba50b7a7a2080f11ab4366"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_1\\metrics.json",
+      "sha256": "30c27714c55f0e3d18afc9cbf3826278ec23ccc2e86f833e6faafe6188100c8a"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_2\\metrics.json",
+      "sha256": "432b5d84d251918f295755b8417e45d93abf4926a9c8c282a67a97a240042b94"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_3\\metrics.json",
+      "sha256": "482bd0f3b2cc9b2db2d641b505d9eead75419fb53ee604d0c2b9d08b0f7cbb50"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_4\\metrics.json",
+      "sha256": "a5ea8ce9b04aee52c755dcb7bdc1635cccdc8990d399065241297ca61bc3f038"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\metrics.json",
+      "sha256": "3efceadddc39e7903d56b65d624d3af20a88659ec4cd48e64ca0b1396fb8764d"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\fit_checkpoint\\fit_diagnostics.json",
+      "sha256": "1a335cbd5ac114eebcd39e0506c354c5c7a313ec1c4c4c66e02c58918ee21a10"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\metrics.json",
+      "sha256": "b3547878b84f93ecb419d8aff2e3dca497d436aee65a447a28221e0e260f9766"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\fit_checkpoint\\fit_diagnostics.json",
+      "sha256": "15b462ddf61ebe7a9a1268c0a290810a42665141f12a0ae4df69161705ef113f"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\metrics.json",
+      "sha256": "bb7e6c697ab44e142396b72fa0abc80060097f2837807669f7915c17bd481e73"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\fit_checkpoint\\fit_diagnostics.json",
+      "sha256": "8fd1d576abc296de0dcb34602c7a29c88147c0bd194ef4f4af78ad1386c7c50f"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\metrics.json",
+      "sha256": "27adea91099e8568bc7f56b6a2fd7ac5ba15d5b170dac449968b86c03f347f3f"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\fit_checkpoint\\fit_diagnostics.json",
+      "sha256": "bcec642ea79b137bb047aa59163212c5ab053feb5735ccc0b670d7c2d9c67a75"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_1\\metrics.json",
+      "sha256": "68616c5d50baf4e454b746f3c4dfa259c0d8b2dfda51d13b9ff23af1356da358"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_2\\metrics.json",
+      "sha256": "f4d56f428f07e8afff79e47b89e50456d7030942d79a11941850933c50ee89f1"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_3\\metrics.json",
+      "sha256": "b58438171e44a163dac10cfdb1a9fbc4262b05213db5cca0193c6c16cd536809"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_4\\metrics.json",
+      "sha256": "cf39719ebe462977947d81d4d2f6d6da9d3e2e0e1409b5609439a2889762bcba"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_1\\metrics.json",
+      "sha256": "1445bbe59d1b76124fd335cdcc37c8cb27de192afcb6bda904068847f2dd6624"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_2\\metrics.json",
+      "sha256": "8cb1cc6c7bfb98ecdddb80c2ddb97c4e034fbb4525d385339f49d8090e89e26d"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_3\\metrics.json",
+      "sha256": "939dd173b1c57f3de46d8d115991d40504419c3de2a456b352f010ae41bbaf1e"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_4\\metrics.json",
+      "sha256": "6decfc791a0eb565ef6fe832c71987b40cdcc29fe902541e9960965db9c7f9db"
+    },
+    {
+      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\events.jsonl",
+      "sha256": "2cd815dd700554a15186778b38b2c622fdf1e056c0e8c6ed0da5bcf9b99ab48b"
+    }
+  ]
+}

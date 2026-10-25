@@ -1,0 +1,5 @@
+sample,rows,class_0,class_1
+Labelled data,307511,282686,24825
+Development,246008,226148,19860
+Pilot train,20000,18385,1615
+Fixed test,61503,56538,4965

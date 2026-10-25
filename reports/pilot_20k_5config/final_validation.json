@@ -1,0 +1,1221 @@
+{
+  "schema_version": 1,
+  "scope": "pilot_20k_5config",
+  "verified_at_utc": "2026-10-25T12:19:38.401347+00:00",
+  "status": "passed",
+  "completeness": "complete",
+  "read_only": true,
+  "fit_predict_transform_called": false,
+  "joblib_loaded": false,
+  "require_complete": true,
+  "training_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config",
+  "prepared_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\data\\processed\\full",
+  "errors": [],
+  "warnings": [],
+  "pairs": [
+    {
+      "model": "logistic_regression",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "logistic_regression/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2556531390351387,
+      "selected_params": {
+        "model__C": 0.027213387683753087
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "logistic_regression",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "logistic_regression/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25737192643825424,
+      "selected_params": {
+        "model__C": 0.027213387683753087
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "logistic_regression",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "logistic_regression/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2602612006337207,
+      "selected_params": {
+        "model__C": 0.027213387683753087
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "logistic_regression",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "logistic_regression/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25930887323730545,
+      "selected_params": {
+        "model__C": 0.027213387683753087
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "lightgbm",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "lightgbm/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2534190559259293,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__min_child_samples": 100,
+        "model__n_estimators": 200,
+        "model__num_leaves": 15,
+        "model__reg_lambda": 5.0
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "lightgbm",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "lightgbm/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2526211066752198,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__min_child_samples": 100,
+        "model__n_estimators": 200,
+        "model__num_leaves": 15,
+        "model__reg_lambda": 5.0
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "lightgbm",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "lightgbm/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2499618792927306,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__min_child_samples": 100,
+        "model__n_estimators": 200,
+        "model__num_leaves": 15,
+        "model__reg_lambda": 5.0
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "lightgbm",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "lightgbm/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.24832071894386276,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__min_child_samples": 100,
+        "model__n_estimators": 200,
+        "model__num_leaves": 15,
+        "model__reg_lambda": 5.0
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "xgboost",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "xgboost/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2545849205137592,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__max_depth": 5,
+        "model__min_child_weight": 1,
+        "model__n_estimators": 200,
+        "model__reg_lambda": 1.0,
+        "model__subsample": 1.0
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "xgboost",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "xgboost/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25432464926629084,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__max_depth": 7,
+        "model__min_child_weight": 5,
+        "model__n_estimators": 200,
+        "model__reg_lambda": 1.0,
+        "model__subsample": 0.8
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "xgboost",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "xgboost/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2516140473564991,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__max_depth": 7,
+        "model__min_child_weight": 5,
+        "model__n_estimators": 200,
+        "model__reg_lambda": 1.0,
+        "model__subsample": 0.8
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "xgboost",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "xgboost/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25038624020751804,
+      "selected_params": {
+        "model__colsample_bytree": 1.0,
+        "model__learning_rate": 0.03,
+        "model__max_depth": 7,
+        "model__min_child_weight": 5,
+        "model__n_estimators": 200,
+        "model__reg_lambda": 1.0,
+        "model__subsample": 0.8
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "soft_voting",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "soft_voting/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2526029526548386,
+      "selected_params": {
+        "model__lgbm__model__num_leaves": 31,
+        "model__lr__model__C": 0.01,
+        "model__weights": [
+          1,
+          1,
+          1
+        ],
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 48
+      }
+    },
+    {
+      "model": "soft_voting",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "soft_voting/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2524011541491214,
+      "selected_params": {
+        "model__lgbm__model__num_leaves": 31,
+        "model__lr__model__C": 0.01,
+        "model__weights": [
+          1,
+          1,
+          1
+        ],
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 48
+      }
+    },
+    {
+      "model": "soft_voting",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "soft_voting/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2496646296593176,
+      "selected_params": {
+        "model__lgbm__model__num_leaves": 31,
+        "model__lr__model__C": 0.01,
+        "model__weights": [
+          1,
+          1,
+          1
+        ],
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 48
+      }
+    },
+    {
+      "model": "soft_voting",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "soft_voting/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2477561416967824,
+      "selected_params": {
+        "model__lgbm__model__num_leaves": 31,
+        "model__lr__model__C": 0.01,
+        "model__weights": [
+          1,
+          1,
+          1
+        ],
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 48
+      }
+    },
+    {
+      "model": "stacking",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "stacking/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2568987295219692,
+      "selected_params": {
+        "model__final_estimator__C": 1.0,
+        "model__lgbm__model__num_leaves": 15,
+        "model__lr__model__C": 0.1,
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 208
+      }
+    },
+    {
+      "model": "stacking",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "stacking/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2563033983471044,
+      "selected_params": {
+        "model__final_estimator__C": 1.0,
+        "model__lgbm__model__num_leaves": 15,
+        "model__lr__model__C": 0.1,
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 208
+      }
+    },
+    {
+      "model": "stacking",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "stacking/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25515170457135533,
+      "selected_params": {
+        "model__final_estimator__C": 1.0,
+        "model__lgbm__model__num_leaves": 15,
+        "model__lr__model__C": 0.1,
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 208
+      }
+    },
+    {
+      "model": "stacking",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "stacking/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2533162175575046,
+      "selected_params": {
+        "model__final_estimator__C": 1.0,
+        "model__lgbm__model__num_leaves": 15,
+        "model__lr__model__C": 0.1,
+        "model__xgb__model__max_depth": 3
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 208
+      }
+    },
+    {
+      "model": "mlp",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "mlp/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.47602612252065657,
+      "selected_params": {
+        "model__alpha": 0.001,
+        "model__batch_size": 128,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "mlp",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "mlp/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.6367907644526405,
+      "selected_params": {
+        "model__alpha": 0.001,
+        "model__batch_size": 128,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "mlp",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "mlp/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.7744112546871116,
+      "selected_params": {
+        "model__alpha": 0.001,
+        "model__batch_size": 128,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "mlp",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "mlp/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.8258866840559853,
+      "selected_params": {
+        "model__alpha": 0.001,
+        "model__batch_size": 128,
+        "model__hidden_layer_sizes": [
+          64
+        ],
+        "model__learning_rate_init": 0.0003
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "random_forest",
+      "level": 1,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "random_forest/level_1/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25584860219244837,
+      "selected_params": {
+        "model__max_depth": 24,
+        "model__max_features": 0.5,
+        "model__min_samples_leaf": 30,
+        "model__n_estimators": 300
+      },
+      "raw_features": 124,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "random_forest",
+      "level": 2,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "random_forest/level_2/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.2552618113956621,
+      "selected_params": {
+        "model__max_depth": 24,
+        "model__max_features": 0.5,
+        "model__min_samples_leaf": 30,
+        "model__n_estimators": 300
+      },
+      "raw_features": 178,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "random_forest",
+      "level": 3,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "random_forest/level_3/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.25417845660976374,
+      "selected_params": {
+        "model__max_depth": 24,
+        "model__max_features": 0.5,
+        "model__min_samples_leaf": 30,
+        "model__n_estimators": 300
+      },
+      "raw_features": 264,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    },
+    {
+      "model": "random_forest",
+      "level": 4,
+      "status": "complete",
+      "verified": true,
+      "logs": {
+        "attempt_log_count": 1,
+        "attempt_logs": [
+          {
+            "file": "random_forest/level_4/attempt_logs/attempt_001.log",
+            "cv_end_lines": 15,
+            "search_banner_lines": 1,
+            "pair_completed_lines": 1
+          }
+        ],
+        "cv_end_lines": 15,
+        "event_counts": {
+          "search_started": 1,
+          "search_and_refit_completed": 1,
+          "test_evaluation_started": 1,
+          "pair_completed": 1
+        }
+      },
+      "probability_rows_verified": 61503,
+      "best_cv_log_loss": 0.253828698127364,
+      "selected_params": {
+        "model__max_depth": 24,
+        "model__max_features": 0.5,
+        "model__min_samples_leaf": 30,
+        "model__n_estimators": 300
+      },
+      "raw_features": 322,
+      "fit_calls": {
+        "automatic_refit": 1,
+        "candidate_cv": 15,
+        "manual_extra": 0,
+        "primitive_including_ensembles": 16
+      }
+    }
+  ],
+  "summary": {
+    "planned_pairs": 28,
+    "completed_pairs": 28,
+    "fit_checkpoints": 28
+  },
+  "budget": {
+    "planned_candidate_cv_fits": 420,
+    "planned_final_refits": 28,
+    "note": "Checkpoint budgets count saved successful work. Logs/events describe attempts; retries can add fits.",
+    "saved_candidate_cv_fits": 420,
+    "saved_automatic_refits": 28,
+    "saved_manual_extra_fits": 0,
+    "observed_search_started_events": 28,
+    "observed_search_refit_completed_events": 28,
+    "observed_cv_end_log_lines": 420
+  },
+  "fingerprint": "76694fae1518c109858188e2c343e71ac9348e6528f70b7be098ac26016c729d",
+  "global_checks": {
+    "train_rows": 20000,
+    "test_rows": 61503,
+    "train_positives": 1615,
+    "test_positives": 4965,
+    "folds": [
+      {
+        "fold": 0,
+        "train_rows": 13333,
+        "validation_rows": 6667,
+        "validation_positives": 538,
+        "validation_negatives": 6129
+      },
+      {
+        "fold": 1,
+        "train_rows": 13333,
+        "validation_rows": 6667,
+        "validation_positives": 539,
+        "validation_negatives": 6128
+      },
+      {
+        "fold": 2,
+        "train_rows": 13334,
+        "validation_rows": 6666,
+        "validation_positives": 538,
+        "validation_negatives": 6128
+      }
+    ],
+    "feature_widths": {
+      "1": 124,
+      "2": 178,
+      "3": 264,
+      "4": 322
+    },
+    "prepared_input_hashes_verified": 29,
+    "frozen_sources_verified": 5,
+    "shared_cohort_and_cv_verified": true,
+    "train_test_disjoint": true
+  },
+  "logs": {
+    "event_counts": {
+      "pilot_invocation_started": 1,
+      "search_started": 28,
+      "search_and_refit_completed": 28,
+      "test_evaluation_started": 28,
+      "pair_completed": 28,
+      "pilot_completed": 1
+    },
+    "search_started": 28,
+    "search_and_refit_completed": 28,
+    "pair_completed": 28,
+    "worker_failed": 0,
+    "failed": 0,
+    "resumed": 0,
+    "ignored_trailing_partial_event": false,
+    "attempt_log_count": 28,
+    "cv_end_lines": 420,
+    "pairs_with_multiple_attempts": [],
+    "single_pass_420_cv_and_28_refits_supported": true
+  },
+  "hashed_files": 323,
+  "hashed_bytes": 588798461,
+  "elapsed_seconds": 3.1216532999969786
+}

@@ -1,0 +1,301 @@
+{
+  "scope": "development_quality_audit_existing_prepared_data",
+  "profile": {
+    "development_rows": 246008,
+    "numeric_features": 307,
+    "all_missing_numeric": [],
+    "constant_observed_numeric": [
+      "CC_SK_DPD_MIN",
+      "CC_SK_DPD_DEF_MIN"
+    ],
+    "constant_fully_numeric": [],
+    "infinite_values": 0,
+    "levels": [
+      {
+        "level": 1,
+        "rows": 246008,
+        "total_features": 124,
+        "numeric_features": 109,
+        "all_missing_numeric": 0,
+        "constant_observed_numeric": 0
+      },
+      {
+        "level": 2,
+        "rows": 246008,
+        "total_features": 178,
+        "numeric_features": 163,
+        "all_missing_numeric": 0,
+        "constant_observed_numeric": 0
+      },
+      {
+        "level": 3,
+        "rows": 246008,
+        "total_features": 264,
+        "numeric_features": 249,
+        "all_missing_numeric": 0,
+        "constant_observed_numeric": 2
+      },
+      {
+        "level": 4,
+        "rows": 246008,
+        "total_features": 322,
+        "numeric_features": 307,
+        "all_missing_numeric": 0,
+        "constant_observed_numeric": 2
+      }
+    ]
+  },
+  "semantics": {
+    "hard_rule_violations": 0,
+    "ratio_rule_violations": 0,
+    "proposed_fix": {
+      "proposal": "previous AMT_DOWN_PAYMENT<0 -> NULL before aggregation",
+      "raw_values": 1,
+      "changed_aggregate_cells": 2,
+      "changed_clients": 1,
+      "per_feature_changed_cells": {
+        "avg": 1,
+        "min": 1,
+        "max": 0
+      },
+      "applied": false,
+      "reason": "Сначала требуется подтвердить, что -0.9 не является допустимой учётной корректировкой."
+    },
+    "income_tail": {
+      "p99": 472500.0,
+      "p999": 900000.0,
+      "max": 117000000.0,
+      "above_p999": 222,
+      "removed": 0,
+      "winsorized": 0,
+      "note": "Квантили вычислены только на development и не являются порогами очистки."
+    },
+    "review_cases": [
+      {
+        "source": "previous",
+        "field": "AMT_DOWN_PAYMENT",
+        "scope": "development, time-eligible raw rows",
+        "condition": "AMT_DOWN_PAYMENT<0",
+        "affected_values": 1,
+        "affected_clients": 1,
+        "classification": "review",
+        "proposed_action_ru": "Предложение: NULL до агрегации после подтверждения смысла знака; пока сохранено",
+        "reason_ru": "Отрицательный первоначальный взнос подозрителен, но может быть учётной корректировкой. Ни округление, ни замена на 0 не обоснованы.",
+        "applied_now": false
+      },
+      {
+        "source": "bureau",
+        "field": "AMT_CREDIT_SUM_DEBT",
+        "scope": "development, time-eligible raw rows",
+        "condition": "AMT_CREDIT_SUM_DEBT<0",
+        "affected_values": 6731,
+        "affected_clients": 4705,
+        "classification": "review",
+        "proposed_action_ru": "Сохранить до уточнения учёта переплаты",
+        "reason_ru": "Отрицательный остаток долга может обозначать переплату; нельзя применять общее правило AMT<0.",
+        "applied_now": false
+      },
+      {
+        "source": "bureau",
+        "field": "AMT_CREDIT_SUM_LIMIT",
+        "scope": "development, time-eligible raw rows",
+        "condition": "AMT_CREDIT_SUM_LIMIT<0",
+        "affected_values": 277,
+        "affected_clients": 254,
+        "classification": "review",
+        "proposed_action_ru": "Сохранить; уточнить трактовку лимита",
+        "reason_ru": "Для номинального лимита знак необычен, но словарь не раскрывает правила передачи корректировок.",
+        "applied_now": false
+      },
+      {
+        "source": "cc",
+        "field": "AMT_DRAWINGS_ATM_CURRENT",
+        "scope": "development, time-eligible raw rows",
+        "condition": "AMT_DRAWINGS_ATM_CURRENT<0",
+        "affected_values": 1,
+        "affected_clients": 1,
+        "classification": "review",
+        "proposed_action_ru": "Сохранить; проверить возможное сторно",
+        "reason_ru": "Отрицательная выдача наличных может быть исправлением операции; данных о транзакции нет.",
+        "applied_now": false
+      },
+      {
+        "source": "cc",
+        "field": "AMT_DRAWINGS_CURRENT",
+        "scope": "development, time-eligible raw rows",
+        "condition": "AMT_DRAWINGS_CURRENT<0",
+        "affected_values": 1,
+        "affected_clients": 1,
+        "classification": "review",
+        "proposed_action_ru": "Сохранить; проверить возможное сторно",
+        "reason_ru": "Знак движения не равнозначен отрицательной сумме номинального кредита.",
+        "applied_now": false
+      }
+    ],
+    "values_modified": 0
+  },
+  "sentinels": {
+    "source_before_after_rows": 20,
+    "application_rule_mismatches": 0,
+    "employment_indicator_mismatches": 0,
+    "saved_previous_aggregate_mismatches": 0,
+    "development_saved_date_placeholders": 0,
+    "all_prepared_saved_date_placeholders": 0,
+    "note": "Число NULL до/после приводится для исходных строк; проверка агрегатов сохранена отдельно. У исключённых полей после=не применимо."
+  },
+  "payments": {
+    "scope": "Все строки installments_payments; существующие development/test только для разбивки диагностик",
+    "candidate_key": [
+      "SK_ID_PREV",
+      "NUM_INSTALMENT_VERSION",
+      "NUM_INSTALMENT_NUMBER",
+      "DAYS_ENTRY_PAYMENT"
+    ],
+    "obligation_key": [
+      "SK_ID_CURR",
+      "SK_ID_PREV",
+      "NUM_INSTALMENT_VERSION",
+      "NUM_INSTALMENT_NUMBER"
+    ],
+    "missing_key_rows": 2905,
+    "null_fields": [
+      "DAYS_ENTRY_PAYMENT",
+      "AMT_PAYMENT"
+    ],
+    "eligibility_rule": "DAYS_ENTRY_PAYMENT < 0 AND DAYS_ENTRY_PAYMENT <> 365243 AND DAYS_INSTALMENT IS NOT NULL AND DAYS_INSTALMENT <> 365243",
+    "by_split": [
+      {
+        "split": "development",
+        "incomplete_rows": 2091,
+        "clients": 861,
+        "rows_eligible": 0,
+        "rows_excluded": 2091
+      },
+      {
+        "split": "outside_labeled_applications",
+        "incomplete_rows": 322,
+        "clients": 174,
+        "rows_eligible": 0,
+        "rows_excluded": 322
+      },
+      {
+        "split": "test",
+        "incomplete_rows": 492,
+        "clients": 214,
+        "rows_eligible": 0,
+        "rows_excluded": 492
+      }
+    ],
+    "obligation_recovery": [
+      {
+        "split": "development",
+        "affected_obligations": 2091,
+        "obligations_with_other_valid_payments": 0,
+        "obligations_without_valid_payments": 2091,
+        "other_valid_payment_rows": 0.0,
+        "obligations_in_saved_aggregation": 0
+      },
+      {
+        "split": "outside_labeled_applications",
+        "affected_obligations": 322,
+        "obligations_with_other_valid_payments": 0,
+        "obligations_without_valid_payments": 322,
+        "other_valid_payment_rows": 0.0,
+        "obligations_in_saved_aggregation": 0
+      },
+      {
+        "split": "test",
+        "affected_obligations": 492,
+        "obligations_with_other_valid_payments": 0,
+        "obligations_without_valid_payments": 492,
+        "other_valid_payment_rows": 0.0,
+        "obligations_in_saved_aggregation": 0
+      }
+    ],
+    "client_retention": [
+      {
+        "split": "development",
+        "affected_clients": 861,
+        "retained_current_applicants": 861,
+        "clients_with_other_saved_installment_history": 856
+      },
+      {
+        "split": "outside_labeled_applications",
+        "affected_clients": 174,
+        "retained_current_applicants": 0,
+        "clients_with_other_saved_installment_history": 0
+      },
+      {
+        "split": "test",
+        "affected_clients": 214,
+        "retained_current_applicants": 214,
+        "clients_with_other_saved_installment_history": 211
+      }
+    ],
+    "partial_payment_preservation": {
+      "raw_rows": 13605401,
+      "exact_duplicate_row_surplus": 0,
+      "repeated_candidate_key_groups": 770,
+      "candidate_key_duplicate_surplus": 770,
+      "rows_in_repeated_candidate_keys": 1540,
+      "max_rows_per_candidate_key": 2,
+      "repeated_keys_with_distinct_payment_amounts": 770,
+      "eligible_labeled_payment_rows": 11589009,
+      "eligible_labeled_nonmissing_payment_amounts": 11589009,
+      "saved_obligations": 11024044,
+      "saved_payment_rows_sum": 11589009,
+      "eligible_labeled_amount_paid_decimal": "197904671164.305",
+      "saved_amount_paid_decimal": "197904671164.305",
+      "multiple_payment_obligations": 553925,
+      "rows_in_multiple_payment_obligations": 1118890,
+      "max_payments_per_obligation": 12,
+      "rows_preserved": true,
+      "exact_decimal_amount_preserved": true
+    },
+    "interpretation_ru": [
+      "Кандидатный ключ включает дату фактической оплаты, но не является гарантированно уникальным ID события.",
+      "Ключ обязательства состоит из текущей заявки, предыдущего договора, версии графика и номера взноса; дата оплаты в него не входит.",
+      "Строки без даты фактической оплаты не проходят временной фильтр. Их сумма оплаты не заполняется; факт неоплаты не выводится из отсутствия даты.",
+      "Текущие заявки сохраняются независимо от наличия пригодных платежей; другие платежи того же взноса/клиента остаются доступными.",
+      "Полные дубли только диагностируются. Повторения кандидатного ключа и частичные оплаты не удаляются; AMT_PAYMENT суммируется в DECIMAL(24,3), AMT_INSTALMENT учитывается один раз на взнос.",
+      "Повтор суммы AMT_INSTALMENT по нескольким платежным строкам не означает несколько обязательств."
+    ],
+    "artifacts": {
+      "installments_incomplete_key_fields.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_fields.csv",
+      "installments_incomplete_key_patterns.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_patterns.csv",
+      "installments_incomplete_key_by_split.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_by_split.csv",
+      "installments_incomplete_obligation_recovery.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_obligation_recovery.csv",
+      "installments_incomplete_client_retention.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_client_retention.csv",
+      "installments_partial_payments_preservation.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_partial_payments_preservation.csv"
+    },
+    "elapsed_seconds": 59.613
+  },
+  "pipeline": {
+    "scope": "synthetic_only_no_fit_on_home_credit",
+    "sklearn_version": "1.7.2",
+    "all_checks_passed": true,
+    "raw_numeric_columns": 3,
+    "transformed_columns": 6,
+    "empty_train_column_fallback": 0,
+    "median_for_partly_missing_train_column": 2,
+    "validation_observed_value_in_empty_train_column_preserved": true,
+    "new_validation_missing_value_has_indicator": true,
+    "width_is_twice_numeric_column_count": true,
+    "feature_names": [
+      "values__empty_in_train",
+      "values__partly_missing",
+      "values__complete_in_train",
+      "missing__missingindicator_empty_in_train",
+      "missing__missingindicator_partly_missing",
+      "missing__missingindicator_complete_in_train"
+    ],
+    "fit_policy_ru": "fit только на train каждого CV-фолда или 90%-ного повтора; test/validation не участвуют",
+    "fallback_policy_ru": "Для полностью пустого train-столбца фиксированный 0 и индикатор пропуска; столбец не удаляется",
+    "category_policy_ru": "Обучаемое кодирование категорий — отдельная ветка полного Pipeline, здесь не выполняется"
+  },
+  "prepared_files_sha256_unchanged": true,
+  "source_csv_sha256_unchanged": true,
+  "X_and_split_files_modified": 0,
+  "global_fit_on_home_credit": false,
+  "elapsed_seconds": 165.255
+}

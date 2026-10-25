@@ -1,0 +1,13 @@
+Model,Reference,Delta AP
+Random forest,Logistic regression,"-0.0014
+[-0.0091, 0.0063]"
+XGBoost,Logistic regression,"0.0104
+[0.0035, 0.0172]"
+LightGBM,Logistic regression,"0.0144
+[0.0072, 0.0216]"
+MLP,Logistic regression,"-0.0931
+[-0.1019, -0.0846]"
+Soft voting,Logistic regression,"0.0220
+[0.0167, 0.0269]"
+Stacking,Logistic regression,"0.0236
+[0.0184, 0.0283]"

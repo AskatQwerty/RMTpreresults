@@ -1,0 +1,8 @@
+# Preserve exact bytes: saved experiment manifests use SHA-256 of source/report files.
+# Automatic LF/CRLF conversion would invalidate those provenance checks on checkout.
+* -text
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Matplotlib emits harmless spaces in multiline SVG path coordinates.
+*.svg -whitespace
+*.pdf binary
+*.png binary

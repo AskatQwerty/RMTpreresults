@@ -1,0 +1,127 @@
+{
+  "scope": "Все строки installments_payments; существующие development/test только для разбивки диагностик",
+  "candidate_key": [
+    "SK_ID_PREV",
+    "NUM_INSTALMENT_VERSION",
+    "NUM_INSTALMENT_NUMBER",
+    "DAYS_ENTRY_PAYMENT"
+  ],
+  "obligation_key": [
+    "SK_ID_CURR",
+    "SK_ID_PREV",
+    "NUM_INSTALMENT_VERSION",
+    "NUM_INSTALMENT_NUMBER"
+  ],
+  "missing_key_rows": 2905,
+  "null_fields": [
+    "DAYS_ENTRY_PAYMENT",
+    "AMT_PAYMENT"
+  ],
+  "eligibility_rule": "DAYS_ENTRY_PAYMENT < 0 AND DAYS_ENTRY_PAYMENT <> 365243 AND DAYS_INSTALMENT IS NOT NULL AND DAYS_INSTALMENT <> 365243",
+  "by_split": [
+    {
+      "split": "development",
+      "incomplete_rows": 2091,
+      "clients": 861,
+      "rows_eligible": 0,
+      "rows_excluded": 2091
+    },
+    {
+      "split": "outside_labeled_applications",
+      "incomplete_rows": 322,
+      "clients": 174,
+      "rows_eligible": 0,
+      "rows_excluded": 322
+    },
+    {
+      "split": "test",
+      "incomplete_rows": 492,
+      "clients": 214,
+      "rows_eligible": 0,
+      "rows_excluded": 492
+    }
+  ],
+  "obligation_recovery": [
+    {
+      "split": "development",
+      "affected_obligations": 2091,
+      "obligations_with_other_valid_payments": 0,
+      "obligations_without_valid_payments": 2091,
+      "other_valid_payment_rows": 0.0,
+      "obligations_in_saved_aggregation": 0
+    },
+    {
+      "split": "outside_labeled_applications",
+      "affected_obligations": 322,
+      "obligations_with_other_valid_payments": 0,
+      "obligations_without_valid_payments": 322,
+      "other_valid_payment_rows": 0.0,
+      "obligations_in_saved_aggregation": 0
+    },
+    {
+      "split": "test",
+      "affected_obligations": 492,
+      "obligations_with_other_valid_payments": 0,
+      "obligations_without_valid_payments": 492,
+      "other_valid_payment_rows": 0.0,
+      "obligations_in_saved_aggregation": 0
+    }
+  ],
+  "client_retention": [
+    {
+      "split": "development",
+      "affected_clients": 861,
+      "retained_current_applicants": 861,
+      "clients_with_other_saved_installment_history": 856
+    },
+    {
+      "split": "outside_labeled_applications",
+      "affected_clients": 174,
+      "retained_current_applicants": 0,
+      "clients_with_other_saved_installment_history": 0
+    },
+    {
+      "split": "test",
+      "affected_clients": 214,
+      "retained_current_applicants": 214,
+      "clients_with_other_saved_installment_history": 211
+    }
+  ],
+  "partial_payment_preservation": {
+    "raw_rows": 13605401,
+    "exact_duplicate_row_surplus": 0,
+    "repeated_candidate_key_groups": 770,
+    "candidate_key_duplicate_surplus": 770,
+    "rows_in_repeated_candidate_keys": 1540,
+    "max_rows_per_candidate_key": 2,
+    "repeated_keys_with_distinct_payment_amounts": 770,
+    "eligible_labeled_payment_rows": 11589009,
+    "eligible_labeled_nonmissing_payment_amounts": 11589009,
+    "saved_obligations": 11024044,
+    "saved_payment_rows_sum": 11589009,
+    "eligible_labeled_amount_paid_decimal": "197904671164.305",
+    "saved_amount_paid_decimal": "197904671164.305",
+    "multiple_payment_obligations": 553925,
+    "rows_in_multiple_payment_obligations": 1118890,
+    "max_payments_per_obligation": 12,
+    "rows_preserved": true,
+    "exact_decimal_amount_preserved": true
+  },
+  "interpretation_ru": [
+    "Кандидатный ключ включает дату фактической оплаты, но не является гарантированно уникальным ID события.",
+    "Ключ обязательства состоит из текущей заявки, предыдущего договора, версии графика и номера взноса; дата оплаты в него не входит.",
+    "Строки без даты фактической оплаты не проходят временной фильтр. Их сумма оплаты не заполняется; факт неоплаты не выводится из отсутствия даты.",
+    "Текущие заявки сохраняются независимо от наличия пригодных платежей; другие платежи того же взноса/клиента остаются доступными.",
+    "Полные дубли только диагностируются. Повторения кандидатного ключа и частичные оплаты не удаляются; AMT_PAYMENT суммируется в DECIMAL(24,3), AMT_INSTALMENT учитывается один раз на взнос.",
+    "Повтор суммы AMT_INSTALMENT по нескольким платежным строкам не означает несколько обязательств."
+  ],
+  "artifacts": {
+    "installments_incomplete_key_fields.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_fields.csv",
+    "installments_incomplete_key_patterns.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_patterns.csv",
+    "installments_incomplete_key_by_split.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_by_split.csv",
+    "installments_incomplete_obligation_recovery.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_obligation_recovery.csv",
+    "installments_incomplete_client_retention.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_client_retention.csv",
+    "installments_partial_payments_preservation.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_partial_payments_preservation.csv"
+  },
+  "elapsed_seconds": 59.613
+}

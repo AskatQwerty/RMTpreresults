@@ -1,0 +1,10 @@
+{
+  "full_report": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\full\\full_summary.json",
+  "full_status": "not_started",
+  "reports_built_from_disk": true,
+  "resource_report": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\resource\\resource_runs.json",
+  "resource_runs_found": 2,
+  "schema_version": 2,
+  "technical_report": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\training\\technical\\technical_runs.json",
+  "technical_runs_found": 1
+}

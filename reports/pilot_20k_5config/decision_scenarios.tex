@@ -1,0 +1,50 @@
+\begin{longtable}{llllllll}
+\caption{Level 4: fixed normalized profit and approval scenarios; descriptive pilot}\\
+\toprule
+Model & L/m & Rule & t & Profit/applicant & Approval & Gender gap & Age gap \\
+\midrule
+\endhead
+logistic\_regression & 1 & reference\_0\_5 & 0.5000 & 0.8381 & 0.9936 & 0.0031 & 0.0090 \\
+logistic\_regression & 1 & break\_even & 0.5000 & 0.8381 & 0.9936 & 0.0031 & 0.0090 \\
+logistic\_regression & 5 & reference\_0\_5 & 0.5000 & 0.5270 & 0.9936 & 0.0031 & 0.0090 \\
+logistic\_regression & 5 & break\_even & 0.1667 & 0.5783 & 0.8743 & 0.0505 & 0.1794 \\
+logistic\_regression & 10 & reference\_0\_5 & 0.5000 & 0.1382 & 0.9936 & 0.0031 & 0.0090 \\
+logistic\_regression & 10 & break\_even & 0.0909 & 0.3928 & 0.7124 & 0.0820 & 0.2841 \\
+lightgbm & 1 & reference\_0\_5 & 0.5000 & 0.8390 & 0.9978 & 0.0000 & 0.0034 \\
+lightgbm & 1 & break\_even & 0.5000 & 0.8390 & 0.9978 & 0.0000 & 0.0034 \\
+lightgbm & 5 & reference\_0\_5 & 0.5000 & 0.5214 & 0.9978 & 0.0000 & 0.0034 \\
+lightgbm & 5 & break\_even & 0.1667 & 0.5861 & 0.8904 & 0.0329 & 0.1809 \\
+lightgbm & 10 & reference\_0\_5 & 0.5000 & 0.1244 & 0.9978 & 0.0000 & 0.0034 \\
+lightgbm & 10 & break\_even & 0.0909 & 0.3998 & 0.7303 & 0.0708 & 0.3132 \\
+xgboost & 1 & reference\_0\_5 & 0.5000 & 0.8390 & 0.9970 & 0.0004 & 0.0039 \\
+xgboost & 1 & break\_even & 0.5000 & 0.8390 & 0.9970 & 0.0004 & 0.0039 \\
+xgboost & 5 & reference\_0\_5 & 0.5000 & 0.5231 & 0.9970 & 0.0004 & 0.0039 \\
+xgboost & 5 & break\_even & 0.1667 & 0.5835 & 0.8967 & 0.0357 & 0.1648 \\
+xgboost & 10 & reference\_0\_5 & 0.5000 & 0.1282 & 0.9970 & 0.0004 & 0.0039 \\
+xgboost & 10 & break\_even & 0.0909 & 0.3939 & 0.7432 & 0.0798 & 0.2961 \\
+soft\_voting & 1 & reference\_0\_5 & 0.5000 & 0.8391 & 0.9967 & 0.0005 & 0.0049 \\
+soft\_voting & 1 & break\_even & 0.5000 & 0.8391 & 0.9967 & 0.0005 & 0.0049 \\
+soft\_voting & 5 & reference\_0\_5 & 0.5000 & 0.5239 & 0.9967 & 0.0005 & 0.0049 \\
+soft\_voting & 5 & break\_even & 0.1667 & 0.5870 & 0.8910 & 0.0408 & 0.1680 \\
+soft\_voting & 10 & reference\_0\_5 & 0.5000 & 0.1298 & 0.9967 & 0.0005 & 0.0049 \\
+soft\_voting & 10 & break\_even & 0.0909 & 0.4073 & 0.7393 & 0.0751 & 0.2968 \\
+stacking & 1 & reference\_0\_5 & 0.5000 & 0.8387 & 0.9907 & 0.0036 & 0.0194 \\
+stacking & 1 & break\_even & 0.5000 & 0.8387 & 0.9907 & 0.0036 & 0.0194 \\
+stacking & 5 & reference\_0\_5 & 0.5000 & 0.5347 & 0.9907 & 0.0036 & 0.0194 \\
+stacking & 5 & break\_even & 0.1667 & 0.5802 & 0.9261 & 0.0304 & 0.1341 \\
+stacking & 10 & reference\_0\_5 & 0.5000 & 0.1547 & 0.9907 & 0.0036 & 0.0194 \\
+stacking & 10 & break\_even & 0.0909 & 0.3911 & 0.8089 & 0.0626 & 0.2487 \\
+mlp & 1 & reference\_0\_5 & 0.5000 & 0.8035 & 0.9419 & 0.0209 & 0.0283 \\
+mlp & 1 & break\_even & 0.5000 & 0.8035 & 0.9419 & 0.0209 & 0.0283 \\
+mlp & 5 & reference\_0\_5 & 0.5000 & 0.5266 & 0.9419 & 0.0209 & 0.0283 \\
+mlp & 5 & break\_even & 0.1667 & 0.5272 & 0.9158 & 0.0279 & 0.0455 \\
+mlp & 10 & reference\_0\_5 & 0.5000 & 0.1806 & 0.9419 & 0.0209 & 0.0283 \\
+mlp & 10 & break\_even & 0.0909 & 0.2130 & 0.9016 & 0.0303 & 0.0546 \\
+random\_forest & 1 & reference\_0\_5 & 0.5000 & 0.8385 & 1.0000 & 0.0000 & 0.0000 \\
+random\_forest & 1 & break\_even & 0.5000 & 0.8385 & 1.0000 & 0.0000 & 0.0000 \\
+random\_forest & 5 & reference\_0\_5 & 0.5000 & 0.5156 & 1.0000 & 0.0000 & 0.0000 \\
+random\_forest & 5 & break\_even & 0.1667 & 0.5768 & 0.8924 & 0.0164 & 0.1838 \\
+random\_forest & 10 & reference\_0\_5 & 0.5000 & 0.1120 & 1.0000 & 0.0000 & 0.0000 \\
+random\_forest & 10 & break\_even & 0.0909 & 0.3783 & 0.6630 & 0.0633 & 0.3175 \\
+\bottomrule
+\end{longtable}

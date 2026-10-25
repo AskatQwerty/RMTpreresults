@@ -1,0 +1,219 @@
+﻿table,column,description_found,description
+application_train.csv,SK_ID_CURR,True,ID of loan in our sample
+application_train.csv,TARGET,True,"Target variable (1 - client with payment difficulties: he/she had late payment more than X days on at least one of the first Y installments of the loan in our sample, 0 - all other cases)"
+application_train.csv,NAME_CONTRACT_TYPE,True,Identification if loan is cash or revolving
+application_train.csv,CODE_GENDER,True,Gender of the client
+application_train.csv,FLAG_OWN_CAR,True,Flag if the client owns a car
+application_train.csv,FLAG_OWN_REALTY,True,Flag if client owns a house or flat
+application_train.csv,CNT_CHILDREN,True,Number of children the client has
+application_train.csv,AMT_INCOME_TOTAL,True,Income of the client
+application_train.csv,AMT_CREDIT,True,Credit amount of the loan
+application_train.csv,AMT_ANNUITY,True,Loan annuity
+application_train.csv,AMT_GOODS_PRICE,True,For consumer loans it is the price of the goods for which the loan is given
+application_train.csv,NAME_TYPE_SUITE,True,Who was accompanying client when he was applying for the loan
+application_train.csv,NAME_INCOME_TYPE,True,"Clients income type (businessman, working, maternity leave,…)"
+application_train.csv,NAME_EDUCATION_TYPE,True,Level of highest education the client achieved
+application_train.csv,NAME_FAMILY_STATUS,True,Family status of the client
+application_train.csv,NAME_HOUSING_TYPE,True,"What is the housing situation of the client (renting, living with parents, ...)"
+application_train.csv,REGION_POPULATION_RELATIVE,True,Normalized population of region where client lives (higher number means the client lives in more populated region)
+application_train.csv,DAYS_BIRTH,True,Client's age in days at the time of application
+application_train.csv,DAYS_EMPLOYED,True,How many days before the application the person started current employment
+application_train.csv,DAYS_REGISTRATION,True,How many days before the application did client change his registration
+application_train.csv,DAYS_ID_PUBLISH,True,How many days before the application did client change the identity document with which he applied for the loan
+application_train.csv,OWN_CAR_AGE,True,Age of client's car
+application_train.csv,FLAG_MOBIL,True,"Did client provide mobile phone (1=YES, 0=NO)"
+application_train.csv,FLAG_EMP_PHONE,True,"Did client provide work phone (1=YES, 0=NO)"
+application_train.csv,FLAG_WORK_PHONE,True,"Did client provide home phone (1=YES, 0=NO)"
+application_train.csv,FLAG_CONT_MOBILE,True,"Was mobile phone reachable (1=YES, 0=NO)"
+application_train.csv,FLAG_PHONE,True,"Did client provide home phone (1=YES, 0=NO)"
+application_train.csv,FLAG_EMAIL,True,"Did client provide email (1=YES, 0=NO)"
+application_train.csv,OCCUPATION_TYPE,True,What kind of occupation does the client have
+application_train.csv,CNT_FAM_MEMBERS,True,How many family members does client have
+application_train.csv,REGION_RATING_CLIENT,True,"Our rating of the region where client lives (1,2,3)"
+application_train.csv,REGION_RATING_CLIENT_W_CITY,True,"Our rating of the region where client lives with taking city into account (1,2,3)"
+application_train.csv,WEEKDAY_APPR_PROCESS_START,True,On which day of the week did the client apply for the loan
+application_train.csv,HOUR_APPR_PROCESS_START,True,Approximately at what hour did the client apply for the loan
+application_train.csv,REG_REGION_NOT_LIVE_REGION,True,"Flag if client's permanent address does not match contact address (1=different, 0=same, at region level)"
+application_train.csv,REG_REGION_NOT_WORK_REGION,True,"Flag if client's permanent address does not match work address (1=different, 0=same, at region level)"
+application_train.csv,LIVE_REGION_NOT_WORK_REGION,True,"Flag if client's contact address does not match work address (1=different, 0=same, at region level)"
+application_train.csv,REG_CITY_NOT_LIVE_CITY,True,"Flag if client's permanent address does not match contact address (1=different, 0=same, at city level)"
+application_train.csv,REG_CITY_NOT_WORK_CITY,True,"Flag if client's permanent address does not match work address (1=different, 0=same, at city level)"
+application_train.csv,LIVE_CITY_NOT_WORK_CITY,True,"Flag if client's contact address does not match work address (1=different, 0=same, at city level)"
+application_train.csv,ORGANIZATION_TYPE,True,Type of organization where client works
+application_train.csv,EXT_SOURCE_1,True,Normalized score from external data source
+application_train.csv,EXT_SOURCE_2,True,Normalized score from external data source
+application_train.csv,EXT_SOURCE_3,True,Normalized score from external data source
+application_train.csv,APARTMENTS_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,BASEMENTAREA_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,YEARS_BEGINEXPLUATATION_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,YEARS_BUILD_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,COMMONAREA_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,ELEVATORS_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,ENTRANCES_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FLOORSMAX_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FLOORSMIN_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LANDAREA_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LIVINGAPARTMENTS_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LIVINGAREA_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,NONLIVINGAPARTMENTS_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,NONLIVINGAREA_AVG,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,APARTMENTS_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,BASEMENTAREA_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,YEARS_BEGINEXPLUATATION_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,YEARS_BUILD_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,COMMONAREA_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,ELEVATORS_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,ENTRANCES_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FLOORSMAX_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FLOORSMIN_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LANDAREA_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LIVINGAPARTMENTS_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LIVINGAREA_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,NONLIVINGAPARTMENTS_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,NONLIVINGAREA_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,APARTMENTS_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,BASEMENTAREA_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,YEARS_BEGINEXPLUATATION_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,YEARS_BUILD_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,COMMONAREA_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,ELEVATORS_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,ENTRANCES_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FLOORSMAX_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FLOORSMIN_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LANDAREA_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LIVINGAPARTMENTS_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,LIVINGAREA_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,NONLIVINGAPARTMENTS_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,NONLIVINGAREA_MEDI,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,FONDKAPREMONT_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,HOUSETYPE_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,TOTALAREA_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,WALLSMATERIAL_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,EMERGENCYSTATE_MODE,True,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+application_train.csv,OBS_30_CNT_SOCIAL_CIRCLE,True,How many observation of client's social surroundings with observable 30 DPD (days past due) default
+application_train.csv,DEF_30_CNT_SOCIAL_CIRCLE,True,How many observation of client's social surroundings defaulted on 30 DPD (days past due)
+application_train.csv,OBS_60_CNT_SOCIAL_CIRCLE,True,How many observation of client's social surroundings with observable 60 DPD (days past due) default
+application_train.csv,DEF_60_CNT_SOCIAL_CIRCLE,True,How many observation of client's social surroundings defaulted on 60 (days past due) DPD
+application_train.csv,DAYS_LAST_PHONE_CHANGE,True,How many days before application did client change phone
+application_train.csv,FLAG_DOCUMENT_2,True,Did client provide document 2
+application_train.csv,FLAG_DOCUMENT_3,True,Did client provide document 3
+application_train.csv,FLAG_DOCUMENT_4,True,Did client provide document 4
+application_train.csv,FLAG_DOCUMENT_5,True,Did client provide document 5
+application_train.csv,FLAG_DOCUMENT_6,True,Did client provide document 6
+application_train.csv,FLAG_DOCUMENT_7,True,Did client provide document 7
+application_train.csv,FLAG_DOCUMENT_8,True,Did client provide document 8
+application_train.csv,FLAG_DOCUMENT_9,True,Did client provide document 9
+application_train.csv,FLAG_DOCUMENT_10,True,Did client provide document 10
+application_train.csv,FLAG_DOCUMENT_11,True,Did client provide document 11
+application_train.csv,FLAG_DOCUMENT_12,True,Did client provide document 12
+application_train.csv,FLAG_DOCUMENT_13,True,Did client provide document 13
+application_train.csv,FLAG_DOCUMENT_14,True,Did client provide document 14
+application_train.csv,FLAG_DOCUMENT_15,True,Did client provide document 15
+application_train.csv,FLAG_DOCUMENT_16,True,Did client provide document 16
+application_train.csv,FLAG_DOCUMENT_17,True,Did client provide document 17
+application_train.csv,FLAG_DOCUMENT_18,True,Did client provide document 18
+application_train.csv,FLAG_DOCUMENT_19,True,Did client provide document 19
+application_train.csv,FLAG_DOCUMENT_20,True,Did client provide document 20
+application_train.csv,FLAG_DOCUMENT_21,True,Did client provide document 21
+application_train.csv,AMT_REQ_CREDIT_BUREAU_HOUR,True,Number of enquiries to Credit Bureau about the client one hour before application
+application_train.csv,AMT_REQ_CREDIT_BUREAU_DAY,True,Number of enquiries to Credit Bureau about the client one day before application (excluding one hour before application)
+application_train.csv,AMT_REQ_CREDIT_BUREAU_WEEK,True,Number of enquiries to Credit Bureau about the client one week before application (excluding one day before application)
+application_train.csv,AMT_REQ_CREDIT_BUREAU_MON,True,Number of enquiries to Credit Bureau about the client one month before application (excluding one week before application)
+application_train.csv,AMT_REQ_CREDIT_BUREAU_QRT,True,Number of enquiries to Credit Bureau about the client 3 month before application (excluding one month before application)
+application_train.csv,AMT_REQ_CREDIT_BUREAU_YEAR,True,Number of enquiries to Credit Bureau about the client one day year (excluding last 3 months before application)
+bureau.csv,SK_ID_CURR,True,"ID of loan in our sample - one loan in our sample can have 0,1,2 or more related previous credits in credit bureau"
+bureau.csv,SK_ID_BUREAU,True,Recoded ID of previous Credit Bureau credit related to our loan (unique coding for each loan application)
+bureau.csv,CREDIT_ACTIVE,True,Status of the Credit Bureau (CB) reported credits
+bureau.csv,CREDIT_CURRENCY,True,Recoded currency of the Credit Bureau credit
+bureau.csv,DAYS_CREDIT,True,How many days before current application did client apply for Credit Bureau credit
+bureau.csv,CREDIT_DAY_OVERDUE,True,Number of days past due on CB credit at the time of application for related loan in our sample
+bureau.csv,DAYS_CREDIT_ENDDATE,True,Remaining duration of CB credit (in days) at the time of application in Home Credit
+bureau.csv,DAYS_ENDDATE_FACT,True,Days since CB credit ended at the time of application in Home Credit (only for closed credit)
+bureau.csv,AMT_CREDIT_MAX_OVERDUE,True,Maximal amount overdue on the Credit Bureau credit so far (at application date of loan in our sample)
+bureau.csv,CNT_CREDIT_PROLONG,True,How many times was the Credit Bureau credit prolonged
+bureau.csv,AMT_CREDIT_SUM,True,Current credit amount for the Credit Bureau credit
+bureau.csv,AMT_CREDIT_SUM_DEBT,True,Current debt on Credit Bureau credit
+bureau.csv,AMT_CREDIT_SUM_LIMIT,True,Current credit limit of credit card reported in Credit Bureau
+bureau.csv,AMT_CREDIT_SUM_OVERDUE,True,Current amount overdue on Credit Bureau credit
+bureau.csv,CREDIT_TYPE,True,"Type of Credit Bureau credit (Car, cash,...)"
+bureau.csv,DAYS_CREDIT_UPDATE,True,How many days before loan application did last information about the Credit Bureau credit come
+bureau.csv,AMT_ANNUITY,True,Annuity of the Credit Bureau credit
+bureau_balance.csv,SK_ID_BUREAU,True,Recoded ID of Credit Bureau credit (unique coding for each application) - use this to join to CREDIT_BUREAU table
+bureau_balance.csv,MONTHS_BALANCE,True,Month of balance relative to application date (-1 means the freshest balance date)
+bureau_balance.csv,STATUS,True,"Status of Credit Bureau loan during the month (active, closed, DPD0-30,… [C means closed, X means status unknown, 0 means no DPD, 1 means maximal did during month between 1-30, 2 means DPD 31-60,… 5 means DPD 120+ or sold or written off ] )"
+POS_CASH_balance.csv,SK_ID_PREV,True,"ID of previous credit in Home Credit related to loan in our sample. (One loan in our sample can have 0,1,2 or more previous loans in Home Credit)"
+POS_CASH_balance.csv,SK_ID_CURR,True,ID of loan in our sample
+POS_CASH_balance.csv,MONTHS_BALANCE,True,"Month of balance relative to application date (-1 means the information to the freshest monthly snapshot, 0 means the information at application - often it will be the same as -1 as many banks are not updating the information to Credit Bureau regularly )"
+POS_CASH_balance.csv,CNT_INSTALMENT,True,Term of previous credit (can change over time)
+POS_CASH_balance.csv,CNT_INSTALMENT_FUTURE,True,Installments left to pay on the previous credit
+POS_CASH_balance.csv,NAME_CONTRACT_STATUS,True,Contract status during the month
+POS_CASH_balance.csv,SK_DPD,True,DPD (days past due) during the month of previous credit
+POS_CASH_balance.csv,SK_DPD_DEF,True,DPD during the month with tolerance (debts with low loan amounts are ignored) of the previous credit
+credit_card_balance.csv,SK_ID_PREV,True,"ID of previous credit in Home credit related to loan in our sample. (One loan in our sample can have 0,1,2 or more previous loans in Home Credit)"
+credit_card_balance.csv,SK_ID_CURR,True,ID of loan in our sample
+credit_card_balance.csv,MONTHS_BALANCE,True,Month of balance relative to application date (-1 means the freshest balance date)
+credit_card_balance.csv,AMT_BALANCE,True,Balance during the month of previous credit
+credit_card_balance.csv,AMT_CREDIT_LIMIT_ACTUAL,True,Credit card limit during the month of the previous credit
+credit_card_balance.csv,AMT_DRAWINGS_ATM_CURRENT,True,Amount drawing at ATM during the month of the previous credit
+credit_card_balance.csv,AMT_DRAWINGS_CURRENT,True,Amount drawing during the month of the previous credit
+credit_card_balance.csv,AMT_DRAWINGS_OTHER_CURRENT,True,Amount of other drawings during the month of the previous credit
+credit_card_balance.csv,AMT_DRAWINGS_POS_CURRENT,True,Amount drawing or buying goods during the month of the previous credit
+credit_card_balance.csv,AMT_INST_MIN_REGULARITY,True,Minimal installment for this month of the previous credit
+credit_card_balance.csv,AMT_PAYMENT_CURRENT,True,How much did the client pay during the month on the previous credit
+credit_card_balance.csv,AMT_PAYMENT_TOTAL_CURRENT,True,How much did the client pay during the month in total on the previous credit
+credit_card_balance.csv,AMT_RECEIVABLE_PRINCIPAL,True,Amount receivable for principal on the previous credit
+credit_card_balance.csv,AMT_RECIVABLE,True,Amount receivable on the previous credit
+credit_card_balance.csv,AMT_TOTAL_RECEIVABLE,True,Total amount receivable on the previous credit
+credit_card_balance.csv,CNT_DRAWINGS_ATM_CURRENT,True,Number of drawings at ATM during this month on the previous credit
+credit_card_balance.csv,CNT_DRAWINGS_CURRENT,True,Number of drawings during this month on the previous credit
+credit_card_balance.csv,CNT_DRAWINGS_OTHER_CURRENT,True,Number of other drawings during this month on the previous credit
+credit_card_balance.csv,CNT_DRAWINGS_POS_CURRENT,True,Number of drawings for goods during this month on the previous credit
+credit_card_balance.csv,CNT_INSTALMENT_MATURE_CUM,True,Number of paid installments on the previous credit
+credit_card_balance.csv,NAME_CONTRACT_STATUS,True,"Contract status (active signed,...) on the previous credit"
+credit_card_balance.csv,SK_DPD,True,DPD (Days past due) during the month on the previous credit
+credit_card_balance.csv,SK_DPD_DEF,True,DPD (Days past due) during the month with tolerance (debts with low loan amounts are ignored) of the previous credit
+installments_payments.csv,SK_ID_PREV,True,"ID of previous credit in Home credit related to loan in our sample. (One loan in our sample can have 0,1,2 or more previous loans in Home Credit)"
+installments_payments.csv,SK_ID_CURR,True,ID of loan in our sample
+installments_payments.csv,NUM_INSTALMENT_VERSION,True,Version of installment calendar (0 is for credit card) of previous credit. Change of installment version from month to month signifies that some parameter of payment calendar has changed
+installments_payments.csv,NUM_INSTALMENT_NUMBER,True,On which installment we observe payment
+installments_payments.csv,DAYS_INSTALMENT,True,When the installment of previous credit was supposed to be paid (relative to application date of current loan)
+installments_payments.csv,DAYS_ENTRY_PAYMENT,True,When was the installments of previous credit paid actually (relative to application date of current loan)
+installments_payments.csv,AMT_INSTALMENT,True,What was the prescribed installment amount of previous credit on this installment
+installments_payments.csv,AMT_PAYMENT,True,What the client actually paid on previous credit on this installment
+previous_application.csv,SK_ID_PREV,True,"ID of previous credit in Home credit related to loan in our sample. (One loan in our sample can have 0,1,2 or more previous loan applications in Home Credit, previous application could, but not necessarily have to lead to credit)"
+previous_application.csv,SK_ID_CURR,True,ID of loan in our sample
+previous_application.csv,NAME_CONTRACT_TYPE,True,"Contract product type (Cash loan, consumer loan [POS] ,...) of the previous application"
+previous_application.csv,AMT_ANNUITY,True,Annuity of previous application
+previous_application.csv,AMT_APPLICATION,True,For how much credit did client ask on the previous application
+previous_application.csv,AMT_CREDIT,True,"Final credit amount on the previous application. This differs from AMT_APPLICATION in a way that the AMT_APPLICATION is the amount for which the client initially applied for, but during our approval process he could have received different amount - AMT_CREDIT"
+previous_application.csv,AMT_DOWN_PAYMENT,True,Down payment on the previous application
+previous_application.csv,AMT_GOODS_PRICE,True,Goods price of good that client asked for (if applicable) on the previous application
+previous_application.csv,WEEKDAY_APPR_PROCESS_START,True,On which day of the week did the client apply for previous application
+previous_application.csv,HOUR_APPR_PROCESS_START,True,Approximately at what day hour did the client apply for the previous application
+previous_application.csv,FLAG_LAST_APPL_PER_CONTRACT,True,Flag if it was last application for the previous contract. Sometimes by mistake of client or our clerk there could be more applications for one single contract
+previous_application.csv,NFLAG_LAST_APPL_IN_DAY,True,Flag if the application was the last application per day of the client. Sometimes clients apply for more applications a day. Rarely it could also be error in our system that one application is in the database twice
+previous_application.csv,RATE_DOWN_PAYMENT,True,Down payment rate normalized on previous credit
+previous_application.csv,RATE_INTEREST_PRIMARY,True,Interest rate normalized on previous credit
+previous_application.csv,RATE_INTEREST_PRIVILEGED,True,Interest rate normalized on previous credit
+previous_application.csv,NAME_CASH_LOAN_PURPOSE,True,Purpose of the cash loan
+previous_application.csv,NAME_CONTRACT_STATUS,True,"Contract status (approved, cancelled, ...) of previous application"
+previous_application.csv,DAYS_DECISION,True,Relative to current application when was the decision about previous application made
+previous_application.csv,NAME_PAYMENT_TYPE,True,Payment method that client chose to pay for the previous application
+previous_application.csv,CODE_REJECT_REASON,True,Why was the previous application rejected
+previous_application.csv,NAME_TYPE_SUITE,True,Who accompanied client when applying for the previous application
+previous_application.csv,NAME_CLIENT_TYPE,True,Was the client old or new client when applying for the previous application
+previous_application.csv,NAME_GOODS_CATEGORY,True,What kind of goods did the client apply for in the previous application
+previous_application.csv,NAME_PORTFOLIO,True,"Was the previous application for CASH, POS, CAR, …"
+previous_application.csv,NAME_PRODUCT_TYPE,True,Was the previous application x-sell o walk-in
+previous_application.csv,CHANNEL_TYPE,True,Through which channel we acquired the client on the previous application
+previous_application.csv,SELLERPLACE_AREA,True,Selling area of seller place of the previous application
+previous_application.csv,NAME_SELLER_INDUSTRY,True,The industry of the seller
+previous_application.csv,CNT_PAYMENT,True,Term of previous credit at application of the previous application
+previous_application.csv,NAME_YIELD_GROUP,True,Grouped interest rate into small medium and high of the previous application
+previous_application.csv,PRODUCT_COMBINATION,True,Detailed product combination of the previous application
+previous_application.csv,DAYS_FIRST_DRAWING,True,Relative to application date of current application when was the first disbursement of the previous application
+previous_application.csv,DAYS_FIRST_DUE,True,Relative to application date of current application when was the first due supposed to be of the previous application
+previous_application.csv,DAYS_LAST_DUE_1ST_VERSION,True,Relative to application date of current application when was the first due of the previous application
+previous_application.csv,DAYS_LAST_DUE,True,Relative to application date of current application when was the last due date of the previous application
+previous_application.csv,DAYS_TERMINATION,True,Relative to application date of current application when was the expected termination of the previous application
+previous_application.csv,NFLAG_INSURED_ON_APPROVAL,True,Did the client requested insurance during the previous application

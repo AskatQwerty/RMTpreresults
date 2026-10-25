@@ -1,0 +1,23 @@
+{
+  "full_experiment_executed": false,
+  "full_output": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\a2_full_v1",
+  "input_files_sha256_unchanged": true,
+  "notebook_elapsed_seconds": 50.784,
+  "resume_checked_without_new_fit": true,
+  "technical_completed": true,
+  "technical_level": 4,
+  "technical_models": [
+    "logistic_regression",
+    "random_forest",
+    "xgboost",
+    "lightgbm",
+    "mlp",
+    "soft_voting",
+    "stacking"
+  ],
+  "technical_output": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\technical\\technical_71ca7827eee1",
+  "technical_train_rows": 1200,
+  "technical_validation_rows": 400,
+  "technical_warning_count": 7,
+  "test_used_in_technical": false
+}

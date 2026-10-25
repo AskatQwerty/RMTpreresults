@@ -1,0 +1,191 @@
+{
+  "lightgbm": {
+    "model__colsample_bytree": [
+      0.8,
+      1.0
+    ],
+    "model__learning_rate": [
+      0.03,
+      0.08
+    ],
+    "model__min_child_samples": [
+      20,
+      50,
+      100
+    ],
+    "model__n_estimators": [
+      200,
+      400
+    ],
+    "model__num_leaves": [
+      15,
+      31,
+      63
+    ],
+    "model__reg_lambda": [
+      1.0,
+      5.0
+    ]
+  },
+  "logistic_regression": {
+    "model__C": [
+      0.0001,
+      0.0002015337685941733,
+      0.00040615859883769796,
+      0.0008185467307069029,
+      0.0016496480740980208,
+      0.0033245979322709418,
+      0.006700187503509591,
+      0.013503140378698736,
+      0.027213387683753087,
+      0.054844165761210206,
+      0.11052951411260221,
+      0.22275429519995588,
+      0.4489251258218608,
+      0.9047357242349302,
+      1.8233480008684424,
+      3.674661940736688,
+      7.405684692262442,
+      14.924955450518322,
+      30.07882518043102,
+      60.61898993497572,
+      122.1677348996793,
+      246.20924014946306,
+      496.1947603002908,
+      1000.0
+    ]
+  },
+  "mlp": {
+    "model__alpha": [
+      1e-05,
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "model__batch_size": [
+      128,
+      256
+    ],
+    "model__hidden_layer_sizes": [
+      [
+        32
+      ],
+      [
+        64
+      ],
+      [
+        64,
+        32
+      ]
+    ],
+    "model__learning_rate_init": [
+      0.0003,
+      0.001
+    ]
+  },
+  "random_forest": {
+    "model__max_depth": [
+      8,
+      16,
+      24
+    ],
+    "model__max_features": [
+      "sqrt",
+      0.5
+    ],
+    "model__min_samples_leaf": [
+      5,
+      10,
+      30
+    ],
+    "model__n_estimators": [
+      150,
+      300
+    ]
+  },
+  "soft_voting": {
+    "model__lgbm__model__num_leaves": [
+      15,
+      31
+    ],
+    "model__lr__model__C": [
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "model__weights": [
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        1,
+        1
+      ]
+    ],
+    "model__xgb__model__max_depth": [
+      3,
+      5
+    ]
+  },
+  "stacking": {
+    "model__final_estimator__C": [
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "model__lgbm__model__num_leaves": [
+      15,
+      31
+    ],
+    "model__lr__model__C": [
+      0.1,
+      1.0,
+      10.0
+    ],
+    "model__xgb__model__max_depth": [
+      3,
+      5
+    ]
+  },
+  "xgboost": {
+    "model__colsample_bytree": [
+      0.8,
+      1.0
+    ],
+    "model__learning_rate": [
+      0.03,
+      0.08
+    ],
+    "model__max_depth": [
+      3,
+      5,
+      7
+    ],
+    "model__min_child_weight": [
+      1,
+      5
+    ],
+    "model__n_estimators": [
+      200,
+      400
+    ],
+    "model__reg_lambda": [
+      1.0,
+      5.0
+    ],
+    "model__subsample": [
+      0.8,
+      1.0
+    ]
+  }
+}

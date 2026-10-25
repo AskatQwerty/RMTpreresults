@@ -1,0 +1,30 @@
+{
+  "scope": "technical",
+  "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\technical\\technical_71ca7827eee1",
+  "status": "completed",
+  "completed_searches": 7,
+  "completed_fits": 7,
+  "training_level": 4,
+  "train_rows": 1200,
+  "validation_rows": 400,
+  "test_used": false,
+  "run_counters_last_invocation": {
+    "new_fits": 0,
+    "new_searches": 0,
+    "resumed_fits": 7,
+    "resumed_searches": 7
+  },
+  "invalid_stages": [],
+  "input_integrity": {
+    "checked": true,
+    "unchanged": true,
+    "files_checked": 29,
+    "baseline": "experiment_manifest.inputs"
+  },
+  "warning_count": 7,
+  "warning_categories": [
+    "ConvergenceWarning"
+  ],
+  "search_seconds_completed": 26.054108799999085,
+  "fit_seconds_completed": 5.151592100002745
+}

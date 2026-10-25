@@ -1,0 +1,5 @@
+# Existing training/data pins are kept unchanged.
+-r requirements.txt
+# Actual versions used to render the completed evaluation reports and notebooks.
+matplotlib==3.10.6
+ipython==9.7.0

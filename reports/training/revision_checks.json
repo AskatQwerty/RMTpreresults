@@ -1,0 +1,20 @@
+{
+  "test_count": 58,
+  "test_seconds": 13.627,
+  "test_status": "passed",
+  "clean_kernel_report_validation": {
+    "any_fit_executed": false,
+    "clean_kernel": true,
+    "executed_cell_indices": [
+      1,
+      9,
+      19
+    ],
+    "technical_cells_executed": false
+  },
+  "error_outputs": [],
+  "full_experiment_default_off": true,
+  "resource_pilot_default_off": true,
+  "pilot_completed_models": 7,
+  "prepared_inputs_unchanged": true
+}

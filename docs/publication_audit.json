@@ -1,0 +1,67 @@
+{
+  "checked_utc": "2026-10-25T13:21:21.969957+00:00",
+  "notebooks": [
+    {
+      "notebook": "notebooks/01_data_preparation.ipynb",
+      "original_bytes": 430049,
+      "published_bytes": 299255,
+      "original_sha256": "61ae23fba63e1749a3a679bdb56b1411022404a9a5a4991ae26d360a331e4bd8",
+      "published_sha256": "d0559a5a390435ae333b1f86149f53dfd9a67f65445bec9b5ec1a6a705e9c1df",
+      "removed_widget_outputs": 48,
+      "removed_widgets_metadata": true,
+      "backup": "local_private/publication_originals/2026-10-25/01_data_preparation.ipynb"
+    },
+    {
+      "notebook": "notebooks/02_model_training.ipynb",
+      "original_bytes": 105678,
+      "published_bytes": 105678,
+      "original_sha256": "87c62aa1635e83e3d7b7303176bc5f5019968fd3a14529f3a17cdb4852fe86d5",
+      "published_sha256": "87c62aa1635e83e3d7b7303176bc5f5019968fd3a14529f3a17cdb4852fe86d5",
+      "removed_widget_outputs": 0,
+      "removed_widgets_metadata": false,
+      "backup": "local_private/publication_originals/2026-10-25/02_model_training.ipynb"
+    },
+    {
+      "notebook": "notebooks/03_pilot_20k_5config.ipynb",
+      "original_bytes": 63633,
+      "published_bytes": 63633,
+      "original_sha256": "1543ac726b96d7eab9166d25a40979b1a50e00fd6cae3fe2bd13d4be9d4eac9c",
+      "published_sha256": "1543ac726b96d7eab9166d25a40979b1a50e00fd6cae3fe2bd13d4be9d4eac9c",
+      "removed_widget_outputs": 0,
+      "removed_widgets_metadata": false,
+      "backup": "local_private/publication_originals/2026-10-25/03_pilot_20k_5config.ipynb"
+    },
+    {
+      "notebook": "notebooks/04_pilot_results_analysis.ipynb",
+      "original_bytes": 188901,
+      "published_bytes": 188901,
+      "original_sha256": "cceaabafe77ec376dc846f0a8e7d19ace62709b534b63315af4e6ce1148c2350",
+      "published_sha256": "cceaabafe77ec376dc846f0a8e7d19ace62709b534b63315af4e6ce1148c2350",
+      "removed_widget_outputs": 0,
+      "removed_widgets_metadata": false,
+      "backup": "local_private/publication_originals/2026-10-25/04_pilot_results_analysis.ipynb"
+    }
+  ],
+  "manual_review": {
+    "individual_client_rows_found": false,
+    "credential_patterns_found": false,
+    "aggregate_tables_and_figures_preserved": true,
+    "local_absolute_paths": "Retained as provenance; configure paths in notebook configuration cells."
+  },
+  "excluded_from_publication": [
+    "data/",
+    "artifacts/",
+    "handoff/",
+    "local_private/",
+    "tmp/",
+    "individual Parquet files",
+    "bootstrap client weights",
+    "large bootstrap distribution CSV files"
+  ],
+  "reexecution": {
+    "fit": false,
+    "predict": false,
+    "bootstrap": false,
+    "shap": false
+  }
+}

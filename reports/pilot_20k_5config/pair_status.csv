@@ -1,0 +1,29 @@
+model,model_label,level,status,reason
+logistic_regression,Logistic Regression (L2),1,completed,Все SHA-256 complete.json проверены
+logistic_regression,Logistic Regression (L2),2,completed,Все SHA-256 complete.json проверены
+logistic_regression,Logistic Regression (L2),3,completed,Все SHA-256 complete.json проверены
+logistic_regression,Logistic Regression (L2),4,completed,Все SHA-256 complete.json проверены
+random_forest,Random Forest,1,completed,Все SHA-256 complete.json проверены
+random_forest,Random Forest,2,completed,Все SHA-256 complete.json проверены
+random_forest,Random Forest,3,completed,Все SHA-256 complete.json проверены
+random_forest,Random Forest,4,completed,Все SHA-256 complete.json проверены
+xgboost,XGBoost,1,completed,Все SHA-256 complete.json проверены
+xgboost,XGBoost,2,completed,Все SHA-256 complete.json проверены
+xgboost,XGBoost,3,completed,Все SHA-256 complete.json проверены
+xgboost,XGBoost,4,completed,Все SHA-256 complete.json проверены
+lightgbm,LightGBM,1,completed,Все SHA-256 complete.json проверены
+lightgbm,LightGBM,2,completed,Все SHA-256 complete.json проверены
+lightgbm,LightGBM,3,completed,Все SHA-256 complete.json проверены
+lightgbm,LightGBM,4,completed,Все SHA-256 complete.json проверены
+mlp,MLP,1,completed,Все SHA-256 complete.json проверены
+mlp,MLP,2,completed,Все SHA-256 complete.json проверены
+mlp,MLP,3,completed,Все SHA-256 complete.json проверены
+mlp,MLP,4,completed,Все SHA-256 complete.json проверены
+soft_voting,Soft voting,1,completed,Все SHA-256 complete.json проверены
+soft_voting,Soft voting,2,completed,Все SHA-256 complete.json проверены
+soft_voting,Soft voting,3,completed,Все SHA-256 complete.json проверены
+soft_voting,Soft voting,4,completed,Все SHA-256 complete.json проверены
+stacking,Stacking,1,completed,Все SHA-256 complete.json проверены
+stacking,Stacking,2,completed,Все SHA-256 complete.json проверены
+stacking,Stacking,3,completed,Все SHA-256 complete.json проверены
+stacking,Stacking,4,completed,Все SHA-256 complete.json проверены

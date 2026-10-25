@@ -1,0 +1,28 @@
+{
+  "analysis_computation_source": "completed CLI evaluation; saved1000 bootstrap checkpoints reused as reports",
+  "backend": "python_namespace",
+  "clean_interpreter": true,
+  "clean_kernel": false,
+  "completed_analysis_utc": "2026-10-25T12:51:47.078640+00:00",
+  "executed_cells": [
+    1,
+    6,
+    8
+  ],
+  "interpreter": "C:\\Users\\askat\\anaconda3\\python.exe",
+  "new_bootstrap_replicates": 0,
+  "new_fit_calls": 0,
+  "new_predict_calls": 0,
+  "selected_cells": [
+    1,
+    6,
+    8
+  ],
+  "status": "completed",
+  "file": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\notebooks\\04_pilot_results_analysis.ipynb",
+  "code_cells": 3,
+  "output_blocks": 17,
+  "svg_outputs": 2,
+  "nbformat_valid": true,
+  "jupyter_attempt": "No cell output returned; attempt interrupted. All code cells then executed successfully using a clean Python namespace; this is not a Jupyter-kernel validation."
+}

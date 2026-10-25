@@ -1,0 +1,950 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>Пилот: оценка RQ1/RQ2</title><style>body{font-family:Segoe UI,Arial,sans-serif;max-width:1180px;margin:38px auto;color:#172b3a;line-height:1.55;padding:0 24px}h1,h2{color:#123e5b}h1{font-size:28px}h2{margin-top:35px;font-size:21px}p{max-width:1050px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0 8px}th{background:#edf3f7;text-align:left}td,th{border-bottom:1px solid #d7e0e7;padding:7px;white-space:pre-line;vertical-align:top}caption,small{color:#536979}figure{margin:20px 0}img{max-width:100%;height:auto}.note{background:#f2f6f8;padding:12px 16px;border-left:4px solid #6089a4}a{color:#14699c}.scroll{overflow-x:auto}</style><body>
+<h1>Предварительные результаты RQ1/RQ2</h1>
+<p class="note">20 000 train-клиентов, 5 конфигураций, один refit на пару. Только оценка сохранённых вероятностей; новых обучений нет.</p>
+<p>Оценены 28 сохранённых сочетаний семи моделей и четырёх уровней на общем test из 61,503 клиентов. Основная PR-метрика: PR-AUC (average precision, AP). В этом этапе новые обучения, predict, подбор параметров, калибратор и fairness-коррекции не выполнялись.</p>
+<p>Лучшие отдельные точечные значения на Level 4: AP: Stacking (0.2603); ROC-AUC: Stacking (0.7707); Log-loss: Soft voting (0.2426); Brier: Soft voting (0.0671). Это описательное сравнение, а не формальный выбор core-модели по A2.</p>
+<p>Exploratory pointwise интервалы разности AP с LR полностью выше нуля для: LightGBM, XGBoost, Soft voting, Stacking; полностью ниже нуля для: MLP. Ноль входит в интервал для: Random forest. Bootstrap p-values не вычислялись.</p>
+<p>Парный DeLong с Bonferroni в семействе шести сравнений ROC-AUC с LR дал p_adj&lt;0.05 для: LightGBM (ROC-AUC выше LR; Δ=+0.0077, p_adj=0.000512); Soft voting (ROC-AUC выше LR; Δ=+0.0115, p_adj=4.54e-17); Stacking (ROC-AUC выше LR; Δ=+0.0116, p_adj=1.7e-17); MLP (ROC-AUC ниже LR; Δ=-0.1063, p_adj=3.6e-172); Random forest (ROC-AUC ниже LR; Δ=-0.0104, p_adj=0.000154). Это вывод только о ROC-AUC; он не доказывает различия AP или эквивалентность остальных моделей.</p>
+<p>RQ2, прирост AP Level 4 относительно Level 1: Logistic regression: +0.0138 [+0.0077, +0.0208]; Random forest: +0.0152 [+0.0098, +0.0206]; XGBoost: +0.0263 [+0.0194, +0.0328]; LightGBM: +0.0211 [+0.0149, +0.0278]; MLP: +0.0065 [-0.0003, +0.0126]; Soft voting: +0.0249 [+0.0185, +0.0316]; Stacking: +0.0259 [+0.0196, +0.0322]. Все интервалы парные; дополнительные baseline и последовательные сравнения приведены в таблицах.</p>
+<p>Отрицательные точечные последовательные изменения AP: Logistic regression L2-L1: -0.0028 [-0.0068, +0.0010]; MLP L2-L1: -0.0088 [-0.0145, -0.0031]; Random forest L2-L1: -0.0014 [-0.0047, +0.0019]. Добавление истории не гарантирует улучшения каждой модели на каждом шаге; интервалы остаются exploratory.</p>
+<p>Наблюдаемому ограничению approval-rate gap ≤5 п.п. одновременно по полу и возрасту соответствуют 8 из 21 уникальных сочетаний модели и порога. Половые и возрастные разрывы показаны отдельно; TPR-gap не подменяет approval-gap. Эти отметки не являются подтверждением общего правила отбора A2.</p>
+<p>Интервалы абсолютных fairness-разрывов описательны. Из-за неотрицательности и излома абсолютной величины в нуле нижняя граница выше нуля сама по себе не является формальным тестом наличия bias.</p>
+<p>По фиксированным порогам оба наблюдаемых approval-gap ограничения выполняют: t=0.5000: Logistic regression, LightGBM, XGBoost, Soft voting, Stacking, MLP, Random forest; t=0.1667: MLP; t=0.0909: подходящих вариантов нет. Это проверка точечных разрывов, не гарантия ограничения в популяции; интервалы разрывов приведены отдельно.</p>
+<p>При L/m=1 наблюдаемая прибыль семи моделей и фиксированных порогов лежит от 0.804 до 0.839 m на заявителя; доля одобрений — от 94.2% до 100.0%. Наибольшее точечное значение среди этих фиксированных вариантов: Soft voting, t=0.5000. Это описательный максимум, не статистически установленный победитель; порог по test не оптимизировался. Approve-all/reject-all приведены как ориентиры.</p>
+<p>При L/m=5 наблюдаемая прибыль семи моделей и фиксированных порогов лежит от 0.516 до 0.587 m на заявителя; доля одобрений — от 87.4% до 100.0%. Наибольшее точечное значение среди этих фиксированных вариантов: Soft voting, t=0.1667. Это описательный максимум, не статистически установленный победитель; порог по test не оптимизировался. Approve-all/reject-all приведены как ориентиры.</p>
+<p>При L/m=10 наблюдаемая прибыль семи моделей и фиксированных порогов лежит от 0.112 до 0.407 m на заявителя; доля одобрений — от 66.3% до 100.0%. Наибольшее точечное значение среди этих фиксированных вариантов: Soft voting, t=0.0909. Это описательный максимум, не статистически установленный победитель; порог по test не оптимизировался. Approve-all/reject-all приведены как ориентиры.</p>
+<p>Неизвестные fairness-группы сохранены отдельно (gender: 2; age: 0 заявок на общей test-выборке), исключены из бинарных разрывов, но остаются в общих метриках и прибыли. Ровно 25 лет относится к группе &gt;=25.</p>
+<p>При t=0.5 LR пропускает 4783 дефолтов и ошибочно отклоняет 211 заявок TARGET=0; MLP — соответственно 4257 и 2863. Ошибки всех моделей приведены рядом с precision/recall/F1. Изменение порога меняет этот баланс, поэтому дополнительные фиксированные пороги сохранены отдельно.</p>
+<p>Для ансамблей при том же пороге: Soft voting: FN=4847, FP=83; Stacking: FN=4674, FP=284. Разный баланс пропущенных дефолтов и ошибочных отказов не означает превосходства по всем метрикам. Random forest при t=0.5 одобряет всех: нулевые групповые разрывы сочетаются с нулевым обнаружением дефолтов и не являются свидетельством полезного решения кредитного риска.</p>
+<p>Precision при t=0.5 не определена для: Random forest, поскольку модель не предсказывает ни одного дефолта. Это пропуск с нулевым знаменателем, а не precision=0; соответствующий bootstrap CI может иметь 0 допустимых повторов. Нулевые recall/F1 при наличии фактических дефолтов сохраняются как нули.</p>
+<p>MLP сохраняется во всех таблицах, несмотря на слабые значения AP и log-loss. Фактические n_iter_: L1=300, L2=300, L3=300, L4=243; агрегированные ConvergenceWarning за search+refit: L1=10, L2=10, L3=7, L4=3. Предупреждения включают CV-кандидатов, поэтому не равны числу ошибок выбранного refit. Train loss_ содержит особенности оптимизации и регуляризацию и не тождественен внешней log-loss. Эти наблюдения не устанавливают переобучение, ошибку предобработки или лимит итераций как причину слабого качества.</p>
+<p>Вычислено 1000 общих парных bootstrap-повторов test, seed=42. При каждом повторе одни и те же клиентские веса применены ко всем моделям и уровням. Интервалы описывают test-неопределённость фиксированных обученных моделей; новые train-повторы не выполнялись.</p>
+<h2>Таблицы для статьи</h2>
+<h3>Level 4 quality. Primary PR metric: PR-AUC (average precision, AP). Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>AP</th>
+      <th>ROC-AUC</th>
+      <th>Log-loss</th>
+      <th>Brier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.2367\n[0.2260, 0.2483]</td>
+      <td>0.7590\n[0.7518, 0.7659]</td>
+      <td>0.2506\n[0.2455, 0.2566]</td>
+      <td>0.0683\n[0.0667, 0.0699]</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.2353\n[0.2245, 0.2469]</td>
+      <td>0.7486\n[0.7413, 0.7559]</td>
+      <td>0.2499\n[0.2455, 0.2545]</td>
+      <td>0.0686\n[0.0671, 0.0701]</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.2471\n[0.2361, 0.2587]</td>
+      <td>0.7630\n[0.7555, 0.7703]</td>
+      <td>0.2452\n[0.2405, 0.2503]</td>
+      <td>0.0677\n[0.0662, 0.0693]</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.2511\n[0.2402, 0.2637]</td>
+      <td>0.7667\n[0.7594, 0.7741]</td>
+      <td>0.2441\n[0.2396, 0.2490]</td>
+      <td>0.0674\n[0.0659, 0.0690]</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.1436\n[0.1373, 0.1502]</td>
+      <td>0.6527\n[0.6447, 0.6605]</td>
+      <td>0.9970\n[0.9681, 1.0276]</td>
+      <td>0.1046\n[0.1024, 0.1070]</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.2587\n[0.2475, 0.2712]</td>
+      <td>0.7705\n[0.7633, 0.7780]</td>
+      <td>0.2426\n[0.2378, 0.2474]</td>
+      <td>0.0671\n[0.0655, 0.0687]</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.2603\n[0.2493, 0.2727]</td>
+      <td>0.7707\n[0.7636, 0.7783]</td>
+      <td>0.2485\n[0.2437, 0.2533]</td>
+      <td>0.0679\n[0.0663, 0.0695]</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/rq1_level4.csv">CSV</a> · <a href="tables/rq1_level4.tex">LaTeX</a></small>
+<h3>PR-AUC (average precision, AP) across information levels. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Level 1</th>
+      <th>Level 2</th>
+      <th>Level 3</th>
+      <th>Level 4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.2229\n[0.2128, 0.2342]</td>
+      <td>0.2202\n[0.2104, 0.2307]</td>
+      <td>0.2323\n[0.2214, 0.2447]</td>
+      <td>0.2367\n[0.2260, 0.2483]</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.2201\n[0.2094, 0.2312]</td>
+      <td>0.2187\n[0.2079, 0.2296]</td>
+      <td>0.2306\n[0.2199, 0.2418]</td>
+      <td>0.2353\n[0.2245, 0.2469]</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.2208\n[0.2104, 0.2322]</td>
+      <td>0.2288\n[0.2179, 0.2405]</td>
+      <td>0.2427\n[0.2320, 0.2549]</td>
+      <td>0.2471\n[0.2361, 0.2587]</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.2300\n[0.2194, 0.2415]</td>
+      <td>0.2317\n[0.2207, 0.2438]</td>
+      <td>0.2447\n[0.2344, 0.2573]</td>
+      <td>0.2511\n[0.2402, 0.2637]</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.1371\n[0.1310, 0.1435]</td>
+      <td>0.1283\n[0.1231, 0.1340]</td>
+      <td>0.1379\n[0.1318, 0.1447]</td>
+      <td>0.1436\n[0.1373, 0.1502]</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.2338\n[0.2231, 0.2453]</td>
+      <td>0.2390\n[0.2279, 0.2512]</td>
+      <td>0.2529\n[0.2414, 0.2659]</td>
+      <td>0.2587\n[0.2475, 0.2712]</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.2344\n[0.2236, 0.2463]</td>
+      <td>0.2401\n[0.2287, 0.2521]</td>
+      <td>0.2558\n[0.2441, 0.2689]</td>
+      <td>0.2603\n[0.2493, 0.2727]</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/rq2_ap_levels.csv">CSV</a> · <a href="tables/rq2_ap_levels.tex">LaTeX</a></small>
+<h3>Paired AP gains relative to application-only Level 1. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Delta AP L2-L1</th>
+      <th>Delta AP L3-L1</th>
+      <th>Delta AP L4-L1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>-0.0028\n[-0.0068, 0.0010]</td>
+      <td>0.0094\n[0.0040, 0.0150]</td>
+      <td>0.0138\n[0.0077, 0.0208]</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>-0.0014\n[-0.0047, 0.0019]</td>
+      <td>0.0105\n[0.0060, 0.0145]</td>
+      <td>0.0152\n[0.0098, 0.0206]</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.0080\n[0.0033, 0.0127]</td>
+      <td>0.0220\n[0.0162, 0.0278]</td>
+      <td>0.0263\n[0.0194, 0.0328]</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.0017\n[-0.0024, 0.0056]</td>
+      <td>0.0147\n[0.0094, 0.0197]</td>
+      <td>0.0211\n[0.0149, 0.0278]</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>-0.0088\n[-0.0145, -0.0031]</td>
+      <td>0.0008\n[-0.0057, 0.0071]</td>
+      <td>0.0065\n[-0.0003, 0.0126]</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.0053\n[0.0008, 0.0096]</td>
+      <td>0.0191\n[0.0133, 0.0247]</td>
+      <td>0.0249\n[0.0185, 0.0316]</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.0058\n[0.0018, 0.0094]</td>
+      <td>0.0214\n[0.0156, 0.0267]</td>
+      <td>0.0259\n[0.0196, 0.0322]</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/rq2_baseline_gains.csv">CSV</a> · <a href="tables/rq2_baseline_gains.tex">LaTeX</a></small>
+<h3>Paired AP gains between consecutive information levels. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Delta AP L2-L1</th>
+      <th>Delta AP L3-L2</th>
+      <th>Delta AP L4-L3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>-0.0028\n[-0.0068, 0.0010]</td>
+      <td>0.0121\n[0.0081, 0.0161]</td>
+      <td>0.0044\n[0.0006, 0.0080]</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>-0.0014\n[-0.0047, 0.0019]</td>
+      <td>0.0119\n[0.0088, 0.0148]</td>
+      <td>0.0047\n[0.0008, 0.0093]</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.0080\n[0.0033, 0.0127]</td>
+      <td>0.0139\n[0.0094, 0.0187]</td>
+      <td>0.0043\n[-0.0012, 0.0093]</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.0017\n[-0.0024, 0.0056]</td>
+      <td>0.0130\n[0.0089, 0.0173]</td>
+      <td>0.0064\n[0.0014, 0.0113]</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>-0.0088\n[-0.0145, -0.0031]</td>
+      <td>0.0096\n[0.0040, 0.0156]</td>
+      <td>0.0057\n[-0.0006, 0.0117]</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.0053\n[0.0008, 0.0096]</td>
+      <td>0.0139\n[0.0092, 0.0184]</td>
+      <td>0.0058\n[0.0014, 0.0107]</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.0058\n[0.0018, 0.0094]</td>
+      <td>0.0156\n[0.0110, 0.0201]</td>
+      <td>0.0045\n[-0.0002, 0.0091]</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/rq2_sequential_gains.csv">CSV</a> · <a href="tables/rq2_sequential_gains.tex">LaTeX</a></small>
+<h3>Fixed cost scenario L/m=1; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Threshold</th>
+      <th>Profit (m)</th>
+      <th>Approval (%)</th>
+      <th>Gender gap (pp)</th>
+      <th>Age gap (pp)</th>
+      <th>G/A gap &lt;=5pp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.5000</td>
+      <td>0.838\n[0.834, 0.842]</td>
+      <td>99.4\n[99.3, 99.4]</td>
+      <td>0.31\n[0.17, 0.45]</td>
+      <td>0.90\n[0.43, 1.44]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.5000</td>
+      <td>0.839\n[0.834, 0.843]</td>
+      <td>100.0\n[100.0, 100.0]</td>
+      <td>0.00\n[0.00, 0.00]</td>
+      <td>0.00\n[0.00, 0.00]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.5000</td>
+      <td>0.839\n[0.835, 0.843]</td>
+      <td>99.7\n[99.7, 99.7]</td>
+      <td>0.04\n[0.00, 0.14]</td>
+      <td>0.39\n[0.09, 0.74]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.5000</td>
+      <td>0.839\n[0.835, 0.843]</td>
+      <td>99.8\n[99.7, 99.8]</td>
+      <td>0.00\n[0.00, 0.09]</td>
+      <td>0.34\n[0.06, 0.64]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.5000</td>
+      <td>0.804\n[0.799, 0.808]</td>
+      <td>94.2\n[94.0, 94.4]</td>
+      <td>2.09\n[1.68, 2.51]</td>
+      <td>2.83\n[1.70, 4.00]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.5000</td>
+      <td>0.839\n[0.835, 0.843]</td>
+      <td>99.7\n[99.6, 99.7]</td>
+      <td>0.05\n[0.00, 0.14]</td>
+      <td>0.49\n[0.16, 0.86]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.5000</td>
+      <td>0.839\n[0.835, 0.843]</td>
+      <td>99.1\n[99.0, 99.1]</td>
+      <td>0.36\n[0.20, 0.53]</td>
+      <td>1.94\n[1.31, 2.61]</td>
+      <td>Yes/Yes</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/profit_fairness_L1.csv">CSV</a> · <a href="tables/profit_fairness_L1.tex">LaTeX</a></small>
+<h3>Fixed cost scenario L/m=5; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Threshold</th>
+      <th>Profit (m)</th>
+      <th>Approval (%)</th>
+      <th>Gender gap (pp)</th>
+      <th>Age gap (pp)</th>
+      <th>G/A gap &lt;=5pp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.5000</td>
+      <td>0.527\n[0.515, 0.539]</td>
+      <td>99.4\n[99.3, 99.4]</td>
+      <td>0.31\n[0.17, 0.45]</td>
+      <td>0.90\n[0.43, 1.44]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.1667</td>
+      <td>0.578\n[0.568, 0.588]</td>
+      <td>87.4\n[87.2, 87.7]</td>
+      <td>5.05\n[4.46, 5.64]</td>
+      <td>17.94\n[16.17, 19.75]</td>
+      <td>No/No</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.5000</td>
+      <td>0.516\n[0.503, 0.528]</td>
+      <td>100.0\n[100.0, 100.0]</td>
+      <td>0.00\n[0.00, 0.00]</td>
+      <td>0.00\n[0.00, 0.00]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.1667</td>
+      <td>0.577\n[0.566, 0.587]</td>
+      <td>89.2\n[89.0, 89.5]</td>
+      <td>1.64\n[1.15, 2.21]</td>
+      <td>18.38\n[16.68, 20.18]</td>
+      <td>Yes/No</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.5000</td>
+      <td>0.523\n[0.511, 0.535]</td>
+      <td>99.7\n[99.7, 99.7]</td>
+      <td>0.04\n[0.00, 0.14]</td>
+      <td>0.39\n[0.09, 0.74]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.1667</td>
+      <td>0.584\n[0.573, 0.593]</td>
+      <td>89.7\n[89.4, 89.9]</td>
+      <td>3.57\n[3.06, 4.08]</td>
+      <td>16.48\n[14.75, 18.30]</td>
+      <td>Yes/No</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.5000</td>
+      <td>0.521\n[0.509, 0.533]</td>
+      <td>99.8\n[99.7, 99.8]</td>
+      <td>0.00\n[0.00, 0.09]</td>
+      <td>0.34\n[0.06, 0.64]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.1667</td>
+      <td>0.586\n[0.575, 0.596]</td>
+      <td>89.0\n[88.8, 89.3]</td>
+      <td>3.29\n[2.75, 3.78]</td>
+      <td>18.09\n[16.40, 20.04]</td>
+      <td>Yes/No</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.5000</td>
+      <td>0.527\n[0.514, 0.538]</td>
+      <td>94.2\n[94.0, 94.4]</td>
+      <td>2.09\n[1.68, 2.51]</td>
+      <td>2.83\n[1.70, 4.00]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.1667</td>
+      <td>0.527\n[0.515, 0.538]</td>
+      <td>91.6\n[91.4, 91.8]</td>
+      <td>2.79\n[2.29, 3.23]</td>
+      <td>4.55\n[3.24, 6.01]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.5000</td>
+      <td>0.524\n[0.512, 0.536]</td>
+      <td>99.7\n[99.6, 99.7]</td>
+      <td>0.05\n[0.00, 0.14]</td>
+      <td>0.49\n[0.16, 0.86]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.1667</td>
+      <td>0.587\n[0.576, 0.597]</td>
+      <td>89.1\n[88.8, 89.3]</td>
+      <td>4.08\n[3.53, 4.63]</td>
+      <td>16.80\n[15.12, 18.59]</td>
+      <td>Yes/No</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.5000</td>
+      <td>0.535\n[0.523, 0.546]</td>
+      <td>99.1\n[99.0, 99.1]</td>
+      <td>0.36\n[0.20, 0.53]</td>
+      <td>1.94\n[1.31, 2.61]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.1667</td>
+      <td>0.580\n[0.569, 0.591]</td>
+      <td>92.6\n[92.4, 92.8]</td>
+      <td>3.04\n[2.60, 3.50]</td>
+      <td>13.41\n[11.91, 15.02]</td>
+      <td>Yes/No</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/profit_fairness_L5.csv">CSV</a> · <a href="tables/profit_fairness_L5.tex">LaTeX</a></small>
+<h3>Fixed cost scenario L/m=10; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Threshold</th>
+      <th>Profit (m)</th>
+      <th>Approval (%)</th>
+      <th>Gender gap (pp)</th>
+      <th>Age gap (pp)</th>
+      <th>G/A gap &lt;=5pp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.5000</td>
+      <td>0.138\n[0.116, 0.161]</td>
+      <td>99.4\n[99.3, 99.4]</td>
+      <td>0.31\n[0.17, 0.45]</td>
+      <td>0.90\n[0.43, 1.44]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.0909</td>
+      <td>0.393\n[0.378, 0.406]</td>
+      <td>71.2\n[70.9, 71.6]</td>
+      <td>8.20\n[7.41, 8.98]</td>
+      <td>28.41\n[26.33, 30.58]</td>
+      <td>No/No</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.5000</td>
+      <td>0.112\n[0.089, 0.135]</td>
+      <td>100.0\n[100.0, 100.0]</td>
+      <td>0.00\n[0.00, 0.00]</td>
+      <td>0.00\n[0.00, 0.00]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.0909</td>
+      <td>0.378\n[0.365, 0.391]</td>
+      <td>66.3\n[65.9, 66.7]</td>
+      <td>6.33\n[5.55, 7.15]</td>
+      <td>31.75\n[29.71, 33.75]</td>
+      <td>No/No</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.5000</td>
+      <td>0.128\n[0.106, 0.150]</td>
+      <td>99.7\n[99.7, 99.7]</td>
+      <td>0.04\n[0.00, 0.14]</td>
+      <td>0.39\n[0.09, 0.74]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.0909</td>
+      <td>0.394\n[0.379, 0.409]</td>
+      <td>74.3\n[73.9, 74.7]</td>
+      <td>7.98\n[7.23, 8.72]</td>
+      <td>29.61\n[27.49, 31.72]</td>
+      <td>No/No</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.5000</td>
+      <td>0.124\n[0.102, 0.146]</td>
+      <td>99.8\n[99.7, 99.8]</td>
+      <td>0.00\n[0.00, 0.09]</td>
+      <td>0.34\n[0.06, 0.64]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>0.0909</td>
+      <td>0.400\n[0.385, 0.414]</td>
+      <td>73.0\n[72.7, 73.4]</td>
+      <td>7.08\n[6.35, 7.85]</td>
+      <td>31.32\n[29.22, 33.40]</td>
+      <td>No/No</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.5000</td>
+      <td>0.181\n[0.158, 0.201]</td>
+      <td>94.2\n[94.0, 94.4]</td>
+      <td>2.09\n[1.68, 2.51]</td>
+      <td>2.83\n[1.70, 4.00]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.0909</td>
+      <td>0.213\n[0.191, 0.233]</td>
+      <td>90.2\n[89.9, 90.4]</td>
+      <td>3.03\n[2.51, 3.52]</td>
+      <td>5.46\n[3.93, 6.91]</td>
+      <td>Yes/No</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.5000</td>
+      <td>0.130\n[0.107, 0.152]</td>
+      <td>99.7\n[99.6, 99.7]</td>
+      <td>0.05\n[0.00, 0.14]</td>
+      <td>0.49\n[0.16, 0.86]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>0.0909</td>
+      <td>0.407\n[0.392, 0.422]</td>
+      <td>73.9\n[73.6, 74.3]</td>
+      <td>7.51\n[6.77, 8.26]</td>
+      <td>29.68\n[27.61, 31.73]</td>
+      <td>No/No</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.5000</td>
+      <td>0.155\n[0.132, 0.176]</td>
+      <td>99.1\n[99.0, 99.1]</td>
+      <td>0.36\n[0.20, 0.53]</td>
+      <td>1.94\n[1.31, 2.61]</td>
+      <td>Yes/Yes</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>0.0909</td>
+      <td>0.391\n[0.374, 0.406]</td>
+      <td>80.9\n[80.6, 81.2]</td>
+      <td>6.26\n[5.59, 6.91]</td>
+      <td>24.87\n[22.90, 26.85]</td>
+      <td>No/No</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/profit_fairness_L10.csv">CSV</a> · <a href="tables/profit_fairness_L10.tex">LaTeX</a></small>
+<h3>Level 4 errors at fixed threshold 0.5. Positive class: default (TARGET=1). Undefined precision is shown as -- when no defaults are predicted; it is not zero.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Missed defaults (FN)</th>
+      <th>False rejections (FP)</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistic regression</td>
+      <td>4783</td>
+      <td>211</td>
+      <td>0.4631</td>
+      <td>0.0367</td>
+      <td>0.0679</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>4965</td>
+      <td>0</td>
+      <td>--</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>4858</td>
+      <td>76</td>
+      <td>0.5847</td>
+      <td>0.0216</td>
+      <td>0.0416</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>4883</td>
+      <td>54</td>
+      <td>0.6029</td>
+      <td>0.0165</td>
+      <td>0.0322</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>4257</td>
+      <td>2863</td>
+      <td>0.1983</td>
+      <td>0.1426</td>
+      <td>0.1659</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>4847</td>
+      <td>83</td>
+      <td>0.5871</td>
+      <td>0.0238</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>4674</td>
+      <td>284</td>
+      <td>0.5061</td>
+      <td>0.0586</td>
+      <td>0.1051</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/errors_level4.csv">CSV</a> · <a href="tables/errors_level4.tex">LaTeX</a></small>
+<h3>Paired Level 4 AP differences versus logistic regression. No bootstrap p-values. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Reference</th>
+      <th>Delta AP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Random forest</td>
+      <td>Logistic regression</td>
+      <td>-0.0014\n[-0.0091, 0.0063]</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>Logistic regression</td>
+      <td>0.0104\n[0.0035, 0.0172]</td>
+    </tr>
+    <tr>
+      <td>LightGBM</td>
+      <td>Logistic regression</td>
+      <td>0.0144\n[0.0072, 0.0216]</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>Logistic regression</td>
+      <td>-0.0931\n[-0.1019, -0.0846]</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>Logistic regression</td>
+      <td>0.0220\n[0.0167, 0.0269]</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>Logistic regression</td>
+      <td>0.0236\n[0.0184, 0.0283]</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/ap_vs_lr_level4.csv">CSV</a> · <a href="tables/ap_vs_lr_level4.tex">LaTeX</a></small>
+<h3>Paired two-sided DeLong ROC-AUC tests versus logistic regression. Bonferroni correction across six comparisons; not an AP test.</h3>
+<div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Delta ROC-AUC</th>
+      <th>p (raw)</th>
+      <th>p (Bonferroni)</th>
+      <th>Reject at 0.05</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LightGBM</td>
+      <td>+0.0077</td>
+      <td>8.53e-05</td>
+      <td>0.000512</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>+0.0039</td>
+      <td>0.0475</td>
+      <td>0.285</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Soft voting</td>
+      <td>+0.0115</td>
+      <td>7.56e-18</td>
+      <td>4.54e-17</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>+0.0116</td>
+      <td>2.84e-18</td>
+      <td>1.7e-17</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>-0.1063</td>
+      <td>6e-173</td>
+      <td>3.6e-172</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>-0.0104</td>
+      <td>2.57e-05</td>
+      <td>0.000154</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table></div>
+<small><a href="tables/delong_level4.csv">CSV</a> · <a href="tables/delong_level4.tex">LaTeX</a></small>
+<h2>Рисунки</h2>
+<figure><img src="figures/ap_by_level.svg" alt="PR-AUC (average precision, AP) по уровням"><figcaption>PR-AUC (average precision, AP) по уровням. <a href="figures/ap_by_level.pdf">PDF</a></figcaption></figure>
+<figure><img src="figures/calibration_level4.svg" alt="Калибровка Level 4"><figcaption>Калибровка Level 4. <a href="figures/calibration_level4.pdf">PDF</a></figcaption></figure>
+<h2>Фактический протокол</h2>
+<p>Исходная размеченная выборка: 307,511; development 246,008, test 61,503; пилот 20,000; не использовано в обучении 226,008 development-заявок. Число исходных подготовленных признаков по уровням: {&#x27;1&#x27;: 124, &#x27;2&#x27;: 178, &#x27;3&#x27;: 264, &#x27;4&#x27;: 322}. Завершено CV-fit 420, refit 28; последний invocation 10640.1 с. refit_seconds входит в search_and_refit_seconds; их нельзя суммировать. Время invocation также включает IO и отчёты. Python 3.13.9; software versions: {&#x27;joblib&#x27;: &#x27;1.5.2&#x27;, &#x27;lightgbm&#x27;: &#x27;4.7.0&#x27;, &#x27;numpy&#x27;: &#x27;2.3.5&#x27;, &#x27;pandas&#x27;: &#x27;2.3.3&#x27;, &#x27;pyarrow&#x27;: &#x27;21.0.0&#x27;, &#x27;scikit-learn&#x27;: &#x27;1.7.2&#x27;, &#x27;scipy&#x27;: &#x27;1.16.3&#x27;, &#x27;threadpoolctl&#x27;: &#x27;3.5.0&#x27;, &#x27;xgboost&#x27;: &#x27;3.2.0&#x27;}. Threads=2, search_n_jobs=1, pre_dispatch=1. Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется. Seeds: выбор пилотных клиентов 42, CV 42, поиск 42. Размеры train/validation CV-фолдов: fold 0: 13333/6667, fold 1: 13333/6667, fold 2: 13334/6666. Баланс классов (0/1): Labelled data: 282686/24825, Development: 226148/19860, Pilot train: 18385/1615, Fixed test: 56538/4965.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>sample</th>
+      <th>rows</th>
+      <th>class_0</th>
+      <th>class_1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Labelled data</td>
+      <td>307511</td>
+      <td>282686</td>
+      <td>24825</td>
+    </tr>
+    <tr>
+      <td>Development</td>
+      <td>246008</td>
+      <td>226148</td>
+      <td>19860</td>
+    </tr>
+    <tr>
+      <td>Pilot train</td>
+      <td>20000</td>
+      <td>18385</td>
+      <td>1615</td>
+    </tr>
+    <tr>
+      <td>Fixed test</td>
+      <td>61503</td>
+      <td>56538</td>
+      <td>4965</td>
+    </tr>
+  </tbody>
+</table>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fold</th>
+      <th>train_rows</th>
+      <th>validation_rows</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>13333</td>
+      <td>6667</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>13333</td>
+      <td>6667</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>13334</td>
+      <td>6666</td>
+    </tr>
+  </tbody>
+</table>
+<h3>MLP: сохранённые атрибуты обучения</h3>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>level</th>
+      <th>n_iter_</th>
+      <th>max_iter</th>
+      <th>tol</th>
+      <th>n_iter_no_change</th>
+      <th>loss_curve_points</th>
+      <th>final_training_loss</th>
+      <th>best_cv_log_loss</th>
+      <th>test_log_loss</th>
+      <th>test_ap</th>
+      <th>warning_count_search_and_refit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mlp</td>
+      <td>1</td>
+      <td>300</td>
+      <td>300</td>
+      <td>0.0001</td>
+      <td>20</td>
+      <td>300</td>
+      <td>0.111438</td>
+      <td>0.476026</td>
+      <td>0.444189</td>
+      <td>0.137106</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>mlp</td>
+      <td>2</td>
+      <td>300</td>
+      <td>300</td>
+      <td>0.0001</td>
+      <td>20</td>
+      <td>300</td>
+      <td>0.062838</td>
+      <td>0.636791</td>
+      <td>0.603611</td>
+      <td>0.128328</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>mlp</td>
+      <td>3</td>
+      <td>300</td>
+      <td>300</td>
+      <td>0.0001</td>
+      <td>20</td>
+      <td>300</td>
+      <td>0.034656</td>
+      <td>0.774411</td>
+      <td>0.727068</td>
+      <td>0.137907</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>mlp</td>
+      <td>4</td>
+      <td>243</td>
+      <td>300</td>
+      <td>0.0001</td>
+      <td>20</td>
+      <td>243</td>
+      <td>0.004645</td>
+      <td>0.825887</td>
+      <td>0.997038</td>
+      <td>0.143575</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Ограничения и отклонения от A2</h2>
+<ul><li>Пилот обучен на 20 000 development-заявках: остальные development-заявки в этом обучении не использованы.</li><li>На пару проверены 5 конфигураций и выполнен один refit; основной A2 предусматривает 20 конфигураций и пять повторных обучений.</li><li>Общие парные bootstrap-повторы отражают неопределённость состава test для фиксированных моделей, но не вариативность повторного обучения.</li><li>95% percentile bootstrap-интервалы являются pointwise, unadjusted, exploratory; они не равны среднему ± SD пяти запусков.</li><li>Парный DeLong и Bonferroni относятся только к семейству шести сравнений ROC-AUC с LR на Level 4; выводы не переносятся на AP.</li><li>Отсутствие значимой разницы не доказывает эквивалентность. Формальное правило A2 «не хуже лучшего по AP» этим пилотом не подтверждается.</li><li>Прибыль измеряется в условных единицах m=1 по заданной модели затрат; это не фактическая денежная прибыль банка.</li><li>Percentile CI абсолютных fairness-разрывов не является тестом bias: неотрицательность и излом абсолютной величины в нуле требуют осторожной интерпретации, даже если нижняя граница выше нуля.</li><li>Fairness-коррекции, обучение калибратора, SHAP и оценка устойчивости по пяти train-подвыборкам отложены.</li><li>Методы текущего анализа зафиксированы для этого этапа, но не объявляются предварительно зарегистрированными.</li></ul>
+<h2>Готовность</h2>
+<p>Материалы готовы для предварительного раздела статьи.</p>
+<p>Полные сценарии, TPR-разрывы и ориентиры прибыли находятся в приложении tables/; все числовые результаты и промежуточные bootstrap-файлы сохранены отдельно.</p>
+<h2>Исполнение notebook</h2><p>Все code-ячейки notebook исполнены в чистом Python-процессе; реальные outputs сохранены. Попытка запуска Jupyter-ядра не вернула outputs и была прервана. Это подтверждает исполнение Python-кода, но не проверку notebook в Jupyter kernel. Готовые bootstrap-повторы переиспользованы; новых fit/predict не было.</p></body></html>

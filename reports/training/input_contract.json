@@ -1,0 +1,77 @@
+{
+  "applicants": 307511,
+  "cv": [
+    {
+      "fold": 0,
+      "positive": 6620,
+      "rows": 82003
+    },
+    {
+      "fold": 1,
+      "positive": 6620,
+      "rows": 82003
+    },
+    {
+      "fold": 2,
+      "positive": 6620,
+      "rows": 82002
+    }
+  ],
+  "development": 246008,
+  "existing_splits_reused": true,
+  "identifiers_are_index_only": true,
+  "levels": [
+    {
+      "categorical": 15,
+      "features": 124,
+      "level": 1,
+      "numeric": 109
+    },
+    {
+      "categorical": 15,
+      "features": 178,
+      "level": 2,
+      "numeric": 163
+    },
+    {
+      "categorical": 15,
+      "features": 264,
+      "level": 3,
+      "numeric": 249
+    },
+    {
+      "categorical": 15,
+      "features": 322,
+      "level": 4,
+      "numeric": 307
+    }
+  ],
+  "repeats": [
+    {
+      "positive": 17874,
+      "rows": 221407,
+      "seed": 42
+    },
+    {
+      "positive": 17874,
+      "rows": 221407,
+      "seed": 43
+    },
+    {
+      "positive": 17874,
+      "rows": 221407,
+      "seed": 44
+    },
+    {
+      "positive": 17874,
+      "rows": 221407,
+      "seed": 45
+    },
+    {
+      "positive": 17874,
+      "rows": 221407,
+      "seed": 46
+    }
+  ],
+  "test": 61503
+}

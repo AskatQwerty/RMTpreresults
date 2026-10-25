@@ -1,0 +1,9 @@
+﻿file,path,size_bytes,mtime_ns,size_and_mtime_unchanged
+application_train.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\application_train.csv,166133370,1792904321405191900,True
+bureau.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\bureau.csv,170016717,1792904322444405100,True
+bureau_balance.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\bureau_balance.csv,375592889,1792904324248724200,True
+POS_CASH_balance.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\POS_CASH_balance.csv,392703158,1792904320210495200,True
+credit_card_balance.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\credit_card_balance.csv,424582605,1792904326807731800,True
+installments_payments.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\installments_payments.csv,723118349,1792904332256899700,True
+previous_application.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\previous_application.csv,404973293,1792904334392006100,True
+HomeCredit_columns_description.csv,C:\Users\askat\Study\RMT\home-credit-default-risk\HomeCredit_columns_description.csv,37383,1792904317725259100,True

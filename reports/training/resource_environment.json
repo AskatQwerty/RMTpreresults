@@ -1,0 +1,13 @@
+{
+  "available_ram_bytes_at_recording": 5520977920,
+  "logical_cpus": 16,
+  "model_threads": 2,
+  "note": "Measurements reflect shared workstation load; see per-fit sampled system availability.",
+  "old_full_kernel_shutdown": true,
+  "physical_cpus": 8,
+  "pilot_outputs": "artifacts/training/resource_pilot/resource_de05e94a7cb7",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+  "total_ram_bytes": 16989736960,
+  "origin_pilot_outputs": "artifacts/training/resource_pilot/resource_7395f1912586"
+}

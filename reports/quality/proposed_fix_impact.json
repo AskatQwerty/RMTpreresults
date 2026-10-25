@@ -1,0 +1,13 @@
+{
+  "proposal": "previous AMT_DOWN_PAYMENT<0 -> NULL before aggregation",
+  "raw_values": 1,
+  "changed_aggregate_cells": 2,
+  "changed_clients": 1,
+  "per_feature_changed_cells": {
+    "avg": 1,
+    "min": 1,
+    "max": 0
+  },
+  "applied": false,
+  "reason": "Сначала требуется подтвердить, что -0.9 не является допустимой учётной корректировкой."
+}

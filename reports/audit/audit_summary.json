@@ -1,0 +1,79 @@
+{
+  "scope": "Полный аудит всех восьми обязательных исходных CSV",
+  "elapsed_seconds": 97.229,
+  "tables": [
+    {
+      "table": "application_train.csv",
+      "rows": 307511,
+      "columns": 122,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    },
+    {
+      "table": "bureau.csv",
+      "rows": 1716428,
+      "columns": 17,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    },
+    {
+      "table": "bureau_balance.csv",
+      "rows": 27299925,
+      "columns": 3,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    },
+    {
+      "table": "POS_CASH_balance.csv",
+      "rows": 10001358,
+      "columns": 8,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    },
+    {
+      "table": "credit_card_balance.csv",
+      "rows": 3840312,
+      "columns": 23,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    },
+    {
+      "table": "installments_payments.csv",
+      "rows": 13605401,
+      "columns": 8,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 770
+    },
+    {
+      "table": "previous_application.csv",
+      "rows": 1670214,
+      "columns": 37,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    },
+    {
+      "table": "HomeCredit_columns_description.csv",
+      "rows": 219,
+      "columns": 5,
+      "exact_duplicate_rows": 0,
+      "key_duplicate_surplus": 0
+    }
+  ],
+  "dictionary_unmatched_columns": [],
+  "files": {
+    "table_summary": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\table_summary.csv",
+    "column_audit": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\column_audit.csv",
+    "relationships": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\relationships.csv",
+    "dictionary": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\column_dictionary_utf8.csv",
+    "description_coverage": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\description_coverage.csv",
+    "dictionary_extra_rows": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\dictionary_extra_rows.csv",
+    "target_balance": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\target_balance.csv",
+    "source_manifest": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\audit\\source_manifest.csv"
+  },
+  "notes": [
+    "Нет автоматического удаления дублей или повторяющихся частичных платежей.",
+    "Положительные даты и 365243 лишь посчитаны; решения об их доступности принимаются отдельно по смыслу поля.",
+    "Отсутствие клиента в application_train отличается от отсутствующего родительского договора.",
+    "Типы определены DuckDB по sample_size=100000; остальные строки читаются строго без ignore_errors."
+  ]
+}

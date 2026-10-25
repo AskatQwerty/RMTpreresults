@@ -1,0 +1,34 @@
+test_all_empty_train_column_kept_and_validation_observed_preserved (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_all_empty_train_column_kept_and_validation_observed_preserved) ... ok
+test_all_numeric_columns_empty (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_all_numeric_columns_empty) ... ok
+test_clone_is_unfitted_and_original_input_unchanged (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_clone_is_unfitted_and_original_input_unchanged) ... ok
+test_factory_does_not_fit (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_factory_does_not_fit) ... ok
+test_folds_have_same_width_names_even_when_missingness_changes (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_folds_have_same_width_names_even_when_missingness_changes) ... ok
+test_median_uses_only_training_values (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_median_uses_only_training_values) ... ok
+test_new_validation_missing_gets_indicator (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_new_validation_missing_gets_indicator) ... ok
+test_scaler_fitted_only_values_and_empty_column_safe (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_scaler_fitted_only_values_and_empty_column_safe) ... ok
+test_smoke_report_has_no_real_data_fit (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_smoke_report_has_no_real_data_fit) ... ok
+application: 60 клиентов, 124 признаков; 0.1 с
+bureau: 2 клиентов, 42 признаков; 0.0 с
+bb: 2 клиентов, 10 признаков; 0.0 с
+pos: 1 клиентов, 19 признаков; 0.0 с
+cc: 1 клиентов, 65 признаков; 0.0 с
+installments: 2 клиентов, 21 признаков; 0.0 с
+previous: 1 клиентов, 35 признаков; 0.0 с
+Level 1: 60 x 124; 0.0 MiB
+Level 2: 60 x 178; 0.0 MiB
+Level 3: 60 x 264; 0.1 MiB
+Level 4: 60 x 322; 0.1 MiB
+test_application_ratios_and_placeholders (test_preparation_semantics.PreparationSemanticsTests.test_application_ratios_and_placeholders) ... ok
+test_bureau_mapping_and_asof_months (test_preparation_semantics.PreparationSemanticsTests.test_bureau_mapping_and_asof_months) ... ok
+test_decimal_partial_payments_are_exact_and_order_independent (test_preparation_semantics.PreparationSemanticsTests.test_decimal_partial_payments_are_exact_and_order_independent) ... ok
+test_history_uses_own_cutoffs_and_retains_missing_previous (test_preparation_semantics.PreparationSemanticsTests.test_history_uses_own_cutoffs_and_retains_missing_previous) ... ok
+test_missing_history_preserves_nulls_and_people (test_preparation_semantics.PreparationSemanticsTests.test_missing_history_preserves_nulls_and_people) ... ok
+test_partial_payments_and_future_scheduled_prepayment (test_preparation_semantics.PreparationSemanticsTests.test_partial_payments_and_future_scheduled_prepayment) ... ok
+test_previous_planned_dates_and_placeholder (test_preparation_semantics.PreparationSemanticsTests.test_previous_planned_dates_and_placeholder) ... ok
+test_sensitive_fields_only_in_sidecar (test_preparation_semantics.PreparationSemanticsTests.test_sensitive_fields_only_in_sidecar) ... ok
+test_shared_stratified_splits_and_seed_repeats (test_preparation_semantics.PreparationSemanticsTests.test_shared_stratified_splits_and_seed_repeats) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.996s
+
+OK

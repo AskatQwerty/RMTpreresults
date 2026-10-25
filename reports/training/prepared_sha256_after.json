@@ -1,0 +1,147 @@
+[
+  {
+    "bytes": 23202644,
+    "file": "aggregates/application.parquet",
+    "sha256": "8552d8ddfecfc94a21198d7f219dc3cdea6648eacf93046f1d4681f274f8be89"
+  },
+  {
+    "bytes": 1531011,
+    "file": "aggregates/bb.parquet",
+    "sha256": "a434a9f11577f5aa23b99dcefc66d42b7275675db516546065a54db1a90fce94"
+  },
+  {
+    "bytes": 17255656,
+    "file": "aggregates/bureau.parquet",
+    "sha256": "2c3cec01e8a651e4a6e4ace1130f39ef9e1ad36e6702b07e90fafb21f1f3745e"
+  },
+  {
+    "bytes": 3310441,
+    "file": "aggregates/bureau_id_map.parquet",
+    "sha256": "951157614fbad51b4a118fb251587412f4b2a2af41050ce3d5fa1ad23621a09a"
+  },
+  {
+    "bytes": 9953044,
+    "file": "aggregates/cc.parquet",
+    "sha256": "1ffda6c7a4578964d4cfb7ea355813a2f85da286af06fccea8c5c148ccc16ee9"
+  },
+  {
+    "bytes": 196304476,
+    "file": "aggregates/installment_obligations.parquet",
+    "sha256": "52ea32b4e38012cec398ce664a84c3e2ccd44ae43a8a329e597118ffb99dba87"
+  },
+  {
+    "bytes": 13833955,
+    "file": "aggregates/installments.parquet",
+    "sha256": "0833e447144ef5d8b4bbb10b5c386e3ddc726c8be129c335d2efd46a2b817264"
+  },
+  {
+    "bytes": 5036909,
+    "file": "aggregates/pos.parquet",
+    "sha256": "6b61eb65f51e5b985ea88638f3c89220f090860c761acb2df6347de216ef677f"
+  },
+  {
+    "bytes": 25911140,
+    "file": "aggregates/previous.parquet",
+    "sha256": "d6db9f948c99220d66432aa2a3f707c6e10a3b7f990ad3b2b8c417a0612ad669"
+  },
+  {
+    "bytes": 3006562,
+    "file": "fairness.parquet",
+    "sha256": "3f3e48f8e55d4ab7173ed41a8dcaa5bb4da5c8165b46dec081097e79f75a93f9"
+  },
+  {
+    "bytes": 26562,
+    "file": "feature_levels.json",
+    "sha256": "8eeb526ef363cff1e2be2a919b6d430a432278a48d3688226ddab19c7db22f61"
+  },
+  {
+    "bytes": 3042,
+    "file": "features_level_1.json",
+    "sha256": "862de9e36a36e1c7c8ee4e481fc1f166c6e28daa5dc531ea65d8b1856adf4658"
+  },
+  {
+    "bytes": 4770,
+    "file": "features_level_2.json",
+    "sha256": "5c2ce8c0ac7a2b0ab8d0a07d42ab1a7f7bb3a56ec9678c26277cbef7fbb9087d"
+  },
+  {
+    "bytes": 7487,
+    "file": "features_level_3.json",
+    "sha256": "70f9e647f83916ea7a83ef659962f3d2c507ce3dbcb873c4a43ee204a90560c4"
+  },
+  {
+    "bytes": 9436,
+    "file": "features_level_4.json",
+    "sha256": "2af1a7d6d79ce62a39a8f7e7a8b1c4ea436b062d48d15f976dba7af642bcfcda"
+  },
+  {
+    "bytes": 1510580,
+    "file": "row_ids.parquet",
+    "sha256": "2eae26accb8f9b32b19eca22e67a630841e42535f219b03a23732a8e5577bc09"
+  },
+  {
+    "bytes": 1327689,
+    "file": "splits/cv_folds.parquet",
+    "sha256": "6fcb55ec32aeb7d04a208410fb37ee85e5ce0ed952e00747a1e82c11a273b54b"
+  },
+  {
+    "bytes": 1265055,
+    "file": "splits/development_ids.parquet",
+    "sha256": "caedcb7293cdacc2c4a016036e0883f2611ff6fc43a551a708fac3f8db952b69"
+  },
+  {
+    "bytes": 371756,
+    "file": "splits/test_ids.parquet",
+    "sha256": "822c5e4ed47791ed3853c367ac6862303373717b1c187e8f11e80d8c64f96658"
+  },
+  {
+    "bytes": 1166795,
+    "file": "splits/train_seed_42_ids.parquet",
+    "sha256": "4cdd69662e4414bddd126e507356994f9f8230a3934cc45799743d4bb91ca3b2"
+  },
+  {
+    "bytes": 1166802,
+    "file": "splits/train_seed_43_ids.parquet",
+    "sha256": "bc1603660a693303c6c406e3dde405dae29a6a6ae1fa27b96e7148a2ab11760c"
+  },
+  {
+    "bytes": 1166794,
+    "file": "splits/train_seed_44_ids.parquet",
+    "sha256": "c997440d4c0b6a482b667f7a2558c3ea41d7cf882b64e4c8e011bc0a7af751c2"
+  },
+  {
+    "bytes": 1166833,
+    "file": "splits/train_seed_45_ids.parquet",
+    "sha256": "7dbc0b05a948dd4c8282ff87274055a996b3a813366d9e1404345adc40a19677"
+  },
+  {
+    "bytes": 1166788,
+    "file": "splits/train_seed_46_ids.parquet",
+    "sha256": "f4238cfe1cdc24157a34e27d09ab487645b7b59afa9d109f392013417fbca841"
+  },
+  {
+    "bytes": 1545871,
+    "file": "target.parquet",
+    "sha256": "2fd1ee7e8f9982f30a97499ea4f3fa8c50fac9665c9436513ec3b2bd8fd72104"
+  },
+  {
+    "bytes": 22888092,
+    "file": "X_level_1.parquet",
+    "sha256": "bb2021feff9ec5da3aa8dd65f6bd65e7ccf2d98245f29b8d4f29265b1bfce4ec"
+  },
+  {
+    "bytes": 43204706,
+    "file": "X_level_2.parquet",
+    "sha256": "7544a6f422c11f6ed19204643b9caed14e145d8991e2d9c9f8855fd4ddbcd0e9"
+  },
+  {
+    "bytes": 63449031,
+    "file": "X_level_3.parquet",
+    "sha256": "47bc3af3c4f151486810a4b9823daa5125e634404731f4f3d764938ca2e3774e"
+  },
+  {
+    "bytes": 103699046,
+    "file": "X_level_4.parquet",
+    "sha256": "ccb29e5ba1fd15ef535466eb75dc42dddc547fb742e036b091c15efa683aacba"
+  }
+]
