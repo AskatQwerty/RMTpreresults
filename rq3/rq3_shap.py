@@ -331,13 +331,19 @@ def cmd_explain(a):
         if (run_dir / f"{model}.npy").exists() and not a.force:
             print("skip (exists)", model); continue
         meta = {}
+        saved = run_dir / f"{model}_pipeline.joblib"
         if a.refit_seed is None:
             pipe = load_pipeline(model); meta["source"] = "package fit (pilot_20k_5config, one refit on 20k)"
+        elif saved.exists():
+            pipe = joblib.load(saved); meta = json.load(open(run_dir / f"{model}_refit_meta.json"))
+            print(f"loaded saved refit {model} seed={meta.get('refit_seed')}", flush=True)
         else:
             print(f"refitting {model} seed={a.refit_seed} ...", flush=True)
             pipe, meta = refit(model, data, a.refit_seed); meta["source"] = "refit with saved best params on 90% stratified subsample"
-            if a.save_models:
-                joblib.dump(pipe, run_dir / f"{model}_pipeline.joblib")
+            if a.save_models or a.refit_only:
+                joblib.dump(pipe, saved); json.dump(meta, open(run_dir / f"{model}_refit_meta.json", "w"), indent=2, default=float)
+            if a.refit_only:
+                print({"model": model, "fit_seconds": meta["fit_seconds"], "saved": str(saved)}, flush=True); continue
         # test-set metrics of this fit (full locked test set, 61,503 applicants): gives mean +- SD over retrainings
         from sklearn.metrics import average_precision_score, roc_auc_score, log_loss, brier_score_loss
         pt = pipe.predict_proba(data["X_test"][data["feats"]])[:, pos_column(pipe)].astype(np.float64)
@@ -365,6 +371,6 @@ if __name__ == "__main__":
     s.add_argument("--n", type=int, default=None); s.add_argument("--n_perm", type=int, default=2); s.add_argument("--n_perm_ensemble", type=int, default=1)
     s.add_argument("--seed", type=int, default=0)
     s.add_argument("--scale", default="probability", choices=["probability", "logodds"]); s.add_argument("--models", default=",".join(MODELS))
-    s.add_argument("--force", action="store_true"); s.add_argument("--save-models", action="store_true")
+    s.add_argument("--force", action="store_true"); s.add_argument("--save-models", action="store_true"); s.add_argument("--refit-only", action="store_true")
     a = ap.parse_args()
     {"select": cmd_select, "pilot": cmd_pilot, "explain": cmd_explain}[a.cmd](a)
