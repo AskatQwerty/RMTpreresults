@@ -328,147 +328,147 @@
   "mlp_warning_note": "Предупреждения относятся ко всему search+refit, включая кандидатов CV; они не доказывают достижение max_iter выбранной моделью.",
   "sources": [
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\experiment_manifest.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\experiment_manifest.json",
       "sha256": "7e98b0f5f844880e9688af80d419a108100e0e3846b77b8e09bbd146f5482e68"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\cohort_summary.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\cohort_summary.json",
       "sha256": "ef6c082413dba45520d7c22a09aa8e4a5691079d4afe732db8074a270c231644"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\experiment_summary.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\experiment_summary.json",
       "sha256": "2ca25a3c6a555d294b7ab096991a1e5ee2fb973b1fc729d79916b838ab107d84"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_1\\metrics.json",
       "sha256": "b6479ec655a6da331cff1d47ad43c35217246965658164c1a50bb80f19739e5a"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_2\\metrics.json",
       "sha256": "54e3e090ebf0485b88b6d6ba9638590fee2a246121c20cb6493516f5fd172cb1"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_3\\metrics.json",
       "sha256": "3ef79f0ab9339cd483c2eed0b37d95cddca71e8ba52635f4d5cdec2ecd96eebb"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\logistic_regression\\level_4\\metrics.json",
       "sha256": "692d853cf02ada2d87d7bc21b4362536ff3179f20fbf1755081e7da42eaed8cb"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_1\\metrics.json",
       "sha256": "20c3972a9ab6a5f627980708bcd525586ba97e7ef5b978a8ada75ee9cde1290b"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_2\\metrics.json",
       "sha256": "f7774293321986f5dc02dfb209d49d6b3e8d4dab9f8a25587d9ab51d8241bb02"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_3\\metrics.json",
       "sha256": "a7df952e08f9f5fe49acb5248dcee5e31ed49a788decff82a719ad65c3501fdd"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\random_forest\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\random_forest\\level_4\\metrics.json",
       "sha256": "8ee60fa17f3cb27e44d531ffa744da0e8c6f6adb5fe896879fcdb4d519b6b52c"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_1\\metrics.json",
       "sha256": "f584df12573e326ca930e3cf8ee49e28693a278afc8cff5f2f36d14598208fa9"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_2\\metrics.json",
       "sha256": "477a35871cc0a851f81896e42cdb50ac4d2847819814c720d7a5bca67dc790ea"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_3\\metrics.json",
       "sha256": "650420e1dbdb65de327f812d97792fd68b33a158a9705ba17f5ceee165466530"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\xgboost\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\xgboost\\level_4\\metrics.json",
       "sha256": "f4f09c0ff5276cc94c331f8a77255ebe46e66c1b4bba50b7a7a2080f11ab4366"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_1\\metrics.json",
       "sha256": "30c27714c55f0e3d18afc9cbf3826278ec23ccc2e86f833e6faafe6188100c8a"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_2\\metrics.json",
       "sha256": "432b5d84d251918f295755b8417e45d93abf4926a9c8c282a67a97a240042b94"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_3\\metrics.json",
       "sha256": "482bd0f3b2cc9b2db2d641b505d9eead75419fb53ee604d0c2b9d08b0f7cbb50"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\lightgbm\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\lightgbm\\level_4\\metrics.json",
       "sha256": "a5ea8ce9b04aee52c755dcb7bdc1635cccdc8990d399065241297ca61bc3f038"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\metrics.json",
       "sha256": "3efceadddc39e7903d56b65d624d3af20a88659ec4cd48e64ca0b1396fb8764d"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\fit_checkpoint\\fit_diagnostics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_1\\fit_checkpoint\\fit_diagnostics.json",
       "sha256": "1a335cbd5ac114eebcd39e0506c354c5c7a313ec1c4c4c66e02c58918ee21a10"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\metrics.json",
       "sha256": "b3547878b84f93ecb419d8aff2e3dca497d436aee65a447a28221e0e260f9766"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\fit_checkpoint\\fit_diagnostics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_2\\fit_checkpoint\\fit_diagnostics.json",
       "sha256": "15b462ddf61ebe7a9a1268c0a290810a42665141f12a0ae4df69161705ef113f"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\metrics.json",
       "sha256": "bb7e6c697ab44e142396b72fa0abc80060097f2837807669f7915c17bd481e73"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\fit_checkpoint\\fit_diagnostics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_3\\fit_checkpoint\\fit_diagnostics.json",
       "sha256": "8fd1d576abc296de0dcb34602c7a29c88147c0bd194ef4f4af78ad1386c7c50f"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\metrics.json",
       "sha256": "27adea91099e8568bc7f56b6a2fd7ac5ba15d5b170dac449968b86c03f347f3f"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\fit_checkpoint\\fit_diagnostics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\mlp\\level_4\\fit_checkpoint\\fit_diagnostics.json",
       "sha256": "bcec642ea79b137bb047aa59163212c5ab053feb5735ccc0b670d7c2d9c67a75"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_1\\metrics.json",
       "sha256": "68616c5d50baf4e454b746f3c4dfa259c0d8b2dfda51d13b9ff23af1356da358"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_2\\metrics.json",
       "sha256": "f4d56f428f07e8afff79e47b89e50456d7030942d79a11941850933c50ee89f1"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_3\\metrics.json",
       "sha256": "b58438171e44a163dac10cfdb1a9fbc4262b05213db5cca0193c6c16cd536809"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\soft_voting\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\soft_voting\\level_4\\metrics.json",
       "sha256": "cf39719ebe462977947d81d4d2f6d6da9d3e2e0e1409b5609439a2889762bcba"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_1\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_1\\metrics.json",
       "sha256": "1445bbe59d1b76124fd335cdcc37c8cb27de192afcb6bda904068847f2dd6624"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_2\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_2\\metrics.json",
       "sha256": "8cb1cc6c7bfb98ecdddb80c2ddb97c4e034fbb4525d385339f49d8090e89e26d"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_3\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_3\\metrics.json",
       "sha256": "939dd173b1c57f3de46d8d115991d40504419c3de2a456b352f010ae41bbaf1e"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\stacking\\level_4\\metrics.json",
+      "path": "artifacts\\training\\pilot_20k_5config\\stacking\\level_4\\metrics.json",
       "sha256": "6decfc791a0eb565ef6fe832c71987b40cdcc29fe902541e9960965db9c7f9db"
     },
     {
-      "path": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config\\events.jsonl",
+      "path": "artifacts\\training\\pilot_20k_5config\\events.jsonl",
       "sha256": "2cd815dd700554a15186778b38b2c622fdf1e056c0e8c6ed0da5bcf9b99ab48b"
     }
   ]
