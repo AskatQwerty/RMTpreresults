@@ -261,12 +261,12 @@
       "Повтор суммы AMT_INSTALMENT по нескольким платежным строкам не означает несколько обязательств."
     ],
     "artifacts": {
-      "installments_incomplete_key_fields.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_fields.csv",
-      "installments_incomplete_key_patterns.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_patterns.csv",
-      "installments_incomplete_key_by_split.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_key_by_split.csv",
-      "installments_incomplete_obligation_recovery.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_obligation_recovery.csv",
-      "installments_incomplete_client_retention.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_incomplete_client_retention.csv",
-      "installments_partial_payments_preservation.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\quality\\installments_partial_payments_preservation.csv"
+      "installments_incomplete_key_fields.csv": "reports\\quality\\installments_incomplete_key_fields.csv",
+      "installments_incomplete_key_patterns.csv": "reports\\quality\\installments_incomplete_key_patterns.csv",
+      "installments_incomplete_key_by_split.csv": "reports\\quality\\installments_incomplete_key_by_split.csv",
+      "installments_incomplete_obligation_recovery.csv": "reports\\quality\\installments_incomplete_obligation_recovery.csv",
+      "installments_incomplete_client_retention.csv": "reports\\quality\\installments_incomplete_client_retention.csv",
+      "installments_partial_payments_preservation.csv": "reports\\quality\\installments_partial_payments_preservation.csv"
     },
     "elapsed_seconds": 59.613
   },
