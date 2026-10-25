@@ -9,7 +9,7 @@ estimators with `src.model_pipelines.make_estimator` and the saved best paramete
 ```
 rq3/rq3_shap.py          select applicants/background, explain (fixed fits or refits)
 rq3/rq3_analyze.py       tables (CSV + LaTeX), figures (PDF), error analysis
-rq3/run_all.sh           the exact sequence that produced rq3/out/runs/*
+rq3/run_all.sh           example orchestration script; final-run settings are described below
 rq3/requirements-rq3.txt package versions used (training versions + shap)
 rq3/out/selection.json   sampling rule and seeds
 rq3/out/explained_ids.parquet, background_ids.parquet
@@ -29,6 +29,8 @@ python rq3/rq3_shap.py select
 bash rq3/run_all.sh          # or the individual `explain` commands inside it
 python rq3/rq3_analyze.py
 ```
+
+The shell launchers retain example and earlier orchestration settings. The final five-refit experiment used seeds 1--5, 500 applicants for each base model and 300 for each ensemble, with one forward/reverse permutation pair per applicant. The saved-fit and noise experiments used their separately reported settings; the launcher defaults should not be interpreted as the exact final execution record.
 
 ## Method notes
 

@@ -183,7 +183,7 @@ def stability(exp, feats, runs):
         piv = w.pivot(index="Model", columns="metric", values="val").reindex([LONG[m] for m in models])[["ap", "roc_auc", "log_loss", "brier"]].reset_index()
         piv.columns = ["Model", "PR-AUC", "ROC-AUC", "Log-loss", "Brier"]
         latex_table(piv, f"Test-set metrics of the {R} retrained models per type (Level 4, same locked test set, 61,503 applicants): mean $\\pm$ s.d.\\ over retrainings.",
-                    "tab:rq3_refit_metrics", ["Model", "PR-AUC", "ROC-AUC", "Log-loss", "Brier"], TAB / "rq3_refit_test_metrics.tex")
+                    "tab:rq3_refit_metrics", ["Model", "PR-AUC", "ROC-AUC", "Log-loss", "Brier"], TAB / "rq3_refit_test_metrics.tex", env="table*")
     diff = []
     if "logistic_regression" in per_app:
         lr = per_app["logistic_regression"]
