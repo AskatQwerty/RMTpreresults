@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\caption{Test-set metrics of the 5 retrained models per type (Level 4, same locked test set, 61,503 applicants): mean $\pm$ s.d.\ over retrainings.}
+\label{tab:rq3_refit_metrics}
+\centering
+\small
+\begin{tabular}{lcccc}
+\hline
+Model & PR-AUC & ROC-AUC & Log-loss & Brier \\
+\hline
+Logistic regression & 0.2343 $\pm$ 0.0016 & 0.7573 $\pm$ 0.0008 & 0.2514 $\pm$ 0.0007 & 0.0684 $\pm$ 0.0001 \\
+Random forest & 0.2332 $\pm$ 0.0010 & 0.7489 $\pm$ 0.0006 & 0.2499 $\pm$ 0.0002 & 0.0686 $\pm$ 0.0000 \\
+XGBoost & 0.2470 $\pm$ 0.0010 & 0.7623 $\pm$ 0.0012 & 0.2454 $\pm$ 0.0003 & 0.0677 $\pm$ 0.0001 \\
+LightGBM & 0.2503 $\pm$ 0.0009 & 0.7657 $\pm$ 0.0005 & 0.2444 $\pm$ 0.0001 & 0.0675 $\pm$ 0.0000 \\
+MLP & 0.1472 $\pm$ 0.0015 & 0.6564 $\pm$ 0.0037 & 0.9445 $\pm$ 0.0296 & 0.1043 $\pm$ 0.0017 \\
+Soft voting & 0.2569 $\pm$ 0.0018 & 0.7702 $\pm$ 0.0008 & 0.2429 $\pm$ 0.0003 & 0.0672 $\pm$ 0.0001 \\
+Stacking & 0.2577 $\pm$ 0.0020 & 0.7699 $\pm$ 0.0008 & 0.2489 $\pm$ 0.0003 & 0.0680 $\pm$ 0.0001 \\
+\hline
+\end{tabular}
+\end{table*}
