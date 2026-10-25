@@ -133,7 +133,7 @@
   "outer_fit_attempts_recorded": 9,
   "outer_fits_finished_recorded": 8,
   "outer_fits_started_recorded": 9,
-  "pilot_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
+  "pilot_root": "artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
   "primitive_fit_counts_fully_known": true,
   "primitive_fits_finished_recorded": 34,
   "primitive_fits_unfinished_recorded": 1,

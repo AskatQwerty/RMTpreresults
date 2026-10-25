@@ -343,7 +343,7 @@
       "worker_elapsed_seconds": 521.1999749999995
     }
   ],
-  "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
+  "root": "artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
   "rows": 221407,
   "scope": "resource_pilot",
   "selected_configurations_file": "selected_configurations.json",
