@@ -1,0 +1,59 @@
+test_all_empty_train_column_kept_and_validation_observed_preserved (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_all_empty_train_column_kept_and_validation_observed_preserved) ... ok
+test_all_numeric_columns_empty (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_all_numeric_columns_empty) ... ok
+test_clone_is_unfitted_and_original_input_unchanged (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_clone_is_unfitted_and_original_input_unchanged) ... ok
+test_factory_does_not_fit (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_factory_does_not_fit) ... ok
+test_folds_have_same_width_names_even_when_missingness_changes (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_folds_have_same_width_names_even_when_missingness_changes) ... ok
+test_median_uses_only_training_values (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_median_uses_only_training_values) ... ok
+test_new_validation_missing_gets_indicator (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_new_validation_missing_gets_indicator) ... ok
+test_scaler_fitted_only_values_and_empty_column_safe (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_scaler_fitted_only_values_and_empty_column_safe) ... ok
+test_smoke_report_has_no_real_data_fit (test_fold_preprocessing.FoldSafeNumericPipelineTests.test_smoke_report_has_no_real_data_fit) ... ok
+test_all_seven_factories_clone_and_unfitted (test_model_training.ModelPipelineTests.test_all_seven_factories_clone_and_unfitted) ... ok
+test_full_search_has_twenty_distinct_valid_configurations (test_model_training.ModelPipelineTests.test_full_search_has_twenty_distinct_valid_configurations) ... ok
+test_nullable_boolean_category_accepts_true_false_and_missing (test_model_training.ModelPipelineTests.test_nullable_boolean_category_accepts_true_false_and_missing) ... ok
+test_numeric_and_categorical_train_only_statistics (test_model_training.ModelPipelineTests.test_numeric_and_categorical_train_only_statistics) ... ok
+test_randomized_search_fits_preprocessing_inside_each_training_fold (test_model_training.ModelPipelineTests.test_randomized_search_fits_preprocessing_inside_each_training_fold) ... ok
+test_seven_models_predict_probabilities_and_serialize (test_model_training.ModelPipelineTests.test_seven_models_predict_probabilities_and_serialize) ... ok
+test_stacking_internal_oof_refits_each_base_preprocessor (test_model_training.ModelPipelineTests.test_stacking_internal_oof_refits_each_base_preprocessor) ... ok
+application: 60 клиентов, 124 признаков; 0.1 с
+bureau: 2 клиентов, 42 признаков; 0.0 с
+bb: 2 клиентов, 10 признаков; 0.0 с
+pos: 1 клиентов, 19 признаков; 0.0 с
+cc: 1 клиентов, 65 признаков; 0.1 с
+installments: 2 клиентов, 21 признаков; 0.0 с
+previous: 1 клиентов, 35 признаков; 0.0 с
+Level 1: 60 x 124; 0.0 MiB
+Level 2: 60 x 178; 0.0 MiB
+Level 3: 60 x 264; 0.1 MiB
+Level 4: 60 x 322; 0.1 MiB
+test_application_ratios_and_placeholders (test_preparation_semantics.PreparationSemanticsTests.test_application_ratios_and_placeholders) ... ok
+test_bureau_mapping_and_asof_months (test_preparation_semantics.PreparationSemanticsTests.test_bureau_mapping_and_asof_months) ... ok
+test_decimal_partial_payments_are_exact_and_order_independent (test_preparation_semantics.PreparationSemanticsTests.test_decimal_partial_payments_are_exact_and_order_independent) ... ok
+test_history_uses_own_cutoffs_and_retains_missing_previous (test_preparation_semantics.PreparationSemanticsTests.test_history_uses_own_cutoffs_and_retains_missing_previous) ... ok
+test_missing_history_preserves_nulls_and_people (test_preparation_semantics.PreparationSemanticsTests.test_missing_history_preserves_nulls_and_people) ... ok
+test_partial_payments_and_future_scheduled_prepayment (test_preparation_semantics.PreparationSemanticsTests.test_partial_payments_and_future_scheduled_prepayment) ... ok
+test_previous_planned_dates_and_placeholder (test_preparation_semantics.PreparationSemanticsTests.test_previous_planned_dates_and_placeholder) ... ok
+test_sensitive_fields_only_in_sidecar (test_preparation_semantics.PreparationSemanticsTests.test_sensitive_fields_only_in_sidecar) ... ok
+test_shared_stratified_splits_and_seed_repeats (test_preparation_semantics.PreparationSemanticsTests.test_shared_stratified_splits_and_seed_repeats) ... ok
+test_arrow_boolean_is_a_categorical_feature (test_training_orchestration.TrainingOrchestrationTests.test_arrow_boolean_is_a_categorical_feature) ... ok
+logistic_regression L4: search 2 x 3, 0.3s, CV log-loss=0.18269
+logistic_regression L4 seed=42: fit 0.0s; development_technical_validation log-loss=0.16542
+test_completed_repeat_resumes_and_probabilities_retain_ids (test_training_orchestration.TrainingOrchestrationTests.test_completed_repeat_resumes_and_probabilities_retain_ids) ... ok
+logistic_regression L4: search 2 x 3, 0.2s, CV log-loss=0.18269
+test_completed_search_resumes_without_another_fit (test_training_orchestration.TrainingOrchestrationTests.test_completed_search_resumes_without_another_fit) ... ok
+logistic_regression L4: search 2 x 3, 0.2s, CV log-loss=0.18269
+test_context_mismatch_is_rejected_for_run_and_stage (test_training_orchestration.TrainingOrchestrationTests.test_context_mismatch_is_rejected_for_run_and_stage) ... ok
+logistic_regression L4: search 2 x 3, 0.2s, CV log-loss=0.18269
+test_corrupt_completed_artifact_is_rejected (test_training_orchestration.TrainingOrchestrationTests.test_corrupt_completed_artifact_is_rejected) ... ok
+test_loader_forbids_test_in_technical_mode (test_training_orchestration.TrainingOrchestrationTests.test_loader_forbids_test_in_technical_mode) ... ok
+test_loader_preserves_requested_id_and_target_order (test_training_orchestration.TrainingOrchestrationTests.test_loader_preserves_requested_id_and_target_order) ... ok
+test_repeat_rejects_wrong_train_or_evaluation_targets (test_training_orchestration.TrainingOrchestrationTests.test_repeat_rejects_wrong_train_or_evaluation_targets) ... ok
+test_saved_cv_is_mapped_by_id_even_for_reordered_frame (test_training_orchestration.TrainingOrchestrationTests.test_saved_cv_is_mapped_by_id_even_for_reordered_frame) ... ok
+test_search_rejects_misaligned_or_incorrect_targets (test_training_orchestration.TrainingOrchestrationTests.test_search_rejects_misaligned_or_incorrect_targets) ... ok
+logistic_regression L4: search 2 x 3, 0.2s, CV log-loss=0.18269
+test_unfinished_search_restarts_instead_of_trusting_partial_json (test_training_orchestration.TrainingOrchestrationTests.test_unfinished_search_restarts_instead_of_trusting_partial_json) ... ok
+test_xgboost_receives_explicit_dense_zero_while_lr_uses_csr (test_training_orchestration.TrainingOrchestrationTests.test_xgboost_receives_explicit_dense_zero_while_lr_uses_csr) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 9.152s
+
+OK

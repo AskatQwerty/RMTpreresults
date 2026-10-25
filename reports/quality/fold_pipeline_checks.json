@@ -1,0 +1,23 @@
+{
+  "scope": "synthetic_only_no_fit_on_home_credit",
+  "sklearn_version": "1.7.2",
+  "all_checks_passed": true,
+  "raw_numeric_columns": 3,
+  "transformed_columns": 6,
+  "empty_train_column_fallback": 0,
+  "median_for_partly_missing_train_column": 2,
+  "validation_observed_value_in_empty_train_column_preserved": true,
+  "new_validation_missing_value_has_indicator": true,
+  "width_is_twice_numeric_column_count": true,
+  "feature_names": [
+    "values__empty_in_train",
+    "values__partly_missing",
+    "values__complete_in_train",
+    "missing__missingindicator_empty_in_train",
+    "missing__missingindicator_partly_missing",
+    "missing__missingindicator_complete_in_train"
+  ],
+  "fit_policy_ru": "fit только на train каждого CV-фолда или 90%-ного повтора; test/validation не участвуют",
+  "fallback_policy_ru": "Для полностью пустого train-столбца фиксированный 0 и индикатор пропуска; столбец не удаляется",
+  "category_policy_ru": "Обучаемое кодирование категорий — отдельная ветка полного Pipeline, здесь не выполняется"
+}

@@ -1,0 +1,3 @@
+﻿feature,first_level,levels,dtype,n_development,missing,missing_fraction,n_unique_observed,all_missing,constant_among_observed,constant_including_missing,constant_value
+CC_SK_DPD_MIN,3,"3,4",float64,246008,176325,0.7167449839029625,1,False,True,False,0.0
+CC_SK_DPD_DEF_MIN,3,"3,4",float64,246008,176325,0.7167449839029625,1,False,True,False,0.0

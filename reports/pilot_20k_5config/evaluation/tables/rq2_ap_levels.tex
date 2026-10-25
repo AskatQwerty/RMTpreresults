@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{PR-AUC (average precision, AP) across information levels. Pointwise, unadjusted, exploratory 95\% percentile bootstrap CI; fixed trained models.}
+\label{tab:rq2-ap-levels}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+Model & Level 1 & Level 2 & Level 3 & Level 4 \\
+\midrule
+Logistic regression & \shortstack{{0.2229} \\ {[0.2128, 0.2342]}} & \shortstack{{0.2202} \\ {[0.2104, 0.2307]}} & \shortstack{{0.2323} \\ {[0.2214, 0.2447]}} & \shortstack{{0.2367} \\ {[0.2260, 0.2483]}} \\
+Random forest & \shortstack{{0.2201} \\ {[0.2094, 0.2312]}} & \shortstack{{0.2187} \\ {[0.2079, 0.2296]}} & \shortstack{{0.2306} \\ {[0.2199, 0.2418]}} & \shortstack{{0.2353} \\ {[0.2245, 0.2469]}} \\
+XGBoost & \shortstack{{0.2208} \\ {[0.2104, 0.2322]}} & \shortstack{{0.2288} \\ {[0.2179, 0.2405]}} & \shortstack{{0.2427} \\ {[0.2320, 0.2549]}} & \shortstack{{0.2471} \\ {[0.2361, 0.2587]}} \\
+LightGBM & \shortstack{{0.2300} \\ {[0.2194, 0.2415]}} & \shortstack{{0.2317} \\ {[0.2207, 0.2438]}} & \shortstack{{0.2447} \\ {[0.2344, 0.2573]}} & \shortstack{{0.2511} \\ {[0.2402, 0.2637]}} \\
+MLP & \shortstack{{0.1371} \\ {[0.1310, 0.1435]}} & \shortstack{{0.1283} \\ {[0.1231, 0.1340]}} & \shortstack{{0.1379} \\ {[0.1318, 0.1447]}} & \shortstack{{0.1436} \\ {[0.1373, 0.1502]}} \\
+Soft voting & \shortstack{{0.2338} \\ {[0.2231, 0.2453]}} & \shortstack{{0.2390} \\ {[0.2279, 0.2512]}} & \shortstack{{0.2529} \\ {[0.2414, 0.2659]}} & \shortstack{{0.2587} \\ {[0.2475, 0.2712]}} \\
+Stacking & \shortstack{{0.2344} \\ {[0.2236, 0.2463]}} & \shortstack{{0.2401} \\ {[0.2287, 0.2521]}} & \shortstack{{0.2558} \\ {[0.2441, 0.2689]}} & \shortstack{{0.2603} \\ {[0.2493, 0.2727]}} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

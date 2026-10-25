@@ -1,0 +1,10 @@
+invocation,model,status,evidence_directory,fit_started,fit_completed,fit_seconds_if_completed,fit_time_source,primitive_fits_finished,primitive_fits_unfinished,model_size_bytes,rows,raw_features,monitor_elapsed_seconds,peak_ram_gib
+origin/attempt_history/001_resource_guard,logistic_regression,completed,origin_pilot\attempt_history\001_resource_guard\logistic_regression,True,True,46.27021769999919,resource_result,1,0,21303.0,221407,322,54.0926829,4.517326354980469
+origin/attempt_history/001_resource_guard,random_forest,resource_guard,origin_pilot\attempt_history\001_resource_guard\random_forest,True,False,,,0,1,,221407,322,1230.3198266,3.8155517578125
+origin/current,random_forest,completed,origin_pilot\random_forest,True,True,1387.865300999998,resource_result,1,0,34641600.0,221407,322,1396.082687799999,3.8095130920410156
+origin/current,xgboost,completed,origin_pilot\xgboost,True,True,60.445357600001444,resource_result,1,0,253444.0,221407,322,66.9625608000024,3.8120498657226562
+origin/current,lightgbm,completed,origin_pilot\lightgbm,True,True,43.70412039999792,resource_result,1,0,489040.0,221407,322,50.268413599998894,3.7978363037109375
+origin/current,mlp,completed,origin_pilot\mlp,True,True,790.3219295000017,resource_result,1,0,730390.0,221407,322,796.7427333000014,4.519527435302734
+origin/current,soft_voting,completed,origin_pilot\soft_voting,True,True,141.34021959999882,resource_result,3,0,766621.0,221407,322,148.4997782999999,4.964088439941406
+origin/current,stacking,failed,origin_pilot\stacking,True,True,445.50624700000117,phase_after_successful_fit,13,0,,221407,322,451.9188780000004,4.980918884277344
+current,stacking,completed,stacking,True,True,514.9146121000012,resource_result,13,0,766911.0,221407,322,524.3165547000026,4.981922149658203

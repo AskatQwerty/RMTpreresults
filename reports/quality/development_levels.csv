@@ -1,0 +1,5 @@
+﻿level,rows,total_features,numeric_features,all_missing_numeric,constant_observed_numeric
+1,246008,124,109,0,0
+2,246008,178,163,0,0
+3,246008,264,249,0,2
+4,246008,322,307,0,2

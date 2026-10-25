@@ -1,0 +1,242 @@
+{
+  "scope": "pilot_20k_5config",
+  "test_rows": 61503,
+  "test_positives": 4965,
+  "all_28_aligned": true,
+  "positive_class": 1,
+  "positive_class_evidence": "SHA-verified frozen positive_probability selects column where estimator.classes_ == 1; research_pilot saved this vector.",
+  "canonical_order": "ascending SK_ID_CURR; all joins explicit one-to-one",
+  "unknown_group_counts": {
+    "gender": 2,
+    "age": 0
+  },
+  "unknown_policy": "retained in quality/profit; reported separately, excluded only from binary group gaps",
+  "age_definition": "saved AGE_GROUP <25 / >=25; exactly25 belongs to >=25",
+  "checks": [
+    {
+      "model": "logistic_regression",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "xgboost",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "xgboost",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "xgboost",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "xgboost",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "stacking",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "stacking",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "stacking",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "stacking",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "mlp",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "mlp",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "mlp",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "mlp",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "random_forest",
+      "level": 1,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "random_forest",
+      "level": 2,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "random_forest",
+      "level": 3,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    },
+    {
+      "model": "random_forest",
+      "level": 4,
+      "test_rows": 61503,
+      "same_ids": true,
+      "target_matches_after_merge": true,
+      "finite_probabilities_in_0_1": true
+    }
+  ],
+  "errors": []
+}

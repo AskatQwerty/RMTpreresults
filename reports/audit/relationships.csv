@@ -1,0 +1,31 @@
+﻿table,check,rows_or_ids,interpretation
+bureau.csv,rows_outside_labeled_applications,251103,Ожидаемо возможны клиенты без опубликованного TARGET; не использовать в X
+bureau.csv,distinct_clients_outside_labeled_applications,42320,Не означает сиротский ключ в полном конкурсе; application_test не используется
+bureau.csv,rows_linked_to_labeled_applications,1465325,История с владельцем из application_train
+POS_CASH_balance.csv,rows_outside_labeled_applications,1457983,Ожидаемо возможны клиенты без опубликованного TARGET; не использовать в X
+POS_CASH_balance.csv,distinct_clients_outside_labeled_applications,47808,Не означает сиротский ключ в полном конкурсе; application_test не используется
+POS_CASH_balance.csv,rows_linked_to_labeled_applications,8543375,История с владельцем из application_train
+credit_card_balance.csv,rows_outside_labeled_applications,612347,Ожидаемо возможны клиенты без опубликованного TARGET; не использовать в X
+credit_card_balance.csv,distinct_clients_outside_labeled_applications,16653,Не означает сиротский ключ в полном конкурсе; application_test не используется
+credit_card_balance.csv,rows_linked_to_labeled_applications,3227965,История с владельцем из application_train
+installments_payments.csv,rows_outside_labeled_applications,2013809,Ожидаемо возможны клиенты без опубликованного TARGET; не использовать в X
+installments_payments.csv,distinct_clients_outside_labeled_applications,47944,Не означает сиротский ключ в полном конкурсе; application_test не используется
+installments_payments.csv,rows_linked_to_labeled_applications,11591592,История с владельцем из application_train
+previous_application.csv,rows_outside_labeled_applications,256513,Ожидаемо возможны клиенты без опубликованного TARGET; не использовать в X
+previous_application.csv,distinct_clients_outside_labeled_applications,47800,Не означает сиротский ключ в полном конкурсе; application_test не используется
+previous_application.csv,rows_linked_to_labeled_applications,1413701,История с владельцем из application_train
+bureau_balance.csv,rows_without_bureau_parent,3120184,Сиротские строки bureau_balance: родитель bureau отсутствует
+bureau_balance.csv,bureau_ids_without_parent,43041,Число отсутствующих родительских SK_ID_BUREAU
+bureau_balance.csv,rows_with_unlabeled_bureau_owner,9478129,"Родитель существует, но владелец вне application_train"
+bureau_balance.csv,rows_linked_via_bureau_to_labeled_applications,14701612,Полная связь bureau_balance → bureau → текущая заявка
+previous_application.csv,previous_ids_with_multiple_owners,0,Один предыдущий договор не должен принадлежать нескольким текущим заявкам
+bureau.csv,bureau_ids_with_multiple_owners,0,Один бюро-договор не должен принадлежать нескольким текущим заявкам
+POS_CASH_balance.csv,rows_without_previous_parent,340561,Сиротские строки: отсутствует предыдущая заявка
+POS_CASH_balance.csv,previous_ids_without_parent,37422,Количество предыдущих договоров без родителя
+POS_CASH_balance.csv,rows_with_previous_owner_mismatch,0,SK_ID_CURR истории не совпадает с владельцем SK_ID_PREV
+credit_card_balance.csv,rows_without_previous_parent,1082816,Сиротские строки: отсутствует предыдущая заявка
+credit_card_balance.csv,previous_ids_without_parent,11372,Количество предыдущих договоров без родителя
+credit_card_balance.csv,rows_with_previous_owner_mismatch,0,SK_ID_CURR истории не совпадает с владельцем SK_ID_PREV
+installments_payments.csv,rows_without_previous_parent,1250826,Сиротские строки: отсутствует предыдущая заявка
+installments_payments.csv,previous_ids_without_parent,38847,Количество предыдущих договоров без родителя
+installments_payments.csv,rows_with_previous_owner_mismatch,0,SK_ID_CURR истории не совпадает с владельцем SK_ID_PREV

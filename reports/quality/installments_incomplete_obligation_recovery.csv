@@ -1,0 +1,4 @@
+﻿split,affected_obligations,obligations_with_other_valid_payments,obligations_without_valid_payments,other_valid_payment_rows,obligations_in_saved_aggregation
+development,2091,0,2091,0.0,0
+outside_labeled_applications,322,0,322,0.0,0
+test,492,0,492,0.0,0

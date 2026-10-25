@@ -1,0 +1,752 @@
+{
+  "scope": "pilot_20k_5config",
+  "analysis": "Assignment3 preliminary RQ1/RQ2",
+  "training_fingerprint": "76694fae1518c109858188e2c343e71ac9348e6528f70b7be098ac26016c729d",
+  "source_sha256": {
+    "prepared/aggregates/application.parquet": "8552d8ddfecfc94a21198d7f219dc3cdea6648eacf93046f1d4681f274f8be89",
+    "prepared/aggregates/bb.parquet": "a434a9f11577f5aa23b99dcefc66d42b7275675db516546065a54db1a90fce94",
+    "prepared/aggregates/bureau.parquet": "2c3cec01e8a651e4a6e4ace1130f39ef9e1ad36e6702b07e90fafb21f1f3745e",
+    "prepared/aggregates/bureau_id_map.parquet": "951157614fbad51b4a118fb251587412f4b2a2af41050ce3d5fa1ad23621a09a",
+    "prepared/aggregates/cc.parquet": "1ffda6c7a4578964d4cfb7ea355813a2f85da286af06fccea8c5c148ccc16ee9",
+    "prepared/aggregates/installment_obligations.parquet": "52ea32b4e38012cec398ce664a84c3e2ccd44ae43a8a329e597118ffb99dba87",
+    "prepared/aggregates/installments.parquet": "0833e447144ef5d8b4bbb10b5c386e3ddc726c8be129c335d2efd46a2b817264",
+    "prepared/aggregates/pos.parquet": "6b61eb65f51e5b985ea88638f3c89220f090860c761acb2df6347de216ef677f",
+    "prepared/aggregates/previous.parquet": "d6db9f948c99220d66432aa2a3f707c6e10a3b7f990ad3b2b8c417a0612ad669",
+    "prepared/fairness.parquet": "3f3e48f8e55d4ab7173ed41a8dcaa5bb4da5c8165b46dec081097e79f75a93f9",
+    "prepared/feature_levels.json": "8eeb526ef363cff1e2be2a919b6d430a432278a48d3688226ddab19c7db22f61",
+    "prepared/features_level_1.json": "862de9e36a36e1c7c8ee4e481fc1f166c6e28daa5dc531ea65d8b1856adf4658",
+    "prepared/features_level_2.json": "5c2ce8c0ac7a2b0ab8d0a07d42ab1a7f7bb3a56ec9678c26277cbef7fbb9087d",
+    "prepared/features_level_3.json": "70f9e647f83916ea7a83ef659962f3d2c507ce3dbcb873c4a43ee204a90560c4",
+    "prepared/features_level_4.json": "2af1a7d6d79ce62a39a8f7e7a8b1c4ea436b062d48d15f976dba7af642bcfcda",
+    "prepared/row_ids.parquet": "2eae26accb8f9b32b19eca22e67a630841e42535f219b03a23732a8e5577bc09",
+    "prepared/splits/cv_folds.parquet": "6fcb55ec32aeb7d04a208410fb37ee85e5ce0ed952e00747a1e82c11a273b54b",
+    "prepared/splits/development_ids.parquet": "caedcb7293cdacc2c4a016036e0883f2611ff6fc43a551a708fac3f8db952b69",
+    "prepared/splits/test_ids.parquet": "822c5e4ed47791ed3853c367ac6862303373717b1c187e8f11e80d8c64f96658",
+    "prepared/splits/train_seed_42_ids.parquet": "4cdd69662e4414bddd126e507356994f9f8230a3934cc45799743d4bb91ca3b2",
+    "prepared/splits/train_seed_43_ids.parquet": "bc1603660a693303c6c406e3dde405dae29a6a6ae1fa27b96e7148a2ab11760c",
+    "prepared/splits/train_seed_44_ids.parquet": "c997440d4c0b6a482b667f7a2558c3ea41d7cf882b64e4c8e011bc0a7af751c2",
+    "prepared/splits/train_seed_45_ids.parquet": "7dbc0b05a948dd4c8282ff87274055a996b3a813366d9e1404345adc40a19677",
+    "prepared/splits/train_seed_46_ids.parquet": "f4238cfe1cdc24157a34e27d09ab487645b7b59afa9d109f392013417fbca841",
+    "prepared/target.parquet": "2fd1ee7e8f9982f30a97499ea4f3fa8c50fac9665c9436513ec3b2bd8fd72104",
+    "prepared/X_level_1.parquet": "bb2021feff9ec5da3aa8dd65f6bd65e7ccf2d98245f29b8d4f29265b1bfce4ec",
+    "prepared/X_level_2.parquet": "7544a6f422c11f6ed19204643b9caed14e145d8991e2d9c9f8855fd4ddbcd0e9",
+    "prepared/X_level_3.parquet": "47bc3af3c4f151486810a4b9823daa5125e634404731f4f3d764938ca2e3774e",
+    "prepared/X_level_4.parquet": "ccb29e5ba1fd15ef535466eb75dc42dddc547fb742e036b091c15efa683aacba",
+    "training/cohort_contract.json": "5df250a74bd0dabeeea57798689935d8f78f844ec7d5edb9006204bedfab2730",
+    "training/cohort_ids.parquet": "c398b1116c3b73917814d2a5758efc81bacfc5e4cbb74d51f15d41405ad1deb3",
+    "training/cohort_summary.json": "ef6c082413dba45520d7c22a09aa8e4a5691079d4afe732db8074a270c231644",
+    "training/cohort_targets.parquet": "a65f580d9bd7dd3068e459a82d6d492907c0c0de3d8fd2ea930dbcdc245bbe7c",
+    "training/cv_folds.parquet": "38f1187c3bd06e61dd2cdbc69acad19d353749a7d8b99cca41d0cf38885dd201",
+    "training/events.jsonl": "2cd815dd700554a15186778b38b2c622fdf1e056c0e8c6ed0da5bcf9b99ab48b",
+    "training/experiment_manifest.json": "7e98b0f5f844880e9688af80d419a108100e0e3846b77b8e09bbd146f5482e68",
+    "training/experiment_summary.json": "2ca25a3c6a555d294b7ab096991a1e5ee2fb973b1fc729d79916b838ab107d84",
+    "training/lightgbm/level_1/attempt_logs/attempt_001.log": "3addc0e6bf48fbffbe43bdbb362256fd95be8ea54a864c6102a5fbdeb83b0a8a",
+    "training/lightgbm/level_1/complete.json": "5141cff36d36f19489175c0a8baf8aae3354c7e8ba8fe8a2e399b9fd147f8efa",
+    "training/lightgbm/level_1/fit_checkpoint/best_params.json": "1f133b3e18542d94426f9f707b3766f61f5020682df1f4447cc863b3592bedc2",
+    "training/lightgbm/level_1/fit_checkpoint/complete.json": "d401ae3dfe99719a10af5771ab1b3bbe743ad9833c36e30e8f79424067f5e940",
+    "training/lightgbm/level_1/fit_checkpoint/cv_results.parquet": "192e76093b127bc2af8b4938212f259ed3920507774865b75b0c132def698d20",
+    "training/lightgbm/level_1/fit_checkpoint/fit_diagnostics.json": "389beaa81668108d13a15fa4df89b92d7ba111a15a0276ae50394b190c72909b",
+    "training/lightgbm/level_1/fit_checkpoint/fit_summary.json": "9dd0e81800da21969b3c213c1f2ff808f5a06bbc06637531286d395e2a7d0142",
+    "training/lightgbm/level_1/fit_checkpoint/pipeline.joblib": "113c414f2e262275ad253397ca0b87743340cbd6080de4e0186200aaee347e3d",
+    "training/lightgbm/level_1/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_1/metrics.json": "30c27714c55f0e3d18afc9cbf3826278ec23ccc2e86f833e6faafe6188100c8a",
+    "training/lightgbm/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_1/probabilities.parquet": "8d1f7f1a136b66543ca191b8dbb928c427249d2186f904bb8d91908308a49fbe",
+    "training/lightgbm/level_2/attempt_logs/attempt_001.log": "9480608836b5b4f68328d50bd95a67e8fef5588b258677a8e2f356cd822b7627",
+    "training/lightgbm/level_2/complete.json": "0a3b0282531a3b153e951a94adeef82caf692ca2ac03732ccc4aee76c590f069",
+    "training/lightgbm/level_2/fit_checkpoint/best_params.json": "105856d7ed929f1380cfe0e73471516f5200afeecd134db19846dd5bb1d17acc",
+    "training/lightgbm/level_2/fit_checkpoint/complete.json": "832a10652117ce154c070c93ee6b9f96090c506362824751b6d62c9f07dbb92a",
+    "training/lightgbm/level_2/fit_checkpoint/cv_results.parquet": "a38de07021439c691bda7abac2ee030590e572a6febba027d575e62430b126a9",
+    "training/lightgbm/level_2/fit_checkpoint/fit_diagnostics.json": "8be5652fa6d9501d8dbf044054d71edd48a62e346bbc9987d672dba24920eeb7",
+    "training/lightgbm/level_2/fit_checkpoint/fit_summary.json": "dacfef210f50ca230f4c13396ad0f9c56c2ea31669e7b82978c805ede842d21d",
+    "training/lightgbm/level_2/fit_checkpoint/pipeline.joblib": "dd8a99e4e5141e0bfba050cc8df504480dfab1abe746f69227abcc9fec435d6f",
+    "training/lightgbm/level_2/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_2/metrics.json": "432b5d84d251918f295755b8417e45d93abf4926a9c8c282a67a97a240042b94",
+    "training/lightgbm/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_2/probabilities.parquet": "4340498631f2e6aeee89960086f4d0453d54f7a8a0d54e7c36c7ad084b40b684",
+    "training/lightgbm/level_3/attempt_logs/attempt_001.log": "1ca2ef54bf8f08234c14c8baabff5d865a4e0cc01ef5fae72a124e24c1cd05c9",
+    "training/lightgbm/level_3/complete.json": "e5621c12a1c645d1a56efe6fc134eefcbb98e86ef27fcc168ed84dfe54976ab6",
+    "training/lightgbm/level_3/fit_checkpoint/best_params.json": "8f52a66dc8228a9666c7cdcbfede07b5f3614b16ce59abb80d16553b1a1436c2",
+    "training/lightgbm/level_3/fit_checkpoint/complete.json": "30b14e07a4f0961b38dd22569f781756deb1ac4a2634d244c309741dbd1428d5",
+    "training/lightgbm/level_3/fit_checkpoint/cv_results.parquet": "ea7366a5d366fd6642b3c7534466292cda4a84253fdec09928ea8221a127f764",
+    "training/lightgbm/level_3/fit_checkpoint/fit_diagnostics.json": "6923f283482c579a6c55de0268b93bb5f1a81cac890daf0849757c5217defec7",
+    "training/lightgbm/level_3/fit_checkpoint/fit_summary.json": "c272da85b8886363b3e1fb92e305d7d9691bb669a3a7b66d25bb32486a943ec2",
+    "training/lightgbm/level_3/fit_checkpoint/pipeline.joblib": "53cb055cf9bb0cca2f4fab3e185ece151a2b6c721ef9456ddb17f151abf28759",
+    "training/lightgbm/level_3/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_3/metrics.json": "482bd0f3b2cc9b2db2d641b505d9eead75419fb53ee604d0c2b9d08b0f7cbb50",
+    "training/lightgbm/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_3/probabilities.parquet": "c18a42ab57ae927485f1ddc4385be300a68719b2f06fe8bed0471f56cc17288a",
+    "training/lightgbm/level_4/attempt_logs/attempt_001.log": "89d631b52bcda2f55acc5a2420b450528e82e92e7018ca9f9809b98c44dcc1dd",
+    "training/lightgbm/level_4/complete.json": "cf24bce1ca0dde8ece06711323a8bf76dddb11d19fd31d92fee5cd1cfd2c7edf",
+    "training/lightgbm/level_4/fit_checkpoint/best_params.json": "ef2ae89c66678ea027e9de8c133e6b9e286779bbe72a3a0466bb1de9fa2f2da9",
+    "training/lightgbm/level_4/fit_checkpoint/complete.json": "c78f82a0a467e68a68ee3bad3d1e539c4d5316c08d1ad743a5f501abab594fcb",
+    "training/lightgbm/level_4/fit_checkpoint/cv_results.parquet": "09c8af891fafcb55e334ff6daf19fed43dff21d7be83b8c928f0c68d4bea5467",
+    "training/lightgbm/level_4/fit_checkpoint/fit_diagnostics.json": "5aba3f849eb8c20eea920fe53def76ad45403cd653dfb55fdc6c5ccdc5d067ce",
+    "training/lightgbm/level_4/fit_checkpoint/fit_summary.json": "8aaba5f000effe6c2127387fedc301733802dcf8e5afac18b184259b46a7ebfd",
+    "training/lightgbm/level_4/fit_checkpoint/pipeline.joblib": "f531f3c0fdeea906bd475b894d2968434e30fbc6342b1de5963461e3b446fb50",
+    "training/lightgbm/level_4/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_4/metrics.json": "a5ea8ce9b04aee52c755dcb7bdc1635cccdc8990d399065241297ca61bc3f038",
+    "training/lightgbm/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/lightgbm/level_4/probabilities.parquet": "f5301cae307d9ac96b7136d8e0fffe135ddbc0e559ca08c44c2330d329369e21",
+    "training/logistic_regression/level_1/attempt_logs/attempt_001.log": "557780fc56c7f620d40386a0f602e9ba0238b3867ac1646aeb7a5e53b9c4bd80",
+    "training/logistic_regression/level_1/complete.json": "c2a9b1c4489cdf46e6207f314c3bb22ff14eb4fecbae989c5864ca1594a46816",
+    "training/logistic_regression/level_1/fit_checkpoint/best_params.json": "363ee36ff3574a899a46f0a7f1a4bc2138ac819558eca308b49321fd2ee64a80",
+    "training/logistic_regression/level_1/fit_checkpoint/complete.json": "832dae678194589122896c83b5391ed6c3357cfda0ec95a4343cd8a2f3051b92",
+    "training/logistic_regression/level_1/fit_checkpoint/cv_results.parquet": "7fdae16fe03de98b506ddbc292c594814f098f8c5be5a24610c12faba4b79f71",
+    "training/logistic_regression/level_1/fit_checkpoint/fit_diagnostics.json": "d06036d6667f2bc14bfbad7b9d8ca6b57575058cd543958b321b4534f234faf7",
+    "training/logistic_regression/level_1/fit_checkpoint/fit_summary.json": "1a05d0c19051e92a30d454f6229344eba709b21b409804fda6e6a5d747b8643f",
+    "training/logistic_regression/level_1/fit_checkpoint/pipeline.joblib": "702e3933443a272a31f6779c4249583eb202e7cb0d1a18076c9dfa8928bd5bfd",
+    "training/logistic_regression/level_1/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_1/metrics.json": "b6479ec655a6da331cff1d47ad43c35217246965658164c1a50bb80f19739e5a",
+    "training/logistic_regression/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_1/probabilities.parquet": "f133b74729057f7c324ed4b088abc29ac5cb053e4ab66d3e3f953a93a29bafb5",
+    "training/logistic_regression/level_2/attempt_logs/attempt_001.log": "151eb2344df603178451e271fe2ca882c78f77cabf47eb6cef6f3883f359fe82",
+    "training/logistic_regression/level_2/complete.json": "bdfc24080a04ff414c0a977d09cff0d6c43dc0c8dd54ce8dfdd2daa7f2f3a66a",
+    "training/logistic_regression/level_2/fit_checkpoint/best_params.json": "0f78f2a2554fec4c640ca7839a8ed691344572bfda8cf822b2a73358ca2438d4",
+    "training/logistic_regression/level_2/fit_checkpoint/complete.json": "60d7f2b388c104125083c6f0407672badf72671d0218f185faf3eb020a1a9801",
+    "training/logistic_regression/level_2/fit_checkpoint/cv_results.parquet": "aa5149ef19623b0cba316454dbc1f78d461ab05ba9c3ad5c3126b4a0fe9793de",
+    "training/logistic_regression/level_2/fit_checkpoint/fit_diagnostics.json": "c5fcc7d3dee9e501bd695ba65ad0338fcf6f6d8b14682580342c7561a2deac89",
+    "training/logistic_regression/level_2/fit_checkpoint/fit_summary.json": "03aa59b95a8124f26441a130f4409406710bc1e3470a536822bbf4fc8bb6e823",
+    "training/logistic_regression/level_2/fit_checkpoint/pipeline.joblib": "e03c7ec7e06ee4319765e7884ddb3188bef358164178c6b5976fcddb0846e43e",
+    "training/logistic_regression/level_2/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_2/metrics.json": "54e3e090ebf0485b88b6d6ba9638590fee2a246121c20cb6493516f5fd172cb1",
+    "training/logistic_regression/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_2/probabilities.parquet": "879b69b93e5ad6efb0855c1bfb3091de6c633011c940a8ffc1c601b5aaff92a6",
+    "training/logistic_regression/level_3/attempt_logs/attempt_001.log": "8e7937fc651584b9e522b919c9bb8a6f6544d4181236a1254cc90907ee427366",
+    "training/logistic_regression/level_3/complete.json": "ee21d056c561c4009f872113305a923da4029cfe6d25962f55d7cf914fbff1bf",
+    "training/logistic_regression/level_3/fit_checkpoint/best_params.json": "575ba161d17ef6fbb010cfd83b355a7c56b344da776f97339eccab01406028c6",
+    "training/logistic_regression/level_3/fit_checkpoint/complete.json": "99a348405a7944beb25898c0de27d7dd61183ee2c61bd474309cbcd195024578",
+    "training/logistic_regression/level_3/fit_checkpoint/cv_results.parquet": "bcb7d4f162182d976c2574ba4e94a2ceef0f5565af9bfe7e5ca8216b5e407f3e",
+    "training/logistic_regression/level_3/fit_checkpoint/fit_diagnostics.json": "513085c231fe668b8beeda8b04e37208e34cb9d9032c1dfa11837320fdd9c22e",
+    "training/logistic_regression/level_3/fit_checkpoint/fit_summary.json": "367e87aac1f3a992807a824fd83fbccd21cf897698b1ecd4d7e74be47bd7e5fa",
+    "training/logistic_regression/level_3/fit_checkpoint/pipeline.joblib": "3deb9e982386442c907bd8616981b2b492b9a55a2b3654934bc8074aaef76791",
+    "training/logistic_regression/level_3/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_3/metrics.json": "3ef79f0ab9339cd483c2eed0b37d95cddca71e8ba52635f4d5cdec2ecd96eebb",
+    "training/logistic_regression/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_3/probabilities.parquet": "5bfed5ad6bc1023744da1a300c66b68a185f603c5b732f89de00cbb12b335397",
+    "training/logistic_regression/level_4/attempt_logs/attempt_001.log": "1c748a121251c0e25812bdea7c5af27a28daa5890d7d195fd46b8119881b3058",
+    "training/logistic_regression/level_4/complete.json": "6216925c0a684c5fa3097c42a5b491e1390595f57f4102c6dfd6a04bc56f9d06",
+    "training/logistic_regression/level_4/fit_checkpoint/best_params.json": "34fbb5d511b4e694a293bb3a494e4a6194ec9b3a24bad1c87222432ff9cdd14a",
+    "training/logistic_regression/level_4/fit_checkpoint/complete.json": "fc7134225196d0f6f106807a4f8ff887a368cd6fdffbda16f536e74af1cf7801",
+    "training/logistic_regression/level_4/fit_checkpoint/cv_results.parquet": "f75a76ab7ac0489fce006dd2f4c5a479e629e7aa9320f2075c11f8581173fd30",
+    "training/logistic_regression/level_4/fit_checkpoint/fit_diagnostics.json": "a657ec1ebbab9a786adef99d6f0f5de98798b5176a2589053eea126f13ba803a",
+    "training/logistic_regression/level_4/fit_checkpoint/fit_summary.json": "8e2ccfa0f5a48747f16029af5a5eca629af779b9b859b5adb0016fc17e953174",
+    "training/logistic_regression/level_4/fit_checkpoint/pipeline.joblib": "f2dc21788ccc375a23e497d5f74399e112b8e3405dd41c446e680325537786a0",
+    "training/logistic_regression/level_4/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_4/metrics.json": "692d853cf02ada2d87d7bc21b4362536ff3179f20fbf1755081e7da42eaed8cb",
+    "training/logistic_regression/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/logistic_regression/level_4/probabilities.parquet": "8a99166be3659dc1d2d0e3d7438715d4f332cd39274d0bf7351544dff27deb5d",
+    "training/mlp/level_1/attempt_logs/attempt_001.log": "f1cf758e144d63c86d2ba5cf2f4063dd6bd9a7a8661e37236ad8424ec3937334",
+    "training/mlp/level_1/complete.json": "c64bee8c65d194c86ce1fd194b9ee57b951d52e1bf07631e2222bd198982088b",
+    "training/mlp/level_1/fit_checkpoint/best_params.json": "87f6a44f954aa58b96c7f93f7cb0b70416bbbd11b5ad5f67b3d5340d564931ad",
+    "training/mlp/level_1/fit_checkpoint/complete.json": "69c6f9b238c645c5aee12d00552577ff0b02ca07e3942f038adc6039f314d050",
+    "training/mlp/level_1/fit_checkpoint/cv_results.parquet": "ae08de98e8708476876d90b4bbd0e2d655fe94adbf1e47bf4b64183228556159",
+    "training/mlp/level_1/fit_checkpoint/fit_diagnostics.json": "1a335cbd5ac114eebcd39e0506c354c5c7a313ec1c4c4c66e02c58918ee21a10",
+    "training/mlp/level_1/fit_checkpoint/fit_summary.json": "7c52508a74b9f9ededb8f500db55d937d986380ff5a48f2b692ece65793250d5",
+    "training/mlp/level_1/fit_checkpoint/pipeline.joblib": "7c410dc894c9ea59809ce297f03b79113c50dd356e7d81ffcaa0e6a009383cf8",
+    "training/mlp/level_1/fit_checkpoint/warnings.json": "25124020c6cd0038ef820de7e0eb2aafb0ac87024f0cb6b28cc1fcd23d0f4fe8",
+    "training/mlp/level_1/metrics.json": "3efceadddc39e7903d56b65d624d3af20a88659ec4cd48e64ca0b1396fb8764d",
+    "training/mlp/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/mlp/level_1/probabilities.parquet": "fbd8738d59ff5f70791452d5aaebc1d5f24c27a38d13c1a2b0d782cce4ac381a",
+    "training/mlp/level_2/attempt_logs/attempt_001.log": "28fff4cb397edea97597621616c65cc5ec482b5a2d8320cda22e44d0621107b6",
+    "training/mlp/level_2/complete.json": "364b3644df2353e427b775fd200a4a247b9129f985d436960cd40dbeb3e5a6cf",
+    "training/mlp/level_2/fit_checkpoint/best_params.json": "3f2a5002139bd7ea7efe3d3e8b39c3e4b104cffe20c1029fdf0493df81289819",
+    "training/mlp/level_2/fit_checkpoint/complete.json": "4679f070ac4af485a203552116a63625a3af85340c9637b4a2dc5a9c197f2f82",
+    "training/mlp/level_2/fit_checkpoint/cv_results.parquet": "4c1931f3560687a720e7c24778c3858bfaef1b27a094a5d4b2093956341b0496",
+    "training/mlp/level_2/fit_checkpoint/fit_diagnostics.json": "15b462ddf61ebe7a9a1268c0a290810a42665141f12a0ae4df69161705ef113f",
+    "training/mlp/level_2/fit_checkpoint/fit_summary.json": "b862e4708513a23e8452c3e2e27f4f0ecdf8f9e462bf1028d7afb6d0c114f5fb",
+    "training/mlp/level_2/fit_checkpoint/pipeline.joblib": "c5f92b3d7cda8346ed5976abe6b8e928718dc0ed1143688dfaed4c92def476bf",
+    "training/mlp/level_2/fit_checkpoint/warnings.json": "25124020c6cd0038ef820de7e0eb2aafb0ac87024f0cb6b28cc1fcd23d0f4fe8",
+    "training/mlp/level_2/metrics.json": "b3547878b84f93ecb419d8aff2e3dca497d436aee65a447a28221e0e260f9766",
+    "training/mlp/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/mlp/level_2/probabilities.parquet": "341f8754e42905a9eaf10d193a9858c150dbc4f601e3b1046c05b95a85a51b88",
+    "training/mlp/level_3/attempt_logs/attempt_001.log": "2a2aa58028de3f780eb3c228989ece9e7c524307f91f5331c5d84b13f555c22f",
+    "training/mlp/level_3/complete.json": "653cc9e60903f3520d27e45a5f35bb99c1ec0b402173a0637adbb27551f89efa",
+    "training/mlp/level_3/fit_checkpoint/best_params.json": "f02008b218ab61496d11a287ebe468361044fe1dceeddab8f959b75bc73beff4",
+    "training/mlp/level_3/fit_checkpoint/complete.json": "e15aa154cb7eeb5891d383da0e145a2b811f03b743448b7f0670deac341ff16f",
+    "training/mlp/level_3/fit_checkpoint/cv_results.parquet": "02775b7c264bdaa5b863978e90380ae779bf7da5e538f712aaf2e67c4dc9a7b1",
+    "training/mlp/level_3/fit_checkpoint/fit_diagnostics.json": "8fd1d576abc296de0dcb34602c7a29c88147c0bd194ef4f4af78ad1386c7c50f",
+    "training/mlp/level_3/fit_checkpoint/fit_summary.json": "52f0c2ffad769024974b9cdd60808dfbcc229b91b07dd9b6c026563ecebae09f",
+    "training/mlp/level_3/fit_checkpoint/pipeline.joblib": "0e061f17e5271b11c38c14bdc680b094ff22d3edd19b2bb8d6d3bdc95f206bf0",
+    "training/mlp/level_3/fit_checkpoint/warnings.json": "c5d036a87b7dba95e1705e9b73af828a3b8214d8254580f946400cf8f4ea9196",
+    "training/mlp/level_3/metrics.json": "bb7e6c697ab44e142396b72fa0abc80060097f2837807669f7915c17bd481e73",
+    "training/mlp/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/mlp/level_3/probabilities.parquet": "46a32126023ced1ad8874c1516068eb39b5078ac57f6cb7d315d10f30096c807",
+    "training/mlp/level_4/attempt_logs/attempt_001.log": "9ec5f8c136dc0a1b29256786630b2b3db69125691e261949a84d240e2bb9fa76",
+    "training/mlp/level_4/complete.json": "3def03868baf08a0ee6432eb3d20202bacb1191394326876601ca9c255c2fc6a",
+    "training/mlp/level_4/fit_checkpoint/best_params.json": "a5200d589d99d504238148bb2bd97b34557e58a7ba0024e842ec942b2988804c",
+    "training/mlp/level_4/fit_checkpoint/complete.json": "44063aaf10f69ddd89057558cebe5d46b89aecbfd9da9552b710def17688b7a5",
+    "training/mlp/level_4/fit_checkpoint/cv_results.parquet": "cc592d317def667bfb550f254156f7c17126f9ff246363802429b97f2c2bd5aa",
+    "training/mlp/level_4/fit_checkpoint/fit_diagnostics.json": "bcec642ea79b137bb047aa59163212c5ab053feb5735ccc0b670d7c2d9c67a75",
+    "training/mlp/level_4/fit_checkpoint/fit_summary.json": "739ebb57a73869c6a875e0d71756c0aea12bc5ae2635044111d76984ab51b462",
+    "training/mlp/level_4/fit_checkpoint/pipeline.joblib": "652c7cf73c9fe016aeba91fb70f7068136fa1ecdc7b0d3cb0bae3901aede906d",
+    "training/mlp/level_4/fit_checkpoint/warnings.json": "aa448f0ad7de1a02e645a7731ea2b6371941ef3665639694d657e81d10eee917",
+    "training/mlp/level_4/metrics.json": "27adea91099e8568bc7f56b6a2fd7ac5ba15d5b170dac449968b86c03f347f3f",
+    "training/mlp/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/mlp/level_4/probabilities.parquet": "a044e9fb53c410bd5807f7a85ed2db01ef0e536767fc4cd15aee8a69e2378704",
+    "training/random_forest/level_1/attempt_logs/attempt_001.log": "6f99dfdd31f7de47f693f9b6f99b3440dcab0a3c669c5b7592a15bdda79cc7f4",
+    "training/random_forest/level_1/complete.json": "cb94af4f0c3a6dd34ff2352aa6dee1a09e67820cf6c288ff1312158888324d01",
+    "training/random_forest/level_1/fit_checkpoint/best_params.json": "5beefd27faacf6fcdd0fd13292587fa64c0e7bac631839206bd73b852e1ef687",
+    "training/random_forest/level_1/fit_checkpoint/complete.json": "a46d3bc4a2f39f957814c2bdce410228653d581af603588192099d7965356340",
+    "training/random_forest/level_1/fit_checkpoint/cv_results.parquet": "006c1c9b12c4f9b16881060e8a1e1ba85484e84f9f8f9a6b4817b3f34115e164",
+    "training/random_forest/level_1/fit_checkpoint/fit_diagnostics.json": "19f895ae00ce60f760aeff358aad3161a327c2e30f23d5805131235bfec05fb0",
+    "training/random_forest/level_1/fit_checkpoint/fit_summary.json": "1c63a130dddb1b711f080a129c0ee2dc66dc1e255c7d3ae7e7fcef901a3694de",
+    "training/random_forest/level_1/fit_checkpoint/pipeline.joblib": "b5b6dac9e134dc941935b1a27ffcceeb5f1633b71cd515183ecd198ae79e4d34",
+    "training/random_forest/level_1/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_1/metrics.json": "20c3972a9ab6a5f627980708bcd525586ba97e7ef5b978a8ada75ee9cde1290b",
+    "training/random_forest/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_1/probabilities.parquet": "4068eaa70b8833f578df3afaf17ffdfe9195f2aa3b6f588b517fcdd5f363aebd",
+    "training/random_forest/level_2/attempt_logs/attempt_001.log": "9956f4962cbf5ca980aeb50605bf0525a957a64cc2856810c71a684c2429f7a8",
+    "training/random_forest/level_2/complete.json": "90c6024484f9c30401a0a79cdd95e6ce3776d7ab26ab5c28cc2613c4eafbc9f1",
+    "training/random_forest/level_2/fit_checkpoint/best_params.json": "47a0be3a496285a77738d321f5ad9dbb2064a1f8f03f975a709b1b5a77518c4f",
+    "training/random_forest/level_2/fit_checkpoint/complete.json": "3891614474a4b3264a03e278f2de944915f917336a6bd6af9eacab3f710260cd",
+    "training/random_forest/level_2/fit_checkpoint/cv_results.parquet": "1f139bb9112ed9488e60ec61d35044c2a7a82099890c0f0f51bd0b33b2ecc3ce",
+    "training/random_forest/level_2/fit_checkpoint/fit_diagnostics.json": "68d22d789a2552319f5039bb449e8670fbbaf06513ef37f3be6cc4b84f2df746",
+    "training/random_forest/level_2/fit_checkpoint/fit_summary.json": "39db37671c49994cbe998f1ea47b0e79574e9dda53d2375e041b3eafe12f6fb6",
+    "training/random_forest/level_2/fit_checkpoint/pipeline.joblib": "69483ec8f908ffd78e0b1b1e001dfb8b2f7f0cd19205d3bf18372d64d76da841",
+    "training/random_forest/level_2/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_2/metrics.json": "f7774293321986f5dc02dfb209d49d6b3e8d4dab9f8a25587d9ab51d8241bb02",
+    "training/random_forest/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_2/probabilities.parquet": "39bdebc49fea687893d94f852af113487e5f0c58311890d961370a7962d7e1ae",
+    "training/random_forest/level_3/attempt_logs/attempt_001.log": "3510c071d6a04170306787ae3a0a0a214e5eb38304debd7a6c88f35fe6f1750d",
+    "training/random_forest/level_3/complete.json": "16ae17baa74ac9d122a8fea877a96352d377ac10985707f5d1e8f5367b7c05fc",
+    "training/random_forest/level_3/fit_checkpoint/best_params.json": "2ac631491ab4daf9c29206d4c535b95a2721938a530f46fff4843691b5df1faf",
+    "training/random_forest/level_3/fit_checkpoint/complete.json": "f155e69a5f91957020cd94894e0745f362f85b2df8ba8c0a541354af31821928",
+    "training/random_forest/level_3/fit_checkpoint/cv_results.parquet": "fd785360f3f6014b2748a8267d7883ebcfacc9e66da703e92bb5c6085ce1066a",
+    "training/random_forest/level_3/fit_checkpoint/fit_diagnostics.json": "d582144f659c734dc687af4dfb0875e0bd608f32d5c728f3da216ffeb53f7317",
+    "training/random_forest/level_3/fit_checkpoint/fit_summary.json": "489712c93a86db2d9e1aedd7b1b9111aee8c6383782f17b27ae8d9b1c1040e05",
+    "training/random_forest/level_3/fit_checkpoint/pipeline.joblib": "e653088986c49313a953e088cd9631c4ea428af1e58cd46b2c7509aed6b669b9",
+    "training/random_forest/level_3/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_3/metrics.json": "a7df952e08f9f5fe49acb5248dcee5e31ed49a788decff82a719ad65c3501fdd",
+    "training/random_forest/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_3/probabilities.parquet": "03d12c9e72c3a5a57c861ef8f9fe9b2b28f910a38d09bfae242cc9c051023b98",
+    "training/random_forest/level_4/attempt_logs/attempt_001.log": "5b44de31c89b19bbe2ea2ba45255c2428e8d4f869a1baf287f62947940501382",
+    "training/random_forest/level_4/complete.json": "9ce067f59442f843fc7efd18746abf0a69bc3a314665890e70c72e747952131e",
+    "training/random_forest/level_4/fit_checkpoint/best_params.json": "83f837fe037e1a5af6ef3318cd4830ad1825ffbf2b9d5ba40de43398b0c9b9a6",
+    "training/random_forest/level_4/fit_checkpoint/complete.json": "b760a7b5efeda70959afe9593016e015660dff44041e278fd88b00d1b7a6d9be",
+    "training/random_forest/level_4/fit_checkpoint/cv_results.parquet": "e9455fbfa89e546d8f91ebaf4dfc711779a4f0439b14142e286e673075d08dd6",
+    "training/random_forest/level_4/fit_checkpoint/fit_diagnostics.json": "acbadc687ff36182da7a5207084668070b51a00a5d0158af96bf82721f77b5c5",
+    "training/random_forest/level_4/fit_checkpoint/fit_summary.json": "5ebdd6336c6a5058f7cc2a81cdb000d9fe5a040a384fe0caad43ada646957211",
+    "training/random_forest/level_4/fit_checkpoint/pipeline.joblib": "c2a9c521cd086e0790044c8a47e4d172f9eba500bbb22a3dec53c96593d95a6f",
+    "training/random_forest/level_4/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_4/metrics.json": "8ee60fa17f3cb27e44d531ffa744da0e8c6f6adb5fe896879fcdb4d519b6b52c",
+    "training/random_forest/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/random_forest/level_4/probabilities.parquet": "fccf60e93a56bf31ba93b7cc0aee52bd579b8fb9b5957fbd17f1a869f43da632",
+    "training/soft_voting/level_1/attempt_logs/attempt_001.log": "8165d96269c5ebabd6854f1a2783933f7760893dc5e7022e57dfab5b70bb9d1c",
+    "training/soft_voting/level_1/complete.json": "ec522a2f0a67683e3583c06e6f682cd1011230f66c421ddcff8ac133ed226150",
+    "training/soft_voting/level_1/fit_checkpoint/best_params.json": "2f6f768d536ec2943fd1f5a1e5d8a00340690861607b0f8035fca3245990ffde",
+    "training/soft_voting/level_1/fit_checkpoint/complete.json": "c86bca7d294c2a861781f94e06a36c80fb11f19368790c2ead88980feff5fa36",
+    "training/soft_voting/level_1/fit_checkpoint/cv_results.parquet": "7584ce4332797564277c7eda820a500f52d74857a43f8576416c93004eae553b",
+    "training/soft_voting/level_1/fit_checkpoint/fit_diagnostics.json": "c410a354e5cc04f9bf28a722264786c5c1b4fb2351dcd6bb1a0a5f40e3b938c3",
+    "training/soft_voting/level_1/fit_checkpoint/fit_summary.json": "717690aea2f62588a46b1bd574d17843d4411eed304ce12517e4add4ef813e38",
+    "training/soft_voting/level_1/fit_checkpoint/pipeline.joblib": "dfa94bc1164279571682fbd77c140529922f04557b16e1c64f2c1bd0e8e3a513",
+    "training/soft_voting/level_1/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_1/metrics.json": "68616c5d50baf4e454b746f3c4dfa259c0d8b2dfda51d13b9ff23af1356da358",
+    "training/soft_voting/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_1/probabilities.parquet": "92641f30ede6b377065750c2fa7001b1fbf11e94cbdfe3055aeda5f44d351347",
+    "training/soft_voting/level_2/attempt_logs/attempt_001.log": "1b70efdaf5fdd5fbf809097e34c14a286005d8dfe50e8b22a5b2a93d6aad3ad6",
+    "training/soft_voting/level_2/complete.json": "7504898474bd0aaf90c830fa8929448f058d66e77f0611e12d03a8c4e0557431",
+    "training/soft_voting/level_2/fit_checkpoint/best_params.json": "1ab8d250e353886fadfdad4c5e79df1847b81f81f6eacfc101199ccacc64e8fe",
+    "training/soft_voting/level_2/fit_checkpoint/complete.json": "2240437d98927c13f24413209be18afe2fe0167e8127f91d6c2c66958efa842b",
+    "training/soft_voting/level_2/fit_checkpoint/cv_results.parquet": "8bc49535e083a30584bfec9303156f3c20e27bac654a6a1d56f24fe84cb26254",
+    "training/soft_voting/level_2/fit_checkpoint/fit_diagnostics.json": "e14c659a59d345bbe167578bcca62d422874e3c8c9297d21b23f0dde1874fd45",
+    "training/soft_voting/level_2/fit_checkpoint/fit_summary.json": "0282013a5d80297edfe6aecfdcf8e1d958655590ca411a10101807ccb60eaefa",
+    "training/soft_voting/level_2/fit_checkpoint/pipeline.joblib": "7408fa52d63f8341d3481183898effda93c544f0592729fcae886734f68d1850",
+    "training/soft_voting/level_2/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_2/metrics.json": "f4d56f428f07e8afff79e47b89e50456d7030942d79a11941850933c50ee89f1",
+    "training/soft_voting/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_2/probabilities.parquet": "a3e6d84d35d55c820abae0a4c9544659aee231cdb3ff058921cfb0687747f06c",
+    "training/soft_voting/level_3/attempt_logs/attempt_001.log": "84073bddf2e5fbc10040ef1332a0ae656052febfdd78098ff86041698fdf6f56",
+    "training/soft_voting/level_3/complete.json": "501240e659a88d64dbbf50888a7a3c1a2e8a7a7eadb2fcc28f19c1dfc3b84e3d",
+    "training/soft_voting/level_3/fit_checkpoint/best_params.json": "5b9d48996b27f2030adb3f979d47a4589f0254171692a5bfba454f805b0bed00",
+    "training/soft_voting/level_3/fit_checkpoint/complete.json": "863c94981509ec69afbb3bdb76b7f6e6d2bd07c6f29a63aa52673653cd49597c",
+    "training/soft_voting/level_3/fit_checkpoint/cv_results.parquet": "015b80af6f2fbc1dc8279fbb5a06e17df575abeeaa2650f544849993d25d9198",
+    "training/soft_voting/level_3/fit_checkpoint/fit_diagnostics.json": "da73df8bd0018c0e19b0e0c9e9527d170cce154cdf767557fbb6f71ef39863a3",
+    "training/soft_voting/level_3/fit_checkpoint/fit_summary.json": "b4477fc2676dad4fe74c2535d2e789c492faa77e67bf8615155bc1d23063b2ec",
+    "training/soft_voting/level_3/fit_checkpoint/pipeline.joblib": "0b35efdc6d3dcdb3e3d5054742a09245d7bc9b08192fa4aeac73cc7fd61c91a0",
+    "training/soft_voting/level_3/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_3/metrics.json": "b58438171e44a163dac10cfdb1a9fbc4262b05213db5cca0193c6c16cd536809",
+    "training/soft_voting/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_3/probabilities.parquet": "d6b67b586bd9f0e3ee71bd3d9635919a74e62aed0c0e3d5a4d1543b32ee2b08e",
+    "training/soft_voting/level_4/attempt_logs/attempt_001.log": "3bf6d47c57201f36bbf761e394d17e15554205c34d1692195567447b0bf8e645",
+    "training/soft_voting/level_4/complete.json": "cf50d43f8fa64e6e5b3ccd61002317afed1ff169dc35a15cbbfba72ba1c2722b",
+    "training/soft_voting/level_4/fit_checkpoint/best_params.json": "7d9278027467a8e33c4418c1415dfe4d9e7306a46c2113183353a42c22e10011",
+    "training/soft_voting/level_4/fit_checkpoint/complete.json": "7e8126f920fecb36b839b17c677b707d582e2a4e66f4b170ec8df3354e90746f",
+    "training/soft_voting/level_4/fit_checkpoint/cv_results.parquet": "0640fbd4dab3fe603e6fe59697e0e2ecd57fe9fa90e2a5bc460d7c13ef2bb87a",
+    "training/soft_voting/level_4/fit_checkpoint/fit_diagnostics.json": "2f6ab8304b2c35b73d7aab1e2de249faef1124590dc70d60386aebe463f200fd",
+    "training/soft_voting/level_4/fit_checkpoint/fit_summary.json": "08c94714d9c2e3b06ac75776297795e090c95152a52c8d6d9afa9e9b7d73aa00",
+    "training/soft_voting/level_4/fit_checkpoint/pipeline.joblib": "3c90e71daff24e447b0861fba027266da90b38f16437b82487148f4f7ed968aa",
+    "training/soft_voting/level_4/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_4/metrics.json": "cf39719ebe462977947d81d4d2f6d6da9d3e2e0e1409b5609439a2889762bcba",
+    "training/soft_voting/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/soft_voting/level_4/probabilities.parquet": "2f4e18309b2cbb39dc33880c54e510bc248fa9c1039bbb22ee664e6edd9b7fe6",
+    "training/source_snapshot/fit_diagnostics.py": "570e13e67b77d0309f1534ff6757d391ce81e16a84053e6b5bb28c8d769bc30b",
+    "training/source_snapshot/fold_preprocessing.py": "80a06d3d3bf263dc5117286dd5ef9e09b3c59cf0c9ae3b0d3efdfd35948758e2",
+    "training/source_snapshot/model_pipelines.py": "dd4fb565e05093d4fb910ac0759838fc612420962e6e07ad0159bc4022a257f4",
+    "training/source_snapshot/model_training.py": "8d572f795ac1a7644df5cae4b60822c3756029b133038aae18a5f5484f9a0ca4",
+    "training/source_snapshot/research_pilot.py": "cf7189a36d7a6baa5033e68f96920a77a12d1c37f6c8ad314b24ecef6d732c57",
+    "training/stacking/level_1/attempt_logs/attempt_001.log": "20f39f7e4f9ea82714ea5ef6222a0069c80e7167c288e1d900e6807abb61e76a",
+    "training/stacking/level_1/complete.json": "060a5c1d18b497d54420d6cd9f22b0fd9889eb581a509475c873dbad3cf6b859",
+    "training/stacking/level_1/fit_checkpoint/best_params.json": "7f6137d5fa15a41cdfcaededa985e7f932e140fd342341cd441d5d784c0d8754",
+    "training/stacking/level_1/fit_checkpoint/complete.json": "3f4a83aee942c20a504ef14b091c98cf19820e7e25d802b1a8651a5b81b5a9fb",
+    "training/stacking/level_1/fit_checkpoint/cv_results.parquet": "be4878d829a4bdc95504ff0050c2f609283b14586ced439431fe4eac5a6d01ff",
+    "training/stacking/level_1/fit_checkpoint/fit_diagnostics.json": "4a2c7b1b3cd2f187d63f7c894e28c09ae834cb024c8eb11dfe164331ccbcdc34",
+    "training/stacking/level_1/fit_checkpoint/fit_summary.json": "a98053039e25f9f2918d6ce8b124fa674c0ace8d57e4c68bc3a640a39cd31d39",
+    "training/stacking/level_1/fit_checkpoint/pipeline.joblib": "6338a27274bf30395c106ec7195ced500b3f58006cbab1f458a10c9464792ff1",
+    "training/stacking/level_1/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_1/metrics.json": "1445bbe59d1b76124fd335cdcc37c8cb27de192afcb6bda904068847f2dd6624",
+    "training/stacking/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_1/probabilities.parquet": "05acaf843d684c045c86573f001df9b03e4b00999bfb61343e0be05b75e1e30d",
+    "training/stacking/level_2/attempt_logs/attempt_001.log": "af6efbaadc3249db2de3be3fcb9c6934a52588c598592828d9ac0faa51565a7a",
+    "training/stacking/level_2/complete.json": "c9c9577ca5798949d11519bcebd5575352f98989b4ae521b5a3ad7a868157740",
+    "training/stacking/level_2/fit_checkpoint/best_params.json": "5918099423c41e48c858398a520de259a5699f0d4cb43fe0c93f0a9ff9efd68e",
+    "training/stacking/level_2/fit_checkpoint/complete.json": "b9da2fc6578d607e8aad8ade3d515124886665215ad587a000cec2872623db2e",
+    "training/stacking/level_2/fit_checkpoint/cv_results.parquet": "2ccb66aa3bbcf9c819155d0c07ae173038ff76b0197aa8322ca66a41ced3af10",
+    "training/stacking/level_2/fit_checkpoint/fit_diagnostics.json": "bf8e0ae913036e18675ce401754c1ee719bd0f5364ab0dcc82997777153835d4",
+    "training/stacking/level_2/fit_checkpoint/fit_summary.json": "2f28bb212bc9e680572cff8ad97b9ba478d4ae1ad19d9687cadd88f4b24a85a7",
+    "training/stacking/level_2/fit_checkpoint/pipeline.joblib": "4d7d9064a61670314d5dacaa59f7ba00ba52fa3eaaab9661a4e32729308e2ab6",
+    "training/stacking/level_2/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_2/metrics.json": "8cb1cc6c7bfb98ecdddb80c2ddb97c4e034fbb4525d385339f49d8090e89e26d",
+    "training/stacking/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_2/probabilities.parquet": "5da1f9b2c67473e15625ffe34902be58bda94739b62515bece9870c4aba2f2e5",
+    "training/stacking/level_3/attempt_logs/attempt_001.log": "024372b5d60d4c6cc95a7548ed15a6a3ab24f8fb61fa30d09ac103f5a5997f93",
+    "training/stacking/level_3/complete.json": "fc78eea7bb85d369d2e3718a943e16355ae72868d268326ccf323c0d52938284",
+    "training/stacking/level_3/fit_checkpoint/best_params.json": "0d05d51b9db81a13a8460a6b5200d2368e442f7ce659351724a8de064477e0fc",
+    "training/stacking/level_3/fit_checkpoint/complete.json": "8d6ec51b955a9800cac6c7472c5ad9d0f89ae3145f0386f434d0a7a86cd2f8e8",
+    "training/stacking/level_3/fit_checkpoint/cv_results.parquet": "651ba128881f013dfdefca7fedbd9e78d66ffe7b956d4f79d64896255c3ebde1",
+    "training/stacking/level_3/fit_checkpoint/fit_diagnostics.json": "5cfda099d75af37786aa1705017b8450580c54319f103579be8007fa59427d63",
+    "training/stacking/level_3/fit_checkpoint/fit_summary.json": "f95def1a11f0530bb343c4b57e3c6166c80b4346727949828f22ca93353abebf",
+    "training/stacking/level_3/fit_checkpoint/pipeline.joblib": "b3086c578ffa253a02939a146c9c9507c19aae65c0aa91d793cf42a2e66db5d2",
+    "training/stacking/level_3/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_3/metrics.json": "939dd173b1c57f3de46d8d115991d40504419c3de2a456b352f010ae41bbaf1e",
+    "training/stacking/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_3/probabilities.parquet": "32c9d6dd8ba1ee79193e00030270e38d5fac7ce214042fbe1578f69a8b1258fd",
+    "training/stacking/level_4/attempt_logs/attempt_001.log": "1f714cb4e2772c5fa799986aa3dbb94fceea41527406b407297b5f848a1e86af",
+    "training/stacking/level_4/complete.json": "741b62b4d85dbfa80e3ac9e0c3cd7ca4610787eb0e4a0949fbd343fd3b78e106",
+    "training/stacking/level_4/fit_checkpoint/best_params.json": "aaad4871d6ef1fd436c8b3b43b12f933f7c7f63e5239605d033785882c0cbd87",
+    "training/stacking/level_4/fit_checkpoint/complete.json": "16052cf958d674f886fdb8380468038bc4471cd242fc60a019bd3746a7eca465",
+    "training/stacking/level_4/fit_checkpoint/cv_results.parquet": "b39dc13cc3ab12e7264d357432cea1c841e01b71a7b007aaa5401f92679be050",
+    "training/stacking/level_4/fit_checkpoint/fit_diagnostics.json": "92ed5669f4ec0681d1e37a485490904f4b6342d36d48215b733d4845724d7b2e",
+    "training/stacking/level_4/fit_checkpoint/fit_summary.json": "af672dab5fa737ce6323898a702f1125935a0285e02442b6b2d5c2d4e16fc5b8",
+    "training/stacking/level_4/fit_checkpoint/pipeline.joblib": "f212f6eb564d791fa4354bda045c9ccd38b85cfdc6a4c4a72bc0a30d82d0da03",
+    "training/stacking/level_4/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_4/metrics.json": "6decfc791a0eb565ef6fe832c71987b40cdcc29fe902541e9960965db9c7f9db",
+    "training/stacking/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/stacking/level_4/probabilities.parquet": "2258f8f1c1c075eb400212af80ffad008e08ba6b8a4123dd43db4ed8a01a2ac1",
+    "training/test_ids.parquet": "1642e289ca31caaaf4c361fcf1853617c678246858ef6501c9c56d682d38a528",
+    "training/xgboost/level_1/attempt_logs/attempt_001.log": "28e65750fd8acce01c13ccbd84601289b1ce09428f0946c0f93e9c4edeb0df56",
+    "training/xgboost/level_1/complete.json": "9e6d2b79dc053c822a1d1916a50242d94dfc65db097f1faf42d7a7d7fd225925",
+    "training/xgboost/level_1/fit_checkpoint/best_params.json": "101c3c60fe3d506fff509d636775e66e46c8f0a09704d6d309f469487bcb0de8",
+    "training/xgboost/level_1/fit_checkpoint/complete.json": "a5d4ba6d8bbfa8c2911bbf76bb0317397af0bdbdc08101b15cfebf47f98bf3d4",
+    "training/xgboost/level_1/fit_checkpoint/cv_results.parquet": "e770f270964d44c58c939cdc902aa436f3e7ddb3fb1fd91550bc0b86602a6687",
+    "training/xgboost/level_1/fit_checkpoint/fit_diagnostics.json": "fd2c8aced1a0805770a258b00b914fb91e3a1bb9e954e6a43e337aeab1563f42",
+    "training/xgboost/level_1/fit_checkpoint/fit_summary.json": "91ca2d26d93e1f407a63c022a8e8af386b896e76438ee4d9b3771116b531e728",
+    "training/xgboost/level_1/fit_checkpoint/pipeline.joblib": "675d9574cb6040c5cd52199946a1079add267ed91c2e72962ec04c5981c1a180",
+    "training/xgboost/level_1/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_1/metrics.json": "f584df12573e326ca930e3cf8ee49e28693a278afc8cff5f2f36d14598208fa9",
+    "training/xgboost/level_1/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_1/probabilities.parquet": "d5db46feee0ea133135d26b8fb660e35342332c59aed4238c803ff4ee43e135b",
+    "training/xgboost/level_2/attempt_logs/attempt_001.log": "00f40db7428c45e8d34fd5efb36db788f5175a17b24df85d0d9b3a4a1a3fd2e9",
+    "training/xgboost/level_2/complete.json": "e639ff2f0770cdbb306f840a053f366295773a3933eb664d8557cbf45bcae0c6",
+    "training/xgboost/level_2/fit_checkpoint/best_params.json": "77f39a62c9885c027cea450deec78ea7762edf9d8820c0e7d795e563020b357d",
+    "training/xgboost/level_2/fit_checkpoint/complete.json": "edd5da311845a15d13cedd5e68c96bfb08f2f9f799fc89c8fccf226687301269",
+    "training/xgboost/level_2/fit_checkpoint/cv_results.parquet": "d9b6abcaeef71502e19533742e168a908e78e022ef317814a88bff532a700d82",
+    "training/xgboost/level_2/fit_checkpoint/fit_diagnostics.json": "7d4377b46a33baabf7040a7acc4b6487afb453147f4eb0230bb169d5d2eb6d0f",
+    "training/xgboost/level_2/fit_checkpoint/fit_summary.json": "5f5737f82d174945980f1b70180f5c5d009ba0ceb18303490d2f828b30bf1107",
+    "training/xgboost/level_2/fit_checkpoint/pipeline.joblib": "469d4abce8f8c863d8b7a7fe1f0592ccff951cca2a7a7f28341a2bdc51b60dc4",
+    "training/xgboost/level_2/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_2/metrics.json": "477a35871cc0a851f81896e42cdb50ac4d2847819814c720d7a5bca67dc790ea",
+    "training/xgboost/level_2/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_2/probabilities.parquet": "a5ab6b2095e1c94d8b263388fe575a8330fb17a449414b4502d28c1228e2afb4",
+    "training/xgboost/level_3/attempt_logs/attempt_001.log": "b01710813fb7d24ed1cb564b51b7ada80e82334eca2da7a7a2bdbc70ba321bfc",
+    "training/xgboost/level_3/complete.json": "7efb7fbedb3a7db9135df94da6db11c9912eb3a72fd8aa8ff1e8bf74beeb76ae",
+    "training/xgboost/level_3/fit_checkpoint/best_params.json": "8724d3c458ce4e78dc56ea713ebd2dd82df46f82db14e60091ed0f5a3f41bad0",
+    "training/xgboost/level_3/fit_checkpoint/complete.json": "854c9608a6223396a271fe4f73fb566239aa84e83b35f68fb9f950d870e2c277",
+    "training/xgboost/level_3/fit_checkpoint/cv_results.parquet": "6f6566a4acc7aa67b4696ce2c6ae56ceec447c188fe9e9bcb0fcd0d7e27a7349",
+    "training/xgboost/level_3/fit_checkpoint/fit_diagnostics.json": "df8c86ae0fa357dea4fc57fb5d239840cf648f9c98bd922b13b8dc9571efecf7",
+    "training/xgboost/level_3/fit_checkpoint/fit_summary.json": "2fa87dcaa483ee2b7dcc0180f4233942fec7d12cb34a4647387a2c005e1a4ce0",
+    "training/xgboost/level_3/fit_checkpoint/pipeline.joblib": "8b8817a409a017053e4bbbd813d826acbd0b1898526b1dc28f7e471260e19cd3",
+    "training/xgboost/level_3/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_3/metrics.json": "650420e1dbdb65de327f812d97792fd68b33a158a9705ba17f5ceee165466530",
+    "training/xgboost/level_3/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_3/probabilities.parquet": "b178fc4fbee14b43fa61d44cab6da9532de4158927ab33bcb5a8457320dc4046",
+    "training/xgboost/level_4/attempt_logs/attempt_001.log": "17e962d15fa069967d01c4fb4b32793d7655a4cd70af1f1d804f7c7a6023b215",
+    "training/xgboost/level_4/complete.json": "94aa2c1833e89911a0cb3afcbf243d9ecf45369c60bdd1ae48125a59fc1e1e58",
+    "training/xgboost/level_4/fit_checkpoint/best_params.json": "e6ec467ebfad1dfc953770a52ccd4cea72db7fa3f5cf7a0352684d691681fa23",
+    "training/xgboost/level_4/fit_checkpoint/complete.json": "c11d83135f16fd1f0739b0de53bc5e4c7def4ae9d6072b58ca3f95980de9707d",
+    "training/xgboost/level_4/fit_checkpoint/cv_results.parquet": "33806267649add282d7127f78faeb1d66b5574a39043f4b9c4c8aa4b2ccdad1d",
+    "training/xgboost/level_4/fit_checkpoint/fit_diagnostics.json": "4b1cf4f012fe56c2737249e8060dba99cbbba144b7f3712945c1b5132bfe1a57",
+    "training/xgboost/level_4/fit_checkpoint/fit_summary.json": "e5e433c186059a4bdade5a41b6f6a304a6a89cbd4db7b0a8afadb3b94ed51d82",
+    "training/xgboost/level_4/fit_checkpoint/pipeline.joblib": "77bcac35dbe2506d0f39034a665b12798480189ad84bd99dddbd36ad256ae906",
+    "training/xgboost/level_4/fit_checkpoint/warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_4/metrics.json": "f4f09c0ff5276cc94c331f8a77255ebe46e66c1b4bba50b7a7a2080f11ab4366",
+    "training/xgboost/level_4/prediction_warnings.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "training/xgboost/level_4/probabilities.parquet": "6a49f88c7cdaae2bd8734a7b10a25a7e16c09372ee95964864f3ff3e07b22c5d",
+    "previous_reports/calibration_bins.csv": "95a2ff7e44e1862bc3d5ad1753255363ebe04ada22dc7a783ec870a5b6a168b4",
+    "previous_reports/decision_groups.csv": "a5688ef0ebaabc813f88c4101ec5ab89045fbe4b6357d569b8142156ef8c3b19",
+    "previous_reports/decision_groups.tex": "7dea433e34af83cdfd1b66eeedb6145ac7d60f8c297624924ba5cf68ec05ff3a",
+    "previous_reports/decision_metadata.json": "cc2598f455c18f3e71a89c8d9f7d56dba0b6e6ca9a3171aa74362c25c01d6156",
+    "previous_reports/decision_scenarios.csv": "bf38150729e9c8a7bb551a676ae8083fda5b9086f2f85358c934cbc931373978",
+    "previous_reports/decision_scenarios.tex": "30e48964a87b689a546c645ffc2041ab02619d8778255d2fad14d900ebf8e0de",
+    "previous_reports/final_validation.json": "da37b877498eb115a2de42d3eb0da53870676935f21011c72ea3bdc6aafe8671",
+    "previous_reports/metrics.csv": "e0797808a43b33476d793fe6c145827a12b993c72a521f2c6eef7843bbdc783d",
+    "previous_reports/metrics.tex": "07ee0e59adfe92f97727d16cb4afc22b9b6535f42485324bc6da449dc3db4e44",
+    "previous_reports/mlp_diagnostics.csv": "8db3316623065b3854038dce32f8e0aeacc508920b2e4b760324136113219319",
+    "previous_reports/mlp_diagnostics.json": "4eb6d0e4f40be21b0b8d4822c8e8ef114ff913d19174b2a3abf49a29d5b877b2",
+    "previous_reports/pair_status.csv": "5fc1267d9f7e8e647af13120ac24d088ee24de9e54c500ae18148fd1bc016457",
+    "previous_reports/report_metadata.json": "db07e9c3490817c0055f6e1e56373849e5c77b6c9c06e69d32e6fb8c7ff94085",
+    "previous_reports/rq1_model_comparison.csv": "5987401511a64366fbdbaa468a7d89cb553ddc4013ddfb6b8508c933d9ca8201",
+    "previous_reports/rq1_model_comparison.tex": "11e16eae7dfa7a6d9c3e85f614703d834a6f9ad223af639d5292245c78eaeeea",
+    "previous_reports/rq2_history_gains.csv": "3c01742ce2ec2d39763ffba963d2fc4f98043163cf43f98d8e46064572aea5ea",
+    "previous_reports/rq2_history_gains.tex": "a9a4d79f9078e9a29fd5d5e4902011d39e2ef824610009c402e522990e9c6e5f",
+    "previous_reports/warnings.csv": "c027ec106d959ddcc0e8d9af3a309636256aa3966d3f688ac8d4551a15741f7a"
+  },
+  "aligned_id_sha256": "10f339f619c4b6778a1e3b7da5f3e38e1876d7a0bed3c6fd09af6c7e6fe177a3",
+  "pairs": [
+    {
+      "model": "logistic_regression",
+      "level": 1
+    },
+    {
+      "model": "logistic_regression",
+      "level": 2
+    },
+    {
+      "model": "logistic_regression",
+      "level": 3
+    },
+    {
+      "model": "logistic_regression",
+      "level": 4
+    },
+    {
+      "model": "lightgbm",
+      "level": 1
+    },
+    {
+      "model": "lightgbm",
+      "level": 2
+    },
+    {
+      "model": "lightgbm",
+      "level": 3
+    },
+    {
+      "model": "lightgbm",
+      "level": 4
+    },
+    {
+      "model": "xgboost",
+      "level": 1
+    },
+    {
+      "model": "xgboost",
+      "level": 2
+    },
+    {
+      "model": "xgboost",
+      "level": 3
+    },
+    {
+      "model": "xgboost",
+      "level": 4
+    },
+    {
+      "model": "soft_voting",
+      "level": 1
+    },
+    {
+      "model": "soft_voting",
+      "level": 2
+    },
+    {
+      "model": "soft_voting",
+      "level": 3
+    },
+    {
+      "model": "soft_voting",
+      "level": 4
+    },
+    {
+      "model": "stacking",
+      "level": 1
+    },
+    {
+      "model": "stacking",
+      "level": 2
+    },
+    {
+      "model": "stacking",
+      "level": 3
+    },
+    {
+      "model": "stacking",
+      "level": 4
+    },
+    {
+      "model": "mlp",
+      "level": 1
+    },
+    {
+      "model": "mlp",
+      "level": 2
+    },
+    {
+      "model": "mlp",
+      "level": 3
+    },
+    {
+      "model": "mlp",
+      "level": 4
+    },
+    {
+      "model": "random_forest",
+      "level": 1
+    },
+    {
+      "model": "random_forest",
+      "level": 2
+    },
+    {
+      "model": "random_forest",
+      "level": 3
+    },
+    {
+      "model": "random_forest",
+      "level": 4
+    }
+  ],
+  "analysis_code_sha256": {
+    "pilot_evaluation.py": "2a652ad1afc6ac608c3885e911a84ffdcfd61725f912ce91dbda4eb8de2851b0",
+    "pilot_evaluation_bootstrap.py": "f687dd05736a53e2c7f17689d551804c57c58690598cf0abc0b5b685436206c2",
+    "pilot_evaluation_decisions.py": "fa1b1a8d9af6ceb1c5c58928139ea1af1e94229843d98ca674bed64ae76fb4e2",
+    "pilot_delong.py": "3711e4ba2b5ed0957041eb93c0a2921ba98be1c4ca98f508fc10f2636c66bccd"
+  },
+  "n_bootstrap": 1000,
+  "seed": 42,
+  "resampling_unit": "client",
+  "resampling": "ordinary with replacement, not stratified; one shared vector of client counts per replicate",
+  "rng": "numpy.default_rng(42) / PCG64, checkpointed state",
+  "interval": "95% percentile; pointwise, unadjusted, exploratory; fixed fitted models",
+  "percentile_quantiles": [
+    0.025,
+    0.975
+  ],
+  "quantile_method": "linear",
+  "ap_definition": "PR-AUC (average precision, AP), sklearn.metrics.average_precision_score(pos_label=1)",
+  "weighted_replication": "integer frequencies equivalent to duplicating sampled client IDs; AP uses official sklearn function every repetition",
+  "thresholds": [
+    0.5,
+    0.16666666666666666,
+    0.09090909090909091
+  ],
+  "decision_coordinates": {
+    "models": [
+      "logistic_regression",
+      "lightgbm",
+      "xgboost",
+      "soft_voting",
+      "stacking",
+      "mlp",
+      "random_forest"
+    ],
+    "thresholds": [
+      0.5,
+      0.16666666666666666,
+      0.09090909090909091
+    ],
+    "attributes": [
+      "gender",
+      "age"
+    ],
+    "groups": [
+      [
+        "F",
+        "M",
+        "unknown"
+      ],
+      [
+        "<25",
+        ">=25",
+        "unknown"
+      ]
+    ],
+    "scenarios": [
+      {
+        "scenario": "L1_t0.5",
+        "loss_to_margin": 1,
+        "threshold_index": 0,
+        "threshold": 0.5
+      },
+      {
+        "scenario": "L5_t0.5",
+        "loss_to_margin": 5,
+        "threshold_index": 0,
+        "threshold": 0.5
+      },
+      {
+        "scenario": "L5_t1/6",
+        "loss_to_margin": 5,
+        "threshold_index": 1,
+        "threshold": 0.16666666666666666
+      },
+      {
+        "scenario": "L10_t0.5",
+        "loss_to_margin": 10,
+        "threshold_index": 0,
+        "threshold": 0.5
+      },
+      {
+        "scenario": "L10_t1/11",
+        "loss_to_margin": 10,
+        "threshold_index": 2,
+        "threshold": 0.09090909090909091
+      }
+    ],
+    "loss_ratios": [
+      1,
+      5,
+      10
+    ],
+    "baselines": [
+      "approve_all",
+      "reject_all"
+    ],
+    "confusion_order": [
+      "TN",
+      "FP",
+      "FN",
+      "TP"
+    ],
+    "array_axes": {
+      "profit": [
+        "model",
+        "scenario"
+      ],
+      "baselines": [
+        "loss_ratio",
+        "baseline"
+      ],
+      "approval_rate": [
+        "model",
+        "threshold"
+      ],
+      "approved_n": [
+        "model",
+        "threshold"
+      ],
+      "default_rate_among_approved": [
+        "model",
+        "threshold"
+      ],
+      "precision": [
+        "model",
+        "threshold"
+      ],
+      "recall": [
+        "model",
+        "threshold"
+      ],
+      "f1": [
+        "model",
+        "threshold"
+      ],
+      "confusion": [
+        "model",
+        "threshold",
+        "confusion_order"
+      ],
+      "approval_gap": [
+        "model",
+        "threshold",
+        "attribute"
+      ],
+      "tpr_gap": [
+        "model",
+        "threshold",
+        "attribute"
+      ],
+      "group_approval_rate": [
+        "model",
+        "threshold",
+        "attribute",
+        "group"
+      ],
+      "group_tpr": [
+        "model",
+        "threshold",
+        "attribute",
+        "group"
+      ],
+      "group_tp": [
+        "model",
+        "threshold",
+        "attribute",
+        "group"
+      ],
+      "group_approved_n": [
+        "model",
+        "threshold",
+        "attribute",
+        "group"
+      ],
+      "group_n": [
+        "attribute",
+        "group"
+      ],
+      "group_default_n": [
+        "attribute",
+        "group"
+      ],
+      "total_weight": []
+    }
+  },
+  "fairness_constraint": "observed gender and age approval-rate gaps each <=0.05; TPR gaps descriptive without extra cutoff",
+  "undefined_rates": "NaN for zero denominator, never imputed; valid bootstrap count reported",
+  "comparisons": {
+    "ap_vs_lr_level4": [
+      "lightgbm",
+      "xgboost",
+      "soft_voting",
+      "stacking",
+      "mlp",
+      "random_forest"
+    ],
+    "delong_roc_auc_vs_lr_level4": [
+      "lightgbm",
+      "xgboost",
+      "soft_voting",
+      "stacking",
+      "mlp",
+      "random_forest"
+    ],
+    "bonferroni_family_size": 6,
+    "rq2_baseline": [
+      "L2-L1",
+      "L3-L1",
+      "L4-L1"
+    ],
+    "rq2_sequential": [
+      "L2-L1",
+      "L3-L2",
+      "L4-L3"
+    ]
+  },
+  "analysis_specification_time": "specified for this post-training evaluation, not claimed preregistered",
+  "new_fit_calls": 0,
+  "new_predict_calls": 0,
+  "threshold_optimization": false,
+  "retraining_variability_estimated": false,
+  "formal_A2_AP_noninferiority_confirmed": false,
+  "software": {
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2"
+  },
+  "method_sources": [
+    "https://scikit-learn.org/1.7/modules/generated/sklearn.metrics.average_precision_score.html",
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html"
+  ],
+  "fingerprint": "208420ce6bf2887183a3e76c60249d0c5044d4283f5fb4a8b87f1b090f6584f9"
+}

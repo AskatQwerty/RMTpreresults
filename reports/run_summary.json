@@ -1,0 +1,315 @@
+{
+  "processed_scope": "full",
+  "audit_seconds": 97.229,
+  "pilot": {
+    "scope": "technical_sample",
+    "n_applicants": 3000,
+    "target_0": 2758,
+    "target_1": 242,
+    "positive_rate": 0.08066666666666666,
+    "shapes": [
+      {
+        "level": 1,
+        "rows": 3000,
+        "features": 124,
+        "bytes": 362594
+      },
+      {
+        "level": 2,
+        "rows": 3000,
+        "features": 178,
+        "bytes": 599289
+      },
+      {
+        "level": 3,
+        "rows": 3000,
+        "features": 264,
+        "bytes": 858570
+      },
+      {
+        "level": 4,
+        "rows": 3000,
+        "features": 322,
+        "bytes": 1307938
+      }
+    ],
+    "splits": [
+      {
+        "split": "development",
+        "n": 2400,
+        "target_0": 2206,
+        "target_1": 194,
+        "positive_rate": 0.08083333333333333
+      },
+      {
+        "split": "test",
+        "n": 600,
+        "target_0": 552,
+        "target_1": 48,
+        "positive_rate": 0.08
+      },
+      {
+        "split": "train_seed_42",
+        "n": 2160,
+        "target_0": 1985,
+        "target_1": 175,
+        "positive_rate": 0.08101851851851852
+      },
+      {
+        "split": "train_seed_43",
+        "n": 2160,
+        "target_0": 1985,
+        "target_1": 175,
+        "positive_rate": 0.08101851851851852
+      },
+      {
+        "split": "train_seed_44",
+        "n": 2160,
+        "target_0": 1985,
+        "target_1": 175,
+        "positive_rate": 0.08101851851851852
+      },
+      {
+        "split": "train_seed_45",
+        "n": 2160,
+        "target_0": 1985,
+        "target_1": 175,
+        "positive_rate": 0.08101851851851852
+      },
+      {
+        "split": "train_seed_46",
+        "n": 2160,
+        "target_0": 1985,
+        "target_1": 175,
+        "positive_rate": 0.08101851851851852
+      }
+    ],
+    "history_coverage": [
+      {
+        "table": "bureau",
+        "cohort_raw_rows": 14236,
+        "eligible_rows": 14232,
+        "eligible_clients": 2569,
+        "eligible_client_share": 0.8563333333333333
+      },
+      {
+        "table": "bb",
+        "cohort_raw_rows": 153654,
+        "eligible_rows": 150195,
+        "eligible_clients": 897,
+        "eligible_client_share": 0.299
+      },
+      {
+        "table": "pos",
+        "cohort_raw_rows": 81734,
+        "eligible_rows": 81734,
+        "eligible_clients": 2795,
+        "eligible_client_share": 0.9316666666666666
+      },
+      {
+        "table": "cc",
+        "cohort_raw_rows": 33501,
+        "eligible_rows": 33501,
+        "eligible_clients": 841,
+        "eligible_client_share": 0.2803333333333333
+      },
+      {
+        "table": "installments",
+        "cohort_raw_rows": 111993,
+        "eligible_rows": 111932,
+        "eligible_clients": 2822,
+        "eligible_client_share": 0.9406666666666667
+      },
+      {
+        "table": "previous",
+        "cohort_raw_rows": 13499,
+        "eligible_rows": 13499,
+        "eligible_clients": 2815,
+        "eligible_client_share": 0.9383333333333334
+      }
+    ],
+    "installment_conflicting_obligations_excluded": 0,
+    "payment_amount_decimal_scale": 3,
+    "payment_precision_violations": 0,
+    "checks": {
+      "unique_applicants": true,
+      "same_clients_all_levels": true,
+      "nested_features_and_equal_values": true,
+      "no_target_ids_gender_age_in_X": true,
+      "no_train_test_overlap": true,
+      "repeats_subset_of_development": true,
+      "no_infinite_values": true,
+      "missing_history_remains_null": true
+    },
+    "elapsed_seconds": 52.533,
+    "versions": {
+      "duckdb": "2.0.0",
+      "pandas": "2.3.3",
+      "numpy": "2.3.5",
+      "pyarrow": "21.0.0",
+      "scikit-learn": "1.7.2"
+    },
+    "python": "3.13.9",
+    "available_ram_end_gib": 6.515087127685547
+  },
+  "full": {
+    "scope": "full",
+    "n_applicants": 307511,
+    "target_0": 282686,
+    "target_1": 24825,
+    "positive_rate": 0.08072881945686496,
+    "shapes": [
+      {
+        "level": 1,
+        "rows": 307511,
+        "features": 124,
+        "bytes": 22888092
+      },
+      {
+        "level": 2,
+        "rows": 307511,
+        "features": 178,
+        "bytes": 43204706
+      },
+      {
+        "level": 3,
+        "rows": 307511,
+        "features": 264,
+        "bytes": 63449031
+      },
+      {
+        "level": 4,
+        "rows": 307511,
+        "features": 322,
+        "bytes": 103699046
+      }
+    ],
+    "splits": [
+      {
+        "split": "development",
+        "n": 246008,
+        "target_0": 226148,
+        "target_1": 19860,
+        "positive_rate": 0.08072908198107379
+      },
+      {
+        "split": "test",
+        "n": 61503,
+        "target_0": 56538,
+        "target_1": 4965,
+        "positive_rate": 0.08072776937710356
+      },
+      {
+        "split": "train_seed_42",
+        "n": 221407,
+        "target_0": 203533,
+        "target_1": 17874,
+        "positive_rate": 0.08072915490476815
+      },
+      {
+        "split": "train_seed_43",
+        "n": 221407,
+        "target_0": 203533,
+        "target_1": 17874,
+        "positive_rate": 0.08072915490476815
+      },
+      {
+        "split": "train_seed_44",
+        "n": 221407,
+        "target_0": 203533,
+        "target_1": 17874,
+        "positive_rate": 0.08072915490476815
+      },
+      {
+        "split": "train_seed_45",
+        "n": 221407,
+        "target_0": 203533,
+        "target_1": 17874,
+        "positive_rate": 0.08072915490476815
+      },
+      {
+        "split": "train_seed_46",
+        "n": 221407,
+        "target_0": 203533,
+        "target_1": 17874,
+        "positive_rate": 0.08072915490476815
+      }
+    ],
+    "history_coverage": [
+      {
+        "table": "bureau",
+        "cohort_raw_rows": 1465325,
+        "eligible_rows": 1464821,
+        "eligible_clients": 263475,
+        "eligible_client_share": 0.8567986185860018
+      },
+      {
+        "table": "bb",
+        "cohort_raw_rows": 14701612,
+        "eligible_rows": 14353734,
+        "eligible_clients": 92039,
+        "eligible_client_share": 0.29930311436013673
+      },
+      {
+        "table": "pos",
+        "cohort_raw_rows": 8543375,
+        "eligible_rows": 8543375,
+        "eligible_clients": 289444,
+        "eligible_client_share": 0.9412476301660754
+      },
+      {
+        "table": "cc",
+        "cohort_raw_rows": 3227965,
+        "eligible_rows": 3227965,
+        "eligible_clients": 86905,
+        "eligible_client_share": 0.2826077766323806
+      },
+      {
+        "table": "installments",
+        "cohort_raw_rows": 11591592,
+        "eligible_rows": 11589009,
+        "eligible_clients": 291635,
+        "eligible_client_share": 0.9483725785419058
+      },
+      {
+        "table": "previous",
+        "cohort_raw_rows": 1413701,
+        "eligible_rows": 1413701,
+        "eligible_clients": 291057,
+        "eligible_client_share": 0.9464929709831518
+      }
+    ],
+    "installment_conflicting_obligations_excluded": 0,
+    "payment_amount_decimal_scale": 3,
+    "payment_precision_violations": 0,
+    "checks": {
+      "unique_applicants": true,
+      "same_clients_all_levels": true,
+      "nested_features_and_equal_values": true,
+      "no_target_ids_gender_age_in_X": true,
+      "no_train_test_overlap": true,
+      "repeats_subset_of_development": true,
+      "no_infinite_values": true,
+      "missing_history_remains_null": true
+    },
+    "elapsed_seconds": 151.576,
+    "versions": {
+      "duckdb": "2.0.0",
+      "pandas": "2.3.3",
+      "numpy": "2.3.5",
+      "pyarrow": "21.0.0",
+      "scikit-learn": "1.7.2"
+    },
+    "python": "3.13.9",
+    "available_ram_end_gib": 5.807777404785156
+  },
+  "full_skip_reason": null,
+  "pilot_full_comparison": {
+    "pilot_clients": 3000,
+    "levels_compared": 4,
+    "same_values": true,
+    "tolerance": 1e-10
+  },
+  "original_csv_sha256_unchanged": true,
+  "total_elapsed_seconds": 309.197
+}

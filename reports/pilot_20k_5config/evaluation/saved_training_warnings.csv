@@ -1,0 +1,5 @@
+model,level,category,count,message,stage
+mlp,1,ConvergenceWarning,10,Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.,search_and_refit
+mlp,2,ConvergenceWarning,10,Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.,search_and_refit
+mlp,3,ConvergenceWarning,7,Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.,search_and_refit
+mlp,4,ConvergenceWarning,3,Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet.,search_and_refit

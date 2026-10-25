@@ -1,0 +1,21 @@
+﻿source,field,scope,source_rows,placeholder_before,null_before,positive_before,null_after_same_rows,placeholder_after_same_rows,saved_rule_mismatches,rule,saved_feature_status
+application,DAYS_EMPLOYED,all_source,307511,55374,0,55374,55374.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_REGISTRATION,all_source,307511,0,0,0,0.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_ID_PUBLISH,all_source,307511,0,0,0,0.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_LAST_PHONE_CHANGE,all_source,307511,0,1,0,1.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_EMPLOYED,development,246008,44143,0,44143,44143.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_REGISTRATION,development,246008,0,0,0,0.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_ID_PUBLISH,development,246008,0,0,0,0.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+application,DAYS_LAST_PHONE_CHANGE,development,246008,0,1,0,1.0,0.0,0.0,positive factual date -> NULL; <=0 retained,included
+previous,DAYS_FIRST_DRAWING,all_source,1670214,934444,673065,0,,,0.0,field excluded before feature construction,excluded
+previous,DAYS_FIRST_DUE,all_source,1670214,40645,673065,0,713710.0,0.0,,365243 -> NULL; positive planned dates retained,included
+previous,DAYS_LAST_DUE_1ST_VERSION,all_source,1670214,93864,673065,224392,766929.0,0.0,,365243 -> NULL; positive planned dates retained,included
+previous,DAYS_LAST_DUE,all_source,1670214,211221,673065,0,,,0.0,field excluded before feature construction,excluded
+previous,DAYS_TERMINATION,all_source,1670214,225913,673065,0,,,0.0,field excluded before feature construction,excluded
+previous,DAYS_FIRST_DRAWING,development,1131338,639369,449113,0,,,0.0,field excluded before feature construction,excluded
+previous,DAYS_FIRST_DUE,development,1131338,27278,449113,0,476391.0,0.0,,365243 -> NULL; positive planned dates retained,included
+previous,DAYS_LAST_DUE_1ST_VERSION,development,1131338,63400,449113,155655,512513.0,0.0,,365243 -> NULL; positive planned dates retained,included
+previous,DAYS_LAST_DUE,development,1131338,144734,449113,0,,,0.0,field excluded before feature construction,excluded
+previous,DAYS_TERMINATION,development,1131338,155235,449113,0,,,0.0,field excluded before feature construction,excluded
+bureau,DAYS_CREDIT_ENDDATE,all_source,1715782,0,105444,602251,105444.0,0.0,,365243 -> NULL; positive planned dates retained,included
+bureau,DAYS_CREDIT_ENDDATE,development,1170910,0,71017,410575,71017.0,0.0,,365243 -> NULL; positive planned dates retained,included

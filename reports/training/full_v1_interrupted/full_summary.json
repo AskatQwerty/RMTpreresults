@@ -1,0 +1,29 @@
+{
+  "scope": "full",
+  "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\a2_full_v1",
+  "status": "partial_or_interrupted",
+  "expected_searches": 28,
+  "expected_main_fits": 140,
+  "completed_searches": 0,
+  "completed_main_fits": 0,
+  "completed_stage_hashes_checked": 0,
+  "full_plan_complete": false,
+  "invalid_stages": [],
+  "lock": {
+    "present": false,
+    "owner_alive": false
+  },
+  "input_integrity": {
+    "checked": true,
+    "unchanged": true,
+    "files_checked": 29,
+    "baseline": "experiment_manifest.inputs"
+  },
+  "independent_of_technical_variables": true,
+  "metrics_are_final_test_evaluations": true,
+  "existing_experiment_summary": false,
+  "warning_count": 0,
+  "warning_categories": [],
+  "search_seconds_completed": 0,
+  "fit_seconds_completed": 0
+}

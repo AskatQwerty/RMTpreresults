@@ -1,0 +1,8 @@
+Model,Missed defaults (FN),False rejections (FP),Precision,Recall,F1
+Logistic regression,4783,211,0.4631,0.0367,0.0679
+Random forest,4965,0,--,0.0000,0.0000
+XGBoost,4858,76,0.5847,0.0216,0.0416
+LightGBM,4883,54,0.6029,0.0165,0.0322
+MLP,4257,2863,0.1983,0.1426,0.1659
+Soft voting,4847,83,0.5871,0.0238,0.0457
+Stacking,4674,284,0.5061,0.0586,0.1051

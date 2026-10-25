@@ -1,0 +1,9 @@
+﻿table,rows,columns,size_bytes,exact_duplicate_rows,candidate_key,key_groups,key_duplicate_surplus,max_rows_per_key,rows_with_null_key,key_expected_unique,key_note,audit_seconds
+application_train.csv,307511,122,166133370,0,SK_ID_CURR,307511,0,1,0,True,,7.741
+bureau.csv,1716428,17,170016717,0,SK_ID_BUREAU,1716428,0,1,0,True,,3.901
+bureau_balance.csv,27299925,3,375592889,0,"SK_ID_BUREAU, MONTHS_BALANCE",27299925,0,1,0,True,,14.198
+POS_CASH_balance.csv,10001358,8,392703158,0,"SK_ID_PREV, MONTHS_BALANCE",10001358,0,1,0,True,,8.799
+credit_card_balance.csv,3840312,23,424582605,0,"SK_ID_PREV, MONTHS_BALANCE",3840312,0,1,0,True,,8.707
+installments_payments.csv,13605401,8,723118349,0,"SK_ID_PREV, NUM_INSTALMENT_VERSION, NUM_INSTALMENT_NUMBER, DAYS_ENTRY_PAYMENT",13604631,770,2,2905,False,Частичные платежи могут повторять этот кандидатный ключ,12.975
+previous_application.csv,1670214,37,404973293,0,SK_ID_PREV,1670214,0,1,0,True,,6.844
+HomeCredit_columns_description.csv,219,5,37383,0,"Table, Row",219,0,1,0,True,Словарь прочитан в кодировке cp1252,

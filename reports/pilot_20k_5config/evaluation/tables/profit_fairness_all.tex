@@ -1,0 +1,46 @@
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{llllllll}
+\caption{All fixed scenarios. Profit per applicant in units m=1; rejected applications contribute zero. G/A: observed gender/age approval-rate gap <=5 percentage points. Pointwise, unadjusted, exploratory 95\% percentile bootstrap CI; fixed trained models.}\label{tab:profit-fairness-all}\\
+\toprule
+Model & L/m & Threshold & Profit (m) & Approval (\%) & Gender gap (pp) & Age gap (pp) & G/A gap <=5pp \\
+\midrule
+Logistic regression & 1 & 0.5000 & \shortstack{{0.838} \\ {[0.834, 0.842]}} & \shortstack{{99.4} \\ {[99.3, 99.4]}} & \shortstack{{0.31} \\ {[0.17, 0.45]}} & \shortstack{{0.90} \\ {[0.43, 1.44]}} & Yes/Yes \\
+Logistic regression & 5 & 0.5000 & \shortstack{{0.527} \\ {[0.515, 0.539]}} & \shortstack{{99.4} \\ {[99.3, 99.4]}} & \shortstack{{0.31} \\ {[0.17, 0.45]}} & \shortstack{{0.90} \\ {[0.43, 1.44]}} & Yes/Yes \\
+Logistic regression & 5 & 0.1667 & \shortstack{{0.578} \\ {[0.568, 0.588]}} & \shortstack{{87.4} \\ {[87.2, 87.7]}} & \shortstack{{5.05} \\ {[4.46, 5.64]}} & \shortstack{{17.94} \\ {[16.17, 19.75]}} & No/No \\
+Logistic regression & 10 & 0.5000 & \shortstack{{0.138} \\ {[0.116, 0.161]}} & \shortstack{{99.4} \\ {[99.3, 99.4]}} & \shortstack{{0.31} \\ {[0.17, 0.45]}} & \shortstack{{0.90} \\ {[0.43, 1.44]}} & Yes/Yes \\
+Logistic regression & 10 & 0.0909 & \shortstack{{0.393} \\ {[0.378, 0.406]}} & \shortstack{{71.2} \\ {[70.9, 71.6]}} & \shortstack{{8.20} \\ {[7.41, 8.98]}} & \shortstack{{28.41} \\ {[26.33, 30.58]}} & No/No \\
+Random forest & 1 & 0.5000 & \shortstack{{0.839} \\ {[0.834, 0.843]}} & \shortstack{{100.0} \\ {[100.0, 100.0]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & Yes/Yes \\
+Random forest & 5 & 0.5000 & \shortstack{{0.516} \\ {[0.503, 0.528]}} & \shortstack{{100.0} \\ {[100.0, 100.0]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & Yes/Yes \\
+Random forest & 5 & 0.1667 & \shortstack{{0.577} \\ {[0.566, 0.587]}} & \shortstack{{89.2} \\ {[89.0, 89.5]}} & \shortstack{{1.64} \\ {[1.15, 2.21]}} & \shortstack{{18.38} \\ {[16.68, 20.18]}} & Yes/No \\
+Random forest & 10 & 0.5000 & \shortstack{{0.112} \\ {[0.089, 0.135]}} & \shortstack{{100.0} \\ {[100.0, 100.0]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & Yes/Yes \\
+Random forest & 10 & 0.0909 & \shortstack{{0.378} \\ {[0.365, 0.391]}} & \shortstack{{66.3} \\ {[65.9, 66.7]}} & \shortstack{{6.33} \\ {[5.55, 7.15]}} & \shortstack{{31.75} \\ {[29.71, 33.75]}} & No/No \\
+XGBoost & 1 & 0.5000 & \shortstack{{0.839} \\ {[0.835, 0.843]}} & \shortstack{{99.7} \\ {[99.7, 99.7]}} & \shortstack{{0.04} \\ {[0.00, 0.14]}} & \shortstack{{0.39} \\ {[0.09, 0.74]}} & Yes/Yes \\
+XGBoost & 5 & 0.5000 & \shortstack{{0.523} \\ {[0.511, 0.535]}} & \shortstack{{99.7} \\ {[99.7, 99.7]}} & \shortstack{{0.04} \\ {[0.00, 0.14]}} & \shortstack{{0.39} \\ {[0.09, 0.74]}} & Yes/Yes \\
+XGBoost & 5 & 0.1667 & \shortstack{{0.584} \\ {[0.573, 0.593]}} & \shortstack{{89.7} \\ {[89.4, 89.9]}} & \shortstack{{3.57} \\ {[3.06, 4.08]}} & \shortstack{{16.48} \\ {[14.75, 18.30]}} & Yes/No \\
+XGBoost & 10 & 0.5000 & \shortstack{{0.128} \\ {[0.106, 0.150]}} & \shortstack{{99.7} \\ {[99.7, 99.7]}} & \shortstack{{0.04} \\ {[0.00, 0.14]}} & \shortstack{{0.39} \\ {[0.09, 0.74]}} & Yes/Yes \\
+XGBoost & 10 & 0.0909 & \shortstack{{0.394} \\ {[0.379, 0.409]}} & \shortstack{{74.3} \\ {[73.9, 74.7]}} & \shortstack{{7.98} \\ {[7.23, 8.72]}} & \shortstack{{29.61} \\ {[27.49, 31.72]}} & No/No \\
+LightGBM & 1 & 0.5000 & \shortstack{{0.839} \\ {[0.835, 0.843]}} & \shortstack{{99.8} \\ {[99.7, 99.8]}} & \shortstack{{0.00} \\ {[0.00, 0.09]}} & \shortstack{{0.34} \\ {[0.06, 0.64]}} & Yes/Yes \\
+LightGBM & 5 & 0.5000 & \shortstack{{0.521} \\ {[0.509, 0.533]}} & \shortstack{{99.8} \\ {[99.7, 99.8]}} & \shortstack{{0.00} \\ {[0.00, 0.09]}} & \shortstack{{0.34} \\ {[0.06, 0.64]}} & Yes/Yes \\
+LightGBM & 5 & 0.1667 & \shortstack{{0.586} \\ {[0.575, 0.596]}} & \shortstack{{89.0} \\ {[88.8, 89.3]}} & \shortstack{{3.29} \\ {[2.75, 3.78]}} & \shortstack{{18.09} \\ {[16.40, 20.04]}} & Yes/No \\
+LightGBM & 10 & 0.5000 & \shortstack{{0.124} \\ {[0.102, 0.146]}} & \shortstack{{99.8} \\ {[99.7, 99.8]}} & \shortstack{{0.00} \\ {[0.00, 0.09]}} & \shortstack{{0.34} \\ {[0.06, 0.64]}} & Yes/Yes \\
+LightGBM & 10 & 0.0909 & \shortstack{{0.400} \\ {[0.385, 0.414]}} & \shortstack{{73.0} \\ {[72.7, 73.4]}} & \shortstack{{7.08} \\ {[6.35, 7.85]}} & \shortstack{{31.32} \\ {[29.22, 33.40]}} & No/No \\
+MLP & 1 & 0.5000 & \shortstack{{0.804} \\ {[0.799, 0.808]}} & \shortstack{{94.2} \\ {[94.0, 94.4]}} & \shortstack{{2.09} \\ {[1.68, 2.51]}} & \shortstack{{2.83} \\ {[1.70, 4.00]}} & Yes/Yes \\
+MLP & 5 & 0.5000 & \shortstack{{0.527} \\ {[0.514, 0.538]}} & \shortstack{{94.2} \\ {[94.0, 94.4]}} & \shortstack{{2.09} \\ {[1.68, 2.51]}} & \shortstack{{2.83} \\ {[1.70, 4.00]}} & Yes/Yes \\
+MLP & 5 & 0.1667 & \shortstack{{0.527} \\ {[0.515, 0.538]}} & \shortstack{{91.6} \\ {[91.4, 91.8]}} & \shortstack{{2.79} \\ {[2.29, 3.23]}} & \shortstack{{4.55} \\ {[3.24, 6.01]}} & Yes/Yes \\
+MLP & 10 & 0.5000 & \shortstack{{0.181} \\ {[0.158, 0.201]}} & \shortstack{{94.2} \\ {[94.0, 94.4]}} & \shortstack{{2.09} \\ {[1.68, 2.51]}} & \shortstack{{2.83} \\ {[1.70, 4.00]}} & Yes/Yes \\
+MLP & 10 & 0.0909 & \shortstack{{0.213} \\ {[0.191, 0.233]}} & \shortstack{{90.2} \\ {[89.9, 90.4]}} & \shortstack{{3.03} \\ {[2.51, 3.52]}} & \shortstack{{5.46} \\ {[3.93, 6.91]}} & Yes/No \\
+Soft voting & 1 & 0.5000 & \shortstack{{0.839} \\ {[0.835, 0.843]}} & \shortstack{{99.7} \\ {[99.6, 99.7]}} & \shortstack{{0.05} \\ {[0.00, 0.14]}} & \shortstack{{0.49} \\ {[0.16, 0.86]}} & Yes/Yes \\
+Soft voting & 5 & 0.5000 & \shortstack{{0.524} \\ {[0.512, 0.536]}} & \shortstack{{99.7} \\ {[99.6, 99.7]}} & \shortstack{{0.05} \\ {[0.00, 0.14]}} & \shortstack{{0.49} \\ {[0.16, 0.86]}} & Yes/Yes \\
+Soft voting & 5 & 0.1667 & \shortstack{{0.587} \\ {[0.576, 0.597]}} & \shortstack{{89.1} \\ {[88.8, 89.3]}} & \shortstack{{4.08} \\ {[3.53, 4.63]}} & \shortstack{{16.80} \\ {[15.12, 18.59]}} & Yes/No \\
+Soft voting & 10 & 0.5000 & \shortstack{{0.130} \\ {[0.107, 0.152]}} & \shortstack{{99.7} \\ {[99.6, 99.7]}} & \shortstack{{0.05} \\ {[0.00, 0.14]}} & \shortstack{{0.49} \\ {[0.16, 0.86]}} & Yes/Yes \\
+Soft voting & 10 & 0.0909 & \shortstack{{0.407} \\ {[0.392, 0.422]}} & \shortstack{{73.9} \\ {[73.6, 74.3]}} & \shortstack{{7.51} \\ {[6.77, 8.26]}} & \shortstack{{29.68} \\ {[27.61, 31.73]}} & No/No \\
+Stacking & 1 & 0.5000 & \shortstack{{0.839} \\ {[0.835, 0.843]}} & \shortstack{{99.1} \\ {[99.0, 99.1]}} & \shortstack{{0.36} \\ {[0.20, 0.53]}} & \shortstack{{1.94} \\ {[1.31, 2.61]}} & Yes/Yes \\
+Stacking & 5 & 0.5000 & \shortstack{{0.535} \\ {[0.523, 0.546]}} & \shortstack{{99.1} \\ {[99.0, 99.1]}} & \shortstack{{0.36} \\ {[0.20, 0.53]}} & \shortstack{{1.94} \\ {[1.31, 2.61]}} & Yes/Yes \\
+Stacking & 5 & 0.1667 & \shortstack{{0.580} \\ {[0.569, 0.591]}} & \shortstack{{92.6} \\ {[92.4, 92.8]}} & \shortstack{{3.04} \\ {[2.60, 3.50]}} & \shortstack{{13.41} \\ {[11.91, 15.02]}} & Yes/No \\
+Stacking & 10 & 0.5000 & \shortstack{{0.155} \\ {[0.132, 0.176]}} & \shortstack{{99.1} \\ {[99.0, 99.1]}} & \shortstack{{0.36} \\ {[0.20, 0.53]}} & \shortstack{{1.94} \\ {[1.31, 2.61]}} & Yes/Yes \\
+Stacking & 10 & 0.0909 & \shortstack{{0.391} \\ {[0.374, 0.406]}} & \shortstack{{80.9} \\ {[80.6, 81.2]}} & \shortstack{{6.26} \\ {[5.59, 6.91]}} & \shortstack{{24.87} \\ {[22.90, 26.85]}} & No/No \\
+\bottomrule
+\end{longtable}
+\endgroup

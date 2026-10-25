@@ -1,0 +1,22 @@
+{
+  "status": "completed",
+  "completed_bootstrap": 1000,
+  "expected_bootstrap": 1000,
+  "seed": 42,
+  "model_count": 7,
+  "pair_count": 28,
+  "test_rows": 61503,
+  "input_integrity_unchanged": true,
+  "alignment_verified": true,
+  "existing_metrics_match": true,
+  "calibration_reused_and_validated": true,
+  "new_fit_calls": 0,
+  "new_predict_calls": 0,
+  "checkpoint_count": 1000,
+  "evaluation_elapsed_seconds": 203.04027489999862,
+  "bootstrap_new": 1000,
+  "bootstrap_reused": 0,
+  "completed_utc": "2026-10-25T12:51:47.078640+00:00",
+  "intervals": "95% percentile; pointwise, unadjusted, exploratory; fixed fitted models",
+  "undefined_primary_ci_count": 0
+}

@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Paired two-sided DeLong ROC-AUC tests versus logistic regression. Bonferroni correction across six comparisons; not an AP test.}
+\label{tab:delong-level4}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+Model & Delta ROC-AUC & p (raw) & p (Bonferroni) & Reject at 0.05 \\
+\midrule
+LightGBM & +0.0077 & 8.53e-05 & 0.000512 & Yes \\
+XGBoost & +0.0039 & 0.0475 & 0.285 & No \\
+Soft voting & +0.0115 & 7.56e-18 & 4.54e-17 & Yes \\
+Stacking & +0.0116 & 2.84e-18 & 1.7e-17 & Yes \\
+MLP & -0.1063 & 6e-173 & 3.6e-172 & Yes \\
+Random forest & -0.0104 & 2.57e-05 & 0.000154 & Yes \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

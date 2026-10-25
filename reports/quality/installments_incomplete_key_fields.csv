@@ -1,0 +1,9 @@
+﻿column,part_of_candidate_key,part_of_obligation_key,null_rows,non_null_rows
+SK_ID_PREV,True,True,0,2905
+SK_ID_CURR,False,True,0,2905
+NUM_INSTALMENT_VERSION,True,True,0,2905
+NUM_INSTALMENT_NUMBER,True,True,0,2905
+DAYS_INSTALMENT,False,False,0,2905
+DAYS_ENTRY_PAYMENT,True,False,2905,0
+AMT_INSTALMENT,False,False,0,2905
+AMT_PAYMENT,False,False,2905,0

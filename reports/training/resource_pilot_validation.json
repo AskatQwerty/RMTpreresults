@@ -1,0 +1,147 @@
+{
+  "checks": [
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": true,
+      "model": "logistic_regression",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    },
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": true,
+      "model": "random_forest",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    },
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": true,
+      "model": "xgboost",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    },
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": true,
+      "model": "lightgbm",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    },
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": true,
+      "model": "mlp",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    },
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": true,
+      "model": "soft_voting",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    },
+    {
+      "configuration_matches_manifest": true,
+      "diagnostics_verified": true,
+      "imported_provenance_verified": false,
+      "model": "stacking",
+      "model_bytes_verified": true,
+      "stage_hashes_checked": true,
+      "summary_matches_hash_checked_stage": true,
+      "warnings_verified": true
+    }
+  ],
+  "completed_fit_seconds_all_attempts": 3430.3680048999995,
+  "completed_models_checked": 7,
+  "elapsed_seconds_all_invocations": 4720.271551599999,
+  "elapsed_seconds_this_invocation": 524.7994346999985,
+  "imported_models_verified": [
+    "logistic_regression",
+    "random_forest",
+    "xgboost",
+    "lightgbm",
+    "mlp",
+    "soft_voting"
+  ],
+  "input_files_checked": 29,
+  "input_files_sha256_unchanged": true,
+  "interrupted_attempts": [
+    {
+      "evidence_directory": "origin_pilot\\attempt_history\\001_resource_guard\\random_forest",
+      "fit_completed": false,
+      "fit_seconds_if_completed": null,
+      "fit_started": true,
+      "fit_time_source": null,
+      "invocation": "origin/attempt_history/001_resource_guard",
+      "model": "random_forest",
+      "model_size_bytes": null,
+      "monitor_elapsed_seconds": 1230.3198266,
+      "peak_ram_gib": 3.8155517578125,
+      "primitive_fits_finished": 0,
+      "primitive_fits_unfinished": 1,
+      "raw_features": 322,
+      "rows": 221407,
+      "status": "resource_guard"
+    },
+    {
+      "evidence_directory": "origin_pilot\\stacking",
+      "fit_completed": true,
+      "fit_seconds_if_completed": 445.50624700000117,
+      "fit_started": true,
+      "fit_time_source": "phase_after_successful_fit",
+      "invocation": "origin/current",
+      "model": "stacking",
+      "model_size_bytes": null,
+      "monitor_elapsed_seconds": 451.9188780000004,
+      "peak_ram_gib": 4.980918884277344,
+      "primitive_fits_finished": 13,
+      "primitive_fits_unfinished": 0,
+      "raw_features": 322,
+      "rows": 221407,
+      "status": "failed"
+    }
+  ],
+  "invocations_recorded": 3,
+  "main_budget": {
+    "candidate_cv_outer_fits": 1680,
+    "main_outer_fits": 140,
+    "searches": 28
+  },
+  "migration_proof_verified": true,
+  "model_factory_and_preprocessing_unchanged": true,
+  "monitor_elapsed_seconds_all_attempts": 4719.204116000004,
+  "outer_fit_attempts_recorded": 9,
+  "outer_fits_finished_recorded": 8,
+  "outer_fits_started_recorded": 9,
+  "pilot_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\resource_pilot\\resource_de05e94a7cb7",
+  "primitive_fit_counts_fully_known": true,
+  "primitive_fits_finished_recorded": 34,
+  "primitive_fits_unfinished_recorded": 1,
+  "psutil_version": "7.0.0",
+  "source_snapshot_verified": true,
+  "status": "completed",
+  "supplementary_evidence_files_hashed": 79,
+  "test_used": false,
+  "total_completed_fit_seconds": 2984.8617578999983,
+  "unique_allowed_models_and_counters_verified": true
+}

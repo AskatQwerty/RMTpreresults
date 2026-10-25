@@ -1,0 +1,57 @@
+{
+  "scope": "pilot_20k_5config",
+  "status": "completed",
+  "completed_level4_models": [
+    "logistic_regression",
+    "lightgbm",
+    "xgboost",
+    "soft_voting",
+    "stacking",
+    "mlp",
+    "random_forest"
+  ],
+  "pending_models": [],
+  "invalid_models": [],
+  "level": 4,
+  "test_rows": 61503,
+  "scenario_rows": 42,
+  "group_rows": 252,
+  "calibration_rows": 70,
+  "files": {
+    "decision_scenarios.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_scenarios.csv",
+    "decision_scenarios.tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_scenarios.tex",
+    "decision_groups.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_groups.csv",
+    "decision_groups.tex": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_groups.tex",
+    "calibration_bins.csv": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\calibration_bins.csv",
+    "decision_metadata.json": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\reports\\pilot_20k_5config\\decision_metadata.json"
+  },
+  "input_sha256": {
+    "fairness.parquet": "3f3e48f8e55d4ab7173ed41a8dcaa5bb4da5c8165b46dec081097e79f75a93f9",
+    "target.parquet": "2fd1ee7e8f9982f30a97499ea4f3fa8c50fac9665c9436513ec3b2bd8fd72104",
+    "splits/test_ids.parquet": "822c5e4ed47791ed3853c367ac6862303373717b1c187e8f11e80d8c64f96658"
+  },
+  "all_models_descriptive": true,
+  "eligibility_filter_applied": false,
+  "winner_selected": false,
+  "test_threshold_optimization": false,
+  "additional_fit_calls": 0,
+  "additional_predict_calls": 0,
+  "fairness_correction_applied": false,
+  "definitions": {
+    "profit": "Normalized m=1, L in {1,5,10}; realized test mean of I(p<t)*[(1-y)-L*y] over ALL applicants; rejection yields 0. Not observed currency profit.",
+    "approval": "p(default)<t; equality rejects. Fixed t=0.5 and t=1/(1+L/m), chosen before reading test predictions. At L/m=1 both rules coincide intentionally.",
+    "default_tpr": "P(p(default)>=t | TARGET=1, group): detected defaults / actual defaults; TARGET=1 is positive, not successful repayment.",
+    "gaps": "Absolute difference between F and M, or <25 and >=25; proportions, not percentage points. Unknown excluded from binary gaps and reported separately. Undefined denominators remain missing.",
+    "age": "Existing AGE_GROUP reused: <25 and >=25 based on AGE_YEARS=-DAYS_BIRTH/365.25. A2 says below/above25 without explicit equality; preserved preparation assigns age25 to >=25.",
+    "gender": "Existing CODE_GENDER F/M; other or missing values are unknown, checked against saved GENDER_GROUP.",
+    "calibration": "10 fixed-width bins [k/10,(k+1)/10), last includes1; empty bins have n=0 and missing means. Descriptive curve only, no calibration fit."
+  },
+  "limitations": [
+    "All seven Level4 models shown descriptively; A2 applies profit/fairness to accuracy-eligible models. Eligibility and final joint selection are pending.",
+    "Single20k cohort and5 search configurations; five-repeat uncertainty is not measured.",
+    "Formal bootstrap confidence intervals, DeLong and Bonferroni tests are pending.",
+    "No reweighting or group-specific threshold correction; no SHAP. Brier remains in main metrics.",
+    "Profit ratios are assumptions; normalized realized averages are not actual lender revenue."
+  ],
+  "source": "Assignment2 Methods and Materials, pp2-3; preserved fairness.parquet boundary convention"
+}

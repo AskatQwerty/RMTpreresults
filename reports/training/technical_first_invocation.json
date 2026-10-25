@@ -1,0 +1,496 @@
+{
+  "available_ram_gib_end": 5.107784271240234,
+  "data_access": [
+    {
+      "contains_test": false,
+      "level": 4,
+      "purpose": "technical_train",
+      "rows": 1200
+    },
+    {
+      "contains_test": false,
+      "level": 4,
+      "purpose": "technical_validation",
+      "rows": 400
+    }
+  ],
+  "elapsed_seconds_this_invocation": 8.619642800000292,
+  "fits": [
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 0.14963600000010047,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.8975,
+        "approval_rate_at_0_5": 0.9725,
+        "brier_score": 0.0902433990122368,
+        "f1": 0.046511627906976744,
+        "fn": 31,
+        "fp": 10,
+        "log_loss": 0.3708118941493089,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.09622649391194346,
+        "precision": 0.09090909090909091,
+        "recall": 0.03125,
+        "roc_auc": 0.5395720108695652,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 358,
+        "tp": 1
+      },
+      "model": "logistic_regression",
+      "predict_seconds": 0.028425200000128825,
+      "primitive_fit_count": 1,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__C": 0.1
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": []
+    },
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 0.25716560000000754,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.92,
+        "approval_rate_at_0_5": 1.0,
+        "brier_score": 0.07265800132160646,
+        "f1": 0.0,
+        "fn": 32,
+        "fp": 0,
+        "log_loss": 0.27235952463608165,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.1318000336912007,
+        "precision": 0.0,
+        "recall": 0.0,
+        "roc_auc": 0.6178668478260869,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 368,
+        "tp": 0
+      },
+      "model": "random_forest",
+      "predict_seconds": 0.06456259999868053,
+      "primitive_fit_count": 1,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__max_depth": 4
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": []
+    },
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 0.19243330000062997,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.92,
+        "approval_rate_at_0_5": 1.0,
+        "brier_score": 0.07368302472114728,
+        "f1": 0.0,
+        "fn": 32,
+        "fp": 0,
+        "log_loss": 0.27405235971862785,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.13480669303769965,
+        "precision": 0.0,
+        "recall": 0.0,
+        "roc_auc": 0.6409646739130435,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 368,
+        "tp": 0
+      },
+      "model": "xgboost",
+      "predict_seconds": 0.030780099999901722,
+      "primitive_fit_count": 1,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__max_depth": 2
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": []
+    },
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 0.1623405999998795,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.92,
+        "approval_rate_at_0_5": 1.0,
+        "brier_score": 0.07259695562909921,
+        "f1": 0.0,
+        "fn": 32,
+        "fp": 0,
+        "log_loss": 0.2686765726283637,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.15361442132149195,
+        "precision": 0.0,
+        "recall": 0.0,
+        "roc_auc": 0.6709408967391305,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 368,
+        "tp": 0
+      },
+      "model": "lightgbm",
+      "predict_seconds": 0.024450499999147723,
+      "primitive_fit_count": 1,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__num_leaves": 7
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": []
+    },
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 0.8688250000013795,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.895,
+        "approval_rate_at_0_5": 0.97,
+        "brier_score": 0.0943163192791519,
+        "f1": 0.045454545454545456,
+        "fn": 31,
+        "fp": 11,
+        "log_loss": 0.6317776803012204,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.09077641848593349,
+        "precision": 0.08333333333333333,
+        "recall": 0.03125,
+        "roc_auc": 0.509086277173913,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 357,
+        "tp": 1
+      },
+      "model": "mlp",
+      "predict_seconds": 0.03170049999971525,
+      "primitive_fit_count": 1,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__alpha": 0.01
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": [
+        {
+          "category": "ConvergenceWarning",
+          "count": 1,
+          "message": "Stochastic Optimizer: Maximum iterations (60) reached and the optimization hasn't converged yet."
+        }
+      ]
+    },
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 0.6883705000000191,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.92,
+        "approval_rate_at_0_5": 1.0,
+        "brier_score": 0.07467044224359146,
+        "f1": 0.0,
+        "fn": 32,
+        "fp": 0,
+        "log_loss": 0.2842594138763963,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.1503256446065633,
+        "precision": 0.0,
+        "recall": 0.0,
+        "roc_auc": 0.6155740489130435,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 368,
+        "tp": 0
+      },
+      "model": "soft_voting",
+      "predict_seconds": 0.09448110000084853,
+      "primitive_fit_count": 3,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__weights": [
+          1,
+          2,
+          2
+        ]
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": []
+    },
+    {
+      "evaluation_split": "development_technical_validation",
+      "fit_seconds": 2.8328211000007286,
+      "level": 4,
+      "metrics": {
+        "accuracy": 0.92,
+        "approval_rate_at_0_5": 1.0,
+        "brier_score": 0.07126699459583144,
+        "f1": 0.0,
+        "fn": 32,
+        "fp": 0,
+        "log_loss": 0.26704326623217883,
+        "positive_rate": 0.08,
+        "positives": 32,
+        "pr_auc_average_precision": 0.17485326339673685,
+        "precision": 0.0,
+        "recall": 0.0,
+        "roc_auc": 0.6437669836956521,
+        "rows": 400,
+        "threshold": 0.5,
+        "tn": 368,
+        "tp": 0
+      },
+      "model": "stacking",
+      "predict_seconds": 0.10416079999959038,
+      "primitive_fit_count": 13,
+      "raw_features": 322,
+      "scope": "technical",
+      "seed": 42,
+      "selected_params": {
+        "model__final_estimator__C": 1.0
+      },
+      "serialization_prediction_check": true,
+      "train_rows": 1200,
+      "warnings": []
+    }
+  ],
+  "full_experiment_executed": false,
+  "input_sha256_unchanged": true,
+  "model_types_tested": [
+    "logistic_regression",
+    "random_forest",
+    "xgboost",
+    "lightgbm",
+    "mlp",
+    "soft_voting",
+    "stacking"
+  ],
+  "planned_primitive_fits": 147,
+  "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\technical\\technical_71ca7827eee1",
+  "run_counters": {
+    "new_fits": 0,
+    "new_searches": 0,
+    "resumed_fits": 7,
+    "resumed_searches": 7
+  },
+  "saved_cv_subset": [
+    {
+      "fold": 0,
+      "train_rows": 772,
+      "validation_positive": 37,
+      "validation_rows": 428
+    },
+    {
+      "fold": 1,
+      "train_rows": 812,
+      "validation_positive": 27,
+      "validation_rows": 388
+    },
+    {
+      "fold": 2,
+      "train_rows": 816,
+      "validation_positive": 33,
+      "validation_rows": 384
+    }
+  ],
+  "scope": "technical_only",
+  "search_candidate_outer_fits": 42,
+  "search_configs_per_model": 2,
+  "searches": [
+    {
+      "best_candidate_index": 0,
+      "best_cv_log_loss": 0.3627410243352171,
+      "best_cv_neg_log_loss": -0.3627410243352171,
+      "elapsed_seconds": 1.1247447000005195,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 6
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "logistic_regression",
+      "n_iter": 2,
+      "params": {
+        "model__C": 0.1
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": []
+    },
+    {
+      "best_candidate_index": 0,
+      "best_cv_log_loss": 0.26813635962666577,
+      "best_cv_neg_log_loss": -0.26813635962666577,
+      "elapsed_seconds": 1.257825500000763,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 6
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "random_forest",
+      "n_iter": 2,
+      "params": {
+        "model__max_depth": 4
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": []
+    },
+    {
+      "best_candidate_index": 0,
+      "best_cv_log_loss": 0.2510958378165176,
+      "best_cv_neg_log_loss": -0.2510958378165176,
+      "elapsed_seconds": 1.839090399998895,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 6
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "xgboost",
+      "n_iter": 2,
+      "params": {
+        "model__max_depth": 2
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": []
+    },
+    {
+      "best_candidate_index": 0,
+      "best_cv_log_loss": 0.25462555081462307,
+      "best_cv_neg_log_loss": -0.25462555081462307,
+      "elapsed_seconds": 1.1141023000000132,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 6
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "lightgbm",
+      "n_iter": 2,
+      "params": {
+        "model__num_leaves": 7
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": []
+    },
+    {
+      "best_candidate_index": 1,
+      "best_cv_log_loss": 0.4727794403895633,
+      "best_cv_neg_log_loss": -0.4727794403895633,
+      "elapsed_seconds": 3.8563657000013336,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 6
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "mlp",
+      "n_iter": 2,
+      "params": {
+        "model__alpha": 0.01
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": [
+        {
+          "category": "ConvergenceWarning",
+          "count": 6,
+          "message": "Stochastic Optimizer: Maximum iterations (60) reached and the optimization hasn't converged yet."
+        }
+      ]
+    },
+    {
+      "best_candidate_index": 1,
+      "best_cv_log_loss": 0.2682212145628482,
+      "best_cv_neg_log_loss": -0.2682212145628482,
+      "elapsed_seconds": 3.7223051999990275,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 18
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "soft_voting",
+      "n_iter": 2,
+      "params": {
+        "model__weights": [
+          1,
+          2,
+          2
+        ]
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": []
+    },
+    {
+      "best_candidate_index": 1,
+      "best_cv_log_loss": 0.2690154206203095,
+      "best_cv_neg_log_loss": -0.2690154206203095,
+      "elapsed_seconds": 13.139674999998533,
+      "fit_call_accounting": {
+        "outer_fits": 6,
+        "primitive_fits": 78
+      },
+      "fit_rows": 1200,
+      "folds": 3,
+      "level": 4,
+      "model": "stacking",
+      "n_iter": 2,
+      "params": {
+        "model__final_estimator__C": 1.0
+      },
+      "refit": false,
+      "scope": "technical",
+      "scoring": "neg_log_loss",
+      "warnings": []
+    }
+  ],
+  "technical_final_outer_fits": 7,
+  "train_positive": 97,
+  "train_rows": 1200,
+  "training_level": 4,
+  "validation_positive": 32,
+  "validation_rows": 400
+}

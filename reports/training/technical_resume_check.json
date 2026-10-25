@@ -1,0 +1,10 @@
+{
+  "counters": {
+    "new_fits": 0,
+    "new_searches": 0,
+    "resumed_fits": 7,
+    "resumed_searches": 7
+  },
+  "elapsed_seconds": 8.368446599999515,
+  "model_files_sha256_unchanged": true
+}

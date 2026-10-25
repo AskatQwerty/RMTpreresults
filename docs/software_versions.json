@@ -1,0 +1,45 @@
+{
+  "scope": "pilot_20k_5config",
+  "origin": "Saved training and evaluation logs; no current hardware substituted",
+  "training": {
+    "python": "3.13.9",
+    "packages": {
+      "joblib": "1.5.2",
+      "lightgbm": "4.7.0",
+      "numpy": "2.3.5",
+      "pandas": "2.3.3",
+      "pyarrow": "21.0.0",
+      "scikit-learn": "1.7.2",
+      "scipy": "1.16.3",
+      "threadpoolctl": "3.5.0",
+      "xgboost": "3.2.0"
+    },
+    "threads": 2,
+    "search_n_jobs": 1,
+    "pre_dispatch": 1,
+    "hardware_recorded": false,
+    "hardware": null,
+    "hardware_note": "Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется."
+  },
+  "evaluation": {
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2"
+  },
+  "shap": {
+    "executed": false,
+    "version": null,
+    "note": "Next RQ3 participant must record the chosen SHAP version and output scale without silently replacing the saved model environment."
+  },
+  "sources": [
+    {
+      "path": "reports/pilot_20k_5config/evaluation/actual_training_protocol.json",
+      "sha256": "042f4d2c8e62ebd3f550dee8b7943ccc8404594d3ac9be3c83a13ef4e9969437"
+    },
+    {
+      "path": "reports/pilot_20k_5config/evaluation/evaluation_manifest.json",
+      "sha256": "81253dff4e8498e304c35ccd368db4215a7898fb344f82bdc66cccc706217d23"
+    }
+  ]
+}
