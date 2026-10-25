@@ -4,6 +4,12 @@ Code for the third research question, run on top of the team package `pilot_20k_
 (28 saved Pipelines, handoff data). Nothing in the package is refitted; retrainings build new
 estimators with `src.model_pipelines.make_estimator` and the saved best parameters.
 
+## Manuscript versions
+
+`rq3_results_draft.tex` is the compact version for the combined paper's Results page budget. It includes two RQ3 tables (agreement with logistic regression and stability across five retrainings), for use alongside the existing RQ1 and RQ2 results. The final page count depends on the complete IEEE manuscript and its float placement.
+
+`rq3_results_extended.tex` retains the full RQ3 account, including additional diagnostics and reproducibility details. All generated tables and all four RQ3 PDF figures remain available under `rq3/out/tables/` and `rq3/out/figures/`; the compact manuscript does not embed every retained figure.
+
 ## Layout
 
 ```
