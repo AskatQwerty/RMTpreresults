@@ -4,7 +4,7 @@
   "runs": [
     {
       "scope": "technical",
-      "root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\technical\\technical_71ca7827eee1",
+      "root": "artifacts\\training\\technical\\technical_71ca7827eee1",
       "status": "completed",
       "completed_searches": 7,
       "completed_fits": 7,
