@@ -16,7 +16,7 @@ SECRET_PATTERNS = {
     'private_key': rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----',
     'github_token': rb'gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}',
     'aws_access_key': rb'(?:AKIA|ASIA)[A-Z0-9]{16}',
-    'openai_key': rb'sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{35,}',
+    'token_pattern': rb'sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{35,}',
 }
 
 
