@@ -1,0 +1,9 @@
+{
+  "rule": "stratified by HAS_BUREAU, n_per_group from each group, natural default rate kept",
+  "n_per_group": 500,
+  "n_background": 100,
+  "seed": 42,
+  "source_explained": "test_ids.parquet (fixed test set)",
+  "source_background": "train_ids.parquet (20k pilot train)",
+  "default_rate_explained": 0.086
+}
