@@ -1,0 +1,454 @@
+[
+  {
+    "candidate_number": 20,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "lightgbm",
+    "params": {
+      "model__colsample_bytree": 1.0,
+      "model__learning_rate": 0.03,
+      "model__min_child_samples": 20,
+      "model__n_estimators": 200,
+      "model__num_leaves": 15,
+      "model__reg_lambda": 5.0
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "56fe6895ba6128042882212b639da5a5f1006446cacd0396592f8c8b8b5e3993"
+  },
+  {
+    "candidate_number": 4,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "lightgbm",
+    "params": {
+      "model__colsample_bytree": 1.0,
+      "model__learning_rate": 0.03,
+      "model__min_child_samples": 100,
+      "model__n_estimators": 200,
+      "model__num_leaves": 15,
+      "model__reg_lambda": 5.0
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "fe6f5bd5dad99c1655c0d78f17383fa3e01a17f81087d597a0be624846617d2a"
+  },
+  {
+    "candidate_number": 4,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "lightgbm",
+    "params": {
+      "model__colsample_bytree": 1.0,
+      "model__learning_rate": 0.03,
+      "model__min_child_samples": 100,
+      "model__n_estimators": 200,
+      "model__num_leaves": 15,
+      "model__reg_lambda": 5.0
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "abeca8c32be598b48fa93a1f35aef98f6a67ee798b57dff529f0a63035a7fc68"
+  },
+  {
+    "candidate_number": 4,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "lightgbm",
+    "params": {
+      "model__colsample_bytree": 1.0,
+      "model__learning_rate": 0.03,
+      "model__min_child_samples": 100,
+      "model__n_estimators": 200,
+      "model__num_leaves": 15,
+      "model__reg_lambda": 5.0
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "d1cd313e3652923d1395da2316f6517be1cb4187e646bb1aa5fecda0ec648e81"
+  },
+  {
+    "candidate_number": 20,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "logistic_regression",
+    "params": {
+      "model__C": 0.013503140378698736
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "72b795199e65cdb86a6e908e13f60c43940115402b014e563bca9629e6cc81e1"
+  },
+  {
+    "candidate_number": 10,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "logistic_regression",
+    "params": {
+      "model__C": 0.0033245979322709418
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "982c31c3df3cd2e8e7c2dd5ef961b788e49c4ba4f1f5da465b85782b6b27143d"
+  },
+  {
+    "candidate_number": 10,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "logistic_regression",
+    "params": {
+      "model__C": 0.0033245979322709418
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "ee1988fbd1178a36dd13eeff84d3b7ff55f8218dabb9b22ac343d877f5911e9f"
+  },
+  {
+    "candidate_number": 15,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "logistic_regression",
+    "params": {
+      "model__C": 0.0016496480740980208
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "df3c9393fa440f2f60143e8322c9134f360e9505cb823bf6869f64b44d3c78b1"
+  },
+  {
+    "candidate_number": 13,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "mlp",
+    "params": {
+      "model__alpha": 1e-05,
+      "model__batch_size": 256,
+      "model__hidden_layer_sizes": [
+        32
+      ],
+      "model__learning_rate_init": 0.0003
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\mlp\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "f4ecdfd9baf429bc3ae72bfd60284cdfc4a49db7aedce1cb58755884f7e2fb5a"
+  },
+  {
+    "candidate_number": 13,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "mlp",
+    "params": {
+      "model__alpha": 1e-05,
+      "model__batch_size": 256,
+      "model__hidden_layer_sizes": [
+        32
+      ],
+      "model__learning_rate_init": 0.0003
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\mlp\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "3fc3bf8018b241f5c268e4785101f6b4e2f2f82016d0a8f44dcba98bde8666f4"
+  },
+  {
+    "candidate_number": 13,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "mlp",
+    "params": {
+      "model__alpha": 1e-05,
+      "model__batch_size": 256,
+      "model__hidden_layer_sizes": [
+        32
+      ],
+      "model__learning_rate_init": 0.0003
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\mlp\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "bfb5a7ac8655ae893b6f6378f7f46de8a3d796794c0777bba349166b937bca0a"
+  },
+  {
+    "candidate_number": 13,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "mlp",
+    "params": {
+      "model__alpha": 1e-05,
+      "model__batch_size": 256,
+      "model__hidden_layer_sizes": [
+        32
+      ],
+      "model__learning_rate_init": 0.0003
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\mlp\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "4490b1fda199cea53c2de20bfb2b4437143f50c322abecdc3cbf87408b9ea30a"
+  },
+  {
+    "candidate_number": 19,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "random_forest",
+    "params": {
+      "model__max_depth": 8,
+      "model__max_features": 0.5,
+      "model__min_samples_leaf": 30,
+      "model__n_estimators": 300
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "0052b3dccf806f5e458d59eec3940d23205336b3d065757e24b51db2305108a0"
+  },
+  {
+    "candidate_number": 1,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "random_forest",
+    "params": {
+      "model__max_depth": 24,
+      "model__max_features": 0.5,
+      "model__min_samples_leaf": 30,
+      "model__n_estimators": 300
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "69483ec8f908ffd78e0b1b1e001dfb8b2f7f0cd19205d3bf18372d64d76da841"
+  },
+  {
+    "candidate_number": 1,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "random_forest",
+    "params": {
+      "model__max_depth": 24,
+      "model__max_features": 0.5,
+      "model__min_samples_leaf": 30,
+      "model__n_estimators": 300
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "e653088986c49313a953e088cd9631c4ea428af1e58cd46b2c7509aed6b669b9"
+  },
+  {
+    "candidate_number": 1,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "random_forest",
+    "params": {
+      "model__max_depth": 24,
+      "model__max_features": 0.5,
+      "model__min_samples_leaf": 30,
+      "model__n_estimators": 300
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "c2a9c521cd086e0790044c8a47e4d172f9eba500bbb22a3dec53c96593d95a6f"
+  },
+  {
+    "candidate_number": 9,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "soft_voting",
+    "params": {
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.01,
+      "model__weights": [
+        2,
+        1,
+        1
+      ],
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "f0fa4bc0c99e42584481c5f44b5adcfb1532daed1f0bab63d707a8249f2a5713"
+  },
+  {
+    "candidate_number": 9,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "soft_voting",
+    "params": {
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.01,
+      "model__weights": [
+        2,
+        1,
+        1
+      ],
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "0c5df14c927ac9a909f0082bae436c93f37cd85d8d8ffd445b7b1d89538b0166"
+  },
+  {
+    "candidate_number": 5,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "soft_voting",
+    "params": {
+      "model__lgbm__model__num_leaves": 31,
+      "model__lr__model__C": 0.01,
+      "model__weights": [
+        1,
+        1,
+        1
+      ],
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "f0b50a774d39d110c817501a1ef1d6619439660d91ce0b5030cce9df96997bc2"
+  },
+  {
+    "candidate_number": 9,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "soft_voting",
+    "params": {
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.01,
+      "model__weights": [
+        2,
+        1,
+        1
+      ],
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "e811a98e2c2bc079cd585635c2ffe6cfd80a93f7a8f8881d87fb39624a50483a"
+  },
+  {
+    "candidate_number": 5,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "stacking",
+    "params": {
+      "model__final_estimator__C": 1.0,
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.1,
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "6338a27274bf30395c106ec7195ced500b3f58006cbab1f458a10c9464792ff1"
+  },
+  {
+    "candidate_number": 5,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "stacking",
+    "params": {
+      "model__final_estimator__C": 1.0,
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.1,
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "4d7d9064a61670314d5dacaa59f7ba00ba52fa3eaaab9661a4e32729308e2ab6"
+  },
+  {
+    "candidate_number": 5,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "stacking",
+    "params": {
+      "model__final_estimator__C": 1.0,
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.1,
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "b3086c578ffa253a02939a146c9c9507c19aae65c0aa91d793cf42a2e66db5d2"
+  },
+  {
+    "candidate_number": 5,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "stacking",
+    "params": {
+      "model__final_estimator__C": 1.0,
+      "model__lgbm__model__num_leaves": 15,
+      "model__lr__model__C": 0.1,
+      "model__xgb__model__max_depth": 3
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "f212f6eb564d791fa4354bda045c9ccd38b85cfdc6a4c4a72bc0a30d82d0da03"
+  },
+  {
+    "candidate_number": 7,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 1,
+    "model": "xgboost",
+    "params": {
+      "model__colsample_bytree": 0.8,
+      "model__learning_rate": 0.03,
+      "model__max_depth": 3,
+      "model__min_child_weight": 5,
+      "model__n_estimators": 400,
+      "model__reg_lambda": 5.0,
+      "model__subsample": 1.0
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_1\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "a33f980b5c8b4040cc74486198784d883255da419cf77e464309efef6a1a5c2b"
+  },
+  {
+    "candidate_number": 9,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 2,
+    "model": "xgboost",
+    "params": {
+      "model__colsample_bytree": 0.8,
+      "model__learning_rate": 0.03,
+      "model__max_depth": 5,
+      "model__min_child_weight": 1,
+      "model__n_estimators": 200,
+      "model__reg_lambda": 1.0,
+      "model__subsample": 0.8
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_2\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "1bc7ebd36e26af88fad3c3173d7ddd4bab46700d251a36f972cf3558b7615a77"
+  },
+  {
+    "candidate_number": 7,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 3,
+    "model": "xgboost",
+    "params": {
+      "model__colsample_bytree": 0.8,
+      "model__learning_rate": 0.03,
+      "model__max_depth": 3,
+      "model__min_child_weight": 5,
+      "model__n_estimators": 400,
+      "model__reg_lambda": 5.0,
+      "model__subsample": 1.0
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_3\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "e49588c783f129990e564416caaf4feca72fdd7703ce08edd480a2961af97c87"
+  },
+  {
+    "candidate_number": 8,
+    "final_training_seed": 42,
+    "fitted_final_pipeline": true,
+    "level": 4,
+    "model": "xgboost",
+    "params": {
+      "model__colsample_bytree": 0.8,
+      "model__learning_rate": 0.03,
+      "model__max_depth": 5,
+      "model__min_child_weight": 1,
+      "model__n_estimators": 200,
+      "model__reg_lambda": 5.0,
+      "model__subsample": 0.8
+    },
+    "pipeline_file": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_4\\fit_checkpoint\\pipeline.joblib",
+    "pipeline_sha256": "2f53d5b6629cda5f0ea3fb13ce5d90fe321ced7825410570707ecf4d810f36e7"
+  }
+]

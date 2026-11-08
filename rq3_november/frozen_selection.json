@@ -1,0 +1,61 @@
+{
+  "all_level_selections_frozen_before_test": true,
+  "gate": "meanCV improves original MLP and constant train-prior by1e-6; all3folds beat original MLP",
+  "plan_fingerprint": "2bb884673500177f5d369b1dcb98888290a69a56b1141bc6a1d838eb4a2d3bf5",
+  "selected_after_completed_cv": 48,
+  "selections": [
+    {
+      "baseline_cv_log_loss": 0.388510228212565,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 1,
+      "mean_cv_log_loss": 0.25662697236346405,
+      "params": {
+        "alpha": 1e-05,
+        "clip_z": 5.0,
+        "name": "stop_clipped"
+      },
+      "variant": "stop_clipped"
+    },
+    {
+      "baseline_cv_log_loss": 0.47951122391346584,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 2,
+      "mean_cv_log_loss": 0.2574317185115609,
+      "params": {
+        "alpha": 0.1,
+        "clip_z": 5.0,
+        "name": "stop_clipped_regularized"
+      },
+      "variant": "stop_clipped_regularized"
+    },
+    {
+      "baseline_cv_log_loss": 0.5693882933853726,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 3,
+      "mean_cv_log_loss": 0.2544655597010271,
+      "params": {
+        "alpha": 0.1,
+        "clip_z": 5.0,
+        "name": "stop_clipped_regularized"
+      },
+      "variant": "stop_clipped_regularized"
+    },
+    {
+      "baseline_cv_log_loss": 0.6393957973705551,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 4,
+      "mean_cv_log_loss": 0.2538381698156598,
+      "params": {
+        "alpha": 0.1,
+        "clip_z": 5.0,
+        "name": "stop_clipped_regularized"
+      },
+      "variant": "stop_clipped_regularized"
+    }
+  ],
+  "test_used_for_selection": false
+}
