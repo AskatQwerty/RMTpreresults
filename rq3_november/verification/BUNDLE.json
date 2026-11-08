@@ -1,0 +1,15 @@
+{
+  "commit": "f431692a194381c1e5fd28af4235a7597dcc37a1",
+  "zip_sha256": "33bc897cfee188810a15ce4850a2e59144f6f523b45ebb3ce56cea152f37e355",
+  "files_verified": 64,
+  "model_count": 28,
+  "models": {
+    "models/lightgbm/level_4/pipeline.joblib": "d1cd313e3652923d1395da2316f6517be1cb4187e646bb1aa5fecda0ec648e81",
+    "models/logistic_regression/level_4/pipeline.joblib": "df3c9393fa440f2f60143e8322c9134f360e9505cb823bf6869f64b44d3c78b1",
+    "models/mlp/level_4/pipeline.joblib": "dd4b4b7a390871dc8a6d1fe0e52ae8f93cac1c6976dba730438d191aa5fecd7f",
+    "models/random_forest/level_4/pipeline.joblib": "c2a9c521cd086e0790044c8a47e4d172f9eba500bbb22a3dec53c96593d95a6f",
+    "models/soft_voting/level_4/pipeline.joblib": "e811a98e2c2bc079cd585635c2ffe6cfd80a93f7a8f8881d87fb39624a50483a",
+    "models/stacking/level_4/pipeline.joblib": "f212f6eb564d791fa4354bda045c9ccd38b85cfdc6a4c4a72bc0a30d82d0da03",
+    "models/xgboost/level_4/pipeline.joblib": "2f53d5b6629cda5f0ea3fb13ce5d90fe321ced7825410570707ecf4d810f36e7"
+  }
+}

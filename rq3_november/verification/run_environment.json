@@ -1,0 +1,37 @@
+{
+  "hardware": {
+    "CPU": "Intel Core i5-10300H @ 2.50 GHz",
+    "physical_cores": 4,
+    "logical_cpus": 8,
+    "ram_bytes": 8412778496,
+    "GPU_used": false,
+    "OS": "Windows-10-10.0.19045-SP0"
+  },
+  "timing": {
+    "start_utc_approx": "2026-11-08T07:26:07.620992+00:00",
+    "end_utc_approx": "2026-11-08T07:59:19.803569+00:00",
+    "elapsed_wall_minutes_including_preliminary_checks_and_restarts": 33.2,
+    "timing_boundary": "Correction run with the shared 1000 IDs through verification. Reused five already complete 1000-row fixed explanations and 35 refit model files; excludes their earlier training time."
+  },
+  "threads_per_fit": 2,
+  "seeds": {
+    "selection": 42,
+    "final_training": 42,
+    "retraining": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "fixed_and_retraining_permutations": 0,
+    "same_fit_control": [
+      11,
+      12
+    ],
+    "bootstrap": 42
+  },
+  "github_commit": "f431692a194381c1e5fd28af4235a7597dcc37a1",
+  "github_repository": "https://github.com/AskatQwerty/RMTpreresults",
+  "environment": "environment.json"
+}
