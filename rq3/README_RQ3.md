@@ -1,4 +1,6 @@
-# RQ3 — SHAP consistency and stability (Assignment 3)
+# October RQ3 — SHAP consistency and stability
+
+This directory records the October pilot. The [November RQ3 report](../rq3_november/README.md) uses the updated models and the same 1,000 test applicants for all seven model types.
 
 Code for the third research question, run on top of the team package `pilot_20k_5config`
 (28 saved Pipelines, handoff data). Nothing in the package is refitted; retrainings build new
