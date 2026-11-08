@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\caption{Stability of SHAP explanations across 5 retrainings of each model (Level 4, $n$ = 1000 applicants). Spearman: mean $\pm$ s.d.\ over the 10 run pairs, 95\% bootstrap CI over applicants in brackets; top-5 kept: mean share of an applicant's five largest reasons present in both retrainings; $\Delta$: paired difference vs logistic regression with a Bonferroni-adjusted CI (six comparisons; * excludes zero). Criteria: Spearman $\ge$ 0.8 and top-5 kept $\ge$ 0.8.}
+\label{tab:rq3_stability}
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Model & Explainer & Spearman between runs & Top-5 kept & $\Delta$ top-5 vs LR & Criteria met \\
+\hline
+Logistic regression & approximate & 0.93 $\pm$ 0.01 [0.93, 0.94] & 0.86 [0.85, 0.86] & -- & yes \\
+Random forest & exact & 0.97 $\pm$ 0.00 [0.97, 0.97] & 0.81 [0.80, 0.81] & -0.05 [-0.06, -0.04]* & yes \\
+XGBoost & exact & 0.91 $\pm$ 0.01 [0.91, 0.91] & 0.72 [0.72, 0.73] & -0.14 [-0.15, -0.13]* & no \\
+LightGBM & exact & 0.89 $\pm$ 0.01 [0.89, 0.89] & 0.75 [0.74, 0.75] & -0.11 [-0.12, -0.10]* & no \\
+MLP & approximate & 0.58 $\pm$ 0.03 [0.57, 0.58] & 0.59 [0.58, 0.60] & -0.27 [-0.28, -0.26]* & no \\
+Soft voting & approximate & 0.92 $\pm$ 0.01 [0.92, 0.92] & 0.80 [0.80, 0.81] & -0.06 [-0.06, -0.05]* & yes \\
+Stacking & approximate & 0.89 $\pm$ 0.02 [0.89, 0.89] & 0.74 [0.73, 0.75] & -0.12 [-0.13, -0.11]* & no \\
+\hline
+\end{tabular}
+\end{table*}

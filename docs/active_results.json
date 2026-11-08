@@ -20,7 +20,8 @@
   ],
   "mlp_selection_scope": "mlp_repair_20k_v1",
   "mlp_posthoc_exploratory": true,
-  "rq3_status": "Existing rq3/ is historical; SHAP for replacement MLPs was not recomputed",
+  "rq3_status": "Completed SHAP RQ3 for seven active Level 4 models and five retrainings each on the same 1000 test applicants; rq3/ contains the October results.",
+  "rq3_report": "rq3_november/README.md",
   "new_training_calls_in_replacement": 0,
   "bootstrap_replicates": 1000,
   "evaluation_validation": "reports/pilot_20k_20config_mlp_updated/evaluation/independent_validation.json"

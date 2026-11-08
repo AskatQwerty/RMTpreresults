@@ -16,8 +16,8 @@ Their selected epoch counts are 27, 24, 16 and 21.
 
 The test had already been inspected before that supplemental experiment. These
 MLP results must be labelled exploratory. Previous model and report versions
-remain preserved in the project. Existing RQ3/SHAP results describe the earlier
-`pilot_20k_5config` models; SHAP has not been recomputed for these replacements.
+remain preserved in the project. The [November SHAP study](../rq3_november/README.md) uses the seven Level 4 models in this archive.
+The [October SHAP results](../rq3/README_RQ3.md) cover the earlier `pilot_20k_5config` models.
 
 ## Load a saved model
 
