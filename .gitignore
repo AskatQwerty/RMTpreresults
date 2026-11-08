@@ -42,6 +42,10 @@
 reports/**/spill/
 reports/pilot_20k_5config/evaluation/bootstrap/
 reports/pilot_20k_5config/evaluation/bootstrap_*_distribution.csv
+reports/pilot_20k_20config_final/evaluation/bootstrap/
+reports/pilot_20k_20config_final/evaluation/bootstrap_*_distribution.csv
+reports/pilot_20k_20config_mlp_updated/evaluation/bootstrap/
+reports/pilot_20k_20config_mlp_updated/evaluation/bootstrap_*_distribution.csv
 **/test_probabilities*.csv
 **/predictions*.csv
 **/train_ids.csv
@@ -87,3 +91,6 @@ secrets/
 .netrc
 .pypirc
 .npmrc
+
+# Explicit public release: fitted estimators and loading code, no customer rows.
+!/model_bundles/RMT_active_28_models.zip

@@ -1,0 +1,19 @@
+{
+  "new_cv_fits": 0,
+  "old_preservation": {
+    "after_manifest_sha256": "bb2225fe4e9122e7aa0f2a9e670d94bd7bad5ded332cdca242e54c4864d82914",
+    "before_manifest_sha256": "bb2225fe4e9122e7aa0f2a9e670d94bd7bad5ded332cdca242e54c4864d82914",
+    "checked_files": 2446,
+    "mismatches": [],
+    "old_models_and_reports_unchanged": true,
+    "passed": true
+  },
+  "passed": true,
+  "peak_pair_rss_gib": 1.5411529541015625,
+  "saved_test_predictions": 28,
+  "total_final_fit_seconds": 1646.1441327000002,
+  "total_pipeline_bytes": 18472879,
+  "total_predict_seconds": 77.15173339999728,
+  "unique_train_only_final_fits": 28,
+  "verified_pairs": 28
+}

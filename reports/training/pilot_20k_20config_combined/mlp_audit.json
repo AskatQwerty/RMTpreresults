@@ -1,0 +1,313 @@
+{
+  "status": "passed_with_caveats",
+  "created_utc": "2026-11-08T04:13:26.885106+00:00",
+  "classifier_fit_calls": 0,
+  "test_rows_loaded": 0,
+  "diagnostic_preprocessor_fit_calls": 12,
+  "diagnostic_scope": "saved train fold only; discard transformers after checking",
+  "cv_score_count": 240,
+  "saved_cv_diagnostic_count": 180,
+  "initial_cv_diagnostics_missing_count": 60,
+  "source_core_hashes": {
+    "model_pipelines.py": "dd4fb565e05093d4fb910ac0759838fc612420962e6e07ad0159bc4022a257f4",
+    "fold_preprocessing.py": "80a06d3d3bf263dc5117286dd5ef9e09b3c59cf0c9ae3b0d3efdfd35948758e2"
+  },
+  "frozen_mlp_config": {
+    "max_iter": 300,
+    "tol": 0.0001,
+    "n_iter_no_change": 20,
+    "early_stopping": false,
+    "random_state": 42
+  },
+  "selected_parameters": [
+    {
+      "candidate_number": 13,
+      "fitted_final_pipeline": false,
+      "level": 1,
+      "mean_cv_log_loss": 0.388510228212565,
+      "model": "mlp",
+      "params": {
+        "model__alpha": 1e-05,
+        "model__batch_size": 256,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      }
+    },
+    {
+      "candidate_number": 13,
+      "fitted_final_pipeline": false,
+      "level": 2,
+      "mean_cv_log_loss": 0.47951122391346596,
+      "model": "mlp",
+      "params": {
+        "model__alpha": 1e-05,
+        "model__batch_size": 256,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      }
+    },
+    {
+      "candidate_number": 13,
+      "fitted_final_pipeline": false,
+      "level": 3,
+      "mean_cv_log_loss": 0.5693882933853726,
+      "model": "mlp",
+      "params": {
+        "model__alpha": 1e-05,
+        "model__batch_size": 256,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      }
+    },
+    {
+      "candidate_number": 13,
+      "fitted_final_pipeline": false,
+      "level": 4,
+      "mean_cv_log_loss": 0.6393957973705551,
+      "model": "mlp",
+      "params": {
+        "model__alpha": 1e-05,
+        "model__batch_size": 256,
+        "model__hidden_layer_sizes": [
+          32
+        ],
+        "model__learning_rate_init": 0.0003
+      }
+    }
+  ],
+  "diagnostics_summary": {
+    "max_iter_reached_fits": 61,
+    "convergence_warnings": 61,
+    "train_objective_decreased_fits": 180,
+    "n_iter_min": 75,
+    "n_iter_max": 300,
+    "selected_final_train_objective_min": 0.017265262708646797,
+    "selected_final_train_objective_max": 0.11640396921787594,
+    "selected_cv_log_loss_min": 0.3771700992543411,
+    "selected_cv_log_loss_max": 0.6439131194510133,
+    "selected_reached_max_iter_count": 12
+  },
+  "preprocessing_checks": [
+    {
+      "level": 1,
+      "fold": 0,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 357,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.4642801908885,
+      "numeric_validation_max_abs_z": 115.4642801908885,
+      "worst_validation_scaled_feature": "FLAG_DOCUMENT_4",
+      "numeric_validation_values_abs_z_gt10": 528,
+      "constant_train_prior_validation_log_loss": 0.28046592270285303
+    },
+    {
+      "level": 1,
+      "fold": 1,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 358,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46428019088847,
+      "numeric_validation_max_abs_z": 115.46428019088847,
+      "worst_validation_scaled_feature": "FLAG_DOCUMENT_7",
+      "numeric_validation_values_abs_z_gt10": 626,
+      "constant_train_prior_validation_log_loss": 0.28083078746214024
+    },
+    {
+      "level": 1,
+      "fold": 2,
+      "train_rows": 13334,
+      "validation_rows": 6666,
+      "encoded_features": 359,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46861045323095,
+      "numeric_validation_max_abs_z": 115.46861045323095,
+      "worst_validation_scaled_feature": "FLAG_DOCUMENT_4",
+      "numeric_validation_values_abs_z_gt10": 552,
+      "constant_train_prior_validation_log_loss": 0.28049535617398536
+    },
+    {
+      "level": 2,
+      "fold": 0,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 465,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.4642801908885,
+      "numeric_validation_max_abs_z": 115.4642801908885,
+      "worst_validation_scaled_feature": "FLAG_DOCUMENT_4",
+      "numeric_validation_values_abs_z_gt10": 777,
+      "constant_train_prior_validation_log_loss": 0.28046592270285303
+    },
+    {
+      "level": 2,
+      "fold": 1,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 466,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46428019088847,
+      "numeric_validation_max_abs_z": 127.3455270342414,
+      "worst_validation_scaled_feature": "BUREAU_AMT_CREDIT_SUM_OVERDUE_MIN",
+      "numeric_validation_values_abs_z_gt10": 872,
+      "constant_train_prior_validation_log_loss": 0.28083078746214024
+    },
+    {
+      "level": 2,
+      "fold": 2,
+      "train_rows": 13334,
+      "validation_rows": 6666,
+      "encoded_features": 467,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46861045323095,
+      "numeric_validation_max_abs_z": 537.9832313352154,
+      "worst_validation_scaled_feature": "BUREAU_AMT_CREDIT_MAX_OVERDUE_MIN",
+      "numeric_validation_values_abs_z_gt10": 812,
+      "constant_train_prior_validation_log_loss": 0.28049535617398536
+    },
+    {
+      "level": 3,
+      "fold": 0,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 637,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.4642801908885,
+      "numeric_validation_max_abs_z": 115.4642801908885,
+      "worst_validation_scaled_feature": "FLAG_DOCUMENT_4",
+      "numeric_validation_values_abs_z_gt10": 1302,
+      "constant_train_prior_validation_log_loss": 0.28046592270285303
+    },
+    {
+      "level": 3,
+      "fold": 1,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 638,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46428019088847,
+      "numeric_validation_max_abs_z": 6604.282155937077,
+      "worst_validation_scaled_feature": "CC_SK_DPD_DEF_AVG",
+      "numeric_validation_values_abs_z_gt10": 1423,
+      "constant_train_prior_validation_log_loss": 0.28083078746214024
+    },
+    {
+      "level": 3,
+      "fold": 2,
+      "train_rows": 13334,
+      "validation_rows": 6666,
+      "encoded_features": 639,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46861045323095,
+      "numeric_validation_max_abs_z": 65250.0,
+      "worst_validation_scaled_feature": "CC_AMT_DRAWINGS_OTHER_CURRENT_MIN",
+      "numeric_validation_values_abs_z_gt10": 1335,
+      "constant_train_prior_validation_log_loss": 0.28049535617398536
+    },
+    {
+      "level": 4,
+      "fold": 0,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 753,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.4642801908885,
+      "numeric_validation_max_abs_z": 26856.114687005887,
+      "worst_validation_scaled_feature": "INSTALLMENTS_DAYS_LATE_MIN",
+      "numeric_validation_values_abs_z_gt10": 1440,
+      "constant_train_prior_validation_log_loss": 0.28046592270285303
+    },
+    {
+      "level": 4,
+      "fold": 1,
+      "train_rows": 13333,
+      "validation_rows": 6667,
+      "encoded_features": 754,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46428019088847,
+      "numeric_validation_max_abs_z": 6604.282155937077,
+      "worst_validation_scaled_feature": "CC_SK_DPD_DEF_AVG",
+      "numeric_validation_values_abs_z_gt10": 1572,
+      "constant_train_prior_validation_log_loss": 0.28083078746214024
+    },
+    {
+      "level": 4,
+      "fold": 2,
+      "train_rows": 13334,
+      "validation_rows": 6666,
+      "encoded_features": 755,
+      "finite_train": true,
+      "finite_validation": true,
+      "train_only_statistics_verified": true,
+      "statistics_unchanged_after_validation": true,
+      "fully_empty_train_columns": 0,
+      "numeric_train_max_abs_z": 115.46861045323095,
+      "numeric_validation_max_abs_z": 65250.0,
+      "worst_validation_scaled_feature": "CC_AMT_DRAWINGS_OTHER_CURRENT_MIN",
+      "numeric_validation_values_abs_z_gt10": 1430,
+      "constant_train_prior_validation_log_loss": 0.28049535617398536
+    }
+  ],
+  "interpretation_ru": [
+    "Структурной ошибки Pipeline не обнаружено: масштабирование есть, медианы и scaler обучаются на train фолда, validation только transform.",
+    "Все проверенные матрицы train/validation конечны, их ширина совпадает; тестовые данные не загружались.",
+    "Низкая сохранённая обучающая целевая функция при высоком CV log-loss согласуется с сильным переобучением; это диагностический вывод, а не доказательство единственной причины.",
+    "MLP loss_curve содержит обучающую целевую функцию с регуляризацией и minibatch-агрегацией; она не является отдельной оценкой train log-loss.",
+    "Масштабирование сохраняет редкие экстремальные значения validation. Их наличие само по себе не ошибка; clipping/отбор по CV или test сейчас не вводились.",
+    "Для исходных конфигураций1–5 индивидуальные CV loss_curve отсутствуют; сохранённые диаграммы итоговых refit не подставлялись вместо них.",
+    "Гиперпараметры и правило остановки сохранены. Улучшение MLP через early stopping или новую регуляризацию потребовало бы отдельного заранее объявленного эксперимента."
+  ],
+  "blocking_issues": [],
+  "test_used": false
+}

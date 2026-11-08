@@ -1,0 +1,197 @@
+{
+  "archive_bytes": 1572549,
+  "archive_members": 1301,
+  "archive_sha256": "6b7ba38bd34259a2bf07d4888f668fba5b81659bc5204f6079cd159280d094be",
+  "best_in_returned_batch": {
+    "batch": "11_15",
+    "candidate_number": 13,
+    "config_sha256": "f960689b067a14709e37157bd56e90cc6222b17d4dd311a0bb9c3ffb679ccb01",
+    "fold_0_log_loss": 0.2522453491396795,
+    "fold_1_log_loss": 0.24118251317111455,
+    "fold_2_log_loss": 0.24830947066185735,
+    "level": 4,
+    "mean_fit_seconds": 11.124090366647579,
+    "mean_log_loss": 0.2472457776575505,
+    "mean_score_seconds": 0.8587413999872903,
+    "model": "soft_voting",
+    "params_json": "{\"model__lgbm__model__num_leaves\": 15, \"model__lr__model__C\": 0.1, \"model__weights\": [1, 1, 1], \"model__xgb__model__max_depth\": 3}",
+    "std_log_loss": 0.004578585445484382
+  },
+  "best_overall_cv": {
+    "batch": "06_10",
+    "candidate_number": 9,
+    "config_sha256": "1856c8fa36274a8faf0d9b1254a85dc3d13903ffda6969e922736375a8dd26e9",
+    "fold_0_log_loss": 0.25196801306345035,
+    "fold_1_log_loss": 0.24141206786498057,
+    "fold_2_log_loss": 0.24828874065171624,
+    "level": 4,
+    "mean_fit_seconds": 7.8193589333335085,
+    "mean_log_loss": 0.2472229405267157,
+    "mean_score_seconds": 0.6485692000001109,
+    "model": "soft_voting",
+    "params_json": "{\"model__lgbm__model__num_leaves\": 15, \"model__lr__model__C\": 0.01, \"model__weights\": [2, 1, 1], \"model__xgb__model__max_depth\": 3}",
+    "std_log_loss": 0.00437484797359578
+  },
+  "candidates_per_pair": 20,
+  "class_counts": {
+    "0": 18385,
+    "1": 1615
+  },
+  "counts_by_batch": {
+    "01_05": 420,
+    "06_10": 420,
+    "11_15": 420,
+    "16_20": 420
+  },
+  "created_utc": "2026-11-08T03:13:14.529295+00:00",
+  "duplicate_cv_fits": 0,
+  "execution_deviation": {
+    "bitwise_equivalence_test_available": false,
+    "description": "joblib threading backend replaced by ThreadPoolExecutor; original n_jobs=2 retained",
+    "file": "artifacts/training/pilot_20k_config11_15_imported/6b7ba38bd342/results/launches/20261107T172451Z_0d853f8d/forest_thread_executor.py.txt",
+    "included_in_original_package_fingerprint": false,
+    "interpretation": "Retained as documented execution adaptation; raw cross-host timings are not directly comparable",
+    "model_hyperparameters_changed": false,
+    "scope": "all 60 RandomForest CV fits in batch11_15",
+    "sha256": "ce959c326245a120fb6ec5a41482260701efd54226fee45cec10a4c4610c7483"
+  },
+  "expected_cv_fits": 1680,
+  "folds": 3,
+  "imported_evidence": "artifacts/training/pilot_20k_config11_15_imported/6b7ba38bd342",
+  "limitations": [
+    "This completes the 1680 CV budget on the existing 20000-client pilot, not full development.",
+    "Final selected Pipelines have not been refitted or evaluated on test by this consolidation.",
+    "Original 28 Pipelines/test results remain tied to the original five-configuration search.",
+    "Five training repeats per selected pair are not performed here.",
+    "Initial batch stores mean candidate times and search-level warnings, not exact per-fold timing/warnings.",
+    "Three-fold standard deviation is descriptive dispersion, not a confidence interval.",
+    "ZIP checksums establish file integrity/consistency, not independent proof of runtime execution."
+  ],
+  "missing_cv_fits": 0,
+  "new_bootstrap_calls": 0,
+  "new_test_evaluations": 0,
+  "no_fit_or_predict_called": true,
+  "original_pilot_fingerprint": "76694fae1518c109858188e2c343e71ac9348e6528f70b7be098ac26016c729d",
+  "original_plan_fingerprint": "27d154f05fd3d7cc22a4acfe32b55742405dc3231285e8627a772751279d31e6",
+  "pairs": 28,
+  "returned_cv_fits": 420,
+  "saved_cohort_and_folds_unchanged": true,
+  "source_cv_files": [
+    {
+      "path": "artifacts/training/pilot_20k_5config/logistic_regression/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "7fdae16fe03de98b506ddbc292c594814f098f8c5be5a24610c12faba4b79f71"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/logistic_regression/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "aa5149ef19623b0cba316454dbc1f78d461ab05ba9c3ad5c3126b4a0fe9793de"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/logistic_regression/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "bcb7d4f162182d976c2574ba4e94a2ceef0f5565af9bfe7e5ca8216b5e407f3e"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/logistic_regression/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "f75a76ab7ac0489fce006dd2f4c5a479e629e7aa9320f2075c11f8581173fd30"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/lightgbm/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "192e76093b127bc2af8b4938212f259ed3920507774865b75b0c132def698d20"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/lightgbm/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "a38de07021439c691bda7abac2ee030590e572a6febba027d575e62430b126a9"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/lightgbm/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "ea7366a5d366fd6642b3c7534466292cda4a84253fdec09928ea8221a127f764"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/lightgbm/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "09c8af891fafcb55e334ff6daf19fed43dff21d7be83b8c928f0c68d4bea5467"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/xgboost/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "e770f270964d44c58c939cdc902aa436f3e7ddb3fb1fd91550bc0b86602a6687"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/xgboost/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "d9b6abcaeef71502e19533742e168a908e78e022ef317814a88bff532a700d82"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/xgboost/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "6f6566a4acc7aa67b4696ce2c6ae56ceec447c188fe9e9bcb0fcd0d7e27a7349"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/xgboost/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "33806267649add282d7127f78faeb1d66b5574a39043f4b9c4c8aa4b2ccdad1d"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/soft_voting/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "7584ce4332797564277c7eda820a500f52d74857a43f8576416c93004eae553b"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/soft_voting/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "8bc49535e083a30584bfec9303156f3c20e27bac654a6a1d56f24fe84cb26254"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/soft_voting/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "015b80af6f2fbc1dc8279fbb5a06e17df575abeeaa2650f544849993d25d9198"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/soft_voting/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "0640fbd4dab3fe603e6fe59697e0e2ecd57fe9fa90e2a5bc460d7c13ef2bb87a"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/stacking/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "be4878d829a4bdc95504ff0050c2f609283b14586ced439431fe4eac5a6d01ff"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/stacking/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "2ccb66aa3bbcf9c819155d0c07ae173038ff76b0197aa8322ca66a41ced3af10"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/stacking/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "651ba128881f013dfdefca7fedbd9e78d66ffe7b956d4f79d64896255c3ebde1"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/stacking/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "b39dc13cc3ab12e7264d357432cea1c841e01b71a7b007aaa5401f92679be050"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/mlp/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "ae08de98e8708476876d90b4bbd0e2d655fe94adbf1e47bf4b64183228556159"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/mlp/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "4c1931f3560687a720e7c24778c3858bfaef1b27a094a5d4b2093956341b0496"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/mlp/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "02775b7c264bdaa5b863978e90380ae779bf7da5e538f712aaf2e67c4dc9a7b1"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/mlp/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "cc592d317def667bfb550f254156f7c17126f9ff246363802429b97f2c2bd5aa"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/random_forest/level_1/fit_checkpoint/cv_results.parquet",
+      "sha256": "006c1c9b12c4f9b16881060e8a1e1ba85484e84f9f8f9a6b4817b3f34115e164"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/random_forest/level_2/fit_checkpoint/cv_results.parquet",
+      "sha256": "1f139bb9112ed9488e60ec61d35044c2a7a82099890c0f0f51bd0b33b2ecc3ce"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/random_forest/level_3/fit_checkpoint/cv_results.parquet",
+      "sha256": "fd785360f3f6014b2748a8267d7883ebcfacc9e66da703e92bb5c6085ce1066a"
+    },
+    {
+      "path": "artifacts/training/pilot_20k_5config/random_forest/level_4/fit_checkpoint/cv_results.parquet",
+      "sha256": "e9455fbfa89e546d8f91ebaf4dfc711779a4f0439b14142e286e673075d08dd6"
+    }
+  ],
+  "status": "validated_with_documented_execution_deviation",
+  "total_cv_fits": 1680,
+  "train_rows": 20000,
+  "verified_archive_payload_files": 1300
+}

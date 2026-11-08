@@ -1,0 +1,222 @@
+{
+  "passed": true,
+  "scope": "pilot_20k_20config_mlp_updated",
+  "verified_pairs": 28,
+  "unchanged_original_models": 24,
+  "repaired_mlp_models": 4,
+  "aligned_test_rows": 61503,
+  "original_train_and_cv_unchanged": true,
+  "quality_metrics_recomputed": 112,
+  "mlp_profit_scenarios_checked": 5,
+  "protected_archived_files_unchanged": 5310,
+  "prepared_input_files_unchanged": 29,
+  "mlp_fairness_thresholds_checked": 3,
+  "bootstrap_replicates_read": 1000,
+  "mlp_decision_replicates_independently_recomputed": 1000,
+  "non_mlp_bootstrap_statistics_unchanged": true,
+  "mlp_ci_checks": 64,
+  "new_fit_calls": 0,
+  "new_predict_calls": 0,
+  "new_bootstrap_resamples": 0,
+  "posthoc_mlp_lineage_explicit": true,
+  "model_checks": [
+    {
+      "model": "logistic_regression",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "xgboost",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "xgboost",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "xgboost",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "xgboost",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "stacking",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "stacking",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "stacking",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "stacking",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "mlp",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "mlp",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "mlp",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "mlp",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "random_forest",
+      "level": 1,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "random_forest",
+      "level": 2,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "random_forest",
+      "level": 3,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    },
+    {
+      "model": "random_forest",
+      "level": 4,
+      "pipeline_sha256_matches_source": true,
+      "probability_vector_identical_to_source": true,
+      "quality_recomputed": true
+    }
+  ],
+  "elapsed_seconds": 57.318671499999255,
+  "completed_utc": "2026-11-08T05:31:09.278689+00:00"
+}

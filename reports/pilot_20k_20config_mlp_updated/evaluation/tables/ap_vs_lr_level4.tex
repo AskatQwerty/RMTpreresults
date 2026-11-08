@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Paired Level 4 AP differences versus logistic regression. No bootstrap p-values. Pointwise, unadjusted, exploratory 95\% percentile bootstrap CI; fixed trained models.}
+\label{tab:ap-vs-lr-level4}
+\begin{tabular}{lll}
+\toprule
+Model & Reference & Delta AP \\
+\midrule
+Random forest & Logistic regression & \shortstack{{-0.0015} \\ {[-0.0086, 0.0053]}} \\
+XGBoost & Logistic regression & \shortstack{{0.0148} \\ {[0.0075, 0.0214]}} \\
+LightGBM & Logistic regression & \shortstack{{0.0143} \\ {[0.0071, 0.0210]}} \\
+MLP & Logistic regression & \shortstack{{-0.0013} \\ {[-0.0073, 0.0044]}} \\
+Soft voting & Logistic regression & \shortstack{{0.0206} \\ {[0.0166, 0.0242]}} \\
+Stacking & Logistic regression & \shortstack{{0.0235} \\ {[0.0179, 0.0286]}} \\
+\bottomrule
+\end{tabular}
+\end{table}

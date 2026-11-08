@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Level 4 calibration-bin counts. Ten equal-width intervals: Bin 1 [0,0.1), ..., Bin 10 [0.9,1]. Empty bins have n=0.}
+\label{tab:calibration-bin-counts}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllllllllll}
+\toprule
+Model & Bin 1 & Bin 2 & Bin 3 & Bin 4 & Bin 5 & Bin 6 & Bin 7 & Bin 8 & Bin 9 & Bin 10 \\
+\midrule
+Logistic regression & 45343 & 12059 & 2906 & 873 & 233 & 58 & 11 & 6 & 3 & 11 \\
+Random forest & 43378 & 14245 & 3336 & 528 & 16 & 0 & 0 & 0 & 0 & 0 \\
+XGBoost & 46744 & 10413 & 2900 & 1026 & 309 & 101 & 8 & 2 & 0 & 0 \\
+LightGBM & 46898 & 9860 & 3094 & 1081 & 434 & 111 & 23 & 2 & 0 & 0 \\
+MLP & 53321 & 1898 & 1064 & 749 & 572 & 541 & 482 & 491 & 602 & 1783 \\
+Soft voting & 46141 & 10337 & 3153 & 1186 & 467 & 173 & 39 & 5 & 1 & 1 \\
+Stacking & 51450 & 6662 & 1640 & 740 & 436 & 248 & 171 & 101 & 49 & 6 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

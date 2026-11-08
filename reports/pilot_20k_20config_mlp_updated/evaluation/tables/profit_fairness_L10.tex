@@ -1,0 +1,28 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Fixed cost scenario L/m=10; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95\% percentile bootstrap CI; fixed trained models.}
+\label{tab:profit-fairness-L10}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllllll}
+\toprule
+Model & Threshold & Profit (m) & Approval (\%) & Gender gap (pp) & Age gap (pp) & G/A gap <=5pp \\
+\midrule
+Logistic regression & 0.5000 & \shortstack{{0.118} \\ {[0.095, 0.140]}} & \shortstack{{99.9} \\ {[99.8, 99.9]}} & \shortstack{{0.01} \\ {[0.00, 0.08]}} & \shortstack{{0.20} \\ {[0.01, 0.43]}} & Yes/Yes \\
+Logistic regression & 0.0909 & \shortstack{{0.393} \\ {[0.379, 0.408]}} & \shortstack{{69.8} \\ {[69.5, 70.2]}} & \shortstack{{6.69} \\ {[5.87, 7.48]}} & \shortstack{{33.87} \\ {[31.94, 35.91]}} & No/No \\
+Random forest & 0.5000 & \shortstack{{0.112} \\ {[0.089, 0.135]}} & \shortstack{{100.0} \\ {[100.0, 100.0]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} & Yes/Yes \\
+Random forest & 0.0909 & \shortstack{{0.378} \\ {[0.365, 0.391]}} & \shortstack{{66.3} \\ {[65.9, 66.7]}} & \shortstack{{6.33} \\ {[5.55, 7.15]}} & \shortstack{{31.75} \\ {[29.71, 33.75]}} & No/No \\
+XGBoost & 0.5000 & \shortstack{{0.122} \\ {[0.099, 0.144]}} & \shortstack{{99.8} \\ {[99.8, 99.9]}} & \shortstack{{0.01} \\ {[0.00, 0.08]}} & \shortstack{{0.29} \\ {[0.03, 0.58]}} & Yes/Yes \\
+XGBoost & 0.0909 & \shortstack{{0.400} \\ {[0.385, 0.415]}} & \shortstack{{72.8} \\ {[72.4, 73.1]}} & \shortstack{{7.01} \\ {[6.27, 7.75]}} & \shortstack{{32.02} \\ {[29.98, 34.07]}} & No/No \\
+LightGBM & 0.5000 & \shortstack{{0.124} \\ {[0.102, 0.146]}} & \shortstack{{99.8} \\ {[99.7, 99.8]}} & \shortstack{{0.00} \\ {[0.00, 0.09]}} & \shortstack{{0.34} \\ {[0.06, 0.64]}} & Yes/Yes \\
+LightGBM & 0.0909 & \shortstack{{0.400} \\ {[0.385, 0.414]}} & \shortstack{{73.0} \\ {[72.7, 73.4]}} & \shortstack{{7.08} \\ {[6.35, 7.85]}} & \shortstack{{31.32} \\ {[29.22, 33.40]}} & No/No \\
+MLP & 0.5000 & \shortstack{{0.140} \\ {[0.118, 0.161]}} & \shortstack{{99.4} \\ {[99.3, 99.4]}} & \shortstack{{0.38} \\ {[0.24, 0.54]}} & \shortstack{{0.72} \\ {[0.27, 1.16]}} & Yes/Yes \\
+MLP & 0.0909 & \shortstack{{0.384} \\ {[0.368, 0.398]}} & \shortstack{{73.4} \\ {[73.0, 73.7]}} & \shortstack{{8.49} \\ {[7.77, 9.22]}} & \shortstack{{25.34} \\ {[23.28, 27.35]}} & No/No \\
+Soft voting & 0.5000 & \shortstack{{0.131} \\ {[0.109, 0.153]}} & \shortstack{{99.6} \\ {[99.6, 99.7]}} & \shortstack{{0.09} \\ {[0.01, 0.19]}} & \shortstack{{0.54} \\ {[0.19, 0.93]}} & Yes/Yes \\
+Soft voting & 0.0909 & \shortstack{{0.407} \\ {[0.392, 0.421]}} & \shortstack{{71.9} \\ {[71.5, 72.2]}} & \shortstack{{7.81} \\ {[7.03, 8.59]}} & \shortstack{{30.95} \\ {[28.93, 32.98]}} & No/No \\
+Stacking & 0.5000 & \shortstack{{0.155} \\ {[0.132, 0.176]}} & \shortstack{{99.1} \\ {[99.0, 99.1]}} & \shortstack{{0.36} \\ {[0.20, 0.53]}} & \shortstack{{1.94} \\ {[1.31, 2.61]}} & Yes/Yes \\
+Stacking & 0.0909 & \shortstack{{0.391} \\ {[0.374, 0.406]}} & \shortstack{{80.9} \\ {[80.6, 81.2]}} & \shortstack{{6.26} \\ {[5.59, 6.91]}} & \shortstack{{24.87} \\ {[22.90, 26.85]}} & No/No \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

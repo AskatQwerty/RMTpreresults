@@ -1,0 +1,16 @@
+{
+  "analysis_sha256": {
+    "final_pilot_evaluation.py": "779da586d5e6190c6ab91a0bf52014d2dffdc13574495df233ff0ddc5dd03b95",
+    "final_pilot_reporting.py": "4af5355d8f6cdd7fa64d2b85d8aa289f33cf1225c8db1099085cd282f91e9a88",
+    "pilot_delong.py": "3711e4ba2b5ed0957041eb93c0a2921ba98be1c4ca98f508fc10f2636c66bccd",
+    "pilot_evaluation.py": "2a652ad1afc6ac608c3885e911a84ffdcfd61725f912ce91dbda4eb8de2851b0",
+    "pilot_evaluation_bootstrap.py": "f687dd05736a53e2c7f17689d551804c57c58690598cf0abc0b5b685436206c2",
+    "pilot_evaluation_decisions.py": "fa1b1a8d9af6ceb1c5c58928139ea1af1e94229843d98ca674bed64ae76fb4e2"
+  },
+  "ended_utc": "2026-11-08T04:53:36.282265+00:00",
+  "pid": 6824,
+  "started_utc": "2026-11-08T04:34:58.605602+00:00",
+  "status": "completed",
+  "training_fingerprint": "61fab735901a017fd066d480c597bca5728af85841b3a3d9522aedf3d3fa6a5b",
+  "visual_review_completed_utc": "2026-11-08T04:54:35.152181+00:00"
+}

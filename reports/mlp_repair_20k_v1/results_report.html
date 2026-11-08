@@ -1,0 +1,262 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RMT: дополнительный эксперимент MLP</title><style>body{font:16px/1.55 system-ui,sans-serif;color:#173041;max-width:1200px;margin:32px auto;padding:0 20px}h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:13px;min-width:650px}th,td{padding:7px 9px;border-bottom:1px solid #dce5ea;text-align:right}th{background:#edf3f7}td:first-child,th:first-child{text-align:left}.table{overflow-x:auto}img{display:block;width:100%;height:auto;margin:20px 0}.notice{border-left:4px solid #c47d16;padding:12px 16px;background:#fff8e9}a{color:#1769aa}</style></head><body>
+<h1>RMT: дополнительный эксперимент MLP</h1>
+<p class="notice">Результаты основного эксперимента сохранены отдельно. Этот анализ выполнен после просмотра прежнего test и имеет исследовательский характер.</p>
+<p>Проверены четыре заранее заданных варианта MLP на четырёх уровнях и трёх сохранённых внешних CV-фолдах: 48 внешних CV-оценок.</p>
+<p>Каждая процедура включает внутренний выбор эпох по log-loss и отдельное обучение с нуля на всём доступном train. Поэтому 48 CV-оценок соответствуют 96 траекториям оптимизатора, а не 48 вызовам partial_fit.</p>
+<p>По заранее записанному CV-критерию к итоговой оценке допущено 4 из четырёх уровней. Число итоговых процедур: 4; они добавляют 8 траекторий оптимизатора.</p>
+<p>Level 1: выбран stop_clipped; CV log-loss 0.388510 → 0.256627. Test log-loss 0.371204 → 0.252460; AP 0.144538 → 0.219154; выбрано 27 эпох.</p>
+<p>Level 2: выбран stop_clipped_regularized; CV log-loss 0.479511 → 0.257432. Test log-loss 0.470858 → 0.251954; AP 0.136435 → 0.220370; выбрано 24 эпох.</p>
+<p>Level 3: выбран stop_clipped_regularized; CV log-loss 0.569388 → 0.254466. Test log-loss 0.548138 → 0.249881; AP 0.142688 → 0.233265; выбрано 16 эпох.</p>
+<p>Level 4: выбран stop_clipped_regularized; CV log-loss 0.639396 → 0.253838. Test log-loss 0.691036 → 0.249034; AP 0.138913 → 0.235569; выбрано 21 эпох.</p>
+<p>Уменьшение CV/test log-loss описывает результат этого дополнительного эксперимента. Оно не доказывает, что найдена единственная причина исходной неудачи MLP.</p>
+<h2>До и после</h2><div class="table">
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>level</th>
+      <th>variant</th>
+      <th>eligible_for_test</th>
+      <th>original_cv_log_loss</th>
+      <th>repaired_cv_log_loss</th>
+      <th>original_test_log_loss</th>
+      <th>repaired_test_log_loss</th>
+      <th>original_test_pr_auc_average_precision</th>
+      <th>repaired_test_pr_auc_average_precision</th>
+      <th>best_epoch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>stop_clipped</td>
+      <td>True</td>
+      <td>0.388510</td>
+      <td>0.256627</td>
+      <td>0.371204</td>
+      <td>0.252460</td>
+      <td>0.144538</td>
+      <td>0.219154</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>stop_clipped_regularized</td>
+      <td>True</td>
+      <td>0.479511</td>
+      <td>0.257432</td>
+      <td>0.470858</td>
+      <td>0.251954</td>
+      <td>0.136435</td>
+      <td>0.220370</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>stop_clipped_regularized</td>
+      <td>True</td>
+      <td>0.569388</td>
+      <td>0.254466</td>
+      <td>0.548138</td>
+      <td>0.249881</td>
+      <td>0.142688</td>
+      <td>0.233265</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>stop_clipped_regularized</td>
+      <td>True</td>
+      <td>0.639396</td>
+      <td>0.253838</td>
+      <td>0.691036</td>
+      <td>0.249034</td>
+      <td>0.138913</td>
+      <td>0.235569</td>
+      <td>21</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<img src="figures/mlp_before_after.png" alt="Сравнение CV и test log-loss исходного и нового MLP">
+<h2>Выбор числа эпох</h2><img src="figures/inner_learning_curves.png" alt="Кривые log-loss на внутреннем train и validation">
+<h2>Все варианты CV</h2><div class="table">
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>level</th>
+      <th>variant</th>
+      <th>variant_order</th>
+      <th>mean_log_loss</th>
+      <th>std_log_loss</th>
+      <th>mean_ap</th>
+      <th>mean_best_epoch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>stop_only</td>
+      <td>0</td>
+      <td>0.257814</td>
+      <td>0.003668</td>
+      <td>0.199110</td>
+      <td>21.333333</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>stop_regularized</td>
+      <td>1</td>
+      <td>0.257592</td>
+      <td>0.003636</td>
+      <td>0.198797</td>
+      <td>23.666667</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>stop_clipped</td>
+      <td>2</td>
+      <td>0.256627</td>
+      <td>0.003811</td>
+      <td>0.203706</td>
+      <td>22.000000</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>stop_clipped_regularized</td>
+      <td>3</td>
+      <td>0.256748</td>
+      <td>0.003971</td>
+      <td>0.201277</td>
+      <td>27.000000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>stop_only</td>
+      <td>0</td>
+      <td>0.261562</td>
+      <td>0.004434</td>
+      <td>0.194294</td>
+      <td>19.000000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>stop_regularized</td>
+      <td>1</td>
+      <td>0.261448</td>
+      <td>0.004712</td>
+      <td>0.194949</td>
+      <td>22.333333</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>stop_clipped</td>
+      <td>2</td>
+      <td>0.257560</td>
+      <td>0.004895</td>
+      <td>0.203561</td>
+      <td>19.333333</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>stop_clipped_regularized</td>
+      <td>3</td>
+      <td>0.257432</td>
+      <td>0.005002</td>
+      <td>0.205014</td>
+      <td>22.333333</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>stop_only</td>
+      <td>0</td>
+      <td>0.263266</td>
+      <td>0.003536</td>
+      <td>0.196112</td>
+      <td>15.666667</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>stop_regularized</td>
+      <td>1</td>
+      <td>0.262100</td>
+      <td>0.003753</td>
+      <td>0.196309</td>
+      <td>15.666667</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>stop_clipped</td>
+      <td>2</td>
+      <td>0.254882</td>
+      <td>0.005901</td>
+      <td>0.210547</td>
+      <td>16.000000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>stop_clipped_regularized</td>
+      <td>3</td>
+      <td>0.254466</td>
+      <td>0.005850</td>
+      <td>0.210463</td>
+      <td>16.000000</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>stop_only</td>
+      <td>0</td>
+      <td>0.266520</td>
+      <td>0.000156</td>
+      <td>0.202275</td>
+      <td>15.666667</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>stop_regularized</td>
+      <td>1</td>
+      <td>0.263658</td>
+      <td>0.001491</td>
+      <td>0.202088</td>
+      <td>15.666667</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>stop_clipped</td>
+      <td>2</td>
+      <td>0.254446</td>
+      <td>0.006733</td>
+      <td>0.216793</td>
+      <td>15.666667</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>stop_clipped_regularized</td>
+      <td>3</td>
+      <td>0.253838</td>
+      <td>0.006434</td>
+      <td>0.220005</td>
+      <td>16.333333</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h2>Ограничения</h2><ul>
+<li>Это отдельный последующий исследовательский эксперимент MLP. Основные 28 Pipeline, 1680 CV-результатов и прежние RQ1/RQ2 не заменяются.</li>
+<li>Использованы прежние 20 000 клиентов с естественным балансом классов и сохранённые внешние CV-фолды. Test ранее уже просматривался; он не является новой независимой проверкой.</li>
+<li>Вариант выбирается по среднему log-loss внешней CV. Внутри каждого train-фолда отдельные 15% используются только для выбора числа эпох по validation log-loss.</li>
+<li>Предобработка внутреннего этапа обучается только на его train. Затем новая предобработка и новая сеть обучаются на всём предоставленном train ровно выбранное число эпох.</li>
+<li>Ограничение z-значений до ±5 применяется только к масштабированным числовым значениям. Это отдельный вариант преобразования, а не удаление клиентов или изменение сохранённых X.</li>
+<li>Здесь показаны точечные оценки. Bootstrap, доверительные интервалы и проверки значимости различий не вычислялись; стандартное отклонение трёх CV-фолдов не является CI.</li>
+<li>В sklearn partial_fit значение n_iter_ относится к последнему вызову. Реальное число эпох записывается отдельно по циклу обучения, loss_curve_ и t_.</li>
+<li>Изменение правила остановки и исполнительного цикла partial_fit ограничивает строго причинное толкование сравнения с исходным MLP. Улучшение на уже использованном test остаётся исследовательским результатом.</li>
+</ul><h2>Файлы</h2><ul>
+<li><a href="before_after.csv">before_after.csv</a></li>
+<li><a href="cv_results.csv">cv_results.csv</a></li>
+<li><a href="candidate_summary.csv">candidate_summary.csv</a></li>
+<li><a href="inner_learning_curves.csv">inner_learning_curves.csv</a></li>
+<li><a href="frozen_plan.json">frozen_plan.json</a></li>
+<li><a href="frozen_selection.json">frozen_selection.json</a></li>
+<li><a href="report_manifest.json">report_manifest.json</a></li>
+<li><a href="results_report.txt">results_report.txt</a></li>
+</ul></body></html>

@@ -1,0 +1,7 @@
+policy,L,m,metric,estimate,ci_low,ci_high,bootstrap_n_valid
+approve_all,1,1,realized_profit_per_applicant,0.8385444612457928,0.8344121424971139,0.8426743410890526,1000
+reject_all,1,1,realized_profit_per_applicant,0.0,0.0,0.0,1000
+approve_all,5,1,realized_profit_per_applicant,0.5156333837373787,0.5032364274913419,0.5280230232671577,1000
+reject_all,5,1,realized_profit_per_applicant,0.0,0.0,0.0,1000
+approve_all,10,1,realized_profit_per_applicant,0.11199453685186088,0.08926678373412679,0.13470887598978912,1000
+reject_all,10,1,realized_profit_per_applicant,0.0,0.0,0.0,1000

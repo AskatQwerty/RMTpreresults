@@ -1,0 +1,164 @@
+{
+  "scope": "pilot_20k_20config_mlp_updated",
+  "bundle": "RMT_active_28_models.zip",
+  "bytes": 18499348,
+  "sha256": "33bc897cfee188810a15ce4850a2e59144f6f523b45ebb3ce56cea152f37e355",
+  "active_revision_fingerprint": "cd48a07dd9ed67e19153992f78227dc029af41193a1d59fd396425d828d99d3e",
+  "model_count": 28,
+  "total_pipeline_bytes": 18499438,
+  "archive_members": 65,
+  "internal_manifest": "MANIFEST.json",
+  "all_crc_and_sha_checks_passed": true,
+  "isolated_load_validation": {
+    "loaded": [
+      {
+        "model": "logistic_regression",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "logistic_regression",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "logistic_regression",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "logistic_regression",
+        "level": 4,
+        "class": "Pipeline"
+      },
+      {
+        "model": "random_forest",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "random_forest",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "random_forest",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "random_forest",
+        "level": 4,
+        "class": "Pipeline"
+      },
+      {
+        "model": "xgboost",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "xgboost",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "xgboost",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "xgboost",
+        "level": 4,
+        "class": "Pipeline"
+      },
+      {
+        "model": "lightgbm",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "lightgbm",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "lightgbm",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "lightgbm",
+        "level": 4,
+        "class": "Pipeline"
+      },
+      {
+        "model": "mlp",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "mlp",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "mlp",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "mlp",
+        "level": 4,
+        "class": "Pipeline"
+      },
+      {
+        "model": "soft_voting",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "soft_voting",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "soft_voting",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "soft_voting",
+        "level": 4,
+        "class": "Pipeline"
+      },
+      {
+        "model": "stacking",
+        "level": 1,
+        "class": "Pipeline"
+      },
+      {
+        "model": "stacking",
+        "level": 2,
+        "class": "Pipeline"
+      },
+      {
+        "model": "stacking",
+        "level": 3,
+        "class": "Pipeline"
+      },
+      {
+        "model": "stacking",
+        "level": 4,
+        "class": "Pipeline"
+      }
+    ],
+    "fit_calls": 0,
+    "predict_calls": 0,
+    "bundled_imports_only": true
+  },
+  "fit_calls": 0,
+  "predict_calls": 0,
+  "bootstrap_calls": 0,
+  "shap_calls": 0,
+  "created_utc": "2026-11-08T05:27:16.802330+00:00"
+}

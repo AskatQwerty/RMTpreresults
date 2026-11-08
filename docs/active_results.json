@@ -1,0 +1,27 @@
+{
+  "status": "active",
+  "scope": "pilot_20k_20config_mlp_updated",
+  "updated_utc": "2026-11-08T05:32:44.976067+00:00",
+  "fingerprint": "cd48a07dd9ed67e19153992f78227dc029af41193a1d59fd396425d828d99d3e",
+  "active_pipeline_count": 28,
+  "original_models_retained": 24,
+  "repaired_mlp_count": 4,
+  "train_rows": 20000,
+  "test_rows": 61503,
+  "train_and_cv_ids_unchanged": true,
+  "training_root": "artifacts/training/pilot_20k_20config_mlp_updated",
+  "report": "reports/pilot_20k_20config_mlp_updated/evaluation/results_report.html",
+  "evaluation_root": "reports/pilot_20k_20config_mlp_updated/evaluation",
+  "model_bundle": "model_bundles/RMT_active_28_models.zip",
+  "model_bundle_sha256": "33bc897cfee188810a15ce4850a2e59144f6f523b45ebb3ce56cea152f37e355",
+  "archived_scopes": [
+    "pilot_20k_5config",
+    "pilot_20k_20config_final"
+  ],
+  "mlp_selection_scope": "mlp_repair_20k_v1",
+  "mlp_posthoc_exploratory": true,
+  "rq3_status": "Existing rq3/ is historical; SHAP for replacement MLPs was not recomputed",
+  "new_training_calls_in_replacement": 0,
+  "bootstrap_replicates": 1000,
+  "evaluation_validation": "reports/pilot_20k_20config_mlp_updated/evaluation/independent_validation.json"
+}

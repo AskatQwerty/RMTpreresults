@@ -1,0 +1,365 @@
+{
+  "all_level_selections_frozen_before_test": true,
+  "class_counts": {
+    "0": 18385,
+    "1": 1615
+  },
+  "code_sha256": {
+    "data_audit.py": "d5a7f063c3428dd026b8498fc6a21a0d25db73c3fe95854107cb6cc22053d540",
+    "data_preparation.py": "377759545bdc7b09fefcc1ba5c364aee36e19d649f499175b66fdc0e403db2a3",
+    "data_quality.py": "d255fed18406c96002e7c8fbad986f350295e34ea27e4a1fe08abe021f1919a9",
+    "fit_diagnostics.py": "570e13e67b77d0309f1534ff6757d391ce81e16a84053e6b5bb28c8d769bc30b",
+    "fold_preprocessing.py": "80a06d3d3bf263dc5117286dd5ef9e09b3c59cf0c9ae3b0d3efdfd35948758e2",
+    "mlp_repair.py": "fb80f2aadf686e010b7a4bef4ef06f51b930cb25de651f8f61272b9fa0ab5e6e",
+    "mlp_repair_experiment.py": "0ff8041ccaa55fea34abdb2d553f588c0457d96467eb3c419992d1b1c49352f3",
+    "model_pipelines.py": "dd4fb565e05093d4fb910ac0759838fc612420962e6e07ad0159bc4022a257f4",
+    "model_training.py": "8d572f795ac1a7644df5cae4b60822c3756029b133038aae18a5f5484f9a0ca4",
+    "resource_monitor.py": "d9091b4269e3a7f3a9ac428adfcae03baa5bfd799583a21fa5a27608ba110def"
+  },
+  "cv_folds": 3,
+  "data_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\handoff\\RMT_batch_11_15\\data",
+  "expected_cv_optimizer_trajectories": 96,
+  "expected_outer_cv_evaluations": 48,
+  "fingerprint": "2bb884673500177f5d369b1dcb98888290a69a56b1141bc6a1d838eb4a2d3bf5",
+  "fixed_mlp_parameters": {
+    "activation": "relu",
+    "batch_size": 256,
+    "hidden_layer_sizes": [
+      32
+    ],
+    "learning_rate_init": 0.0003,
+    "solver": "adam"
+  },
+  "input_selection_sha256": "d74630a03e5ee2496ba8b0aa6e0b94520c831f6b42107eb41827919c7e690b28",
+  "inputs": {
+    "data/X_level_1.parquet": {
+      "bytes": 1867087,
+      "path": "data/X_level_1.parquet",
+      "sha256": "8346ea9b5a776e6d1f8daa073837d62125eb96f024770b1c3dcaa1354ce28391"
+    },
+    "data/X_level_2.parquet": {
+      "bytes": 3455395,
+      "path": "data/X_level_2.parquet",
+      "sha256": "7674f2bd49d346e6e4467c00657e384447507c58c4b9154b603ddda0768e0bcd"
+    },
+    "data/X_level_3.parquet": {
+      "bytes": 4841005,
+      "path": "data/X_level_3.parquet",
+      "sha256": "c3564a15bfe6202777df50351394db68ec22b61b9c5cf7304ff085345eda076d"
+    },
+    "data/X_level_4.parquet": {
+      "bytes": 8240202,
+      "path": "data/X_level_4.parquet",
+      "sha256": "d7565cdee1dc8c718278e68ce732112cf85be1341b04e4d1e372876773b8634b"
+    },
+    "data/cohort_ids.parquet": {
+      "bytes": 61162,
+      "path": "data/cohort_ids.parquet",
+      "sha256": "c398b1116c3b73917814d2a5758efc81bacfc5e4cbb74d51f15d41405ad1deb3"
+    },
+    "data/cohort_targets.parquet": {
+      "bytes": 63462,
+      "path": "data/cohort_targets.parquet",
+      "sha256": "a65f580d9bd7dd3068e459a82d6d492907c0c0de3d8fd2ea930dbcdc245bbe7c"
+    },
+    "data/columns.json": {
+      "bytes": 28554,
+      "path": "data/columns.json",
+      "sha256": "9435bdd4eee41006d523974283d5f13853dba0f8c1efaaa5c200acfdd3e63003"
+    },
+    "data/cv_folds.parquet": {
+      "bytes": 65859,
+      "path": "data/cv_folds.parquet",
+      "sha256": "38f1187c3bd06e61dd2cdbc69acad19d353749a7d8b99cca41d0cf38885dd201"
+    },
+    "data/feature_levels.json": {
+      "bytes": 26562,
+      "path": "data/feature_levels.json",
+      "sha256": "8eeb526ef363cff1e2be2a919b6d430a432278a48d3688226ddab19c7db22f61"
+    }
+  },
+  "levels": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "max_final_procedures": 4,
+  "max_total_optimizer_trajectories": 104,
+  "notes": [
+    "Inner preprocessing fits only innertrain, internalvalidation selects epochs bylogloss.",
+    "Fresh preprocessing/model then fits all providedoutertrain or all20k for selectedepochs.",
+    "Clip±5 applies only standardized numericvalues; no rows/rawfeatures are deleted.",
+    "No learned bound or rule is chosen using test. Original X/cohort/outerfolds unchanged.",
+    "Persistent RNG seeded42 for partial_fit; different shuffle trajectory from oldfit.",
+    "Raw n_iter_=1 per partial_fit is preserved; actualepochs recorded separately.",
+    "This is an exploratory supplemental experiment, not a replacement of1680CV/main28fits."
+  ],
+  "original_cv_scores": [
+    {
+      "fold": 0,
+      "level": 1,
+      "log_loss": 0.4047337585530283
+    },
+    {
+      "fold": 1,
+      "level": 1,
+      "log_loss": 0.3771700992543411
+    },
+    {
+      "fold": 2,
+      "level": 1,
+      "log_loss": 0.3836268268303255
+    },
+    {
+      "fold": 0,
+      "level": 2,
+      "log_loss": 0.5137618885144903
+    },
+    {
+      "fold": 1,
+      "level": 2,
+      "log_loss": 0.4388369687671073
+    },
+    {
+      "fold": 2,
+      "level": 2,
+      "log_loss": 0.4859348144588
+    },
+    {
+      "fold": 0,
+      "level": 3,
+      "log_loss": 0.587295302670357
+    },
+    {
+      "fold": 1,
+      "level": 3,
+      "log_loss": 0.5451133016096141
+    },
+    {
+      "fold": 2,
+      "level": 3,
+      "log_loss": 0.5757562758761463
+    },
+    {
+      "fold": 0,
+      "level": 4,
+      "log_loss": 0.6439131194510133
+    },
+    {
+      "fold": 1,
+      "level": 4,
+      "log_loss": 0.6418026051850964
+    },
+    {
+      "fold": 2,
+      "level": 4,
+      "log_loss": 0.6324716674755557
+    }
+  ],
+  "original_final_fingerprint": "61fab735901a017fd066d480c597bca5728af85841b3a3d9522aedf3d3fa6a5b",
+  "original_final_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_20config_final",
+  "original_mlp_selected_candidate": 13,
+  "original_pilot": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config",
+  "original_pilot_fingerprint": "76694fae1518c109858188e2c343e71ac9348e6528f70b7be098ac26016c729d",
+  "original_results_replaced": false,
+  "posthoc_supplemental": true,
+  "prepared_dir": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\data\\processed\\full",
+  "prepared_inputs": [
+    {
+      "bytes": 23202644,
+      "file": "aggregates/application.parquet",
+      "sha256": "8552d8ddfecfc94a21198d7f219dc3cdea6648eacf93046f1d4681f274f8be89"
+    },
+    {
+      "bytes": 1531011,
+      "file": "aggregates/bb.parquet",
+      "sha256": "a434a9f11577f5aa23b99dcefc66d42b7275675db516546065a54db1a90fce94"
+    },
+    {
+      "bytes": 17255656,
+      "file": "aggregates/bureau.parquet",
+      "sha256": "2c3cec01e8a651e4a6e4ace1130f39ef9e1ad36e6702b07e90fafb21f1f3745e"
+    },
+    {
+      "bytes": 3310441,
+      "file": "aggregates/bureau_id_map.parquet",
+      "sha256": "951157614fbad51b4a118fb251587412f4b2a2af41050ce3d5fa1ad23621a09a"
+    },
+    {
+      "bytes": 9953044,
+      "file": "aggregates/cc.parquet",
+      "sha256": "1ffda6c7a4578964d4cfb7ea355813a2f85da286af06fccea8c5c148ccc16ee9"
+    },
+    {
+      "bytes": 196304476,
+      "file": "aggregates/installment_obligations.parquet",
+      "sha256": "52ea32b4e38012cec398ce664a84c3e2ccd44ae43a8a329e597118ffb99dba87"
+    },
+    {
+      "bytes": 13833955,
+      "file": "aggregates/installments.parquet",
+      "sha256": "0833e447144ef5d8b4bbb10b5c386e3ddc726c8be129c335d2efd46a2b817264"
+    },
+    {
+      "bytes": 5036909,
+      "file": "aggregates/pos.parquet",
+      "sha256": "6b61eb65f51e5b985ea88638f3c89220f090860c761acb2df6347de216ef677f"
+    },
+    {
+      "bytes": 25911140,
+      "file": "aggregates/previous.parquet",
+      "sha256": "d6db9f948c99220d66432aa2a3f707c6e10a3b7f990ad3b2b8c417a0612ad669"
+    },
+    {
+      "bytes": 3006562,
+      "file": "fairness.parquet",
+      "sha256": "3f3e48f8e55d4ab7173ed41a8dcaa5bb4da5c8165b46dec081097e79f75a93f9"
+    },
+    {
+      "bytes": 26562,
+      "file": "feature_levels.json",
+      "sha256": "8eeb526ef363cff1e2be2a919b6d430a432278a48d3688226ddab19c7db22f61"
+    },
+    {
+      "bytes": 3042,
+      "file": "features_level_1.json",
+      "sha256": "862de9e36a36e1c7c8ee4e481fc1f166c6e28daa5dc531ea65d8b1856adf4658"
+    },
+    {
+      "bytes": 4770,
+      "file": "features_level_2.json",
+      "sha256": "5c2ce8c0ac7a2b0ab8d0a07d42ab1a7f7bb3a56ec9678c26277cbef7fbb9087d"
+    },
+    {
+      "bytes": 7487,
+      "file": "features_level_3.json",
+      "sha256": "70f9e647f83916ea7a83ef659962f3d2c507ce3dbcb873c4a43ee204a90560c4"
+    },
+    {
+      "bytes": 9436,
+      "file": "features_level_4.json",
+      "sha256": "2af1a7d6d79ce62a39a8f7e7a8b1c4ea436b062d48d15f976dba7af642bcfcda"
+    },
+    {
+      "bytes": 1510580,
+      "file": "row_ids.parquet",
+      "sha256": "2eae26accb8f9b32b19eca22e67a630841e42535f219b03a23732a8e5577bc09"
+    },
+    {
+      "bytes": 1327689,
+      "file": "splits/cv_folds.parquet",
+      "sha256": "6fcb55ec32aeb7d04a208410fb37ee85e5ce0ed952e00747a1e82c11a273b54b"
+    },
+    {
+      "bytes": 1265055,
+      "file": "splits/development_ids.parquet",
+      "sha256": "caedcb7293cdacc2c4a016036e0883f2611ff6fc43a551a708fac3f8db952b69"
+    },
+    {
+      "bytes": 371756,
+      "file": "splits/test_ids.parquet",
+      "sha256": "822c5e4ed47791ed3853c367ac6862303373717b1c187e8f11e80d8c64f96658"
+    },
+    {
+      "bytes": 1166795,
+      "file": "splits/train_seed_42_ids.parquet",
+      "sha256": "4cdd69662e4414bddd126e507356994f9f8230a3934cc45799743d4bb91ca3b2"
+    },
+    {
+      "bytes": 1166802,
+      "file": "splits/train_seed_43_ids.parquet",
+      "sha256": "bc1603660a693303c6c406e3dde405dae29a6a6ae1fa27b96e7148a2ab11760c"
+    },
+    {
+      "bytes": 1166794,
+      "file": "splits/train_seed_44_ids.parquet",
+      "sha256": "c997440d4c0b6a482b667f7a2558c3ea41d7cf882b64e4c8e011bc0a7af751c2"
+    },
+    {
+      "bytes": 1166833,
+      "file": "splits/train_seed_45_ids.parquet",
+      "sha256": "7dbc0b05a948dd4c8282ff87274055a996b3a813366d9e1404345adc40a19677"
+    },
+    {
+      "bytes": 1166788,
+      "file": "splits/train_seed_46_ids.parquet",
+      "sha256": "f4238cfe1cdc24157a34e27d09ab487645b7b59afa9d109f392013417fbca841"
+    },
+    {
+      "bytes": 1545871,
+      "file": "target.parquet",
+      "sha256": "2fd1ee7e8f9982f30a97499ea4f3fa8c50fac9665c9436513ec3b2bd8fd72104"
+    },
+    {
+      "bytes": 22888092,
+      "file": "X_level_1.parquet",
+      "sha256": "bb2021feff9ec5da3aa8dd65f6bd65e7ccf2d98245f29b8d4f29265b1bfce4ec"
+    },
+    {
+      "bytes": 43204706,
+      "file": "X_level_2.parquet",
+      "sha256": "7544a6f422c11f6ed19204643b9caed14e145d8991e2d9c9f8855fd4ddbcd0e9"
+    },
+    {
+      "bytes": 63449031,
+      "file": "X_level_3.parquet",
+      "sha256": "47bc3af3c4f151486810a4b9823daa5125e634404731f4f3d764938ca2e3774e"
+    },
+    {
+      "bytes": 103699046,
+      "file": "X_level_4.parquet",
+      "sha256": "ccb29e5ba1fd15ef535466eb75dc42dddc547fb742e036b091c15efa683aacba"
+    }
+  ],
+  "project_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT",
+  "python": "3.13.9",
+  "scope": "mlp_repair_20k_v1",
+  "selection_metric": "mean outer CV log_loss",
+  "settings": {
+    "max_epochs": 120,
+    "min_delta": 0.0001,
+    "patience": 12,
+    "seed": 42,
+    "threads": 2,
+    "validation_fraction": 0.15
+  },
+  "test_already_seen": true,
+  "test_gate": "meanCV improves original MLP and constant train-prior by1e-6; all3folds beat original MLP",
+  "test_rows": 61503,
+  "tie_break": "declared variant order",
+  "train_rows": 20000,
+  "variants": [
+    {
+      "alpha": 1e-05,
+      "clip_z": null,
+      "name": "stop_only"
+    },
+    {
+      "alpha": 0.1,
+      "clip_z": null,
+      "name": "stop_regularized"
+    },
+    {
+      "alpha": 1e-05,
+      "clip_z": 5.0,
+      "name": "stop_clipped"
+    },
+    {
+      "alpha": 0.1,
+      "clip_z": 5.0,
+      "name": "stop_clipped_regularized"
+    }
+  ],
+  "versions": {
+    "joblib": "1.5.2",
+    "lightgbm": "4.7.0",
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.16.3",
+    "threadpoolctl": "3.5.0",
+    "xgboost": "3.2.0"
+  }
+}

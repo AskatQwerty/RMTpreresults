@@ -1,0 +1,690 @@
+{
+  "passed": true,
+  "scope": "mlp_repair_20k_v1",
+  "plan_fingerprint": "2bb884673500177f5d369b1dcb98888290a69a56b1141bc6a1d838eb4a2d3bf5",
+  "audit_utc": "2026-11-08T05:17:20.807687+00:00",
+  "read_only": true,
+  "no_fit_no_prediction_no_bootstrap": true,
+  "model_unpickling": false,
+  "completed_cv": 48,
+  "optimizer_trajectories": 104,
+  "final_levels": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "protected_files_checked": 5041,
+  "prepared_files_checked": 29,
+  "train_rows": 20000,
+  "test_rows": 61503,
+  "class_counts": {
+    "0": 18385,
+    "1": 1615
+  },
+  "selections": [
+    {
+      "baseline_cv_log_loss": 0.388510228212565,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 1,
+      "mean_cv_log_loss": 0.25662697236346405,
+      "params": {
+        "alpha": 1e-05,
+        "clip_z": 5.0,
+        "name": "stop_clipped"
+      },
+      "variant": "stop_clipped"
+    },
+    {
+      "baseline_cv_log_loss": 0.47951122391346584,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 2,
+      "mean_cv_log_loss": 0.2574317185115609,
+      "params": {
+        "alpha": 0.1,
+        "clip_z": 5.0,
+        "name": "stop_clipped_regularized"
+      },
+      "variant": "stop_clipped_regularized"
+    },
+    {
+      "baseline_cv_log_loss": 0.5693882933853726,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 3,
+      "mean_cv_log_loss": 0.2544655597010271,
+      "params": {
+        "alpha": 0.1,
+        "clip_z": 5.0,
+        "name": "stop_clipped_regularized"
+      },
+      "variant": "stop_clipped_regularized"
+    },
+    {
+      "baseline_cv_log_loss": 0.6393957973705551,
+      "constant_prior_cv_log_loss": 0.2805973554463262,
+      "eligible_for_test": true,
+      "level": 4,
+      "mean_cv_log_loss": 0.2538381698156598,
+      "params": {
+        "alpha": 0.1,
+        "clip_z": 5.0,
+        "name": "stop_clipped_regularized"
+      },
+      "variant": "stop_clipped_regularized"
+    }
+  ],
+  "final_metrics": [
+    {
+      "level": 1,
+      "variant": "stop_clipped",
+      "rows": 61503,
+      "positives": 4965,
+      "positive_rate": 0.08072776937710356,
+      "log_loss": 0.25246005061416166,
+      "pr_auc_average_precision": 0.21915422918176566,
+      "roc_auc": 0.7365467893564763,
+      "brier_score": 0.06905178568271234,
+      "threshold": 0.5,
+      "accuracy": 0.9191258962977416,
+      "precision": 0.46853146853146854,
+      "recall": 0.013494461228600202,
+      "f1": 0.026233359436178542,
+      "tn": 56462,
+      "fp": 76,
+      "fn": 4898,
+      "tp": 67,
+      "approval_rate_at_0_5": 0.9976749101669837
+    },
+    {
+      "level": 2,
+      "variant": "stop_clipped_regularized",
+      "rows": 61503,
+      "positives": 4965,
+      "positive_rate": 0.08072776937710356,
+      "log_loss": 0.2519539162472917,
+      "pr_auc_average_precision": 0.22037001681965693,
+      "roc_auc": 0.7401037212021168,
+      "brier_score": 0.06910721868001592,
+      "threshold": 0.5,
+      "accuracy": 0.919060858819895,
+      "precision": 0.47058823529411764,
+      "recall": 0.02094662638469285,
+      "f1": 0.04010798303123795,
+      "tn": 56421,
+      "fp": 117,
+      "fn": 4861,
+      "tp": 104,
+      "approval_rate_at_0_5": 0.9964066793489749
+    },
+    {
+      "level": 3,
+      "variant": "stop_clipped_regularized",
+      "rows": 61503,
+      "positives": 4965,
+      "positive_rate": 0.08072776937710356,
+      "log_loss": 0.24988099649110485,
+      "pr_auc_average_precision": 0.2332653508235869,
+      "roc_auc": 0.7501277291530651,
+      "brier_score": 0.06878048057749131,
+      "threshold": 0.5,
+      "accuracy": 0.9184755215192755,
+      "precision": 0.441527446300716,
+      "recall": 0.03726082578046324,
+      "f1": 0.0687221396731055,
+      "tn": 56304,
+      "fp": 234,
+      "fn": 4780,
+      "tp": 185,
+      "approval_rate_at_0_5": 0.9931873241955677
+    },
+    {
+      "level": 4,
+      "variant": "stop_clipped_regularized",
+      "rows": 61503,
+      "positives": 4965,
+      "positive_rate": 0.08072776937710356,
+      "log_loss": 0.24903367389813313,
+      "pr_auc_average_precision": 0.23556911044355155,
+      "roc_auc": 0.7544528295756809,
+      "brier_score": 0.06842851103063927,
+      "threshold": 0.5,
+      "accuracy": 0.91901208071151,
+      "precision": 0.4797979797979798,
+      "recall": 0.038267875125881166,
+      "f1": 0.07088229807871665,
+      "tn": 56332,
+      "fp": 206,
+      "fn": 4775,
+      "tp": 190,
+      "approval_rate_at_0_5": 0.9935612896931857
+    }
+  ],
+  "total_partial_fit_calls": 2566,
+  "diagnostics": [
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_only",
+      "fold": 0,
+      "inner_epochs": 28,
+      "selected_epochs": 21,
+      "partial_fit_calls": 49,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_only",
+      "fold": 1,
+      "inner_epochs": 31,
+      "selected_epochs": 19,
+      "partial_fit_calls": 50,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_only",
+      "fold": 2,
+      "inner_epochs": 36,
+      "selected_epochs": 24,
+      "partial_fit_calls": 60,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_regularized",
+      "fold": 0,
+      "inner_epochs": 28,
+      "selected_epochs": 21,
+      "partial_fit_calls": 49,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_regularized",
+      "fold": 1,
+      "inner_epochs": 31,
+      "selected_epochs": 26,
+      "partial_fit_calls": 57,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_regularized",
+      "fold": 2,
+      "inner_epochs": 36,
+      "selected_epochs": 24,
+      "partial_fit_calls": 60,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_clipped",
+      "fold": 0,
+      "inner_epochs": 35,
+      "selected_epochs": 23,
+      "partial_fit_calls": 58,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_clipped",
+      "fold": 1,
+      "inner_epochs": 31,
+      "selected_epochs": 19,
+      "partial_fit_calls": 50,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_clipped",
+      "fold": 2,
+      "inner_epochs": 35,
+      "selected_epochs": 24,
+      "partial_fit_calls": 59,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_clipped_regularized",
+      "fold": 0,
+      "inner_epochs": 40,
+      "selected_epochs": 29,
+      "partial_fit_calls": 69,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_clipped_regularized",
+      "fold": 1,
+      "inner_epochs": 38,
+      "selected_epochs": 26,
+      "partial_fit_calls": 64,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 1,
+      "variant": "stop_clipped_regularized",
+      "fold": 2,
+      "inner_epochs": 35,
+      "selected_epochs": 26,
+      "partial_fit_calls": 61,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_only",
+      "fold": 0,
+      "inner_epochs": 35,
+      "selected_epochs": 23,
+      "partial_fit_calls": 58,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_only",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 14,
+      "partial_fit_calls": 39,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_only",
+      "fold": 2,
+      "inner_epochs": 32,
+      "selected_epochs": 20,
+      "partial_fit_calls": 52,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_regularized",
+      "fold": 0,
+      "inner_epochs": 45,
+      "selected_epochs": 33,
+      "partial_fit_calls": 78,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_regularized",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 14,
+      "partial_fit_calls": 39,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_regularized",
+      "fold": 2,
+      "inner_epochs": 32,
+      "selected_epochs": 20,
+      "partial_fit_calls": 52,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_clipped",
+      "fold": 0,
+      "inner_epochs": 33,
+      "selected_epochs": 24,
+      "partial_fit_calls": 57,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_clipped",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 14,
+      "partial_fit_calls": 39,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_clipped",
+      "fold": 2,
+      "inner_epochs": 32,
+      "selected_epochs": 20,
+      "partial_fit_calls": 52,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_clipped_regularized",
+      "fold": 0,
+      "inner_epochs": 45,
+      "selected_epochs": 33,
+      "partial_fit_calls": 78,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_clipped_regularized",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 14,
+      "partial_fit_calls": 39,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 2,
+      "variant": "stop_clipped_regularized",
+      "fold": 2,
+      "inner_epochs": 32,
+      "selected_epochs": 20,
+      "partial_fit_calls": 52,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_only",
+      "fold": 0,
+      "inner_epochs": 32,
+      "selected_epochs": 20,
+      "partial_fit_calls": 52,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_only",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 13,
+      "partial_fit_calls": 38,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_only",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_regularized",
+      "fold": 0,
+      "inner_epochs": 31,
+      "selected_epochs": 20,
+      "partial_fit_calls": 51,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_regularized",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 13,
+      "partial_fit_calls": 38,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_regularized",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_clipped",
+      "fold": 0,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_clipped",
+      "fold": 1,
+      "inner_epochs": 25,
+      "selected_epochs": 20,
+      "partial_fit_calls": 45,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_clipped",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_clipped_regularized",
+      "fold": 0,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_clipped_regularized",
+      "fold": 1,
+      "inner_epochs": 32,
+      "selected_epochs": 20,
+      "partial_fit_calls": 52,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 3,
+      "variant": "stop_clipped_regularized",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_only",
+      "fold": 0,
+      "inner_epochs": 26,
+      "selected_epochs": 19,
+      "partial_fit_calls": 45,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_only",
+      "fold": 1,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_only",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_regularized",
+      "fold": 0,
+      "inner_epochs": 31,
+      "selected_epochs": 19,
+      "partial_fit_calls": 50,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_regularized",
+      "fold": 1,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_regularized",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_clipped",
+      "fold": 0,
+      "inner_epochs": 26,
+      "selected_epochs": 19,
+      "partial_fit_calls": 45,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_clipped",
+      "fold": 1,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_clipped",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_clipped_regularized",
+      "fold": 0,
+      "inner_epochs": 31,
+      "selected_epochs": 19,
+      "partial_fit_calls": 50,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_clipped_regularized",
+      "fold": 1,
+      "inner_epochs": 26,
+      "selected_epochs": 14,
+      "partial_fit_calls": 40,
+      "warning_count": 0
+    },
+    {
+      "stage": "cv",
+      "level": 4,
+      "variant": "stop_clipped_regularized",
+      "fold": 2,
+      "inner_epochs": 26,
+      "selected_epochs": 16,
+      "partial_fit_calls": 42,
+      "warning_count": 0
+    },
+    {
+      "stage": "final",
+      "level": 1,
+      "variant": "stop_clipped",
+      "inner_epochs": 32,
+      "selected_epochs": 27,
+      "partial_fit_calls": 59,
+      "warning_count": 0
+    },
+    {
+      "stage": "final",
+      "level": 2,
+      "variant": "stop_clipped_regularized",
+      "inner_epochs": 36,
+      "selected_epochs": 24,
+      "partial_fit_calls": 60,
+      "warning_count": 0
+    },
+    {
+      "stage": "final",
+      "level": 3,
+      "variant": "stop_clipped_regularized",
+      "inner_epochs": 28,
+      "selected_epochs": 16,
+      "partial_fit_calls": 44,
+      "warning_count": 0
+    },
+    {
+      "stage": "final",
+      "level": 4,
+      "variant": "stop_clipped_regularized",
+      "inner_epochs": 33,
+      "selected_epochs": 21,
+      "partial_fit_calls": 54,
+      "warning_count": 0
+    }
+  ],
+  "audit_seconds": 6.85964199999944,
+  "limits": [
+    "Artifact consistency is verified; training is not replayed.",
+    "Saved Pipeline bytes are hashed, not unpickled; saved probabilities are not regenerated.",
+    "This remains a post-hoc supplemental experiment after earlier test access."
+  ]
+}

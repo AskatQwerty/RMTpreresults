@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Paired AP gains between consecutive information levels. Pointwise, unadjusted, exploratory 95\% percentile bootstrap CI; fixed trained models.}
+\label{tab:rq2-sequential-gains}
+\begin{tabular}{llll}
+\toprule
+Model & Delta AP L2-L1 & Delta AP L3-L2 & Delta AP L4-L3 \\
+\midrule
+Logistic regression & \shortstack{{-0.0036} \\ {[-0.0075, 0.0001]}} & \shortstack{{0.0133} \\ {[0.0093, 0.0173]}} & \shortstack{{0.0040} \\ {[0.0001, 0.0077]}} \\
+Random forest & \shortstack{{-0.0003} \\ {[-0.0039, 0.0029]}} & \shortstack{{0.0119} \\ {[0.0088, 0.0148]}} & \shortstack{{0.0047} \\ {[0.0008, 0.0093]}} \\
+XGBoost & \shortstack{{0.0033} \\ {[-0.0011, 0.0076]}} & \shortstack{{0.0151} \\ {[0.0100, 0.0201]}} & \shortstack{{0.0027} \\ {[-0.0030, 0.0085]}} \\
+LightGBM & \shortstack{{0.0027} \\ {[-0.0013, 0.0065]}} & \shortstack{{0.0130} \\ {[0.0089, 0.0173]}} & \shortstack{{0.0064} \\ {[0.0014, 0.0113]}} \\
+MLP & \shortstack{{0.0012} \\ {[-0.0046, 0.0066]}} & \shortstack{{0.0129} \\ {[0.0074, 0.0185]}} & \shortstack{{0.0023} \\ {[-0.0036, 0.0082]}} \\
+Soft voting & \shortstack{{0.0028} \\ {[-0.0011, 0.0065]}} & \shortstack{{0.0155} \\ {[0.0107, 0.0199]}} & \shortstack{{0.0045} \\ {[0.0000, 0.0091]}} \\
+Stacking & \shortstack{{0.0058} \\ {[0.0018, 0.0094]}} & \shortstack{{0.0156} \\ {[0.0110, 0.0201]}} & \shortstack{{0.0045} \\ {[-0.0002, 0.0091]}} \\
+\bottomrule
+\end{tabular}
+\end{table}

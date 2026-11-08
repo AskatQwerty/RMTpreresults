@@ -1,0 +1,7 @@
+Policy,L/m,Profit (m),Approval rate,Approved n,Default rate among approved
+approve_all,1,0.8385,1.0,61503,0.0807
+reject_all,1,0.0,0.0,0,
+approve_all,5,0.5156,1.0,61503,0.0807
+reject_all,5,0.0,0.0,0,
+approve_all,10,0.112,1.0,61503,0.0807
+reject_all,10,0.0,0.0,0,

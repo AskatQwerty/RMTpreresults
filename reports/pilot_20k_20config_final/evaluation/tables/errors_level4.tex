@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Level 4 errors at fixed threshold 0.5. Positive class: default (TARGET=1). Undefined precision is shown as -- when no defaults are predicted; it is not zero.}
+\label{tab:errors-level4}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llllll}
+\toprule
+Model & Missed defaults (FN) & False rejections (FP) & Precision & Recall & F1 \\
+\midrule
+Logistic regression & 4925 & 49 & 0.4494 & 0.0081 & 0.0158 \\
+Random forest & 4965 & 0 & -- & 0.0000 & 0.0000 \\
+XGBoost & 4897 & 43 & 0.6126 & 0.0137 & 0.0268 \\
+LightGBM & 4883 & 54 & 0.6029 & 0.0165 & 0.0322 \\
+MLP & 4184 & 3118 & 0.2003 & 0.1573 & 0.1762 \\
+Soft voting & 4839 & 93 & 0.5753 & 0.0254 & 0.0486 \\
+Stacking & 4674 & 284 & 0.5061 & 0.0586 & 0.1051 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

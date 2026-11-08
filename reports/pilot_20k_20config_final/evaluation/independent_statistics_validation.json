@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checked_utc": "2026-11-08T04:55:14.669068+00:00",
+  "numeric_checks": 106,
+  "saved_replicate_spotchecks": [
+    0,
+    499,
+    999
+  ],
+  "direct_weighted_AP_checks": 9,
+  "main_CI_quantile_checks": 49,
+  "AP_vs_LR_paired_CI_checks": 6,
+  "RQ2_paired_CI_checks": 42,
+  "new_bootstrap_draws": 0,
+  "new_fit_calls": 0,
+  "new_predict_calls": 0,
+  "method": "Independent read-only review of saved replicate SHA/fingerprints, direct sklearn weighted AP, and exact quantiles of saved1000draws",
+  "source_sha256": {
+    "quality_point.csv": "bc689074d23495afdcc377a03e3e241da1dafa4ff3ea7aa1353baac4a0958c67",
+    "quality_ci.csv": "b957ad745e4986d26dc3672b064ecc1fefbd6d59d40f3d24ee8426a3adb14675",
+    "ap_vs_lr.csv": "741a1f21568637f75c5f0381ff3033a20f2d047cb2d3855bbbf0ca7d04f72a8f",
+    "rq2_deltas.csv": "e6d30f6a888f4a9d3bf1c2c2e6b547360c9b6b17c1bc5c0765cbd5f82e5c3ab9",
+    "delong.csv": "67248c6c61209e6feaa6e5e040f1e10fb2128195d8e6087d3dbec7257659a9e6",
+    "bootstrap_quality_distribution.csv": "d4ab30cf1a125e96e786d9919043769444b99b72ccdf84e7e470a4264eafda04"
+  }
+}

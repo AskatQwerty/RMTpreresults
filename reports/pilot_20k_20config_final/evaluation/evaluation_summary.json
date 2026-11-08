@@ -1,0 +1,23 @@
+{
+  "status": "completed",
+  "scope": "pilot_20k_20config_final",
+  "completed_bootstrap": 1000,
+  "expected_bootstrap": 1000,
+  "seed": 42,
+  "model_count": 7,
+  "pair_count": 28,
+  "test_rows": 61503,
+  "input_integrity_unchanged": true,
+  "alignment_verified": true,
+  "saved_final_metrics_match": true,
+  "old_preresults_unchanged": true,
+  "calibration_recomputed_from_new_probabilities": true,
+  "new_fit_calls": 0,
+  "new_predict_calls": 0,
+  "evaluation_elapsed_seconds": 193.78713349999998,
+  "bootstrap_new": 1000,
+  "bootstrap_reused": 0,
+  "completed_utc": "2026-11-08T04:53:33.248978+00:00",
+  "intervals": "95% percentile; pointwise, unadjusted, exploratory; fixed fitted models",
+  "checkpoint_count": 1000
+}

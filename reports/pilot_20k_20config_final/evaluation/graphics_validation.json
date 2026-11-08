@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "reviewed_utc": "2026-11-08T04:54:35.152181+00:00",
+  "method": "Viewed all three PNG figures at original resolution",
+  "checks": [
+    "All seven model labels visible",
+    "Axes, legends and captions readable without clipping",
+    "Intervals and plotted points consistent with numeric tables",
+    "Calibration uses fixed bins, shows identity line and warns about small bins"
+  ],
+  "files": [
+    {
+      "file": "ap_by_level.png",
+      "sha256": "a6b5b8f26c98f728f9525557ea607a8a38aa0f135c5099c543e325c309a96cb3",
+      "pixels": [
+        1368,
+        894
+      ]
+    },
+    {
+      "file": "calibration_level4.png",
+      "sha256": "b044f830fa736975c30c87f111518f431bc46f6d2544414cee34789763c6eeaf",
+      "pixels": [
+        1862,
+        1118
+      ]
+    },
+    {
+      "file": "rq1_quality_level4.png",
+      "sha256": "5e414782986e509b987c7de9eb2a7e32ef0547fe7219287199640fea06b61bf9",
+      "pixels": [
+        1903,
+        871
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "reviewed": [
+    "figures/ap_by_level.png",
+    "figures/calibration_level4.png",
+    "figures/rq1_quality_level4.png"
+  ],
+  "method": "Direct visual inspection of all three rendered PNGs; labels, legends, bounds and active-model captions checked.",
+  "fit_calls": 0,
+  "predict_calls": 0,
+  "bootstrap_calls": 0
+}

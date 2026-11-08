@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Paired DeLong on Level 4 versus LR; six Bonferroni-adjusted ROC-AUC comparisons.}
+\label{tab:delong-level4}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+Model & Delta ROC-AUC & p (raw) & p (Bonferroni) & Reject at 0.05 \\
+\midrule
+LightGBM & +0.00582 & 0.00085728 & 0.0051437 & Yes \\
+XGBoost & +0.00527 & 0.0027137 & 0.016282 & Yes \\
+Soft voting & +0.00977 & 1.1058e-21 & 6.6347e-21 & Yes \\
+Stacking & +0.00975 & 1.6291e-13 & 9.7746e-13 & Yes \\
+MLP & -0.11627 & 1.5549e-178 & 9.3294e-178 & Yes \\
+Random forest & -0.01226 & 3.2149e-08 & 1.9289e-07 & Yes \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

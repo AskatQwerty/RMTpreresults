@@ -1,0 +1,51 @@
+{
+  "method": "paired DeLong ROC-AUC; Sun-Xu midrank implementation",
+  "alternative": "two-sided; delta = model ROC-AUC minus reference ROC-AUC",
+  "null_hypothesis": "equal population ROC-AUC for model and reference",
+  "covariance": "sample covariance of positive and negative placements, ddof=1, divided by class sizes",
+  "ties": "exact equal scores receive one-half concordance via average ranks",
+  "normal_approximation": true,
+  "positive_class": 1,
+  "bonferroni_family_size": 6,
+  "familywise_alpha": 0.05,
+  "probability_rows": "same ordered, complete client rows for every model; no missing-row deletion",
+  "independent_sampling_unit": "one current application/client; no cluster correction",
+  "uncertainty_scope": "test-client sampling conditional on already fitted pipelines; no training/search variability",
+  "zero_variance_equal_auc": "z=0 and p=1 convention; no observed AUC difference",
+  "zero_variance_unequal_auc": "z and p undefined (NaN); degenerate Wald test, no significance declaration",
+  "not_equivalence_test": true,
+  "ap_p_values_computed": false,
+  "limitations": [
+    "Asymptotic DeLong inference; no exact finite-sample claim.",
+    "Non-rejection does not establish equivalence.",
+    "Assumes independent clients within each TARGET class and paired predictions across models.",
+    "No sample weighting, missing-score imputation, bootstrap p-value or AP hypothesis test."
+  ],
+  "references": [
+    {
+      "authors": "DeLong ER, DeLong DM, Clarke-Pearson DL",
+      "year": 1988,
+      "title": "Comparing the areas under two or more correlated receiver operating characteristic curves: a nonparametric approach",
+      "journal": "Biometrics",
+      "volume": "44",
+      "issue": "3",
+      "pages": "837-845",
+      "doi": "10.2307/2531595",
+      "url": "https://doi.org/10.2307/2531595",
+      "primary_record_url": "https://pubmed.ncbi.nlm.nih.gov/3203132/"
+    },
+    {
+      "authors": "Sun X, Xu W",
+      "year": 2014,
+      "title": "Fast Implementation of DeLong's Algorithm for Comparing the Areas Under Correlated Receiver Operating Characteristic Curves",
+      "journal": "IEEE Signal Processing Letters",
+      "volume": "21",
+      "issue": "11",
+      "pages": "1389-1393",
+      "doi": "10.1109/LSP.2014.2337313",
+      "url": "https://doi.org/10.1109/LSP.2014.2337313",
+      "author_manuscript_url": "https://pamixsun.github.io/papers/sun2014fast.pdf",
+      "author_algorithm_url": "https://pamixsun.github.io/update/2015/08/31/roc-analysis-tool-with-delongs-method/"
+    }
+  ]
+}

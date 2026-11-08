@@ -1,0 +1,126 @@
+{
+  "scope": "pilot_20k_20config_mlp_updated",
+  "status": "ready",
+  "generated_utc": "2026-11-08T05:30:42.908338+00:00",
+  "blockers": [],
+  "original_completed_cv_fits": 1680,
+  "supplemental_mlp_outer_cv_evaluations": 48,
+  "active_pipeline_count": 28,
+  "original_models_retained": 24,
+  "mlp_replacement_count": 4,
+  "mlp_repair_is_posthoc": true,
+  "test_rows": 61503,
+  "completed_bootstrap": 1000,
+  "new_fit_calls_in_evaluation": 0,
+  "new_predict_calls_in_evaluation": 0,
+  "old_preresults_preserved": true,
+  "limitations": [
+    "Обучение выполнено на прежних 20 000 development-заявках; это расширенный пилот, а не обучение на полном development из A2.",
+    "24 Pipeline шести остальных типов сохранены из поиска 20 конфигураций на трёх CV-фолдах. Четыре MLP заменены моделями отдельного дополнительного эксперимента: четыре заранее заданных варианта × четыре уровня × три прежних фолда = 48 внешних CV-оценок.",
+    "MLP выбирается по среднему внешнему CV log-loss; число эпох — по внутреннему validation log-loss на 15% текущего train. Затем новая предобработка и сеть обучаются на всём train. Итоговые MLP используют 20 000 клиентов, clipping числовых z-значений до ±5 и, на уровнях 2–4, alpha=0.1.",
+    "Изменение MLP выполнено после просмотра прежнего test. Хотя новый вариант и число эпох выбраны без использования test, это последующий исследовательский анализ, а не независимое подтверждение первоначального протокола A2.",
+    "На каждую активную пару приходится один итоговый Pipeline; пять train-повторов A2 не выполнены. Исходные 1680 CV-результатов, 28 моделей до замены и пререзультаты поиска пяти конфигураций сохранены отдельно.",
+    "1000 общих парных bootstrap-повторов отражают состав test при фиксированных моделях, а не вариативность повторного обучения.",
+    "95% percentile CI являются pointwise, unadjusted, exploratory; SD пяти train-повторов здесь нет.",
+    "Bonferroni применяется к шести парным DeLong-сравнениям ROC-AUC с LR на Level 4. Это не проверка различий AP или эквивалентности.",
+    "Test совпадает с ранее использованным в пререзультатах; это обновлённый исследовательский анализ, не новая внешняя проверка.",
+    "Прибыль дана в условных единицах m=1 по фиксированной модели затрат. Пороги по test не подбирались, калибратор не обучался.",
+    "Fairness-разрывы описательны; отсутствие разницы не доказывает отсутствие bias, а CI абсолютного разрыва не является отдельным тестом bias.",
+    "Для партии CV 11–15 задокументирована замена исполнителя потоков Random Forest при прежних n_jobs=2; времена разных компьютеров напрямую не сравниваются.",
+    "SHAP, пять train-повторов и формальное правило отбора A2 по неухудшению AP этим анализом не выполняются."
+  ],
+  "table_files": {
+    "rq1_level4": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq1_level4.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq1_level4.tex",
+      "caption": "Level 4 quality. Primary PR metric: PR-AUC (average precision, AP). Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "rq2_ap_levels": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq2_ap_levels.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq2_ap_levels.tex",
+      "caption": "PR-AUC (average precision, AP) across information levels. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "rq2_baseline_gains": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq2_baseline_gains.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq2_baseline_gains.tex",
+      "caption": "Paired AP gains relative to application-only Level 1. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "rq2_sequential_gains": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq2_sequential_gains.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\rq2_sequential_gains.tex",
+      "caption": "Paired AP gains between consecutive information levels. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "ap_vs_lr_level4": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\ap_vs_lr_level4.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\ap_vs_lr_level4.tex",
+      "caption": "Paired Level 4 AP differences versus logistic regression. No bootstrap p-values. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "errors_level4": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\errors_level4.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\errors_level4.tex",
+      "caption": "Level 4 errors at fixed threshold 0.5. Positive class: default (TARGET=1). Undefined precision is shown as -- when no defaults are predicted; it is not zero."
+    },
+    "profit_fairness_all": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_all.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_all.tex",
+      "caption": "All fixed scenarios. Profit per applicant in units m=1; rejected applications contribute zero. G/A: observed gender/age approval-rate gap <=5 percentage points. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "tpr_gaps_level4": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\tpr_gaps_level4.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\tpr_gaps_level4.tex",
+      "caption": "Absolute default-detection TPR gaps. These are not the 5 percentage point approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "profit_fairness_L1": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_L1.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_L1.tex",
+      "caption": "Fixed cost scenario L/m=1; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "profit_fairness_L5": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_L5.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_L5.tex",
+      "caption": "Fixed cost scenario L/m=5; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "profit_fairness_L10": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_L10.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_fairness_L10.tex",
+      "caption": "Fixed cost scenario L/m=10; both threshold rules coincide at L/m=1 and are listed once. G/A: gender/age approval-gap constraint. Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models."
+    },
+    "profit_baselines": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_baselines.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\profit_baselines.tex",
+      "caption": "Approve-all and reject-all reference policies; no threshold is optimized on test."
+    },
+    "calibration_bin_counts": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\calibration_bin_counts.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\calibration_bin_counts.tex",
+      "caption": "Level 4 calibration-bin counts. Ten equal-width intervals: Bin 1 [0,0.1), ..., Bin 10 [0.9,1]. Empty bins have n=0."
+    },
+    "delong_level4": {
+      "csv": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\delong_level4.csv",
+      "tex": "reports\\pilot_20k_20config_mlp_updated\\evaluation\\tables\\delong_level4.tex",
+      "caption": "Paired DeLong on Level 4 versus LR; six Bonferroni-adjusted ROC-AUC comparisons."
+    }
+  },
+  "figure_files": [
+    "reports\\pilot_20k_20config_mlp_updated\\evaluation\\figures\\ap_by_level.png",
+    "reports\\pilot_20k_20config_mlp_updated\\evaluation\\figures\\ap_by_level.svg",
+    "reports\\pilot_20k_20config_mlp_updated\\evaluation\\figures\\calibration_level4.png",
+    "reports\\pilot_20k_20config_mlp_updated\\evaluation\\figures\\calibration_level4.svg",
+    "reports\\pilot_20k_20config_mlp_updated\\evaluation\\figures\\rq1_quality_level4.png",
+    "reports\\pilot_20k_20config_mlp_updated\\evaluation\\figures\\rq1_quality_level4.svg"
+  ],
+  "graphics_validation": {
+    "passed": true,
+    "reviewed": [
+      "figures/ap_by_level.png",
+      "figures/calibration_level4.png",
+      "figures/rq1_quality_level4.png"
+    ],
+    "method": "Direct visual inspection of all three rendered PNGs; labels, legends, bounds and active-model captions checked.",
+    "fit_calls": 0,
+    "predict_calls": 0,
+    "bootstrap_calls": 0
+  },
+  "original_reports": "reports\\pilot_20k_20config_final",
+  "metrics_are_new_final_predictions": true
+}

@@ -1,0 +1,411 @@
+{
+  "scope": "pilot_20k_20config_mlp_updated",
+  "all_28_aligned": true,
+  "test_rows": 61503,
+  "test_positives": 4965,
+  "positive_class": 1,
+  "positive_class_evidence": "classes_ == 1",
+  "canonical_order": "ascending SK_ID_CURR; explicit one-to-one merge",
+  "unknown_policy": "kept in all quality/profit; excluded only from binary group gaps",
+  "unknown_group_counts": {
+    "gender": 2,
+    "age": 0
+  },
+  "checks": [
+    {
+      "model": "logistic_regression",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "xgboost",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "xgboost",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "xgboost",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "xgboost",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "stacking",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "stacking",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "stacking",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "stacking",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "mlp",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "mlp",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "mlp",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "mlp",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "random_forest",
+      "level": 1,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "random_forest",
+      "level": 2,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "random_forest",
+      "level": 3,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    },
+    {
+      "model": "random_forest",
+      "level": 4,
+      "same_ids": true,
+      "target_matches_after_join": true,
+      "probability_range_valid": true
+    }
+  ],
+  "lineage": [
+    {
+      "model": "logistic_regression",
+      "level": 1,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 2,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 3,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "logistic_regression",
+      "level": 4,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 1,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 2,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 3,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "lightgbm",
+      "level": 4,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "xgboost",
+      "level": 1,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "xgboost",
+      "level": 2,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "xgboost",
+      "level": 3,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "xgboost",
+      "level": 4,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 1,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 2,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 3,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "soft_voting",
+      "level": 4,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "stacking",
+      "level": 1,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "stacking",
+      "level": 2,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "stacking",
+      "level": 3,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "stacking",
+      "level": 4,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "mlp",
+      "level": 1,
+      "source_scope": "mlp_repair_20k_v1",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "mlp",
+      "level": 2,
+      "source_scope": "mlp_repair_20k_v1",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "mlp",
+      "level": 3,
+      "source_scope": "mlp_repair_20k_v1",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "mlp",
+      "level": 4,
+      "source_scope": "mlp_repair_20k_v1",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "random_forest",
+      "level": 1,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "random_forest",
+      "level": 2,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "random_forest",
+      "level": 3,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    },
+    {
+      "model": "random_forest",
+      "level": 4,
+      "source_scope": "pilot_20k_20config_final",
+      "pipeline_unchanged_from_source": true,
+      "predictions_unchanged_from_source": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Approve-all and reject-all reference policies; no threshold is optimized on test.}
+\label{tab:profit-baselines}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llllll}
+\toprule
+Policy & L/m & Profit (m) & Approval rate & Approved n & Default rate among approved \\
+\midrule
+approve\_all & 1 & 0.8385 & 1.0 & 61503 & 0.0807 \\
+reject\_all & 1 & 0.0 & 0.0 & 0 & -- \\
+approve\_all & 5 & 0.5156 & 1.0 & 61503 & 0.0807 \\
+reject\_all & 5 & 0.0 & 0.0 & 0 & -- \\
+approve\_all & 10 & 0.112 & 1.0 & 61503 & 0.0807 \\
+reject\_all & 10 & 0.0 & 0.0 & 0 & -- \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

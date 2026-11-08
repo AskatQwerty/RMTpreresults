@@ -1,0 +1,102 @@
+{
+  "scope": "mlp_repair_20k_v1",
+  "generated_utc": "2026-11-08T05:17:06.308093+00:00",
+  "status": "validated_and_visually_reviewed",
+  "completed_cv_evaluations": 48,
+  "optimizer_trajectories_cv": 96,
+  "completed_final_procedures": 4,
+  "optimizer_trajectories_final": 8,
+  "new_fit_calls_in_reporting": 0,
+  "new_predict_calls_in_reporting": 0,
+  "bootstrap_calls": 0,
+  "original_main_experiment_replaced": false,
+  "limitations": [
+    "Это отдельный последующий исследовательский эксперимент MLP. Основные 28 Pipeline, 1680 CV-результатов и прежние RQ1/RQ2 не заменяются.",
+    "Использованы прежние 20 000 клиентов с естественным балансом классов и сохранённые внешние CV-фолды. Test ранее уже просматривался; он не является новой независимой проверкой.",
+    "Вариант выбирается по среднему log-loss внешней CV. Внутри каждого train-фолда отдельные 15% используются только для выбора числа эпох по validation log-loss.",
+    "Предобработка внутреннего этапа обучается только на его train. Затем новая предобработка и новая сеть обучаются на всём предоставленном train ровно выбранное число эпох.",
+    "Ограничение z-значений до ±5 применяется только к масштабированным числовым значениям. Это отдельный вариант преобразования, а не удаление клиентов или изменение сохранённых X.",
+    "Здесь показаны точечные оценки. Bootstrap, доверительные интервалы и проверки значимости различий не вычислялись; стандартное отклонение трёх CV-фолдов не является CI.",
+    "В sklearn partial_fit значение n_iter_ относится к последнему вызову. Реальное число эпох записывается отдельно по циклу обучения, loss_curve_ и t_.",
+    "Изменение правила остановки и исполнительного цикла partial_fit ограничивает строго причинное толкование сравнения с исходным MLP. Улучшение на уже использованном test остаётся исследовательским результатом."
+  ],
+  "sources": [
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_1\\metrics.json",
+      "sha256": "2c16b3aab1a1178e7197fe4256bb511f1e59c1d326d182c68dc56108e5efebf7"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_1\\fit_diagnostics.json",
+      "sha256": "8426e227eef6abdc49573224c21be3b811a029d4c6c4f12a2df3f10a59403f4c"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_2\\metrics.json",
+      "sha256": "e2d99aff9dbe17660b9703229ccb215d07b5fcb6aa0d90dd0fbb2e34a0bfc5fd"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_2\\fit_diagnostics.json",
+      "sha256": "ccf2fe52aab9025b9bd6edf69a9703254d6c4822c0171b994ea540d7b132fb98"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_3\\metrics.json",
+      "sha256": "e9c7a96d01a242d6307321481f53265c56f3f690371940381ec0b4544d48ae16"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_3\\fit_diagnostics.json",
+      "sha256": "3a752fe5d85e6bd2588d0c237a098e098f95278db1ee35d8d6f5b851f3ff649d"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_4\\metrics.json",
+      "sha256": "b59c4599dfc1ca4a0638f299845841d93be312e0366c704cc7dd4fe74747c811"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_4\\fit_diagnostics.json",
+      "sha256": "5bb84b1e3686056694074ce5b9ea002fe028deac2df9c64815b8450185b14064"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\plan.json",
+      "sha256": "b088977d59481fd5e359c8805f8f2561767f54a27113ee4ba3e45aac88c799a0"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\cv_results.csv",
+      "sha256": "82f74894b03655db35b5b5a024079ae2273d501241cf8103615b12a781431fad"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\candidate_summary.csv",
+      "sha256": "f3656729c7088489e69a1941ade9f26cdfeb9f5f7b78dcd38e52f888b9564952"
+    },
+    {
+      "file": "artifacts\\training\\mlp_repair_20k_v1\\selection.json",
+      "sha256": "a38e745273ff9f0dcabb9e6448fa92f3eae249ae8186ac1b3e4ea3dbddedb26a"
+    }
+  ],
+  "figure_files": [
+    {
+      "file": "figures/inner_learning_curves.png",
+      "sha256": "94d372cd44c32a8af04d0a5c9084f0cca23239b68b3e7414fef43eb3dab0ece7"
+    },
+    {
+      "file": "figures/inner_learning_curves.svg",
+      "sha256": "d2c48c4ef55b8931c3eb9a1546fc2c2ea40a166d27c73e1ddd7dc99b82651ec5"
+    },
+    {
+      "file": "figures/mlp_before_after.png",
+      "sha256": "8074685fb8b669e9d64d5b5bb7f563e97e2d96854964006b170f21cebe380823"
+    },
+    {
+      "file": "figures/mlp_before_after.svg",
+      "sha256": "a2c4acac86302e3e73d3b3014b2cc7206e536ab387b0e2f8ddc3708e57f34630"
+    }
+  ],
+  "source_report_sha256": "9c7df382fce38388e6430d10fddd6f8cf7690d2ee1f39c3ab8f70b9de87d54d9",
+  "visual_review": {
+    "reviewed_figures": [
+      "figures/mlp_before_after.png",
+      "figures/inner_learning_curves.png"
+    ],
+    "readable_labels_no_clipping": true,
+    "local_links_checked": 10,
+    "all_local_links_exist": true
+  },
+  "independent_validation": "independent_validation.json"
+}

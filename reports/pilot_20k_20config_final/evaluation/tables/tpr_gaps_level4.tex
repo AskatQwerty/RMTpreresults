@@ -1,0 +1,32 @@
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{llll}
+\caption{Absolute default-detection TPR gaps. These are not the 5 percentage point approval-gap constraint. Pointwise, unadjusted, exploratory 95\% percentile bootstrap CI; fixed trained models.}\label{tab:tpr-gaps-level4}\\
+\toprule
+Model & Threshold & Gender TPR gap (pp) & Age TPR gap (pp) \\
+\midrule
+Logistic regression & 0.5000 & \shortstack{{0.42} \\ {[0.03, 0.89]}} & \shortstack{{0.10} \\ {[0.02, 1.06]}} \\
+Logistic regression & 0.1667 & \shortstack{{4.54} \\ {[1.79, 7.10]}} & \shortstack{{21.12} \\ {[15.20, 27.09]}} \\
+Logistic regression & 0.0909 & \shortstack{{4.47} \\ {[1.95, 7.12]}} & \shortstack{{22.83} \\ {[18.77, 26.97]}} \\
+Random forest & 0.5000 & \shortstack{{0.00} \\ {[0.00, 0.00]}} & \shortstack{{0.00} \\ {[0.00, 0.00]}} \\
+Random forest & 0.1667 & \shortstack{{0.43} \\ {[0.04, 3.18]}} & \shortstack{{21.36} \\ {[15.76, 27.68]}} \\
+Random forest & 0.0909 & \shortstack{{2.69} \\ {[0.34, 5.34]}} & \shortstack{{18.46} \\ {[14.18, 22.92]}} \\
+XGBoost & 0.5000 & \shortstack{{0.26} \\ {[0.02, 0.91]}} & \shortstack{{0.06} \\ {[0.02, 1.68]}} \\
+XGBoost & 0.1667 & \shortstack{{3.94} \\ {[1.36, 6.67]}} & \shortstack{{21.69} \\ {[16.07, 27.88]}} \\
+XGBoost & 0.0909 & \shortstack{{4.36} \\ {[1.75, 6.96]}} & \shortstack{{23.23} \\ {[18.67, 27.56]}} \\
+LightGBM & 0.5000 & \shortstack{{0.01} \\ {[0.02, 0.84]}} & \shortstack{{0.52} \\ {[0.05, 2.33]}} \\
+LightGBM & 0.1667 & \shortstack{{2.91} \\ {[0.51, 5.64]}} & \shortstack{{20.02} \\ {[14.28, 26.18]}} \\
+LightGBM & 0.0909 & \shortstack{{4.15} \\ {[1.61, 7.02]}} & \shortstack{{23.93} \\ {[19.68, 28.30]}} \\
+MLP & 0.5000 & \shortstack{{3.79} \\ {[1.86, 5.92]}} & \shortstack{{4.53} \\ {[0.35, 9.06]}} \\
+MLP & 0.1667 & \shortstack{{5.08} \\ {[2.69, 7.40]}} & \shortstack{{6.31} \\ {[1.31, 11.55]}} \\
+MLP & 0.0909 & \shortstack{{5.31} \\ {[2.79, 7.84]}} & \shortstack{{7.10} \\ {[2.01, 12.45]}} \\
+Soft voting & 0.5000 & \shortstack{{0.50} \\ {[0.03, 1.33]}} & \shortstack{{0.72} \\ {[0.04, 2.95]}} \\
+Soft voting & 0.1667 & \shortstack{{6.19} \\ {[3.64, 8.90]}} & \shortstack{{20.39} \\ {[14.66, 26.34]}} \\
+Soft voting & 0.0909 & \shortstack{{5.75} \\ {[3.29, 8.55]}} & \shortstack{{21.66} \\ {[17.23, 25.89]}} \\
+Stacking & 0.5000 & \shortstack{{1.00} \\ {[0.07, 2.33]}} & \shortstack{{5.14} \\ {[1.52, 8.67]}} \\
+Stacking & 0.1667 & \shortstack{{5.64} \\ {[3.21, 8.30]}} & \shortstack{{19.29} \\ {[13.07, 25.05]}} \\
+Stacking & 0.0909 & \shortstack{{5.65} \\ {[3.03, 8.48]}} & \shortstack{{22.23} \\ {[16.93, 27.35]}} \\
+\bottomrule
+\end{longtable}
+\endgroup

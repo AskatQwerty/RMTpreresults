@@ -1,0 +1,624 @@
+{
+  "scope": "pilot_20k_20config_mlp_updated",
+  "train_rows": 20000,
+  "test_rows": 61503,
+  "development_rows": 246008,
+  "original_configurations_per_pair": 20,
+  "original_completed_candidate_cv_fits": 1680,
+  "original_models_retained": 24,
+  "mlp_replacement_count": 4,
+  "supplemental_mlp_outer_cv_evaluations": 48,
+  "supplemental_mlp_variants_per_level": 4,
+  "active_pipeline_count": 28,
+  "final_fit_seed": 42,
+  "repeats_per_pair": 1,
+  "selection_metric": "mean CV log_loss",
+  "selected_without_test": true,
+  "test_previously_seen": true,
+  "mlp_repair_is_posthoc": true,
+  "model_lineage": [
+    {
+      "level": 1,
+      "model": "logistic_regression",
+      "source_complete_sha256": "eecc89c121bc490f0a6a510c9a18ec3a3e4831606e4a9b48fc73961a2661d6fc",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "logistic_regression",
+      "source_complete_sha256": "99f507e68ad160e3e4d18bdf0f767e347c6f9a86b7ec7e4a174c679ae99e9210",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "logistic_regression",
+      "source_complete_sha256": "b605433db0044fc5ea6cdf5382e79b1effa76d41ab28f5e21dfcbd4652fa351a",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "logistic_regression",
+      "source_complete_sha256": "32cd6bbecc953c6116f8505f3e9e845b6284dd6299cbd6fe6d76e63399259cf0",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\logistic_regression\\level_4"
+    },
+    {
+      "level": 1,
+      "model": "lightgbm",
+      "source_complete_sha256": "ddacb48c80543e9e42ed491ce5ab59b00f350da83edd3f9bfe22c79c5ac2c43a",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "lightgbm",
+      "source_complete_sha256": "a100fbb8c3b04eea5918233d083e308ca0be7aece859356b75242ebfdcce6ee9",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "lightgbm",
+      "source_complete_sha256": "c2c197b22f95fa9371a2a42ae2a7b1320096f5be2051122ef7e7b8f0fbfe3a8d",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "lightgbm",
+      "source_complete_sha256": "a46af4a990bf91c83334ebd4df5d279eaec807f2fd567fd583c6a4c97479291a",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\lightgbm\\level_4"
+    },
+    {
+      "level": 1,
+      "model": "xgboost",
+      "source_complete_sha256": "92dadc7ad7bc80588b6d1f0c9cdfc1fb909e6e097baa6fb5854ffcd50ed3129a",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "xgboost",
+      "source_complete_sha256": "c53432ec5f46e6d8c1d8332145f4c301ee39044a101c587d5fe701b7ae6535e2",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "xgboost",
+      "source_complete_sha256": "5384e9644d66c8a4b00f0f6bf131d58012ce55f0419230417ce3967d48a54f92",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "xgboost",
+      "source_complete_sha256": "1c514e60164cde7198a4160323f867c7fb0d5091b76fc4cdb6106faa965da5f2",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\xgboost\\level_4"
+    },
+    {
+      "level": 1,
+      "model": "soft_voting",
+      "source_complete_sha256": "c9880fd9f9e0248e3a2c90aa09a3acabab9860ca8dab76196c3e0bcdfdfee916",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "soft_voting",
+      "source_complete_sha256": "3cb563613fb4f30ed2212e5d838b819e2ef94061d02f7e6199d7a52a0912acb9",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "soft_voting",
+      "source_complete_sha256": "b24a92945d0da8104af20a3746563b74f33f1f2bbd47aeb80bd08eb6b364cc95",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "soft_voting",
+      "source_complete_sha256": "17c7249ad1353f5feb4279f9b92ef7bb1491d6dbc836181749b3778405bd3632",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\soft_voting\\level_4"
+    },
+    {
+      "level": 1,
+      "model": "stacking",
+      "source_complete_sha256": "ec4fbc5ea9a352216f727363f9e8fd9b5107a5598c7d3d7843b216c34941d246",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "stacking",
+      "source_complete_sha256": "ebdf3f9e0dde736fda48afe051260ff4b95e8a508a90519b6bfb87fe42c44e0b",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "stacking",
+      "source_complete_sha256": "c7768b20eea4bb716058e444d821ad9bdd4473ac06a26bd296482bf73edbb37b",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "stacking",
+      "source_complete_sha256": "6714b2fb46405e1812cdaef3b4cada86d3027564c976eb2753e6fbc2f534b66a",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\stacking\\level_4"
+    },
+    {
+      "level": 1,
+      "model": "mlp",
+      "source_complete_sha256": "5287c6bc438a2472aa0fb94f566302b2199610f147942c2af7ea014ae98795f5",
+      "source_scope": "mlp_repair_20k_v1",
+      "source_stage": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "mlp",
+      "source_complete_sha256": "1ce7316c3b93ef58f4ca2ad111a232a9337c98c44960cafb95acae0f51162569",
+      "source_scope": "mlp_repair_20k_v1",
+      "source_stage": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "mlp",
+      "source_complete_sha256": "9741b402a135600c438d7829091889cf8ffe6026ef9b0a87fc24e7740e5ba6ff",
+      "source_scope": "mlp_repair_20k_v1",
+      "source_stage": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "mlp",
+      "source_complete_sha256": "0e4a3618dbc690c1ea28cd944555266f11312f93a36c9d314fec7dfb6b54e680",
+      "source_scope": "mlp_repair_20k_v1",
+      "source_stage": "artifacts\\training\\mlp_repair_20k_v1\\final\\level_4"
+    },
+    {
+      "level": 1,
+      "model": "random_forest",
+      "source_complete_sha256": "86bf3a9f71f767126ece5adc70b1baca2b684178c55aabfd6f8405760a188627",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_1"
+    },
+    {
+      "level": 2,
+      "model": "random_forest",
+      "source_complete_sha256": "72aeb8b2271902d24df38dd5af1e26152f5b8adac9fc6beed559055b886bc382",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_2"
+    },
+    {
+      "level": 3,
+      "model": "random_forest",
+      "source_complete_sha256": "e9fccc22d80080053d89bf002b8242c75bcce37b2caf9b7ddc3306867ee34638",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_3"
+    },
+    {
+      "level": 4,
+      "model": "random_forest",
+      "source_complete_sha256": "6aecbeb97188932bb1861e4c34c14ede15e6364e8c5ce8cd6d11df9d5ddeb689",
+      "source_scope": "pilot_20k_20config_final",
+      "source_stage": "artifacts\\training\\pilot_20k_20config_final\\random_forest\\level_4"
+    }
+  ],
+  "cohort_summary": {
+    "class_resampling": false,
+    "cohort_balance": [
+      {
+        "TARGET": 0,
+        "count": 18385,
+        "fraction": 0.91925,
+        "percent": 91.925
+      },
+      {
+        "TARGET": 1,
+        "count": 1615,
+        "fraction": 0.08075,
+        "percent": 8.075000000000001
+      }
+    ],
+    "cv": [
+      {
+        "fold": 0,
+        "train_balance": [
+          {
+            "TARGET": 0,
+            "count": 12256,
+            "fraction": 0.9192229805745143,
+            "percent": 91.92229805745143
+          },
+          {
+            "TARGET": 1,
+            "count": 1077,
+            "fraction": 0.08077701942548564,
+            "percent": 8.077701942548563
+          }
+        ],
+        "train_rows": 13333,
+        "validation_balance": [
+          {
+            "TARGET": 0,
+            "count": 6129,
+            "fraction": 0.9193040347982601,
+            "percent": 91.93040347982601
+          },
+          {
+            "TARGET": 1,
+            "count": 538,
+            "fraction": 0.08069596520173991,
+            "percent": 8.069596520173992
+          }
+        ],
+        "validation_rows": 6667
+      },
+      {
+        "fold": 1,
+        "train_balance": [
+          {
+            "TARGET": 0,
+            "count": 12257,
+            "fraction": 0.9192979824495613,
+            "percent": 91.92979824495613
+          },
+          {
+            "TARGET": 1,
+            "count": 1076,
+            "fraction": 0.08070201755043876,
+            "percent": 8.070201755043877
+          }
+        ],
+        "train_rows": 13333,
+        "validation_balance": [
+          {
+            "TARGET": 0,
+            "count": 6128,
+            "fraction": 0.9191540422978851,
+            "percent": 91.9154042297885
+          },
+          {
+            "TARGET": 1,
+            "count": 539,
+            "fraction": 0.08084595770211489,
+            "percent": 8.08459577021149
+          }
+        ],
+        "validation_rows": 6667
+      },
+      {
+        "fold": 2,
+        "train_balance": [
+          {
+            "TARGET": 0,
+            "count": 12257,
+            "fraction": 0.9192290385480726,
+            "percent": 91.92290385480726
+          },
+          {
+            "TARGET": 1,
+            "count": 1077,
+            "fraction": 0.0807709614519274,
+            "percent": 8.07709614519274
+          }
+        ],
+        "train_rows": 13334,
+        "validation_balance": [
+          {
+            "TARGET": 0,
+            "count": 6128,
+            "fraction": 0.9192919291929192,
+            "percent": 91.92919291929192
+          },
+          {
+            "TARGET": 1,
+            "count": 538,
+            "fraction": 0.08070807080708071,
+            "percent": 8.070807080708072
+          }
+        ],
+        "validation_rows": 6666
+      }
+    ],
+    "development_balance": [
+      {
+        "TARGET": 0,
+        "count": 226148,
+        "fraction": 0.9192709180189262,
+        "percent": 91.92709180189263
+      },
+      {
+        "TARGET": 1,
+        "count": 19860,
+        "fraction": 0.08072908198107379,
+        "percent": 8.07290819810738
+      }
+    ],
+    "parent_split": "development",
+    "random_state": 42,
+    "sample_n": 20000,
+    "scope": "pilot_20k_5config",
+    "shared_ids_for_all_28_pairs": true,
+    "stratified": true,
+    "test_ids_unchanged": true,
+    "test_rows": 61503
+  },
+  "cv_folds": [
+    {
+      "fold": 0,
+      "train_balance": [
+        {
+          "TARGET": 0,
+          "count": 12256,
+          "fraction": 0.9192229805745143,
+          "percent": 91.92229805745143
+        },
+        {
+          "TARGET": 1,
+          "count": 1077,
+          "fraction": 0.08077701942548564,
+          "percent": 8.077701942548563
+        }
+      ],
+      "train_rows": 13333,
+      "validation_balance": [
+        {
+          "TARGET": 0,
+          "count": 6129,
+          "fraction": 0.9193040347982601,
+          "percent": 91.93040347982601
+        },
+        {
+          "TARGET": 1,
+          "count": 538,
+          "fraction": 0.08069596520173991,
+          "percent": 8.069596520173992
+        }
+      ],
+      "validation_rows": 6667
+    },
+    {
+      "fold": 1,
+      "train_balance": [
+        {
+          "TARGET": 0,
+          "count": 12257,
+          "fraction": 0.9192979824495613,
+          "percent": 91.92979824495613
+        },
+        {
+          "TARGET": 1,
+          "count": 1076,
+          "fraction": 0.08070201755043876,
+          "percent": 8.070201755043877
+        }
+      ],
+      "train_rows": 13333,
+      "validation_balance": [
+        {
+          "TARGET": 0,
+          "count": 6128,
+          "fraction": 0.9191540422978851,
+          "percent": 91.9154042297885
+        },
+        {
+          "TARGET": 1,
+          "count": 539,
+          "fraction": 0.08084595770211489,
+          "percent": 8.08459577021149
+        }
+      ],
+      "validation_rows": 6667
+    },
+    {
+      "fold": 2,
+      "train_balance": [
+        {
+          "TARGET": 0,
+          "count": 12257,
+          "fraction": 0.9192290385480726,
+          "percent": 91.92290385480726
+        },
+        {
+          "TARGET": 1,
+          "count": 1077,
+          "fraction": 0.0807709614519274,
+          "percent": 8.07709614519274
+        }
+      ],
+      "train_rows": 13334,
+      "validation_balance": [
+        {
+          "TARGET": 0,
+          "count": 6128,
+          "fraction": 0.9192919291929192,
+          "percent": 91.92919291929192
+        },
+        {
+          "TARGET": 1,
+          "count": 538,
+          "fraction": 0.08070807080708071,
+          "percent": 8.070807080708072
+        }
+      ],
+      "validation_rows": 6666
+    }
+  ],
+  "feature_counts": {
+    "1": 124,
+    "2": 178,
+    "3": 264,
+    "4": 322
+  },
+  "software_versions": {
+    "joblib": "1.5.2",
+    "lightgbm": "4.7.0",
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.16.3",
+    "threadpoolctl": "3.5.0",
+    "xgboost": "3.2.0"
+  },
+  "python": "3.13.9",
+  "threads": 2,
+  "hardware": null,
+  "training_summary": {
+    "completed_pairs": 28,
+    "completed_utc": "2026-11-08T05:24:47.365822+00:00",
+    "fingerprint": "cd48a07dd9ed67e19153992f78227dc029af41193a1d59fd396425d828d99d3e",
+    "new_fit_calls": 0,
+    "new_predict_calls": 0,
+    "replaced_mlp": 4,
+    "scope": "pilot_20k_20config_mlp_updated",
+    "status": "completed",
+    "test_rows": 61503,
+    "train_rows": 20000,
+    "unchanged_models": 24
+  },
+  "refit_seconds_sum": 1556.203316000002,
+  "predict_seconds_sum": 77.0439312999988,
+  "timing_note": "Historical timings attached to active Pipelines, not the elapsed time of promotion. Each repaired MLP procedure includes internal epoch selection and fresh full-train refit. No fit or predict occurs during this evaluation.",
+  "sources": [
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\logistic_regression\\level_1\\metrics.json",
+      "sha256": "78f94d4a99f3ffd67ad656c703fe891fcd8113f9116106be2bd635de5030e4d4"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\logistic_regression\\level_2\\metrics.json",
+      "sha256": "3fe44d196ec28b51cb7e943be843501b73fedde6b907e4ac5267f066432dee6e"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\logistic_regression\\level_3\\metrics.json",
+      "sha256": "a6759601e88e18d9f2d10884720b91c7ea747cac2fb061e8676b3f2026549a1a"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\logistic_regression\\level_4\\metrics.json",
+      "sha256": "4bfabc7432c094b5433c908c90608fdc1ba95165427f8bca4373c5b6d9170203"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\random_forest\\level_1\\metrics.json",
+      "sha256": "49c2be8622ee940db18d5509163308f405c444945eebf259bb5a121f4daf734e"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\random_forest\\level_2\\metrics.json",
+      "sha256": "06bd8aa3505336c4fe6ab3e5e513d9562369250ff52479e359e7d621c33b4fb3"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\random_forest\\level_3\\metrics.json",
+      "sha256": "10f5bd5b40808bf2ddbf1ace1248aa8a19aa2b920d978065a09adb2708e7f24a"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\random_forest\\level_4\\metrics.json",
+      "sha256": "4c5c14a77732bbb3fb16820bac66f8efe406d5a2a3bcfb487bd9628b7ed330c1"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\xgboost\\level_1\\metrics.json",
+      "sha256": "975dd17086232c1ae89965e0d2c79dc46077b9b3156dd144d642cc3a2a9cd978"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\xgboost\\level_2\\metrics.json",
+      "sha256": "59c73b5c9ad1e89f0bd0f576101fe5713fde8f60c1a6cf311e77558dbf7ee6aa"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\xgboost\\level_3\\metrics.json",
+      "sha256": "5b13b363ab7d7462d120f7fb7a7a1c507d7ddfbf4d19dd59921107b99c664187"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\xgboost\\level_4\\metrics.json",
+      "sha256": "095527a724fdb32a316f79414f3f9f0b2b3f0d6618fb87bffac62ab71f44a26a"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\lightgbm\\level_1\\metrics.json",
+      "sha256": "3b78d11081252dfb51124c5e842d10f014d409130254bea75a50d0a6cfe6ec2c"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\lightgbm\\level_2\\metrics.json",
+      "sha256": "c875a36f9f39886b49f96951ae854348402d7e8a7eabc86cdc751f453ae2a880"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\lightgbm\\level_3\\metrics.json",
+      "sha256": "8fec63230ba86bcf707fe183b5cfde00dfa3c400dd68743a50f83c4bed41f2eb"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\lightgbm\\level_4\\metrics.json",
+      "sha256": "3f930a730672c9e93de344f8cb138c94ed0057670c01234b17a7d2ece9e6cd86"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\mlp\\level_1\\metrics.json",
+      "sha256": "762531c9a538b0b6974a64de50e10783fde70f4949695958e5a3e7fd9d3c60bf"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\mlp\\level_2\\metrics.json",
+      "sha256": "793ba2ff104505de4e6455fc48110cee8266561d68c1f75252fd6d7f10249b87"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\mlp\\level_3\\metrics.json",
+      "sha256": "17baa940be0105e84372992868574b85b69c0a6797f96262e7282e8cec4aebe3"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\mlp\\level_4\\metrics.json",
+      "sha256": "359d4e18fe39e8d0c326a7fd6918f02ff0c5691bc90c1095ea1c0bb80a888986"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\soft_voting\\level_1\\metrics.json",
+      "sha256": "a21493e17541fe4ae232e403af4456e30468f8cff448c18f1caf8890a68fcdad"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\soft_voting\\level_2\\metrics.json",
+      "sha256": "8e043285678df083a6e69b81d451967265d80547d63534492a59b0c9cf625f68"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\soft_voting\\level_3\\metrics.json",
+      "sha256": "eabb8c719c3870b9f1a43bb44a8db7e21fd182e2b6de47c0c151dfd7c4619377"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\soft_voting\\level_4\\metrics.json",
+      "sha256": "07355348a4445e3e6b9c2b89f456645aa0d560b46c476ab7dcf68554f59fa12f"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\stacking\\level_1\\metrics.json",
+      "sha256": "f2196c6e5138256be87ca2c6a29022b0b00f1f5b394e546b82fb154d4229a554"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\stacking\\level_2\\metrics.json",
+      "sha256": "cebc688baaae862638245ba894774d7dd45b441d6b6304c10fae2093a70b6ae4"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\stacking\\level_3\\metrics.json",
+      "sha256": "affd3c403ea28813779401b0129da0552306166ace1cc507e976322e734a079e"
+    },
+    {
+      "path": "artifacts\\training\\pilot_20k_20config_mlp_updated\\stacking\\level_4\\metrics.json",
+      "sha256": "1fc10b0a36427ff61c4a74bbd0cb3cb478ee325c47a0d3997db75fcad927d08b"
+    }
+  ],
+  "original_preresults_preserved": true,
+  "original_20config_results_preserved": true,
+  "mlp_audit_before_final": {
+    "path": "reports\\training\\pilot_20k_20config_combined\\mlp_audit.json",
+    "sha256": "b8327fcc2115b6b0787a5c5dbe74b9b96ddd33da0a1b2fdd760ecbd4a7a2796f",
+    "status": "passed_with_caveats",
+    "interpretation_ru": [
+      "Структурной ошибки Pipeline не обнаружено: масштабирование есть, медианы и scaler обучаются на train фолда, validation только transform.",
+      "Все проверенные матрицы train/validation конечны, их ширина совпадает; тестовые данные не загружались.",
+      "Низкая сохранённая обучающая целевая функция при высоком CV log-loss согласуется с сильным переобучением; это диагностический вывод, а не доказательство единственной причины.",
+      "MLP loss_curve содержит обучающую целевую функцию с регуляризацией и minibatch-агрегацией; она не является отдельной оценкой train log-loss.",
+      "Масштабирование сохраняет редкие экстремальные значения validation. Их наличие само по себе не ошибка; clipping/отбор по CV или test сейчас не вводились.",
+      "Для исходных конфигураций1–5 индивидуальные CV loss_curve отсутствуют; сохранённые диаграммы итоговых refit не подставлялись вместо них.",
+      "Гиперпараметры и правило остановки сохранены. Улучшение MLP через early stopping или новую регуляризацию потребовало бы отдельного заранее объявленного эксперимента."
+    ]
+  }
+}
