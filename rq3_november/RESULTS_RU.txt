@@ -1,39 +1,40 @@
-﻿RQ3. Согласованность и устойчивость SHAP для ноябрьских моделей
-Репозиторий AskatQwerty/RMTpreresults, коммит f431692a194381c1e5fd28af4235a7597dcc37a1.
+RQ3: SHAP agreement and stability for the November models
+Repository: AskatQwerty/RMTpreresults, commit f431692a194381c1e5fd28af4235a7597dcc37a1.
 
-Проверили семь моделей уровня 4. Для каждого клиента объясняется прогноз вероятности дефолта по 322 исходным признакам.
-Для всех семи моделей, включая оба ансамбля, использованы одни и те же 1 000 тестовых клиентов: 500 с записью в кредитном бюро и 500 без неё. Фон — 100 клиентов из обучающей когорты.
-Для каждой модели выполнены пять переобучений с seed 1–5 на стратифицированной подвыборке из 18 000 клиентов. Устойчивость сравнивалась по десяти парам прогонов на тех же 1 000 клиентах для всех семи моделей.
-Для деревьев использован interventional Tree SHAP. Для логистической регрессии, MLP и ансамблей использованы прямые и обратные перестановки исходных признаков. Шкала у всех моделей одна, P(TARGET=1).
+Seven Level 4 models were evaluated. Each applicant's predicted default probability is explained using 322 original features.
+All seven models, including both ensembles, use the same 1,000 test applicants: 500 with a bureau record and 500 without one. The background comprises 100 training applicants.
+Each model was retrained five times with seeds 1–5 on stratified samples of 18,000 applicants. Stability was compared over ten pairs of runs on the same 1,000 applicants for all seven models.
+Tree models use interventional Tree SHAP. Logistic regression, MLP and ensembles use forward and reverse permutations of original features. All explanations use the same P(TARGET=1) scale.
 
-Итого 50 000 строк объяснений на 1 000 уникальных клиентах. Пять исходных наборов уже охватывали все 1 000 клиентов; они проверены и использованы повторно. Остальные 45 рассчитаны заново. Для пяти повторов использованы те же 35 сохранённых моделей.
-В октябрьской сводке устойчивости было 500 клиентов для отдельных моделей и 300 для ансамблей. При сравнении с октябрём состав выборок различается. Прямое сравнение исходных октябрьской и ноябрьской MLP проводится на одинаковых 1 000 клиентах.
-Результаты на обеих группах клиентов вместе
-Модель | Ранговая корреляция Спирмена между переобучениями | Доля общих признаков в личном топ-5 между переобучениями | Доля общих признаков в личном топ-5 с логистической регрессией на финальном fit
-Логистическая регрессия | 0.935 | 85.7% | эталон
-Случайный лес | 0.974 | 80.8% | 47.5%
+There are 50,000 explanation rows for 1,000 unique applicants. Five original explanation sets already covered all 1,000 applicants and were verified and reused. The other 45 were recalculated. The same 35 saved retrained models were used for the five repeats.
+The October stability summary used 500 applicants for individual models and 300 for ensembles, so its samples differ from November. The direct comparison of original October and November MLPs uses the same 1,000 applicants.
+
+Results across both applicant groups
+Model | Spearman rank correlation across retrainings | Personal top-5 overlap across retrainings | Personal top-5 overlap with the final logistic-regression fit
+Logistic regression | 0.935 | 85.7% | reference
+Random forest | 0.974 | 80.8% | 47.5%
 XGBoost | 0.911 | 72.1% | 46.3%
 LightGBM | 0.894 | 74.6% | 45.9%
 MLP | 0.578 | 58.9% | 48.3%
 Soft voting | 0.919 | 80.2% | 71.0%
 Stacking | 0.888 | 74.1% | 56.2%
 
-Глобальная корреляция относится к ранжированию признаков по среднему абсолютному SHAP. Доля общих признаков в личном топ-5 усредняется по клиентам. Пороги проекта для устойчивости составляют 0,80 по обоим показателям.
-Доверительные интервалы рассчитаны по 1 000 бутстреп-выборкам клиентов с seed 42. Парные сравнения с логистической регрессией учитывают поправку Бонферрони на шесть сравнений.
+Global correlation ranks features by mean absolute SHAP. Personal top-5 overlap is averaged across applicants. The project's stability thresholds are 0.80 for both measures.
+Confidence intervals use 1,000 bootstrap samples of applicants with seed 42. Paired comparisons against logistic regression use a Bonferroni correction for six comparisons.
 
-Смена MLP с октябрьской на ноябрьскую
-На 1 000 общих клиентах глобальная корреляция важности признаков — 0.606. Средняя доля совпадений в личном топ-5 — 37.0%. Исходные октябрьские объяснения взяты из сохранённого прогона fixed пилота с пятью конфигурациями.
+October-to-November MLP change
+On the same 1,000 applicants, global feature-importance correlation is 0.606 and mean personal top-5 overlap is 37.0%. The original October explanations come from the saved fixed run of the five-configuration pilot.
 
-Проверки и ограничения
-Все семь исходных финальных Pipeline загружены из официального архива RMT_active_28_models.zip, проверены SHA-256 архива и всех моделей. Значения SHAP и контроль шума вычислены непосредственно на опубликованных моделях. На 61 503 тестовых клиентах максимальное абсолютное расхождение с опубликованными AP, ROC-AUC, log loss и Brier составило 1.55e-08. Сверка проведена по агрегированным метрикам.
-MLP использует процедуру обучения из ноябрьского эксперимента с выбором эпох по внутренней валидации и повторным fit с нуля. В финальном fit выбрана 21 эпоха.
-Версии, входные файлы, ограничения и локальные особенности исполнения перечислены в verification/. Случайный лес работал в двух потоках через ThreadPoolExecutor. Для перестановок у LR и ансамблей использован ускоренный расчёт тех же вкладов с проверкой против predict_proba на маскированных примерах.
-Максимальное расхождение между суммой SHAP с базовым значением и вероятностью модели — 0.00582159; строк с расхождением свыше 0,001 — 6. Подробнее в verification/explanation_checks.csv.
-Для четырёх приближённых объяснителей оценена воспроизводимость топ-5 на одной модели при разных seed перестановок (11 и 12). Результаты приведены в tables/rq3_explainer_noise.csv. Выводы относятся к пилоту, выбранным клиентам и фону.
+Checks and limitations
+All seven original final Pipelines were loaded from the official RMT_active_28_models.zip bundle. The archive and every model were checked by SHA-256. SHAP values and the noise control were computed directly on the published models. Across 61,503 test applicants, the largest absolute difference from published AP, ROC-AUC, log loss and Brier was 1.55e-08. The comparison used aggregate metrics.
+MLP follows the November training procedure: internal validation selects epochs, followed by a fresh fit. The final fit selected 21 epochs.
+Versions, inputs, limitations and local execution details are recorded in verification/. Random forest used two threads via ThreadPoolExecutor. LR and ensemble permutations used accelerated computation of the same contributions, checked against predict_proba on masked examples.
+The maximum difference between the sum of SHAP plus its base value and the model probability is 0.00582159; six rows exceed 0.001. See verification/explanation_checks.csv.
+For four approximate explainers, personal top-5 reproducibility was evaluated on the same fitted model using permutation seeds 11 and 12. Results are in tables/rq3_explainer_noise.csv. Conclusions apply to this pilot, the selected applicants and the chosen background.
 
-Состав архива
-tables/ — численные результаты и интервалы, сравнение с октябрём, таблицы LaTeX.
-figures/ — четыре графика проекта в PDF.
-runs/ — SHAP-матрицы, идентификаторы строк, базовые значения, вероятности и параметры каждого прогона. В итоговых fit и переобучениях также сохранены вероятности на полном test в порядке test_ids.parquet.
-selection/ — зафиксированная выборка объясняемых клиентов, фон и порядок признаков. Номер столбца SHAP соответствует позиции в features_level_4.json.
-verification/ — проверки, источник параметров, версии, контрольные суммы и комплект для воспроизведения.
+Archive layout
+tables/ — numerical results and intervals, October comparisons and LaTeX tables.
+figures/ — four project figures in PDF.
+runs/ — SHAP matrices, row IDs, base values, probabilities and run settings. Final fits and retrainings also retain full-test probabilities in test_ids.parquet order.
+selection/ — fixed explained-applicant IDs, background and feature order. Each SHAP column corresponds to its position in features_level_4.json.
+verification/ — checks, parameter provenance, versions, checksums and reproduction materials.

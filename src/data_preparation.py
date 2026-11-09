@@ -1,4 +1,4 @@
-"""Детерминированные признаки: SQL-агрегаты с ограничением RAM, без fit()."""
+"""Deterministic features: memory-bounded SQL aggregates, without fit()."""
 from __future__ import annotations
 
 import gc
@@ -40,11 +40,11 @@ def qi(name):
 
 
 def source_manifest(data_dir):
-    """SHA-256 до/после запуска доказывает неизменность входных CSV."""
+    """Before/after SHA-256 checks establish that input CSV files are unchanged."""
     out = []
     missing = [f for f in FILES if not (Path(data_dir) / f).is_file()]
     if missing:
-        raise FileNotFoundError("Отсутствуют обязательные файлы: " + ", ".join(missing))
+        raise FileNotFoundError("Required files are missing: " + ", ".join(missing))
     for name in FILES:
         p = Path(data_dir) / name
         h = hashlib.sha256()
@@ -67,12 +67,12 @@ def connect(work_dir, memory="2GB"):
 
 
 def safe_ratio(numerator, denominator):
-    # Нулевой/отрицательный знаменатель не трактуем как осмысленную величину.
+    # Do not interpret a zero or negative denominator as a meaningful quantity.
     return f"CASE WHEN ({denominator}) > 0 THEN ({numerator})::DOUBLE / ({denominator}) END"
 
 
 def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
-    """Один полный цикл: связанные клиенты -> признаки -> разбиения -> проверки."""
+    """One complete cycle: linked applicants -> features -> splits -> checks."""
     started = time.perf_counter()
     out_dir, report_dir = Path(out_dir), Path(report_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -83,7 +83,7 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
     register_sources(c, Path(data_dir))
     for source, key in [("application","SK_ID_CURR"),("bureau","SK_ID_BUREAU")]:
         n, unique_n, nonnull = c.execute(f"SELECT count(*),count(DISTINCT {key}),count({key}) FROM raw_{source}").fetchone()
-        assert n == unique_n == nonnull, f"Неуникальный/пустой ключ {source}.{key}"
+        assert n == unique_n == nonnull, f"Non-unique or missing key {source}.{key}"
     ids = c.execute("SELECT SK_ID_CURR, TARGET FROM raw_application ORDER BY SK_ID_CURR").df()
     assert ids.SK_ID_CURR.is_unique and ids.TARGET.isin([0, 1]).all()
     if sample_size is not None:
@@ -91,7 +91,7 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
         ids = chosen.sort_values("SK_ID_CURR").reset_index(drop=True)
     c.register("selected_ids", ids[["SK_ID_CURR"]])
     c.execute("CREATE VIEW cohort_app AS SELECT a.* FROM raw_application a INNER JOIN selected_ids s USING(SK_ID_CURR)")
-    # Отбираем клиентов, а не первые N строк исторических CSV.
+    # Select applicants, rather than the first N rows of historical CSV files.
     for table in ["bureau", "pos", "cc", "installments", "previous"]:
         c.execute(f"CREATE VIEW cohort_{table} AS SELECT h.* FROM raw_{table} h INNER JOIN selected_ids s USING(SK_ID_CURR)")
     c.execute("CREATE VIEW cohort_bb AS SELECT h.* FROM raw_bb h INNER JOIN cohort_bureau b USING(SK_ID_BUREAU)")
@@ -110,20 +110,20 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
         schema = c.execute(f"DESCRIBE agg_{name}").df()
         cols = schema.column_name.tolist()
         n, u = c.execute(f"SELECT count(*), count(DISTINCT SK_ID_CURR) FROM agg_{name}").fetchone()
-        assert n == u, f"Размножение заявок: {name}"
+        assert n == u, f"Application row multiplication: {name}"
         feature_blocks[name] = [col for col in cols if col != "SK_ID_CURR"]
         for col in feature_blocks[name]:
             metadata.append({"feature": col, "block": name, "description_ru": description,
-                             "sql_expression": (expressions or {}).get(col, "Исходное поле application; см. словарь колонок")})
+                             "sql_expression": (expressions or {}).get(col, "Original application field; see the column dictionary")})
         stage_times.append({"stage": name, "seconds": round(time.perf_counter() - t, 3), "rows": n})
-        print(f"{name}: {n:,} клиентов, {len(cols)-1} признаков; {stage_times[-1]['seconds']:.1f} с", flush=True)
+        print(f"{name}: {n:,} applicants, {len(cols)-1} features; {stage_times[-1]['seconds']:.1f} s", flush=True)
 
     def record_cutoff(name, source, condition, note):
         n, eligible = c.execute(f"SELECT count(*), count(*) FILTER (WHERE {condition}) FROM {source}").fetchone()
         time_checks.append({"table": name, "cohort_rows": n, "time_eligible_rows": eligible,
                             "excluded_rows": n-eligible, "rule": condition, "meaning_ru": note})
 
-    # Application: сохраняем исходные категориальные строки, без fit кодировщика.
+    # Application: retain original categorical strings without fitting an encoder.
     app_cols = c.execute("DESCRIBE cohort_app").df().column_name.tolist()
     exprs = {}
     for col in app_cols:
@@ -145,18 +145,18 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
     ]:
         exprs[label] = safe_ratio(num, den)
     stage("application", "SELECT SK_ID_CURR, " + ", ".join(f"{v} AS {qi(k)}" for k,v in exprs.items()) + " FROM cohort_app ORDER BY SK_ID_CURR",
-          "Анкета на момент заявки. Отношения описывают долговую нагрузку, стоимость кредита и доход на члена семьи; не используют возраст/пол.", exprs)
+          "Application information available at application time. Ratios describe debt burden, credit cost and income per family member; age and gender are not used.", exprs)
 
     def aggregate(name, source, numeric, extras, note, entity=None):
-        """Средние взвешены строками источника; min/max описывают диапазон истории."""
+        """Means are weighted by source rows; min/max describe the historical range."""
         expressions = {f"{name.upper()}_RECORD_COUNT": "count(*)"}
         if entity:
             expressions[f"{name.upper()}_CONTRACT_COUNT"] = f"count(DISTINCT {entity})"
         for col in numeric:
             for stat in ["avg", "min", "max"]:
                 value = f"{stat}({qi(col)})"
-                # Decimal остаётся точным внутри обязательств/предикатов;
-                # конечные числовые признаки совместимы с sklearn/Arrow.
+                # Decimal remains exact within obligations and predicates;
+                # final numeric features are compatible with sklearn/Arrow.
                 if name == "installments" and col in {"AMOUNT_DUE", "AMOUNT_PAID"}:
                     value = f"CAST({value} AS DOUBLE)"
                 expressions[f"{name.upper()}_{col}_{stat.upper()}"] = value
@@ -164,12 +164,12 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
         select = ", ".join(f"{v} AS {qi(k)}" for k,v in expressions.items())
         stage(name, f"SELECT SK_ID_CURR, {select} FROM {source} GROUP BY SK_ID_CURR ORDER BY SK_ID_CURR", note, expressions)
 
-    # Для фактических событий: строго до дня заявки. Для месячных снимков: <0.
+    # Actual events must precede the application day. Monthly snapshots must be <0.
     bureau_rule = "DAYS_CREDIT < 0 AND DAYS_CREDIT_UPDATE < 0"
     record_cutoff("bureau", "cohort_bureau", bureau_rule,
-                  "Не используем выданный/обновлённый в день заявки или позднее кредит; дата обновления должна быть известна. Плановый срок может быть положительным.")
+                  "Exclude credit issued or updated on/after the application day; the update date must be known. A scheduled maturity may be positive.")
     c.execute(f"CREATE VIEW eligible_bureau AS SELECT * EXCLUDE(DAYS_ENDDATE_FACT, DAYS_CREDIT_ENDDATE), CASE WHEN DAYS_ENDDATE_FACT < 0 THEN DAYS_ENDDATE_FACT END AS DAYS_ENDDATE_FACT, NULLIF(DAYS_CREDIT_ENDDATE,365243) AS DAYS_CREDIT_ENDDATE FROM cohort_bureau WHERE {bureau_rule}")
-    # Маленькая карта прошедших временную проверку bureau для BB.
+    # Compact map of temporally eligible bureau records for BB.
     export("SELECT SK_ID_CURR, SK_ID_BUREAU FROM eligible_bureau", agg_dir / "bureau_id_map.parquet")
     c.execute(f"CREATE VIEW bureau_id_map AS SELECT * FROM read_parquet({sql_path(agg_dir / 'bureau_id_map.parquet')})")
     aggregate("bureau", "eligible_bureau",
@@ -178,10 +178,10 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
                "CLOSED_SHARE": "avg(CASE WHEN CREDIT_ACTIVE IS NOT NULL THEN CAST(CREDIT_ACTIVE='Closed' AS INTEGER) END)",
                "DEBT_TO_CREDIT": safe_ratio("sum(AMT_CREDIT_SUM_DEBT)", "sum(AMT_CREDIT_SUM)"),
                "CREDIT_TYPE_COUNT": "count(DISTINCT CREDIT_TYPE)"},
-              "Одна запись — кредит бюро; средние/экстремумы сумм, задолженности и дат. Доли активных/закрытых кредитов; совокупный долг / кредит.", "SK_ID_BUREAU")
+              "One record represents a bureau credit: means/extrema of amounts, debt and dates; active/closed shares; total debt / credit.", "SK_ID_BUREAU")
 
     record_cutoff("bureau_balance", "cohort_bb", "MONTHS_BALANCE < 0",
-                  "Месяц 0 исключён: неизвестно, какая часть месяца предшествовала заявке. Дополнительно используем только допустимые по датам bureau.")
+                  "Month 0 is excluded because the portion preceding the application is unknown. Only temporally eligible bureau parents are used.")
     c.execute("CREATE VIEW eligible_bb AS SELECT b.SK_ID_CURR, h.* FROM raw_bb h INNER JOIN bureau_id_map b USING(SK_ID_BUREAU) WHERE MONTHS_BALANCE < 0")
     aggregate("bb", "eligible_bb", ["MONTHS_BALANCE"],
               {"DELINQUENT_SHARE": "avg(CAST(coalesce(STATUS IN ('1','2','3','4','5'),false) AS INTEGER))",
@@ -189,40 +189,40 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
                "CLOSED_SHARE": "avg(CAST(coalesce(STATUS='C',false) AS INTEGER))",
                "UNKNOWN_SHARE": "avg(CAST(STATUS='X' OR STATUS IS NULL AS INTEGER))",
                "MAX_DPD_STATUS": "max(try_cast(STATUS AS INTEGER))"},
-              "Кредит-месяцы бюро через SK_ID_BUREAU: доли статусов 1–5 (просрочка), 3–5, C (закрыт), X (неизвестен). Доли считаются по всем наблюдаемым кредит-месяцам.", "SK_ID_BUREAU")
+              "Bureau credit-months linked through SK_ID_BUREAU: shares of statuses 1-5 (overdue), 3-5, C (closed), X (unknown), over all observed credit-months.", "SK_ID_BUREAU")
 
     for name in ["pos", "cc"]:
-        record_cutoff(name, f"cohort_{name}", "MONTHS_BALANCE < 0", "Только полностью предшествующие месяцы; значения будущих плановых обязательств внутри снимка допустимы.")
-        # Собственный отрицательный месяц уже подтверждает доступность снимка.
-        # Отсутствие previous не означает отсутствие достоверной месячной истории.
+        record_cutoff(name, f"cohort_{name}", "MONTHS_BALANCE < 0", "Only complete preceding months; future scheduled obligations within a snapshot are allowed.")
+        # The negative month already establishes snapshot availability.
+        # A missing previous record does not imply missing valid monthly history.
         c.execute(f"CREATE VIEW eligible_{name} AS SELECT * FROM cohort_{name} WHERE MONTHS_BALANCE < 0")
     aggregate("pos", "eligible_pos", ["MONTHS_BALANCE", "CNT_INSTALMENT", "CNT_INSTALMENT_FUTURE", "SK_DPD", "SK_DPD_DEF"],
               {"LATE_MONTH_SHARE": "avg(CAST(SK_DPD > 0 AS INTEGER))", "DPD_DEF_MONTH_SHARE": "avg(CAST(SK_DPD_DEF > 0 AS INTEGER))"},
-              "POS: договор-месяцы, оставшиеся плановые взносы, просрочка. Средние и доли взвешены числом наблюдаемых месяцев.", "SK_ID_PREV")
+              "POS: contract-months, remaining scheduled installments and delinquency. Means and shares are weighted by observed months.", "SK_ID_PREV")
     cc_nums = ["MONTHS_BALANCE", "AMT_BALANCE", "AMT_CREDIT_LIMIT_ACTUAL", "AMT_DRAWINGS_ATM_CURRENT", "AMT_DRAWINGS_CURRENT", "AMT_DRAWINGS_OTHER_CURRENT", "AMT_DRAWINGS_POS_CURRENT", "AMT_INST_MIN_REGULARITY", "AMT_PAYMENT_CURRENT", "AMT_PAYMENT_TOTAL_CURRENT", "AMT_RECEIVABLE_PRINCIPAL", "AMT_RECIVABLE", "AMT_TOTAL_RECEIVABLE", "CNT_DRAWINGS_ATM_CURRENT", "CNT_DRAWINGS_CURRENT", "CNT_DRAWINGS_OTHER_CURRENT", "CNT_DRAWINGS_POS_CURRENT", "CNT_INSTALMENT_MATURE_CUM", "SK_DPD", "SK_DPD_DEF"]
     aggregate("cc", "eligible_cc", cc_nums,
               {"UTILIZATION_AVG": "avg(" + safe_ratio("AMT_BALANCE", "AMT_CREDIT_LIMIT_ACTUAL") + ")",
                "UTILIZATION_MAX": "max(" + safe_ratio("AMT_BALANCE", "AMT_CREDIT_LIMIT_ACTUAL") + ")",
                "LATE_MONTH_SHARE": "avg(CAST(SK_DPD > 0 AS INTEGER))"},
-              "Карточные договор-месяцы: суммы, операции и просрочка; utilization = баланс / положительный лимит, затем среднее/максимум по снимкам.", "SK_ID_PREV")
+              "Card contract-months: amounts, transactions and delinquency; utilization = balance / positive limit, then mean/maximum across snapshots.", "SK_ID_PREV")
 
     payment_rule = "DAYS_ENTRY_PAYMENT < 0 AND DAYS_ENTRY_PAYMENT <> 365243 AND DAYS_INSTALMENT IS NOT NULL AND DAYS_INSTALMENT <> 365243"
     record_cutoff("installments", "cohort_installments", payment_rule,
-                  "Берём только датированные фактические платежи до заявки. Будущая договорная дата допустима при уже совершённой предоплате; не трактуем неизвестную дату как платёж.")
+                  "Use only dated actual payments before the application. A future contractual due date is allowed for an already completed prepayment; an unknown date is not treated as a payment.")
     c.execute(f"CREATE VIEW eligible_installments AS SELECT * FROM cohort_installments WHERE {payment_rule}")
-    # Реальные CSV имеют не более 3 десятичных знаков в суммах. Проверяем это
-    # при каждом запуске: не округляем молча другой вариант исходных данных.
+    # Actual CSV amounts have at most 3 decimal places. Check this
+    # on every run; never silently round a different version of source data.
     precision_violations = c.execute("""SELECT count(*) FROM cohort_installments
         WHERE AMT_PAYMENT <> round(AMT_PAYMENT,3)
            OR AMT_INSTALMENT <> round(AMT_INSTALMENT,3)""").fetchone()[0]
-    assert precision_violations == 0, "Изменилась точность сумм: требуется пересмотреть DECIMAL scale"
-    # Частичные платежи не должны повторно увеличивать сумму предписанного взноса.
+    assert precision_violations == 0, "Amount precision changed: review DECIMAL scale"
+    # Partial payments must not repeatedly increase the scheduled installment amount.
     installment_conflicts = c.execute("""SELECT count(*) FROM (
       SELECT SK_ID_CURR,SK_ID_PREV,NUM_INSTALMENT_VERSION,NUM_INSTALMENT_NUMBER
       FROM eligible_installments GROUP BY ALL
       HAVING count(DISTINCT DAYS_INSTALMENT)>1 OR count(DISTINCT AMT_INSTALMENT)>1)""").fetchone()[0]
-    # Если внутри одной версии противоречат сроки/суммы, сохраняем их в отчёт
-    # и исключаем из obligation-метрик: MAX не должен молча изобретать график.
+    # If dates/amounts conflict within one version, report them
+    # and exclude them from obligation metrics: MAX must not silently invent a schedule.
     export("""SELECT SK_ID_CURR,SK_ID_PREV,NUM_INSTALMENT_VERSION,NUM_INSTALMENT_NUMBER,
         count(*) AS PAYMENT_ROWS, max(DAYS_INSTALMENT) AS DUE_DAY,
         max(CAST(AMT_INSTALMENT AS DECIMAL(24,3))) AS AMOUNT_DUE,
@@ -236,29 +236,29 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
                "UNDERPAID_SHARE": "avg(CASE WHEN DUE_DAY < 0 AND AMOUNT_PAID IS NOT NULL THEN CAST(AMOUNT_PAID < AMOUNT_DUE AS INTEGER) END)",
                "PAID_TO_DUE": safe_ratio("sum(AMOUNT_PAID)", "sum(AMOUNT_DUE)"),
                "MOST_RECENT_PAYMENT_DAY": "max(LAST_PAYMENT_DAY)"},
-              "Взносы после объединения частичных платежей по договору, версии и номеру: просрочка по последней оплате, недоплата и paid/due. Только наблюдаемые оплаченные взносы, не вся совокупность обязательств; неоплаченные отсутствующие строки не восстанавливаем.", "SK_ID_PREV")
+              "Installments after consolidating partial payments by contract, version and number: lateness at last payment, underpayment and paid/due. Only observed paid installments, not all obligations; absent unpaid rows are not reconstructed.", "SK_ID_PREV")
 
-    record_cutoff("previous", "cohort_previous", "DAYS_DECISION < 0", "Предшествующие решения. Плановые даты могут быть положительными; 365243 заменяется NULL. Спорные финальные даты исключены.")
+    record_cutoff("previous", "cohort_previous", "DAYS_DECISION < 0", "Prior decisions. Scheduled dates may be positive; 365243 is replaced with NULL. Ambiguous final dates are excluded.")
     c.execute("CREATE VIEW eligible_previous AS SELECT * EXCLUDE(DAYS_FIRST_DUE,DAYS_LAST_DUE_1ST_VERSION), NULLIF(DAYS_FIRST_DUE,365243) AS DAYS_FIRST_DUE, NULLIF(DAYS_LAST_DUE_1ST_VERSION,365243) AS DAYS_LAST_DUE_1ST_VERSION FROM cohort_previous WHERE DAYS_DECISION < 0")
     aggregate("previous", "eligible_previous", ["AMT_ANNUITY", "AMT_APPLICATION", "AMT_CREDIT", "AMT_DOWN_PAYMENT", "AMT_GOODS_PRICE", "DAYS_DECISION", "CNT_PAYMENT", "RATE_DOWN_PAYMENT", "DAYS_FIRST_DUE", "DAYS_LAST_DUE_1ST_VERSION"],
               {"APPROVED_SHARE": "avg(CASE WHEN NAME_CONTRACT_STATUS IS NOT NULL THEN CAST(NAME_CONTRACT_STATUS='Approved' AS INTEGER) END)",
                "REFUSED_SHARE": "avg(CASE WHEN NAME_CONTRACT_STATUS IS NOT NULL THEN CAST(NAME_CONTRACT_STATUS='Refused' AS INTEGER) END)",
                "CREDIT_TO_REQUEST_AVG": "avg(" + safe_ratio("AMT_CREDIT", "AMT_APPLICATION") + ")"},
-              "Предыдущие заявки: суммы, первоначальный срок, даты решения, доля одобрений/отказов. DAYS_FIRST_DRAWING, DAYS_LAST_DUE, DAYS_TERMINATION исключены из-за недостаточной информации о времени появления значения.", "SK_ID_PREV")
+              "Previous applications: amounts, original term, decision dates and approval/rejection shares. DAYS_FIRST_DRAWING, DAYS_LAST_DUE and DAYS_TERMINATION are excluded because value-availability timing is insufficiently documented.", "SK_ID_PREV")
 
-    # Реальный объём: все связанные строки входа и реально включённые записи.
+    # Actual volume: all linked input rows and records actually included.
     for name in ["bureau", "bb", "pos", "cc", "installments", "previous"]:
         n, clients = c.execute(f"SELECT count(*),count(DISTINCT SK_ID_CURR) FROM eligible_{name}").fetchone()
         raw_n = c.execute(f"SELECT count(*) FROM cohort_{name}").fetchone()[0]
         coverage.append({"table": name, "cohort_raw_rows": raw_n, "eligible_rows": n,
                          "eligible_clients": clients, "eligible_client_share": clients / len(ids)})
 
-    # Базовая популяция определяется application, ни один клиент не отбрасывается.
+    # The application table defines the population; no applicant is dropped.
     blocks_by_level = {1: ["application"], 2: ["application","bureau","bb"],
                        3: ["application","bureau","bb","pos","cc"],
                        4: ["application","bureau","bb","pos","cc","installments","previous"]}
-    # Физический порядок Parquet — часть контракта с row_ids.parquet.
-    # Финальные записи и проверки выполняются последовательно в явном ORDER BY.
+    # Physical Parquet order is part of the row_ids.parquet contract.
+    # Final writes and checks run sequentially with explicit ORDER BY.
     c.execute("SET preserve_insertion_order=true")
     c.execute("SET threads=1")
     level_features, shapes = {}, []
@@ -270,13 +270,13 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
             joined += f" LEFT JOIN agg_{block} {block} USING(SK_ID_CURR)"
             expressions.extend(f"{block}.{qi(col)}" for col in feature_blocks[block])
             names.extend(feature_blocks[block])
-            # Только структурный индикатор получает 0, сами агрегаты остаются NULL.
+            # Only the structural indicator receives 0; the aggregates remain NULL.
             flag = f"HAS_{block.upper()}"
             expressions.append(f"CAST({block}.SK_ID_CURR IS NOT NULL AS INTEGER) AS {flag}")
             names.append(flag)
             if level == min(l for l,b in blocks_by_level.items() if block in b):
                 metadata.append({"feature": flag, "block": block,
-                                 "description_ru": "Наличие пригодной истории после временной/структурной проверки; 0 не означает нулевые суммы.",
+                                 "description_ru": "Presence of eligible history after temporal/structural checks; 0 does not mean zero amounts.",
                                  "sql_expression": expressions[-1]})
         assert len(names) == len(set(names)) and not (set(names) & FORBIDDEN)
         assert not any(name.startswith("SK_ID_") for name in names)
@@ -304,7 +304,7 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
     fairness.to_parquet(out_dir / "fairness.parquet", index=False)
     assert np.array_equal(fairness.SK_ID_CURR, ids.SK_ID_CURR)
 
-    # 80/20 фиксируется один раз; выборки не перегенерируются для моделей/уровней.
+    # The 80/20 split is fixed once; samples are not regenerated for models/levels.
     dev, test = train_test_split(ids, test_size=0.20, stratify=ids.TARGET, random_state=42)
     dev, test = dev.sort_values("SK_ID_CURR"), test.sort_values("SK_ID_CURR")
     split_dir = out_dir / "splits"
@@ -330,7 +330,7 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
         assert set(repeat.SK_ID_CURR).isdisjoint(test.SK_ID_CURR)
         repeat_signatures.append(hashlib.sha256(repeat.SK_ID_CURR.to_numpy().tobytes()).hexdigest())
     assert len(set(repeat_signatures)) == 5
-    # Для всех 28 поисков один и тот же заранее фиксированный 3-fold на development.
+    # All 28 searches share the same pre-fixed 3-fold development split.
     folds = dev[["SK_ID_CURR"]].copy()
     folds["validation_fold"] = -1
     for fold, (_, val) in enumerate(StratifiedKFold(n_splits=3, shuffle=True, random_state=42).split(dev, dev.TARGET)):
@@ -338,7 +338,7 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
     folds.to_parquet(split_dir / "cv_folds.parquet", index=False)
     assert folds.validation_fold.isin([0,1,2]).all()
 
-    # Проверяем записанные файлы, включая отсутствие бесконечностей и пропуски без истории.
+    # Check saved files, including absence of infinities and missing values for absent history.
     for level in range(1,5):
         path = out_dir / f"X_level_{level}.parquet"
         schema = c.execute(f"DESCRIBE SELECT * FROM read_parquet({sql_path(path)})").df()
@@ -349,7 +349,7 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
     for block in blocks_by_level[4][1:]:
         expressions = " OR ".join(f"{qi(col)} IS NOT NULL" for col in feature_blocks[block])
         assert c.execute(f"SELECT count(*) FROM read_parquet({sql_path(out_dir / 'X_level_4.parquet')}) WHERE HAS_{block.upper()}=0 AND ({expressions})").fetchone()[0] == 0
-    # Общие признаки должны быть не только вложены по именам, но и одинаковы по значениям.
+    # Shared features must be nested by name and identical in value.
     for level in range(1,4):
         selected = ",".join(qi(col) for col in level_features[str(level)])
         left, right = sql_path(out_dir / f"X_level_{level}.parquet"), sql_path(out_dir / f"X_level_{level+1}.parquet")
@@ -382,13 +382,13 @@ def run_preparation(data_dir, out_dir, report_dir, sample_size=None):
 
 
 def compare_pilot_to_full(pilot_dir, full_dir):
-    """Одинаковый клиент должен получить одинаковые признаки в пилоте и полном наборе."""
+    """The same applicant must receive identical features in the pilot and full dataset."""
     pilot_ids = pd.read_parquet(Path(pilot_dir) / "row_ids.parquet").SK_ID_CURR.to_numpy()
     full_ids = pd.read_parquet(Path(full_dir) / "row_ids.parquet").SK_ID_CURR.to_numpy()
     positions = np.searchsorted(full_ids, pilot_ids)
     assert np.array_equal(full_ids[positions], pilot_ids)
     for level in range(1,5):
-        # Столбцы читаются группами, чтобы эта проверка также была ограничена по RAM.
+        # Read columns in groups so this check is also memory-bounded.
         cols = json.loads((Path(pilot_dir)/f"features_level_{level}.json").read_text(encoding="utf-8"))
         for start in range(0, len(cols), 30):
             selected = cols[start:start+30]

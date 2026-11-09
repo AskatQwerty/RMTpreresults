@@ -1,4 +1,4 @@
-"""Синтетические checkpoints проверяют отчётность; модели здесь не обучаются."""
+"""Synthetic checkpoints test reporting; no models are trained here."""
 from __future__ import annotations
 
 import hashlib
@@ -27,7 +27,7 @@ def stage(root,model,level,*,mlp=False):
     record={'scope':SCOPE,'model':model,'level':level,'train_rows':20000,'test_rows':61503,
         'raw_features':100+level,'selected_params':{'model__alpha':0.001},'best_cv_log_loss':0.35,
         'search_and_refit_seconds':100.0,'refit_seconds':10.0,'predict_seconds':2.0,'total_pair_seconds':105.0,
-        'warnings':[{'category':'ConvergenceWarning','message':'Синтетическое предупреждение','count':1}] if mlp else [],
+        'warnings':[{'category':'ConvergenceWarning','message':'Synthetic warning','count':1}] if mlp else [],
         'metrics':{'rows':61503,'positives':4925,'positive_rate':4925/61503,
             'pr_auc_average_precision':0.2+level*.01,'roc_auc':0.7+level*.01,
             'log_loss':0.35-level*.01,'brier_score':0.08-level*.001,'threshold':0.5,
@@ -84,7 +84,7 @@ class PilotReportingTests(unittest.TestCase):
         self.assertAlmostEqual(level2['delta_log_loss_vs_level1'],-0.01)
         self.assertEqual(second['completed_pairs'],2)
         self.assertEqual(before,{str(p.relative_to(self.root)):digest(p) for p in self.root.rglob('*') if p.is_file()})
-        # Без marker даже корректно выглядящий metrics.json остаётся pending.
+        # Without a marker, even an apparently valid metrics.json remains pending.
         put_json(self.root/'random_forest/level_3/metrics.json',{'test_log_loss':0.0001})
         third=export_pilot_reports(self.root,self.reports)
         self.assertEqual(third['completed_pairs'],2)
@@ -152,7 +152,7 @@ class PilotReportingTests(unittest.TestCase):
         put_json(directory/'metrics.json',metrics)
         marker=json.loads((directory/'complete.json').read_text(encoding='utf-8'))
         marker['artifact_sha256']['metrics.json']=digest(directory/'metrics.json')
-        # Старый файл защищён, но явно указанный nested ещё нет: его не читаем.
+        # The old file is protected, but the explicitly specified nested file is not yet protected: do not read it.
         put_json(directory/'complete.json',marker)
         first=export_pilot_reports(self.root,self.reports)
         self.assertEqual(first['completed_pairs'],1)
@@ -166,16 +166,16 @@ class PilotReportingTests(unittest.TestCase):
 
     def test_latex_escapes_text_and_formats_missing_as_dash(self):
         frame=pd.DataFrame([{'model':'name_with_underscore & 10%','metric':None}])
-        rendered=_latex(frame,[('model','Model_name'),('metric','Log_loss')],'Русская подпись','tab:fixture')
+        rendered=_latex(frame,[('model','Model_name'),('metric','Log_loss')],'Naïve caption','tab:fixture')
         self.assertIn(r'name\_with\_underscore \& 10\%',rendered)
         self.assertIn(r'Log\_loss',rendered)
         self.assertIn('--',rendered)
-        self.assertIn('Русская подпись',rendered)
+        self.assertIn('Naïve caption',rendered)
         self.assertIn(r'\toprule',rendered)
 
     def test_csv_line_endings_are_preserved_without_windows_blank_rows(self):
         path=self.reports/'mixed_newlines.csv'
-        source='название,значение\r\nпервая,1\r\nвторая,2\n'
+        source='name,value\r\nnaïve,1\r\nrésumé,2\n'
         _atomic_text(path,source)
         self.assertEqual(path.read_bytes(),source.encode('utf-8'))
         result=export_pilot_reports(self.root,self.reports)

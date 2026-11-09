@@ -1,4 +1,4 @@
-"""Выполнить сохранённый notebook 02, записывая outputs после каждой ячейки."""
+"""Execute saved notebook 02, writing outputs after each cell."""
 from pathlib import Path
 import argparse
 import asyncio
@@ -11,7 +11,7 @@ if sys.platform=='win32': asyncio.set_event_loop_policy(asyncio.WindowsSelectorE
 root=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--reports-only',action='store_true',
-    help='Чистое ядро: конфигурация, настройки MLP и отчёты с диска; без какого-либо fit.')
+    help='Clean kernel: configuration, MLP settings, and reports from disk; no fits.')
 args=parser.parse_args()
 path=root/'notebooks/02_model_training.ipynb'
 notebook=nbformat.read(path,as_version=4)
@@ -24,7 +24,7 @@ client=NotebookClient(notebook,timeout=None,kernel_name='python3',
     resources={'metadata':{'path':str(root)}},on_cell_executed=save)
 try:
     if args.reports_only:
-        # Не исполняем ни одну ячейку fit, независимо от значений флагов в конфигурации.
+        # Do not execute any fitting cell, regardless of configuration flags.
         first_code=next(i for i,c in enumerate(notebook.cells) if c.cell_type=='code')
         selected=[i for i,c in enumerate(notebook.cells) if c.cell_type=='code' and
             (i==first_code or c.source.startswith('mlp_numeric,mlp_categorical=') or

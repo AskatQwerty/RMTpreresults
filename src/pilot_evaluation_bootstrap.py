@@ -1,8 +1,8 @@
-"""Парный client bootstrap сохранённых прогнозов; здесь нет fit или predict.
+"""Paired client bootstrap of saved predictions; no fit or predict is performed.
 
-Каждый повтор хранит общие частоты выбранных клиентов, метрики и состояние RNG.
-AP всегда вычисляется sklearn.average_precision_score; integer sample_weight
-математически воспроизводит повторение выбранных ID, включая совпавшие scores.
+Each repeat stores shared client sampling frequencies, metrics, and RNG state.
+AP is always computed by sklearn.average_precision_score; integer sample_weight
+mathematically reproduces repeated sampled IDs, including tied scores.
 """
 from __future__ import annotations
 
@@ -46,7 +46,7 @@ def atomic_json(path, value):
 
 
 class QualityEvaluator:
-    """Предварительная сортировка не обучает статистики или преобразования X."""
+    """Presorting does not fit statistics or transformations of X."""
     def __init__(self, y, probabilities, level4_indices):
         self.y = np.asarray(y, dtype=np.int8)
         self.p = np.asarray(probabilities, dtype=np.float64)

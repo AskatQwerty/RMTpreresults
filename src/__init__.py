@@ -1,1 +1,1 @@
-"""Воспроизводимая подготовка Home Credit Default Risk."""
+"""Reproducible preparation of Home Credit Default Risk data."""

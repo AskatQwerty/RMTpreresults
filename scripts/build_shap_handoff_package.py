@@ -1,8 +1,8 @@
-"""Собрать локальный пакет SHAP без fit/predict и без повторных вычислений.
+"""Build a local SHAP package without fit/predict or repeated computations.
 
---prepare выбирает готовые строки X по сохранённым ID и копирует пилот.
---finalize включает код из текущего Git commit, проверяет SHA-256 и создаёт ZIP.
-Архив и рабочая папка остаются в игнорируемом handoff/; публикации нет.
+--prepare selects prepared X rows by saved IDs and copies the pilot.
+--finalize includes code from the current Git commit, verifies SHA-256, and creates a ZIP.
+The archive and working directory remain in ignored handoff/; nothing is published.
 """
 from __future__ import annotations
 
@@ -57,7 +57,7 @@ def copy_checked(source, relative):
 
 
 def inspect_saved_pipelines():
-    """Проверить загрузку и имена столбцов; не вызывать fit/transform/predict."""
+    """Verify loading and column names; do not call fit/transform/predict."""
     import joblib
     records = []
     for path in sorted((STAGING / ARTIFACT).rglob('pipeline.joblib')):
@@ -227,18 +227,18 @@ def finalize():
     for rel, digest in preparation['prepared_file_sha256'].items():
         assert sha256(STAGING / rel) == digest
     instructions = (
-        'Локальный пакет pilot_20k_5config для участника SHAP/RQ3\n\n'
-        'Распакуйте в отдельный каталог и работайте из его корня.\n'
-        'Инструкция и пример загрузки без обучения: docs/SHAP_HANDOFF.md.\n'
-        'Данные клиентов и модели не предназначены для публичного GitHub.\n'
-        'Python 3.13.9; установите requirements.txt; для отчётов также requirements-reporting.txt.\n'
-        'Включены 28 Pipeline: 7 моделей x 4 уровня, один refit на сочетание.\n'
-        'Также включён полный проверенный снимок публичного commit: код, notebooks, отчёты и документация.\n'
-        'X_train_level4 и X_test_level4 содержат SK_ID_CURR; перед передачей в Pipeline\n'
-        'выберите столбцы строго по features_level_N.json. Уровни вложены.\n'
-        'Новых fit, predict, bootstrap и SHAP при сборке не выполнялось.\n'
-        f'Версия кода: {commit}; рабочая ветка: {branch}.\n'
-        'package_manifest.json содержит размеры и SHA-256 всех файлов, кроме самого manifest.\n')
+        'Local pilot_20k_5config package for the SHAP/RQ3 collaborator\n\n'
+        'Extract into a separate directory and work from its root.\n'
+        'Instructions and a loading example without training: docs/SHAP_HANDOFF.md.\n'
+        'Client data and models are not intended for public GitHub publication.\n'
+        'Python 3.13.9; install requirements.txt and, for reports, requirements-reporting.txt.\n'
+        'Includes 28 Pipelines: 7 models x 4 levels, one refit per combination.\n'
+        'Also includes a complete verified snapshot of the public commit: code, notebooks, reports, and documentation.\n'
+        'X_train_level4 and X_test_level4 contain SK_ID_CURR; before passing them to a Pipeline,\n'
+        'select columns exactly as listed in features_level_N.json. Levels are nested.\n'
+        'No new fit, predict, bootstrap, or SHAP computations were performed during packaging.\n'
+        f'Code version: {commit}; working branch: {branch}.\n'
+        'package_manifest.json contains sizes and SHA-256 hashes for all files except the manifest itself.\n')
     (STAGING / 'PACKAGE_README.txt').write_text(instructions, encoding='utf-8')
     included = sorted(p for p in STAGING.rglob('*') if p.is_file() and p.name != 'package_manifest.json')
     manifest = {'scope': SCOPE, 'package_kind': 'private_team_shap_handoff',

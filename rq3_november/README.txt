@@ -1,2 +1,2 @@
-Основные результаты, графики и ссылки: README.md
-Подготовка входных данных, окружение и команды: verification/REPRODUCE_RU.txt
+Results, figures and links: README.md
+Input preparation, environment and commands: verification/REPRODUCE_RU.txt

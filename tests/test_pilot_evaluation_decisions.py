@@ -1,4 +1,4 @@
-"""Фиксированные решения и общий bootstrap проверяются без моделей/файлов данных."""
+"""Fixed decisions and shared bootstrap are tested without models or data files."""
 import unittest
 
 import numpy as np

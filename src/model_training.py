@@ -1,7 +1,7 @@
-"""A2: сохранённые разбиения, train-only Pipeline, атомарные этапы и resume.
+"""A2: saved splits, train-only Pipelines, atomic stages, and resume support.
 
-Полный эксперимент запускается только явным вызовом run_full_experiment.
-Технический прогон использует исключительно development; его артефакты отделены.
+The full experiment starts only through an explicit run_full_experiment call.
+The technical run uses development data only; its artifacts are stored separately.
 """
 from __future__ import annotations
 
@@ -42,7 +42,7 @@ def _json_default(value):
     if isinstance(value,np.generic): return value.item()
     if isinstance(value,np.ndarray): return value.tolist()
     if isinstance(value,Path): return str(value)
-    raise TypeError(f'Не JSON-совместимое значение: {type(value)}')
+    raise TypeError(f'Value is not JSON-compatible: {type(value)}')
 
 
 def _json_text(value):
@@ -53,7 +53,7 @@ def atomic_json(path,value):
     path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)
     temp=path.with_name(path.name+'.tmp')
     temp.write_text(_json_text(value),encoding='utf-8')
-    # Windows может кратко удерживать target открытым во время чтения монитором.
+    # Windows may briefly keep the target open while the monitor reads it.
     deadline=time.monotonic()+2.0
     while True:
         try:
@@ -92,7 +92,7 @@ def _atomic_model(estimator,path):
 
 
 class PreparedData:
-    """ID является только индексом; X не изменяется и не содержит TARGET/ID."""
+    """ID is used only as the index; X is unchanged and contains neither TARGET nor ID."""
     def __init__(self,path):
         self.path=Path(path)
         self.ids=pd.read_parquet(self.path/'row_ids.parquet').SK_ID_CURR.to_numpy()
@@ -139,11 +139,11 @@ class PreparedData:
         return numeric,categorical
 
     def load(self,level,requested_ids,*,purpose):
-        """Сканировать Parquet порциями и вернуть только запрошенные ID в их порядке.
+        """Scan Parquet in batches and return only the requested IDs, in the requested order.
 
-        Физический блок Parquet может содержать строки разных split, но до создания
-        DataFrame/fit/score выбираются исключительно requested_ids. Для technical
-        принудительно запрещён запрос ID из test.
+        A physical Parquet block may contain rows from different splits, but only
+        requested_ids are selected before DataFrame creation, fit, or score. In technical mode,
+        requesting test IDs is explicitly forbidden.
         """
         requested=np.asarray(requested_ids,dtype=self.ids.dtype)
         assert len(np.unique(requested))==len(requested)
@@ -208,7 +208,7 @@ def full_experiment_plan():
             'scoring':'neg_log_loss','refit':False,'candidate_cv_outer_fits':1680,
             'main_outer_fits':140,'primitive_fits_including_ensembles':sum(s['primitive_fits'] for s in specs),
             'stacking_meta_fits':260,'model_specs':specs,
-            'note':'План успешного запуска без перезапусков прерванных этапов; внутренних ансамблевых fit больше, чем внешних вызовов.'}
+            'note':'Budget for a successful run without restarting interrupted stages; internal ensemble fits exceed the number of outer calls.'}
 
 
 def make_context(data,*,mode,threads=2,technical_train_n=1200,technical_validation_n=400):
@@ -224,7 +224,7 @@ def make_context(data,*,mode,threads=2,technical_train_n=1200,technical_validati
         context['technical']={'level':4,'train_n':technical_train_n,'validation_n':technical_validation_n,
            'selection_seed':2026,'train_parent':'train_seed_42','validation_parent':'development minus train_seed_42',
            'search_n_iter':2,'final_technical_fits':7,'test_access_for_fit_or_score':False}
-    elif mode!='full': raise ValueError('mode должен быть technical или full')
+    elif mode!='full': raise ValueError('mode must be technical or full')
     context['fingerprint']=hashlib.sha256(_json_text(context).encode('utf-8')).hexdigest()
     return context
 
@@ -234,19 +234,19 @@ def initialize_run(path,context):
     manifest=path/'experiment_manifest.json'
     if manifest.exists():
         if read_json(manifest)['fingerprint']!=context['fingerprint']:
-            raise RuntimeError('Контекст эксперимента изменён (данные/код/версии/параметры). Используйте новый каталог; результаты разных контекстов не смешиваются.')
+            raise RuntimeError('Experiment context has changed (data/code/versions/parameters). Use a new directory; results from different contexts cannot be mixed.')
     else: atomic_json(manifest,context)
     return path
 
 
 @contextmanager
 def run_lock(path):
-    """Запретить два одновременных писателя. После kill проверить PID и убрать lock."""
+    """Prevent concurrent writers. After termination, check the PID before removing the lock."""
     lock=Path(path)/'run.lock'
     try:
         handle=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY)
     except FileExistsError as exc:
-        raise RuntimeError(f'Каталог занят: {lock}. Проверьте PID в lock; после аварийного завершения удалите только устаревший lock.') from exc
+        raise RuntimeError(f'Directory is in use: {lock}. Check the PID in the lock; after an abnormal exit, remove only a stale lock.') from exc
     try:
         os.write(handle,_json_text({'pid':os.getpid(),'utc':datetime.now(timezone.utc).isoformat()}).encode('utf-8'))
         os.close(handle)
@@ -259,10 +259,10 @@ def _complete(stage,context):
     marker=Path(stage)/'complete.json'
     if not marker.exists(): return False
     record=read_json(marker)
-    if record['fingerprint']!=context['fingerprint']: raise RuntimeError(f'Несовместимый этап: {stage}')
+    if record['fingerprint']!=context['fingerprint']: raise RuntimeError(f'Incompatible stage: {stage}')
     for name,digest in record['artifact_sha256'].items():
         if not (Path(stage)/name).is_file() or sha256(Path(stage)/name)!=digest:
-            raise RuntimeError(f'Повреждён завершённый артефакт {stage}/{name}; восстановите его или используйте новый каталог.')
+            raise RuntimeError(f'Completed artifact is corrupted: {stage}/{name}; restore it or use a new directory.')
     return True
 
 
@@ -385,7 +385,7 @@ def fit_repeat(data,level,model,seed,X_train,y_train,X_evaluation,y_evaluation,r
         assert np.array_equal(X_train.index,data.repeats[seed])
         assert np.array_equal(X_evaluation.index,data.test)
     numeric,categorical=data.columns(level)
-    # Всегда новый объект: гиперпараметры фиксированы, обученные медианы/категории — нет.
+    # Always create a fresh object: hyperparameters are fixed, fitted medians/categories are not.
     estimator=make_estimator(model,numeric,categorical,seed=seed,technical=technical,threads=context['threads'])
     estimator.set_params(**selected['params'])
     _events(root,'repeat_started',level=level,model=model,seed=seed)
@@ -411,7 +411,7 @@ def fit_repeat(data,level,model,seed,X_train,y_train,X_evaluation,y_evaluation,r
         metrics['fit_diagnostics_file']='fit_diagnostics.json'
         metrics['actual_mlp_iterations']=[item['fitted'].get('n_iter_') for item in diagnostics['mlp']]
         _atomic_model(estimator,stage/'pipeline.joblib')
-        # Проверяется реальная загрузка сохранённой Pipeline, а не только наличие файла.
+        # Verify that the saved Pipeline actually loads, not merely that the file exists.
         restored=joblib.load(stage/'pipeline.joblib')
         assert extract_fit_diagnostics(restored)==diagnostics
         with threadpool_limits(limits=context['threads']):
@@ -436,7 +436,7 @@ def _flatten_metrics(records):
 
 
 def run_technical(prepared_dir,output_parent,*,train_n=1200,validation_n=400,threads=2):
-    """Семь моделей Level4, два кандидата, сохранённые CV-folds, test не используется."""
+    """Seven Level 4 models, two candidates, saved CV folds, and no test data."""
     started=time.perf_counter(); data=PreparedData(prepared_dir)
     context=make_context(data,mode='technical',threads=threads,technical_train_n=train_n,technical_validation_n=validation_n)
     root=Path(output_parent)/f'technical_{context["fingerprint"][:12]}'
@@ -447,7 +447,7 @@ def run_technical(prepared_dir,output_parent,*,train_n=1200,validation_n=400,thr
         parent_train=data.repeats[42]
         parent_validation=np.setdiff1d(data.development,parent_train)
         if train_n>=len(parent_train) or validation_n>=len(parent_validation):
-            raise ValueError('Техническая выборка должна быть малой частью существующих development-подмножеств')
+            raise ValueError('The technical sample must be a small part of the existing development subsets')
         train_ids,_=train_test_split(parent_train,train_size=train_n,stratify=data.target.loc[parent_train],random_state=2026)
         validation_ids,_=train_test_split(parent_validation,train_size=validation_n,stratify=data.target.loc[parent_validation],random_state=2026)
         train_ids,validation_ids=np.sort(train_ids),np.sort(validation_ids)
@@ -464,7 +464,7 @@ def run_technical(prepared_dir,output_parent,*,train_n=1200,validation_n=400,thr
             counters['resumed_fits' if resumed else 'new_fits']+=1
             searches.append(chosen); records.append(result)
         after=artifact_manifest(data.path)
-        assert after==context['inputs'],'Входные подготовленные данные изменились!'
+        assert after==context['inputs'],'Prepared input data have changed!'
         assert not any(item['contains_test'] for item in data.loaded_scopes)
         result={'scope':'technical_only','root':str(root.resolve()),'full_experiment_executed':False,
             'model_types_tested':list(MODEL_NAMES),'training_level':4,'train_rows':len(X_train),
@@ -484,11 +484,11 @@ def run_technical(prepared_dir,output_parent,*,train_n=1200,validation_n=400,thr
 
 
 def run_full_experiment(prepared_dir,output_dir,*,threads=2):
-    """ЯВНЫЙ длительный запуск A2: 28 поисков и 140 независимых повторов.
+    """EXPLICIT long-running A2 experiment: 28 searches and 140 independent repeats.
 
-    Resume — завершённый поиск или отдельный повтор. Прерванный RandomizedSearchCV
-    перезапускается целиком с теми же 20 кандидатами; mid-search resume не заявляется.
-    Test не передаётся в поиск, раннюю остановку, калибровку или выбор параметров.
+    Resume operates at completed search or individual repeat boundaries. Interrupted RandomizedSearchCV
+    is restarted in full with the same 20 candidates; mid-search resume is not supported.
+    Test data are not passed to search, early stopping, calibration, or parameter selection.
     """
     started=time.perf_counter(); data=PreparedData(prepared_dir)
     context=make_context(data,mode='full',threads=threads)
@@ -506,7 +506,7 @@ def run_full_experiment(prepared_dir,output_dir,*,threads=2):
                 counters['resumed_searches' if resumed else 'new_searches']+=1
                 searches.append(chosen)
                 for seed in SEEDS:
-                    # В памяти только текущий уровень и одна 90%-ная train-подвыборка.
+                    # Only the current level and one 90% training subset are held in memory.
                     stage=root/f'level_{level}'/model/f'seed_{seed}'
                     if _complete(stage,context):
                         result=read_json(stage/'metrics.json'); resumed=True

@@ -14,13 +14,13 @@ test_numeric_and_categorical_train_only_statistics (test_model_training.ModelPip
 test_randomized_search_fits_preprocessing_inside_each_training_fold (test_model_training.ModelPipelineTests.test_randomized_search_fits_preprocessing_inside_each_training_fold) ... ok
 test_seven_models_predict_probabilities_and_serialize (test_model_training.ModelPipelineTests.test_seven_models_predict_probabilities_and_serialize) ... ok
 test_stacking_internal_oof_refits_each_base_preprocessor (test_model_training.ModelPipelineTests.test_stacking_internal_oof_refits_each_base_preprocessor) ... ok
-application: 60 клиентов, 124 признаков; 0.1 с
-bureau: 2 клиентов, 42 признаков; 0.0 с
-bb: 2 клиентов, 10 признаков; 0.0 с
-pos: 1 клиентов, 19 признаков; 0.0 с
-cc: 1 клиентов, 65 признаков; 0.1 с
-installments: 2 клиентов, 21 признаков; 0.0 с
-previous: 1 клиентов, 35 признаков; 0.0 с
+application: 60 clients, 124 features; 0.1 s
+bureau: 2 clients, 42 features; 0.0 s
+bb: 2 clients, 10 features; 0.0 s
+pos: 1 client, 19 features; 0.0 s
+cc: 1 client, 65 features; 0.1 s
+installments: 2 clients, 21 features; 0.0 s
+previous: 1 clients, 35 features; 0.0 s
 Level 1: 60 x 124; 0.0 MiB
 Level 2: 60 x 178; 0.0 MiB
 Level 3: 60 x 264; 0.1 MiB

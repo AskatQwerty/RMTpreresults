@@ -1,7 +1,7 @@
-"""Отчёты исследовательского пилота из проверенных файлов, без fit и выбора по test.
+"""Research pilot reports from verified files, without fit or test-based selection.
 
-export_pilot_reports вызывается после каждого complete.json. Таблицы отражают
-только завершённые пары с верными SHA-256; остальные 28 строк остаются pending.
+export_pilot_reports runs after every complete.json. Tables include
+only completed pairs with valid SHA-256 hashes; the remaining rows among all 28 stay pending.
 """
 from __future__ import annotations
 
@@ -37,16 +37,16 @@ MLP_COLUMNS=('model','level','estimator_path','n_iter_','max_iter','tol','n_iter
 
 
 def _read(path):
-    def invalid(value): raise ValueError(f'Недопустимое число JSON: {value}')
+    def invalid(value): raise ValueError(f'Invalid JSON number: {value}')
     return json.loads(Path(path).read_text(encoding='utf-8'),parse_constant=invalid)
 
 
 def _atomic_text(path,text):
     path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)
     temporary=path.with_name(path.name+'.tmp')
-    # pandas.to_csv(None) уже возвращает CRLF на Windows: повторный перевод LF
-    # через TextIO создал бы CRCRLF и пустые строки. Краткие Windows file locks
-    # повторяем пять раз (1+2+4+8+16=31 s), затем PermissionError остаётся видимой.
+    # pandas.to_csv(None) already returns CRLF on Windows: translating LF again
+    # through TextIO would create CRCRLF and blank lines. Retry brief Windows file locks
+    # five times (1+2+4+8+16=31 s), then propagate PermissionError.
     for attempt in range(6):
         try:
             temporary.write_text(text,encoding='utf-8',newline='')
@@ -69,32 +69,32 @@ def _sha256(path):
 
 
 def _validated_pair(stage,model,level,fingerprint):
-    """Не читать metrics/diagnostics до проверки всех файлов complete marker."""
+    """Do not read metrics/diagnostics before verifying all files in the completion marker."""
     marker=_read(stage/'complete.json')
     if not fingerprint or marker.get('fingerprint')!=fingerprint:
-        raise ValueError('fingerprint complete.json не совпадает с experiment_manifest.json')
+        raise ValueError('complete.json fingerprint does not match experiment_manifest.json')
     hashes=marker.get('artifact_sha256',{})
     if not isinstance(hashes,dict) or 'metrics.json' not in hashes:
-        raise ValueError('В complete.json отсутствует SHA-256 metrics.json')
+        raise ValueError('complete.json lacks the metrics.json SHA-256 hash')
     for name,expected in hashes.items():
         file=(stage/name).resolve()
         if not file.is_relative_to(stage.resolve()):
-            raise ValueError(f'Путь артефакта выходит из каталога пары: {name}')
+            raise ValueError(f'Artifact path escapes the pair directory: {name}')
         if not file.is_file() or _sha256(file)!=expected:
-            raise ValueError(f'Не найден артефакт или не совпадает SHA-256: {name}')
+            raise ValueError(f'Artifact is missing or its SHA-256 does not match: {name}')
     record=_read(stage/'metrics.json')
     if record.get('scope')!=SCOPE or record.get('model')!=model or record.get('level')!=level:
-        raise ValueError('scope/model/level в metrics.json не соответствуют каталогу пилота')
+        raise ValueError('scope/model/level in metrics.json do not match the pilot directory')
     for field in ('train_rows','test_rows','raw_features','selected_params','best_cv_log_loss',*TIMES,'warnings','metrics'):
-        if field not in record: raise ValueError(f'Нет обязательного поля metrics.json: {field}')
+        if field not in record: raise ValueError(f'Missing required metrics.json field: {field}')
     for name in QUALITY:
         value=record['metrics'].get(name)
         if not isinstance(value,Real) or not math.isfinite(value):
-            raise ValueError(f'Нет конечной числовой test-метрики: {name}')
+            raise ValueError(f'Missing finite numeric test metric: {name}')
     if record['metrics'].get('rows')!=record['test_rows']:
-        raise ValueError('test_rows не совпадает с metrics.rows')
+        raise ValueError('test_rows does not match metrics.rows')
     diagnostic_file=record.get('fit_diagnostics_file','fit_diagnostics.json')
-    if not isinstance(diagnostic_file,str): raise ValueError('fit_diagnostics_file должен быть строкой')
+    if not isinstance(diagnostic_file,str): raise ValueError('fit_diagnostics_file must be a string')
     diagnostic=_read(stage/diagnostic_file) if diagnostic_file in hashes else None
     return record,diagnostic
 
@@ -106,7 +106,7 @@ def _latex_escape(value):
 
 
 def _latex(frame,columns,caption,label):
-    """Статическая booktabs-таблица; все текстовые значения экранируются."""
+    """Static booktabs table; all text values are escaped."""
     lines=[r'\begin{table}[htbp]',r'\centering',r'\small',
         r'\caption{'+_latex_escape(caption)+'}',r'\label{'+_latex_escape(label)+'}',
         r'\begin{tabular}{'+('l'+'r'*(len(columns)-1))+'}',r'\toprule',
@@ -126,7 +126,7 @@ def _latex(frame,columns,caption,label):
 
 
 def _decision_reports(root,report_dir,records):
-    """Каждый checkpoint повторно пытается импортировать описательную постобработку."""
+    """Each checkpoint retries importing descriptive postprocessing."""
     probability_sources=[]
     for model in MODEL_LABELS:
         if (model,4) not in records: continue
@@ -134,41 +134,41 @@ def _decision_reports(root,report_dir,records):
         if 'probabilities.parquet' in _read(stage/'complete.json').get('artifact_sha256',{}):
             probability_sources.append(model)
     if not probability_sources:
-        return {'status':'not_ready','reason':'Нет завершённых Level 4 с проверенным probabilities.parquet.',
+        return {'status':'not_ready','reason':'No completed Level 4 pairs with verified probabilities.parquet.',
                 'additional_fit_calls':0,'test_threshold_optimization':False,'files':{}}
     try:
         from .pilot_decision_metrics import export_decision_metrics
     except ModuleNotFoundError as exc:
         if exc.name!=f'{__package__}.pilot_decision_metrics': raise
-        return {'status':'pending_module','reason':'Модуль описательной постобработки ещё не доступен; импорт повторится при следующем checkpoint.',
+        return {'status':'pending_module','reason':'The descriptive postprocessing module is not yet available; import will be retried at the next checkpoint.',
                 'additional_fit_calls':0,'test_threshold_optimization':False,'files':{}}
     return export_decision_metrics(root,report_dir)
 
 
 def export_pilot_reports(root,report_dir):
-    """Перезаписать CSV/LaTeX из hash-valid пар root/{model}/level_{1..4}.
+    """Rewrite CSV/LaTeX from hash-valid pairs at root/{model}/level_{1..4}.
 
-    Возвращает JSON-safe summary с completed_pairs/pending_pairs/invalid_pairs,
-    status и абсолютными путями files. Никакие исходные артефакты не изменяются.
+    Return a JSON-safe summary with completed_pairs/pending_pairs/invalid_pairs,
+    status, and absolute file paths. No source artifacts are modified.
     """
     root=Path(root); report_dir=Path(report_dir)
     manifest_path=root/'experiment_manifest.json'
     manifest=_read(manifest_path) if manifest_path.exists() else None
     if manifest is not None and manifest.get('mode')!=SCOPE:
-        raise ValueError(f'Ожидался experiment_manifest.mode={SCOPE}')
+        raise ValueError(f'Expected experiment_manifest.mode={SCOPE}')
     fingerprint=manifest.get('fingerprint') if manifest else None
     records={}; statuses=[]; warning_rows=[]; mlp_rows=[]; mlp_details=[]; metric_rows=[]
     for model,label in MODEL_LABELS.items():
         for level in range(1,5):
             stage=root/model/f'level_{level}'
-            status={'model':model,'model_label':label,'level':level,'status':'pending','reason':'Нет complete.json'}
+            status={'model':model,'model_label':label,'level':level,'status':'pending','reason':'Missing complete.json'}
             if (stage/'complete.json').exists():
                 try:
                     record,diagnostic=_validated_pair(stage,model,level,fingerprint)
                 except (OSError,ValueError,KeyError,TypeError) as exc:
                     status.update(status='invalid',reason=str(exc))
                 else:
-                    status.update(status='completed',reason='Все SHA-256 complete.json проверены')
+                    status.update(status='completed',reason='All complete.json SHA-256 checksums verified')
                     records[(model,level)]=record
                     row={name:record.get(name) for name in ('model','level','train_rows','test_rows','raw_features','best_cv_log_loss',*TIMES)}
                     row.update(model_label=label,selected_params_json=json.dumps(record['selected_params'],ensure_ascii=False,sort_keys=True),
@@ -212,12 +212,12 @@ def export_pilot_reports(root,report_dir):
         ('test_pr_auc_average_precision','PR-AUC (AP)'),('test_roc_auc','ROC-AUC'),
         ('test_log_loss','Log-loss'),('test_brier_score','Brier')]
     for name,frame,columns,caption in [
-        ('metrics',comparison_frame,primary_columns,'Исследовательский пилот: test-метрики одной выбранной через CV конфигурации на пару.'),
+        ('metrics',comparison_frame,primary_columns,'Research pilot: test metrics of one configuration selected through CV per pair.'),
         ('rq2_history_gains',history_frame,[('model_label','Model'),('level','Level'),('status','Status'),
             ('delta_pr_auc_average_precision_vs_level1','Delta AP'),('delta_roc_auc_vs_level1','Delta ROC-AUC'),
             ('delta_log_loss_vs_level1','Delta log-loss'),('delta_brier_score_vs_level1','Delta Brier')],
-            'RQ2: прирост от истории относительно Level 1 той же модели; разность current minus Level 1.'),
-        ('rq1_model_comparison',comparison_frame,primary_columns,'RQ1: предварительное сравнение predictive accuracy и качества вероятностей; окончательная core-модель не выбирается.')]:
+            'RQ2: gain from history relative to Level 1 of the same model; difference is current minus Level 1.'),
+        ('rq1_model_comparison',comparison_frame,primary_columns,'RQ1: preliminary comparison of predictive accuracy and probability quality; no final core model is selected.')]:
         path=report_dir/f'{name}.tex'; _atomic_text(path,_latex(frame,columns,caption,f'tab:pilot-{name.replace("_","-")}'))
         files[f'{name}_tex']=str(path.resolve())
     diagnostic_path=report_dir/'mlp_diagnostics.json'
@@ -233,21 +233,21 @@ def export_pilot_reports(root,report_dir):
         'warning_count':sum(w['count'] for w in warning_rows),'files':files,'decision_metrics':decision_reports,
         'plan':{'development_sample_rows':20000,'stratified_sample_seed':42,'models':7,'levels':4,
             'randomized_searches':28,'configurations_per_search':5,'cv_folds':3,'candidate_cv_fits':420,
-            'refits':28,'repeat_trainings':0,'ensemble_internal_fits':'учитываются отдельно'},
+            'refits':28,'repeat_trainings':0,'ensemble_internal_fits':'counted separately'},
         'deviations_from_a2':[
-            'Это отдельный исследовательский пилот на 20 000 development-заявках, стратифицированных с seed=42.',
-            'Для каждой пары выполняются 5 конфигураций × 3 CV-фолда и один автоматический refit; основной план A2 20 конфигураций и 5 повторов этим не заменяется.',
-            'Используются полные рабочие настройки моделей (technical=False). SHAP в пилоте не вычисляется.'],
+            'This is a separate exploratory pilot on 20 000 development applications, selected by stratified sampling with seed=42.',
+            'Each pair evaluates 5 configurations × 3 CV folds and one automatic refit; this does not replace the main A2 plan of 20 configurations and 5 repeats.',
+            'Full working model settings are used (technical=False). SHAP is not computed in this pilot.'],
         'interpretation':[
-            'Выбор параметров проводится по CV log-loss. Test используется для итоговой оценки, без изменения параметров, правил обработки или выбора конфигураций по качеству test.',
-            'RQ1 в Assignment 2 рассматривает core-модель при совместном учёте accuracy, profit и fairness. Таблица rq1_model_comparison даёт только предварительное описательное сравнение predictive accuracy и качества вероятностей; окончательная core-модель по пилоту не выбирается.',
-            'RQ2 показывает прирост от исторической информации: разности Level 2/3/4 − Level 1 внутри одной модели. Положительная разность AP/ROC-AUC и отрицательная разность log-loss/Brier означают улучшение на данном test; Level 1 имеет нулевую разность как baseline.',
-            'Порядок моделей фиксирован; победитель, eligibility и пороги по test не выбираются.',
-            'Один refit на пару не даёт оценки вариабельности по повторам: доверительные интервалы, p-values и утверждения о статистической значимости не формируются.',
-            'Pending/invalid не имеют test-результатов в отчёте; отсутствующие метрики и baseline Level 1 остаются пустыми, а в LaTeX обозначены --.',
-            'search_and_refit_seconds включает CV и автоматический refit; refit_seconds — его часть, поэтому эти столбцы нельзя суммировать. total_pair_seconds включает загрузку test, оценку и сохранение.',
-            'Полные loss_curve_ и n_iter_ MLP читаются только из проверенного fit_diagnostics.json; CSV содержит компактную сводку, JSON — исходные атрибуты.',
-            'LaTeX использует UTF-8 и booktabs: в документе необходим пакет booktabs и поддержка русского текста.'],
+            'Parameters are selected by CV log-loss. The test set is used for final evaluation without changing parameters, preprocessing rules or selecting configurations based on test performance.',
+            'RQ1 in Assignment 2 considers a core model jointly using accuracy, profit and fairness. rq1_model_comparison provides only a preliminary descriptive comparison of predictive accuracy and probability quality; the pilot does not select a final core model.',
+            'RQ2 shows gains from historical information: Level 2/3/4 − Level 1 differences within each model. Positive AP/ROC-AUC differences and negative log-loss/Brier differences indicate improvement on this test set; Level 1 has zero difference as the baseline.',
+            'Model order is fixed; a winner, eligibility and thresholds are not selected on the test set.',
+            'One refit per pair does not estimate variability across training repeats: confidence intervals, p-values and statistical-significance claims are not produced.',
+            'Pending/invalid stages have no test results in the report; missing metrics and a missing Level 1 baseline remain empty and are displayed as -- in LaTeX.',
+            'search_and_refit_seconds includes CV and automatic refit; refit_seconds is part of it, so these columns must not be summed. total_pair_seconds includes test loading, evaluation and saving.',
+            'Full MLP loss_curve_ and n_iter_ are read only from verified fit_diagnostics.json; CSV contains a compact summary and JSON retains the original attributes.',
+            'LaTeX uses UTF-8 and booktabs: the document requires the booktabs package and UTF-8 text support.'],
         'test_used_for_tuning':False,'statistical_significance_claimed':False,'shap_computed':False}
     metadata_path=report_dir/'report_metadata.json'; files['metadata_json']=str(metadata_path.resolve())
     _write_json(metadata_path,summary)

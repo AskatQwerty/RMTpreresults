@@ -1,8 +1,8 @@
-"""Перенести проверенные fit после исправления только atomic_json, без переобучения.
+"""Migrate verified fits after an atomic_json-only fix, without retraining.
 
-Исходный пилот сохраняется целиком. Новый fingerprint обозначает новый код I/O;
-каждый перенесённый checkpoint явно хранит исходный manifest и свои старые хэши.
-Любое изменение данных, настроек или остальных AST-узлов запрещает перенос.
+The original pilot is fully preserved. The new fingerprint identifies updated I/O code;
+each migrated checkpoint explicitly retains its original manifest and original hashes.
+Any change to data, settings, or other AST nodes prevents migration.
 """
 from pathlib import Path
 import argparse
@@ -24,11 +24,11 @@ old=args.old_root.resolve()
 assert not (old/'run.lock').exists()
 previous=read_json(old/'experiment_manifest.json')
 for name,expected in previous['code_sha256'].items():
-    assert sha256(old/'source_snapshot'/name)==expected, f'Исходный source snapshot не совпал: {name}'
+    assert sha256(old/'source_snapshot'/name)==expected, f'Original source snapshot mismatch: {name}'
 current=resource_context(PreparedData(ROOT/'data/processed/full'),previous['threads'])
 prior_protocol={k:v for k,v in previous.items() if k not in {'fingerprint','code_sha256'}}
 new_protocol={k:v for k,v in current.items() if k not in {'fingerprint','code_sha256'}}
-assert prior_protocol==new_protocol,'Изменился протокол/данные/настройки; перенос запрещён.'
+assert prior_protocol==new_protocol,'Protocol/data/settings changed; migration is forbidden.'
 changes=[name for name in current['code_sha256'] if current['code_sha256'][name]!=previous['code_sha256'][name]]
 assert changes==['model_training.py'],changes
 def without_atomic(path):
@@ -38,11 +38,11 @@ def without_atomic(path):
     return ast.dump(tree,include_attributes=False)
 old_ast=without_atomic(old/'source_snapshot/model_training.py')
 new_ast=without_atomic(ROOT/'src/model_training.py')
-assert old_ast==new_ast,'Изменение затронуло обучение, а не только запись JSON.'
+assert old_ast==new_ast,'The change affects training, not only JSON writing.'
 models=[name for name in current['selected_configurations'] if _complete(old/name,previous)]
 assert len(models)==6 and 'stacking' not in models,models
 new=old.parent/f'resource_{current["fingerprint"][:12]}'
-assert new!=old and not new.exists(),'Новый каталог уже существует; автоматически не перезаписываем.'
+assert new!=old and not new.exists(),'The new directory already exists; automatic overwrite is disabled.'
 initialize_run(new,current)
 shutil.copytree(old,new/'origin_pilot')
 assert sha256(new/'origin_pilot/experiment_manifest.json')==sha256(old/'experiment_manifest.json')

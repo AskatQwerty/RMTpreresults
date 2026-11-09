@@ -5,5 +5,5 @@
   "above_p999": 222,
   "removed": 0,
   "winsorized": 0,
-  "note": "Квантили вычислены только на development и не являются порогами очистки."
+  "note": "Quantiles were computed on development only and are not cleaning thresholds."
 }

@@ -1,4 +1,4 @@
-"""Выполнить notebook и сохранять выводы после каждой ячейки, в том числе при ошибке."""
+"""Execute the notebook and save outputs after each cell, including on error."""
 from pathlib import Path
 import sys
 import asyncio

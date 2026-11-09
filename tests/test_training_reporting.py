@@ -1,4 +1,4 @@
-"""Отчёт из чистого ядра/диска; массовое обучение здесь только подменяется fixture."""
+"""Reporting from a fresh kernel/disk; mass training is replaced by a fixture."""
 from __future__ import annotations
 
 import ast
@@ -57,7 +57,7 @@ def chdir(path):
 
 
 def code_cells():
-    """Прочитать строки code(...), не выполняя генератор или notebook."""
+    """Read code(...) strings without executing the generator or notebook."""
     tree=ast.parse((PROJECT/'scripts/build_training_notebook.py').read_text(encoding='utf-8'))
     found=[]
     for node in tree.body:
@@ -157,7 +157,7 @@ class TrainingReportingTests(unittest.TestCase):
         put_json(root/'resource_summary.json',{'scope':'resource_pilot','status':'partial',
             'completed_models':1,'attempted_models':2,'results':[completed,partial],
             'test_used':False,'randomized_search_used':False})
-        # Контроллер сохраняет summary раньше Parquet: имитируем interruption между записями.
+        # The controller saves the summary before Parquet: simulate interruption between writes.
         pd.DataFrame([{'model':'mlp','fit_seconds':-999}]).to_parquet(root/'resource_metrics.parquet')
         before={str(p.relative_to(root)):hash_file(p) for p in root.rglob('*') if p.is_file()}
         result=write_resource_reports(parent,self.root/'reports/resource')

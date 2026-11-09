@@ -160,26 +160,26 @@ def main():
         },
         preprocessing_checks=pre_checks,
         interpretation_ru=[
-            'Структурной ошибки Pipeline не обнаружено: масштабирование есть, медианы и scaler обучаются на train фолда, validation только transform.',
-            'Все проверенные матрицы train/validation конечны, их ширина совпадает; тестовые данные не загружались.',
-            'Низкая сохранённая обучающая целевая функция при высоком CV log-loss согласуется с сильным переобучением; это диагностический вывод, а не доказательство единственной причины.',
-            'MLP loss_curve содержит обучающую целевую функцию с регуляризацией и minibatch-агрегацией; она не является отдельной оценкой train log-loss.',
-            'Масштабирование сохраняет редкие экстремальные значения validation. Их наличие само по себе не ошибка; clipping/отбор по CV или test сейчас не вводились.',
-            'Для исходных конфигураций1–5 индивидуальные CV loss_curve отсутствуют; сохранённые диаграммы итоговых refit не подставлялись вместо них.',
-            'Гиперпараметры и правило остановки сохранены. Улучшение MLP через early stopping или новую регуляризацию потребовало бы отдельного заранее объявленного эксперимента.',
+            'No structural Pipeline error was found: scaling is present, medians and the scaler are fitted on the fold’s training rows, and validation is transformed only.',
+            'All checked training/validation matrices are finite and have matching widths; test data were not loaded.',
+            'A low saved training objective with high CV log-loss is consistent with substantial overfitting; this is a diagnostic interpretation, not proof of a single cause.',
+            'MLP loss_curve records a training objective with regularization and minibatch aggregation; it is not a separate evaluation of training log-loss.',
+            'Scaling retains rare extreme validation values. Their presence alone is not an error; clipping/selection using CV or test was not introduced here.',
+            'Individual CV loss_curve records are unavailable for original configurations1–5; final-refit curves were not substituted for them.',
+            'Hyperparameters and the stopping rule were retained. Improving MLP through early stopping or new regularization would require a separate predeclared experiment.',
         ])
     REPORT.mkdir(parents=True, exist_ok=True)
     diagnostics.to_csv(REPORT/'mlp_audit.csv',index=False,encoding='utf-8-sig')
     pd.DataFrame(pre_checks).to_csv(REPORT/'mlp_preprocessing_audit.csv',index=False,encoding='utf-8-sig')
     (REPORT/'mlp_audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2,allow_nan=False)+'\n',encoding='utf-8')
-    summary='Проверка MLP перед итоговым обучением\n\n'
-    summary+='Статус: ошибок реализации Pipeline не обнаружено. Новых обучений классификатора: 0; test не использован.\n'
-    summary+=f'Проверено 240 CV-оценок, 180 индивидуальных диагностик; 12 проверок предобработки только внутри сохранённых train-фолдов.\n'
-    summary+=f'Достигли max_iter=300: {int(detailed.reached_max_iter.sum())}/180; предупреждения сходимости: {int(detailed.convergence_warning_count.sum())}.\n'
-    summary+=f'Для выбранной конфигурации train objective: {chosen.final_train_objective.min():.6f}–{chosen.final_train_objective.max():.6f}; CV log-loss отдельных фолдов: {chosen.cv_log_loss.min():.6f}–{chosen.cv_log_loss.max():.6f}.\n'
-    summary+=f'Все 12 выбранных CV-fit достигли max_iter. Константный риск по train даёт CV log-loss около {np.mean([r["constant_train_prior_validation_log_loss"] for r in pre_checks]):.6f}.\n'
-    summary+=f'Максимальное конечное абсолютное стандартизованное значение validation: {max(r["numeric_validation_max_abs_z"] for r in pre_checks):.3f}; подробности по признакам в mlp_preprocessing_audit.csv.\n'
-    summary+='Выбранная конфигурация MLP №13 одинакова для четырёх уровней; средний CV log-loss: '+', '.join(f'L{l}: {selected[l]["mean_cv_log_loss"]:.6f}' for l in range(1,5))+'.\n\n'
+    summary='MLP audit before final training\n\n'
+    summary+='Status: no Pipeline implementation errors found. New classifier fits: 0; test was not used.\n'
+    summary+=f'Checked 240 CV evaluations and 180 individual diagnostics; 12 preprocessing checks used only saved training folds.\n'
+    summary+=f'Reached max_iter=300: {int(detailed.reached_max_iter.sum())}/180; convergence warnings: {int(detailed.convergence_warning_count.sum())}.\n'
+    summary+=f'Training objective for the selected configuration: {chosen.final_train_objective.min():.6f}–{chosen.final_train_objective.max():.6f}; CV log-loss by fold: {chosen.cv_log_loss.min():.6f}–{chosen.cv_log_loss.max():.6f}.\n'
+    summary+=f'All 12 selected CV fits reached max_iter. Constant risk based on the training prior gives CV log-loss of approximately {np.mean([r["constant_train_prior_validation_log_loss"] for r in pre_checks]):.6f}.\n'
+    summary+=f'Maximum finite absolute standardized validation value: {max(r["numeric_validation_max_abs_z"] for r in pre_checks):.3f}; feature details are in mlp_preprocessing_audit.csv.\n'
+    summary+='Selected MLP configuration 13 is the same for all four levels; mean CV log-loss: '+', '.join(f'L{l}: {selected[l]["mean_cv_log_loss"]:.6f}' for l in range(1,5))+'.\n\n'
     summary+='\n'.join(audit['interpretation_ru'])+'\n'
     (REPORT/'mlp_audit.txt').write_text(summary,encoding='utf-8-sig')
     print(json.dumps({'status':audit['status'],'diagnostics_summary':audit['diagnostics_summary'],

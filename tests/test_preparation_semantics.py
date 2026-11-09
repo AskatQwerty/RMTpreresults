@@ -1,8 +1,8 @@
-"""Регрессионные проверки временной доступности и сохранения популяции.
+"""Regression tests of temporal availability and population preservation.
 
-Все значения сценария синтетические; реальные CSV читаются только для получения
-схем. Эти результаты не подменяют аудит или объём обработанного исходного набора.
-Запуск: python -m unittest discover -s tests -v
+All scenario values are synthetic; real CSV files are read only to obtain
+schemas. These results do not replace the audit or the processed source-data counts.
+Run: python -m unittest discover -s tests -v
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ DECIMAL_CLIENT = CLIENT + 4
 
 
 def build_synthetic_sources(source_dir: Path, fixture_dir: Path) -> None:
-    """Создать 60 заявок и адресные сценарии в реальных схемах Home Credit."""
+    """Create 60 applications and targeted scenarios using actual Home Credit schemas."""
     fixture_dir.mkdir(parents=True)
     names = (
         "application_train.csv", "bureau.csv", "bureau_balance.csv",
@@ -51,7 +51,7 @@ def build_synthetic_sources(source_dir: Path, fixture_dir: Path) -> None:
                 values[col] = -10.0
         values.update(changes)
         unknown = set(values) - set(sample.columns)
-        assert not unknown, f"Тест содержит несуществующие поля: {unknown}"
+        assert not unknown, f"The test contains nonexistent fields: {unknown}"
         return values
 
     def write(name, rows):
@@ -162,7 +162,7 @@ class PreparationSemanticsTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         if not (SOURCE_DIR / "application_train.csv").is_file():
-            raise unittest.SkipTest("Реальные CSV необходимы только для схем; задайте HOME_CREDIT_DATA_DIR")
+            raise unittest.SkipTest("Real CSV files are needed only for schemas; set HOME_CREDIT_DATA_DIR")
         cls.temp = tempfile.TemporaryDirectory(prefix="homecredit_semantics_")
         cls.base = Path(cls.temp.name)
         cls.addClassCleanup(cls.temp.cleanup)

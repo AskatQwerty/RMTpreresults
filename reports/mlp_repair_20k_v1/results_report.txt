@@ -1,28 +1,28 @@
-﻿Дополнительный эксперимент: попытка улучшить MLP
+﻿Supplemental experiment: an attempt to improve MLP
 
-Проверены четыре заранее заданных варианта MLP на четырёх уровнях и трёх сохранённых внешних CV-фолдах: 48 внешних CV-оценок.
+Four predeclared MLP variants were evaluated at four levels using three saved outer CV folds: 48 outer CV evaluations.
 
-Каждая процедура включает внутренний выбор эпох по log-loss и отдельное обучение с нуля на всём доступном train. Поэтому 48 CV-оценок соответствуют 96 траекториям оптимизатора, а не 48 вызовам partial_fit.
+Each procedure includes inner epoch selection by log-loss and a separate fresh fit on all available training rows. Thus, 48 CV evaluations correspond to 96 optimizer trajectories, not 48 partial_fit calls.
 
-По заранее записанному CV-критерию к итоговой оценке допущено 4 из четырёх уровней. Число итоговых процедур: 4; они добавляют 8 траекторий оптимизатора.
+The predeclared CV criterion admitted 4 of four levels to final evaluation. Number of final procedures: 4; these add 8 optimizer trajectories.
 
-Level 1: выбран stop_clipped; CV log-loss 0.388510 → 0.256627. Test log-loss 0.371204 → 0.252460; AP 0.144538 → 0.219154; выбрано 27 эпох.
+Level 1: selected stop_clipped; CV log-loss 0.388510 → 0.256627. Test log-loss 0.371204 → 0.252460; AP 0.144538 → 0.219154; selected 27 epochs.
 
-Level 2: выбран stop_clipped_regularized; CV log-loss 0.479511 → 0.257432. Test log-loss 0.470858 → 0.251954; AP 0.136435 → 0.220370; выбрано 24 эпох.
+Level 2: selected stop_clipped_regularized; CV log-loss 0.479511 → 0.257432. Test log-loss 0.470858 → 0.251954; AP 0.136435 → 0.220370; selected 24 epochs.
 
-Level 3: выбран stop_clipped_regularized; CV log-loss 0.569388 → 0.254466. Test log-loss 0.548138 → 0.249881; AP 0.142688 → 0.233265; выбрано 16 эпох.
+Level 3: selected stop_clipped_regularized; CV log-loss 0.569388 → 0.254466. Test log-loss 0.548138 → 0.249881; AP 0.142688 → 0.233265; selected 16 epochs.
 
-Level 4: выбран stop_clipped_regularized; CV log-loss 0.639396 → 0.253838. Test log-loss 0.691036 → 0.249034; AP 0.138913 → 0.235569; выбрано 21 эпох.
+Level 4: selected stop_clipped_regularized; CV log-loss 0.639396 → 0.253838. Test log-loss 0.691036 → 0.249034; AP 0.138913 → 0.235569; selected 21 epochs.
 
-Уменьшение CV/test log-loss описывает результат этого дополнительного эксперимента. Оно не доказывает, что найдена единственная причина исходной неудачи MLP.
+Lower CV/test log-loss describes the result of this supplemental experiment. It does not establish a single cause of the original MLP failure.
 
-Ограничения
+Limitations
 
-- Это отдельный последующий исследовательский эксперимент MLP. Основные 28 Pipeline, 1680 CV-результатов и прежние RQ1/RQ2 не заменяются.
-- Использованы прежние 20 000 клиентов с естественным балансом классов и сохранённые внешние CV-фолды. Test ранее уже просматривался; он не является новой независимой проверкой.
-- Вариант выбирается по среднему log-loss внешней CV. Внутри каждого train-фолда отдельные 15% используются только для выбора числа эпох по validation log-loss.
-- Предобработка внутреннего этапа обучается только на его train. Затем новая предобработка и новая сеть обучаются на всём предоставленном train ровно выбранное число эпох.
-- Ограничение z-значений до ±5 применяется только к масштабированным числовым значениям. Это отдельный вариант преобразования, а не удаление клиентов или изменение сохранённых X.
-- Здесь показаны точечные оценки. Bootstrap, доверительные интервалы и проверки значимости различий не вычислялись; стандартное отклонение трёх CV-фолдов не является CI.
-- В sklearn partial_fit значение n_iter_ относится к последнему вызову. Реальное число эпох записывается отдельно по циклу обучения, loss_curve_ и t_.
-- Изменение правила остановки и исполнительного цикла partial_fit ограничивает строго причинное толкование сравнения с исходным MLP. Улучшение на уже использованном test остаётся исследовательским результатом.
+- This is a separate post-hoc exploratory MLP experiment. The main 28 Pipelines, 1680 CV results and previous RQ1/RQ2 results are not replaced.
+- The same 20 000 clients with the natural class balance and saved outer CV folds are used. The test set had already been inspected; it is not a new independent validation.
+- The variant is selected by mean outer-CV log-loss. Within each training fold, a separate 15% is used only to select the epoch count by validation log-loss.
+- Preprocessing in the inner stage is fitted only on its training partition. Fresh preprocessing and a fresh network are then fitted on all supplied training rows for exactly the selected number of epochs.
+- Clipping z-values to ±5 applies only to standardized numeric values. It is a separate transformation variant; clients are not removed and saved X is not modified.
+- Only point estimates are shown. Bootstrap, confidence intervals and significance tests were not computed; the standard deviation across three CV folds is not a CI.
+- In sklearn partial_fit, n_iter_ refers to the most recent call. Actual epochs are recorded separately from the training loop, loss_curve_ and t_.
+- Changes to the stopping rule and partial_fit execution loop limit strict causal interpretation of comparisons with the original MLP. Improvement on the previously used test remains exploratory.

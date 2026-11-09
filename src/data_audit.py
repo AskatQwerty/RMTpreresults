@@ -1,8 +1,8 @@
-"""Последовательный, точный аудит исходных таблиц Home Credit.
+"""Sequential, exact audit of the original Home Credit tables.
 
-Запросы выполняются DuckDB с лимитом памяти и spill-to-disk, заданными вызывающим
-кодом. CSV не меняются. Повторения ключей истории диагностируются, а не удаляются:
-несколько платежей по одному взносу могут быть корректными частичными платежами.
+Queries run in DuckDB with the memory limit and spill-to-disk settings supplied by
+the caller. CSV files remain unchanged. Repeated history keys are diagnosed, not removed:
+multiple payments for one installment may be valid partial payments.
 """
 
 from __future__ import annotations
@@ -46,11 +46,11 @@ def _s(value: str | Path) -> str:
 
 
 def register_sources(con, data_dir: Path) -> dict:
-    """Зарегистрировать raw_* views. Проверить наличие всех восьми файлов."""
+    """Register raw_* views and verify that all eight files exist."""
     data_dir = Path(data_dir)
     missing = [name for name in [*SOURCES.values(), DESCRIPTION_FILE] if not (data_dir / name).is_file()]
     if missing:
-        raise FileNotFoundError("Отсутствуют обязательные файлы: " + ", ".join(missing))
+        raise FileNotFoundError("Required files are missing: " + ", ".join(missing))
     for name, filename in SOURCES.items():
         con.execute(
             f"CREATE OR REPLACE VIEW raw_{name} AS "
@@ -74,12 +74,12 @@ def _save(df: pd.DataFrame, output_dir: Path, filename: str) -> str:
 
 
 def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
-    """Аудит полного набора CSV; возвращает компактный отчёт и пути файлов.
+    """Audit the complete CSV dataset; return a compact report and output paths.
 
-    Отсутствие SK_ID_CURR в application_train само по себе не является ошибкой:
-    история содержит также клиентов без опубликованного TARGET. Такие записи
-    отличаются от настоящих сирот SK_ID_BUREAU/SK_ID_PREV и неверного владельца
-    предыдущего договора. Точная проверка дублей учитывает все исходные столбцы.
+    An SK_ID_CURR absent from application_train is not necessarily an error:
+    history also includes applicants without a published TARGET. Such records
+    differ from genuine orphan SK_ID_BUREAU/SK_ID_PREV records and an incorrect owner
+    of a previous contract. Exact duplicate checking uses every original column.
     """
     started = time.perf_counter()
     data_dir, output_dir = Path(data_dir), Path(output_dir)
@@ -166,11 +166,11 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
             "key_duplicate_surplus": int(key_stats[1]), "max_rows_per_key": int(key_stats[2]),
             "rows_with_null_key": key_nulls,
             "key_expected_unique": name != "installments",
-            "key_note": "Частичные платежи могут повторять этот кандидатный ключ" if name == "installments" else "",
+            "key_note": "Partial payments may share this candidate key" if name == "installments" else "",
             "audit_seconds": round(time.perf_counter() - step_started, 3),
         })
-        print(f"Аудит {filename}: {n_rows:,} строк, {len(schema)} столбцов; "
-              f"полных дублей {n_rows - distinct_rows:,}", flush=True)
+        print(f"Audit {filename}: {n_rows:,} rows, {len(schema)} columns; "
+              f"exact duplicates {n_rows - distinct_rows:,}", flush=True)
         # Save incremental results as well, so diagnostics survive a later interruption.
         _save(pd.DataFrame(table_rows), output_dir, "table_summary.csv")
         _save(pd.DataFrame(column_rows), output_dir, "column_audit.csv")
@@ -188,11 +188,11 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
             f"ON h.SK_ID_CURR=a.SK_ID_CURR"
         ).fetchone()
         relation(SOURCES[name], "rows_outside_labeled_applications", values[0],
-                 "Ожидаемо возможны клиенты без опубликованного TARGET; не использовать в X")
+                 "Applicants without a published TARGET are expected; do not use them in X")
         relation(SOURCES[name], "distinct_clients_outside_labeled_applications", values[1],
-                 "Не означает сиротский ключ в полном конкурсе; application_test не используется")
+                 "Does not imply an orphan key in the full competition dataset; application_test is not used")
         relation(SOURCES[name], "rows_linked_to_labeled_applications", values[2],
-                 "История с владельцем из application_train")
+                 "History owned by an applicant in application_train")
 
     # Group dimension keys before joining: audit itself must not amplify row counts.
     bvalues = con.execute(
@@ -207,7 +207,7 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
     for metric, value, meaning in zip(
         ("rows_without_bureau_parent", "bureau_ids_without_parent", "rows_with_unlabeled_bureau_owner", "rows_linked_via_bureau_to_labeled_applications"),
         bvalues,
-        ("Сиротские строки bureau_balance: родитель bureau отсутствует", "Число отсутствующих родительских SK_ID_BUREAU", "Родитель существует, но владелец вне application_train", "Полная связь bureau_balance → bureau → текущая заявка"),
+        ("Orphan bureau_balance rows: bureau parent is missing", "Number of missing parent SK_ID_BUREAU values", "Parent exists, but its owner is outside application_train", "Complete bureau_balance -> bureau -> current application relationship"),
     ):
         relation(SOURCES["bb"], metric, value, meaning)
 
@@ -216,13 +216,13 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
         "HAVING COUNT(DISTINCT SK_ID_CURR)>1)"
     ).fetchone()[0]
     relation(SOURCES["previous"], "previous_ids_with_multiple_owners", parent_ambiguous,
-             "Один предыдущий договор не должен принадлежать нескольким текущим заявкам")
+             "A previous contract must not belong to multiple current applications")
     bureau_ambiguous = con.execute(
         "SELECT COUNT(*) FROM (SELECT SK_ID_BUREAU FROM raw_bureau GROUP BY SK_ID_BUREAU "
         "HAVING COUNT(DISTINCT SK_ID_CURR)>1)"
     ).fetchone()[0]
     relation(SOURCES["bureau"], "bureau_ids_with_multiple_owners", bureau_ambiguous,
-             "Один бюро-договор не должен принадлежать нескольким текущим заявкам")
+             "A bureau contract must not belong to multiple current applications")
     for name in ("pos", "cc", "installments"):
         values = con.execute(
             "WITH p AS (SELECT SK_ID_PREV, MIN(SK_ID_CURR) AS SK_ID_CURR FROM raw_previous GROUP BY SK_ID_PREV) "
@@ -231,9 +231,9 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
             "COUNT(*) FILTER (WHERE p.SK_ID_PREV IS NOT NULL AND h.SK_ID_CURR <> p.SK_ID_CURR) "
             f"FROM raw_{name} h LEFT JOIN p ON h.SK_ID_PREV=p.SK_ID_PREV"
         ).fetchone()
-        relation(SOURCES[name], "rows_without_previous_parent", values[0], "Сиротские строки: отсутствует предыдущая заявка")
-        relation(SOURCES[name], "previous_ids_without_parent", values[1], "Количество предыдущих договоров без родителя")
-        relation(SOURCES[name], "rows_with_previous_owner_mismatch", values[2], "SK_ID_CURR истории не совпадает с владельцем SK_ID_PREV")
+        relation(SOURCES[name], "rows_without_previous_parent", values[0], "Orphan rows: previous application is missing")
+        relation(SOURCES[name], "previous_ids_without_parent", values[1], "Number of previous contracts without a parent")
+        relation(SOURCES[name], "rows_with_previous_owner_mismatch", values[2], "History SK_ID_CURR differs from the owner of SK_ID_PREV")
     target = con.execute(
         "SELECT TARGET, COUNT(*) AS rows, COUNT(*)::DOUBLE / SUM(COUNT(*)) OVER () AS fraction "
         "FROM raw_application GROUP BY TARGET ORDER BY TARGET"
@@ -247,7 +247,7 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
         "key_duplicate_surplus": int(dictionary.duplicated(["Table", "Row"]).sum()),
         "max_rows_per_key": int(dictionary.groupby(["Table", "Row"], dropna=False).size().max()),
         "rows_with_null_key": int(dictionary[["Table", "Row"]].isna().any(axis=1).sum()),
-        "key_expected_unique": True, "key_note": "Словарь прочитан в кодировке cp1252", "audit_seconds": None,
+        "key_expected_unique": True, "key_note": "Dictionary read using cp1252 encoding", "audit_seconds": None,
     })
     for col in dictionary.columns.drop("Row_original"):
         column_rows.append({
@@ -260,7 +260,7 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
         after = (data_dir / filename).stat()
         unchanged = before.st_size == after.st_size and before.st_mtime_ns == after.st_mtime_ns
         if not unchanged:
-            raise RuntimeError(f"Исходный файл изменился во время аудита: {filename}")
+            raise RuntimeError(f"Source file changed during the audit: {filename}")
         manifest.append({
             "file": filename, "path": str((data_dir / filename).resolve()),
             "size_bytes": before.st_size, "mtime_ns": before.st_mtime_ns,
@@ -281,7 +281,7 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
         "source_manifest": _save(pd.DataFrame(manifest), output_dir, "source_manifest.csv"),
     }
     report = {
-        "scope": "Полный аудит всех восьми обязательных исходных CSV",
+        "scope": "Full audit of all eight required source CSV files",
         "elapsed_seconds": round(time.perf_counter() - started, 3),
         "tables": [{k: v for k, v in row.items() if k in ("table", "rows", "columns", "exact_duplicate_rows", "key_duplicate_surplus")} for row in table_rows],
         "dictionary_unmatched_columns": [
@@ -290,10 +290,10 @@ def audit_sources(con, data_dir: Path, output_dir: Path) -> dict:
         ],
         "files": paths,
         "notes": [
-            "Нет автоматического удаления дублей или повторяющихся частичных платежей.",
-            "Положительные даты и 365243 лишь посчитаны; решения об их доступности принимаются отдельно по смыслу поля.",
-            "Отсутствие клиента в application_train отличается от отсутствующего родительского договора.",
-            "Типы определены DuckDB по sample_size=100000; остальные строки читаются строго без ignore_errors.",
+            "No automatic removal of duplicates or repeated partial payments.",
+            "Positive dates and 365243 are only counted; availability decisions are made separately using field semantics.",
+            "An applicant absent from application_train differs from a missing parent contract.",
+            "DuckDB inferred types using sample_size=100000; remaining rows are read strictly without ignore_errors.",
         ],
     }
     (output_dir / "audit_summary.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

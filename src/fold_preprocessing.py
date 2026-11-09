@@ -1,8 +1,8 @@
-"""Заготовка числового Pipeline: обучение только внутри train конкретного фолда.
+"""Numeric Pipeline factory: fit only on the training partition of the current fold.
 
-Никаких преобразований сохранённых Parquet этот модуль не выполняет. Фабрика
-возвращает НЕ обученный объект для последующего включения в ColumnTransformer
-и полный Pipeline с моделью. Состав исходных признаков четырёх уровней не меняется.
+This module does not transform saved Parquet files. The factory
+returns an UNFITTED object for inclusion in a ColumnTransformer
+and a complete model Pipeline. The original features at all four levels remain unchanged.
 """
 from __future__ import annotations
 
@@ -18,23 +18,23 @@ from sklearn.preprocessing import StandardScaler
 
 
 def make_numeric_pipeline(*, scale: bool = False) -> Pipeline:
-    """Вернуть не обученный числовой Pipeline с постоянной шириной 2*p.
+    """Return an unfitted numeric Pipeline with constant width 2*p.
 
-    Ветка values: медианы оцениваются только при fit на train текущего фолда.
-    keep_empty_features=True сохраняет столбец, полностью пустой в этом train,
-    и задаёт фиксированный fallback 0. Это техническое значение, а не оценка
-    медианы по development/validation/test. Реальные значения этого столбца
-    в validation/test сохраняются; заполняются только пропуски.
+    The values branch estimates medians only during fit on the current training fold.
+    keep_empty_features=True retains a column that is entirely missing in this train
+    and assigns a fixed fallback of 0. This is a technical value, not a median
+    estimated from development/validation/test. Observed values of this column
+    in validation/test are retained; only missing entries are imputed.
 
-    Ветка missing: отдельный MissingIndicator(features='all') создаёт по одному
-    индикатору исходного пропуска на каждый входной столбец. Поэтому размер и
-    порядок результата не зависят от того, в каких столбцах train были пропуски.
-    Новый пропуск в validation также получает 1. Индикаторы не стандартизуются.
+    The missing branch uses MissingIndicator(features='all') to create one
+    original-missingness indicator for each input column. Thus output size and
+    order do not depend on which train columns contained missing values.
+    A new validation missing value also receives 1. Indicators are not standardized.
 
-    Если scale=True, StandardScaler стоит после imputer только в ветке values
-    и тоже fit внутри того же train. Для полностью пустого train-столбца после
-    fallback=0 scaler имеет mean=0 и scale=1. Категориальные признаки должны
-    обрабатываться отдельной веткой ColumnTransformer внутри полного Pipeline.
+    If scale=True, StandardScaler follows the imputer in the values branch only
+    and is fitted on the same train partition. For an entirely missing train column,
+    the fallback=0 scaler has mean=0 and scale=1. Categorical features must
+    be handled by a separate ColumnTransformer branch within the full Pipeline.
     """
     value_steps = [
         ("median", SimpleImputer(strategy="median", keep_empty_features=True,
@@ -51,10 +51,10 @@ def make_numeric_pipeline(*, scale: bool = False) -> Pipeline:
 
 
 def numeric_pipeline_smoke_check(report_path: str | Path | None = None) -> dict:
-    """Проверить политику на маленьких искусственных данных, не на Home Credit.
+    """Check the policy on small synthetic data, not on Home Credit.
 
-    Эту демонстрацию можно исполнять в notebook качества: никакие параметры
-    преобразования исследуемых данных здесь не оцениваются и не сохраняются.
+    This demonstration can run in the quality notebook: no preprocessing parameters
+    are estimated or saved for the research dataset here.
     """
     train = pd.DataFrame({
         "empty_in_train": [np.nan, np.nan, np.nan],
@@ -86,9 +86,9 @@ def numeric_pipeline_smoke_check(report_path: str | Path | None = None) -> dict:
         "new_validation_missing_value_has_indicator": True,
         "width_is_twice_numeric_column_count": True,
         "feature_names": pipeline.get_feature_names_out().tolist(),
-        "fit_policy_ru": "fit только на train каждого CV-фолда или 90%-ного повтора; test/validation не участвуют",
-        "fallback_policy_ru": "Для полностью пустого train-столбца фиксированный 0 и индикатор пропуска; столбец не удаляется",
-        "category_policy_ru": "Обучаемое кодирование категорий — отдельная ветка полного Pipeline, здесь не выполняется",
+        "fit_policy_ru": "fit only on train within each CV fold or 90% repeat; test/validation are excluded",
+        "fallback_policy_ru": "An entirely missing train column receives fixed 0 and a missingness indicator; the column is retained",
+        "category_policy_ru": "Learned categorical encoding belongs to a separate full-Pipeline branch and is not performed here",
     }
     if report_path is not None:
         path = Path(report_path)

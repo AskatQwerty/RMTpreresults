@@ -198,7 +198,7 @@
     "soft_voting",
     "stacking"
   ],
-  "note": "План успешного запуска без перезапусков прерванных этапов; внутренних ансамблевых fit больше, чем внешних вызовов.",
+  "note": "Plan for a successful run without restarting interrupted stages; internal ensemble fits outnumber outer calls.",
   "primitive_fits_including_ensembles": 5460,
   "refit": false,
   "saved_cv_folds": 3,

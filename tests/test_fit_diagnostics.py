@@ -1,4 +1,4 @@
-"""Проверки сохранения actual MLP-диагностики на искусственных данных."""
+"""Tests of actual MLP diagnostic persistence using synthetic data."""
 from pathlib import Path
 import json
 import tempfile

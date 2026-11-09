@@ -1,4 +1,4 @@
-"""Ресурсный пилот на маленьких синтетических Parquet, без реального test/search."""
+"""Resource pilot on small synthetic Parquet files, without actual test/search."""
 from __future__ import annotations
 
 import json

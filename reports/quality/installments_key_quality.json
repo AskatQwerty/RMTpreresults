@@ -1,5 +1,5 @@
 {
-  "scope": "Все строки installments_payments; существующие development/test только для разбивки диагностик",
+  "scope": "All installments_payments rows; existing development/test assignments are used only to stratify diagnostics",
   "candidate_key": [
     "SK_ID_PREV",
     "NUM_INSTALMENT_VERSION",
@@ -108,12 +108,12 @@
     "exact_decimal_amount_preserved": true
   },
   "interpretation_ru": [
-    "Кандидатный ключ включает дату фактической оплаты, но не является гарантированно уникальным ID события.",
-    "Ключ обязательства состоит из текущей заявки, предыдущего договора, версии графика и номера взноса; дата оплаты в него не входит.",
-    "Строки без даты фактической оплаты не проходят временной фильтр. Их сумма оплаты не заполняется; факт неоплаты не выводится из отсутствия даты.",
-    "Текущие заявки сохраняются независимо от наличия пригодных платежей; другие платежи того же взноса/клиента остаются доступными.",
-    "Полные дубли только диагностируются. Повторения кандидатного ключа и частичные оплаты не удаляются; AMT_PAYMENT суммируется в DECIMAL(24,3), AMT_INSTALMENT учитывается один раз на взнос.",
-    "Повтор суммы AMT_INSTALMENT по нескольким платежным строкам не означает несколько обязательств."
+    "The candidate key includes the actual payment date but is not a guaranteed unique event ID.",
+    "The obligation key consists of the current application, previous contract, schedule version and installment number; the payment date is not part of it.",
+    "Rows without an actual payment date fail the temporal filter. Their payment amount is not imputed; a missing date is not interpreted as nonpayment.",
+    "Current applications are retained regardless of usable payment history; other payments for the same installment/client remain available.",
+    "Exact duplicates are diagnosed only. Repeated candidate keys and partial payments are not removed; AMT_PAYMENT is summed in DECIMAL(24,3), and AMT_INSTALMENT is counted once per installment.",
+    "Repeating AMT_INSTALMENT across multiple payment rows does not imply multiple obligations."
   ],
   "artifacts": {
     "installments_incomplete_key_fields.csv": "reports\\quality\\installments_incomplete_key_fields.csv",

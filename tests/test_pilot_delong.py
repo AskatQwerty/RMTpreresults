@@ -1,4 +1,4 @@
-"""DeLong: независимые O(mn) placements проверяют fast ranks и paired inference."""
+"""DeLong: independent O(mn) placements check fast ranks and paired inference."""
 from __future__ import annotations
 
 import json
@@ -12,7 +12,7 @@ from src.pilot_delong import delong_auc_covariance, paired_delong_table
 
 
 def brute_force(y,scores):
-    """Прямые сравнения каждой positive/negative пары, без ранжирования."""
+    """Direct comparison of every positive/negative pair without ranking."""
     labels=np.asarray(y)
     matrix=np.atleast_2d(scores)
     m=int((labels==1).sum())

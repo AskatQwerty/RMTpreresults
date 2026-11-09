@@ -59,7 +59,7 @@
         "max": 0
       },
       "applied": false,
-      "reason": "Сначала требуется подтвердить, что -0.9 не является допустимой учётной корректировкой."
+      "reason": "First confirm that -0.9 is not a valid accounting adjustment."
     },
     "income_tail": {
       "p99": 472500.0,
@@ -68,7 +68,7 @@
       "above_p999": 222,
       "removed": 0,
       "winsorized": 0,
-      "note": "Квантили вычислены только на development и не являются порогами очистки."
+      "note": "Quantiles were computed on development only and are not cleaning thresholds."
     },
     "review_cases": [
       {
@@ -79,8 +79,8 @@
         "affected_values": 1,
         "affected_clients": 1,
         "classification": "review",
-        "proposed_action_ru": "Предложение: NULL до агрегации после подтверждения смысла знака; пока сохранено",
-        "reason_ru": "Отрицательный первоначальный взнос подозрителен, но может быть учётной корректировкой. Ни округление, ни замена на 0 не обоснованы.",
+        "proposed_action_ru": "Proposal: NULL before aggregation after confirming the meaning of the sign; retained for now",
+        "reason_ru": "A negative down payment is suspicious but may be an accounting adjustment. Neither rounding nor replacing it with 0 is justified.",
         "applied_now": false
       },
       {
@@ -91,8 +91,8 @@
         "affected_values": 6731,
         "affected_clients": 4705,
         "classification": "review",
-        "proposed_action_ru": "Сохранить до уточнения учёта переплаты",
-        "reason_ru": "Отрицательный остаток долга может обозначать переплату; нельзя применять общее правило AMT<0.",
+        "proposed_action_ru": "Retain pending clarification of overpayment accounting",
+        "reason_ru": "A negative debt balance may represent overpayment; a blanket AMT<0 rule is inappropriate.",
         "applied_now": false
       },
       {
@@ -103,8 +103,8 @@
         "affected_values": 277,
         "affected_clients": 254,
         "classification": "review",
-        "proposed_action_ru": "Сохранить; уточнить трактовку лимита",
-        "reason_ru": "Для номинального лимита знак необычен, но словарь не раскрывает правила передачи корректировок.",
+        "proposed_action_ru": "Retain; clarify the interpretation of the limit",
+        "reason_ru": "The sign is unusual for a nominal limit, but the dictionary does not explain how adjustments are represented.",
         "applied_now": false
       },
       {
@@ -115,8 +115,8 @@
         "affected_values": 1,
         "affected_clients": 1,
         "classification": "review",
-        "proposed_action_ru": "Сохранить; проверить возможное сторно",
-        "reason_ru": "Отрицательная выдача наличных может быть исправлением операции; данных о транзакции нет.",
+        "proposed_action_ru": "Retain; check for possible reversals",
+        "reason_ru": "A negative cash withdrawal may correct a transaction; transaction-level data are unavailable.",
         "applied_now": false
       },
       {
@@ -127,8 +127,8 @@
         "affected_values": 1,
         "affected_clients": 1,
         "classification": "review",
-        "proposed_action_ru": "Сохранить; проверить возможное сторно",
-        "reason_ru": "Знак движения не равнозначен отрицательной сумме номинального кредита.",
+        "proposed_action_ru": "Retain; check for possible reversals",
+        "reason_ru": "The sign of a cash flow is not equivalent to a negative nominal credit amount.",
         "applied_now": false
       }
     ],
@@ -141,10 +141,10 @@
     "saved_previous_aggregate_mismatches": 0,
     "development_saved_date_placeholders": 0,
     "all_prepared_saved_date_placeholders": 0,
-    "note": "Число NULL до/после приводится для исходных строк; проверка агрегатов сохранена отдельно. У исключённых полей после=не применимо."
+    "note": "NULL counts before/after refer to source rows; aggregate checks are saved separately. For excluded fields, after=not applicable."
   },
   "payments": {
-    "scope": "Все строки installments_payments; существующие development/test только для разбивки диагностик",
+    "scope": "All installments_payments rows; existing development/test assignments are used only to stratify diagnostics",
     "candidate_key": [
       "SK_ID_PREV",
       "NUM_INSTALMENT_VERSION",
@@ -253,12 +253,12 @@
       "exact_decimal_amount_preserved": true
     },
     "interpretation_ru": [
-      "Кандидатный ключ включает дату фактической оплаты, но не является гарантированно уникальным ID события.",
-      "Ключ обязательства состоит из текущей заявки, предыдущего договора, версии графика и номера взноса; дата оплаты в него не входит.",
-      "Строки без даты фактической оплаты не проходят временной фильтр. Их сумма оплаты не заполняется; факт неоплаты не выводится из отсутствия даты.",
-      "Текущие заявки сохраняются независимо от наличия пригодных платежей; другие платежи того же взноса/клиента остаются доступными.",
-      "Полные дубли только диагностируются. Повторения кандидатного ключа и частичные оплаты не удаляются; AMT_PAYMENT суммируется в DECIMAL(24,3), AMT_INSTALMENT учитывается один раз на взнос.",
-      "Повтор суммы AMT_INSTALMENT по нескольким платежным строкам не означает несколько обязательств."
+      "The candidate key includes the actual payment date but is not a guaranteed unique event ID.",
+      "The obligation key consists of the current application, previous contract, schedule version and installment number; the payment date is not part of it.",
+      "Rows without an actual payment date fail the temporal filter. Their payment amount is not imputed; a missing date is not interpreted as nonpayment.",
+      "Current applications are retained regardless of usable payment history; other payments for the same installment/client remain available.",
+      "Exact duplicates are diagnosed only. Repeated candidate keys and partial payments are not removed; AMT_PAYMENT is summed in DECIMAL(24,3), and AMT_INSTALMENT is counted once per installment.",
+      "Repeating AMT_INSTALMENT across multiple payment rows does not imply multiple obligations."
     ],
     "artifacts": {
       "installments_incomplete_key_fields.csv": "reports\\quality\\installments_incomplete_key_fields.csv",
@@ -289,9 +289,9 @@
       "missing__missingindicator_partly_missing",
       "missing__missingindicator_complete_in_train"
     ],
-    "fit_policy_ru": "fit только на train каждого CV-фолда или 90%-ного повтора; test/validation не участвуют",
-    "fallback_policy_ru": "Для полностью пустого train-столбца фиксированный 0 и индикатор пропуска; столбец не удаляется",
-    "category_policy_ru": "Обучаемое кодирование категорий — отдельная ветка полного Pipeline, здесь не выполняется"
+    "fit_policy_ru": "fit only on the training partition of each CV fold or 90% repeat; test/validation are excluded",
+    "fallback_policy_ru": "For a completely empty training column, use a fixed 0 and a missingness indicator; retain the column",
+    "category_policy_ru": "Learned categorical encoding is a separate branch of the complete Pipeline and is not performed here"
   },
   "prepared_files_sha256_unchanged": true,
   "source_csv_sha256_unchanged": true,

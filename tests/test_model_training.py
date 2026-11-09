@@ -1,6 +1,6 @@
-"""Синтетические проверки Pipeline и изоляции предобработки в CV/stacking.
+"""Synthetic tests of Pipeline preprocessing isolation in CV/stacking.
 
-Файлы Home Credit не читаются. Полный эксперимент не запускается.
+Home Credit files are not read. The full experiment is not run.
 """
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ def walk_transformers(estimator):
 
 
 def record_numeric_imputer_fits(records):
-    """Сохранять реально обученные медианы каждого клона, включая внутренние OOF."""
+    """Record fitted medians of every clone, including internal OOF models."""
     original = SimpleImputer.fit
 
     def logged_fit(self, X, y=None, **kwargs):
@@ -180,7 +180,7 @@ class ModelPipelineTests(unittest.TestCase):
 
     def test_stacking_internal_oof_refits_each_base_preprocessor(self):
         estimator = self.factory('stacking')
-        # Общая обучаемая предобработка перед StackingClassifier запрещена.
+        # Shared trainable preprocessing before StackingClassifier is prohibited.
         self.assertEqual(list(estimator.named_steps), ['model'])
         stack = estimator.named_steps['model']
         self.assertFalse(stack.passthrough)

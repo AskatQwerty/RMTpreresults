@@ -17,14 +17,14 @@ import pandas as pd
 SCOPE = 'mlp_repair_20k_v1'
 VARIANTS = ('stop_only', 'stop_regularized', 'stop_clipped', 'stop_clipped_regularized')
 LIMITATIONS = [
-    'Это отдельный последующий исследовательский эксперимент MLP. Основные 28 Pipeline, 1680 CV-результатов и прежние RQ1/RQ2 не заменяются.',
-    'Использованы прежние 20 000 клиентов с естественным балансом классов и сохранённые внешние CV-фолды. Test ранее уже просматривался; он не является новой независимой проверкой.',
-    'Вариант выбирается по среднему log-loss внешней CV. Внутри каждого train-фолда отдельные 15% используются только для выбора числа эпох по validation log-loss.',
-    'Предобработка внутреннего этапа обучается только на его train. Затем новая предобработка и новая сеть обучаются на всём предоставленном train ровно выбранное число эпох.',
-    'Ограничение z-значений до ±5 применяется только к масштабированным числовым значениям. Это отдельный вариант преобразования, а не удаление клиентов или изменение сохранённых X.',
-    'Здесь показаны точечные оценки. Bootstrap, доверительные интервалы и проверки значимости различий не вычислялись; стандартное отклонение трёх CV-фолдов не является CI.',
-    'В sklearn partial_fit значение n_iter_ относится к последнему вызову. Реальное число эпох записывается отдельно по циклу обучения, loss_curve_ и t_.',
-    'Изменение правила остановки и исполнительного цикла partial_fit ограничивает строго причинное толкование сравнения с исходным MLP. Улучшение на уже использованном test остаётся исследовательским результатом.',
+    'This is a separate post-hoc exploratory MLP experiment. The main 28 Pipelines, 1680 CV results and previous RQ1/RQ2 results are not replaced.',
+    'The same 20 000 clients with the natural class balance and saved outer CV folds are used. The test set had already been inspected; it is not a new independent validation.',
+    'The variant is selected by mean outer-CV log-loss. Within each training fold, a separate 15% is used only to select the epoch count by validation log-loss.',
+    'Preprocessing in the inner stage is fitted only on its training partition. Fresh preprocessing and a fresh network are then fitted on all supplied training rows for exactly the selected number of epochs.',
+    'Clipping z-values to ±5 applies only to standardized numeric values. It is a separate transformation variant; clients are not removed and saved X is not modified.',
+    'Only point estimates are shown. Bootstrap, confidence intervals and significance tests were not computed; the standard deviation across three CV folds is not a CI.',
+    'In sklearn partial_fit, n_iter_ refers to the most recent call. Actual epochs are recorded separately from the training loop, loss_curve_ and t_.',
+    'Changes to the stopping rule and partial_fit execution loop limit strict causal interpretation of comparisons with the original MLP. Improvement on the previously used test remains exploratory.',
 ]
 
 
@@ -219,37 +219,37 @@ def export_mlp_repair_report(root, report):
     figure_files = figures(comparison, curves, report)
     tested = comparison[comparison.eligible_for_test]
     narrative = [
-        'Проверены четыре заранее заданных варианта MLP на четырёх уровнях и трёх сохранённых внешних CV-фолдах: 48 внешних CV-оценок.',
-        'Каждая процедура включает внутренний выбор эпох по log-loss и отдельное обучение с нуля на всём доступном train. Поэтому 48 CV-оценок соответствуют 96 траекториям оптимизатора, а не 48 вызовам partial_fit.',
-        f'По заранее записанному CV-критерию к итоговой оценке допущено {len(tested)} из четырёх уровней. Число итоговых процедур: {len(tested)}; они добавляют {2*len(tested)} траекторий оптимизатора.',
+        'Four predeclared MLP variants were evaluated at four levels using three saved outer CV folds: 48 outer CV evaluations.',
+        'Each procedure includes inner epoch selection by log-loss and a separate fresh fit on all available training rows. Thus, 48 CV evaluations correspond to 96 optimizer trajectories, not 48 partial_fit calls.',
+        f'Under the prespecified CV criterion, {len(tested)} of four levels qualified for final evaluation. Number of final procedures: {len(tested)}; these add {2*len(tested)} optimizer trajectories.',
     ]
     for r in comparison.itertuples():
-        line = f'Level {r.level}: выбран {r.variant}; CV log-loss {r.original_cv_log_loss:.6f} → {r.repaired_cv_log_loss:.6f}.'
+        line = f'Level {r.level}: selected {r.variant}; CV log-loss {r.original_cv_log_loss:.6f} → {r.repaired_cv_log_loss:.6f}.'
         if r.eligible_for_test:
             line += (f' Test log-loss {r.original_test_log_loss:.6f} → {r.repaired_test_log_loss:.6f}; '
                      f'AP {r.original_test_pr_auc_average_precision:.6f} → {r.repaired_test_pr_auc_average_precision:.6f}; '
-                     f'выбрано {int(r.best_epoch)} эпох.')
+                     f'selected {int(r.best_epoch)} epochs.')
         else:
-            line += ' Критерий допуска не выполнен; итоговое обучение и новая оценка на test отсутствуют.'
+            line += ' The eligibility criterion was not met; no final training or new test evaluation was performed.'
         narrative.append(line)
-    narrative.append('Уменьшение CV/test log-loss описывает результат этого дополнительного эксперимента. Оно не доказывает, что найдена единственная причина исходной неудачи MLP.')
-    text = 'Дополнительный эксперимент: попытка улучшить MLP\n\n' + '\n\n'.join(narrative) + '\n\nОграничения\n\n' + '\n'.join('- ' + x for x in LIMITATIONS)
+    narrative.append('Lower CV/test log-loss describes the result of this supplemental experiment. It does not establish a single cause of the original MLP failure.')
+    text = 'Supplemental experiment: an attempt to improve MLP\n\n' + '\n\n'.join(narrative) + '\n\nLimitations\n\n' + '\n'.join('- ' + x for x in LIMITATIONS)
     (report / 'results_report.txt').write_text(text + '\n', encoding='utf-8-sig')
     short = comparison[[c for c in ['level', 'variant', 'eligible_for_test', 'original_cv_log_loss', 'repaired_cv_log_loss',
         'original_test_log_loss', 'repaired_test_log_loss', 'original_test_pr_auc_average_precision',
         'repaired_test_pr_auc_average_precision', 'best_epoch'] if c in comparison]].copy()
-    body = ['<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<title>RMT: дополнительный эксперимент MLP</title><style>body{font:16px/1.55 system-ui,sans-serif;color:#173041;max-width:1200px;margin:32px auto;padding:0 20px}h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:13px;min-width:650px}th,td{padding:7px 9px;border-bottom:1px solid #dce5ea;text-align:right}th{background:#edf3f7}td:first-child,th:first-child{text-align:left}.table{overflow-x:auto}img{display:block;width:100%;height:auto;margin:20px 0}.notice{border-left:4px solid #c47d16;padding:12px 16px;background:#fff8e9}a{color:#1769aa}</style></head><body>',
-        '<h1>RMT: дополнительный эксперимент MLP</h1>',
-        '<p class="notice">Результаты основного эксперимента сохранены отдельно. Этот анализ выполнен после просмотра прежнего test и имеет исследовательский характер.</p>']
+    body = ['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<title>RMT: additional MLP experiment</title><style>body{font:16px/1.55 system-ui,sans-serif;color:#173041;max-width:1200px;margin:32px auto;padding:0 20px}h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:13px;min-width:650px}th,td{padding:7px 9px;border-bottom:1px solid #dce5ea;text-align:right}th{background:#edf3f7}td:first-child,th:first-child{text-align:left}.table{overflow-x:auto}img{display:block;width:100%;height:auto;margin:20px 0}.notice{border-left:4px solid #c47d16;padding:12px 16px;background:#fff8e9}a{color:#1769aa}</style></head><body>',
+        '<h1>RMT: additional MLP experiment</h1>',
+        '<p class="notice">The main experiment results are preserved separately. This exploratory analysis was performed after inspecting previous test results.</p>']
     body.extend('<p>' + html.escape(s) + '</p>' for s in narrative)
-    body.extend(['<h2>До и после</h2><div class="table">', short.to_html(index=False, border=0, float_format=lambda x: f'{x:.6f}', na_rep='—'), '</div>',
-                 '<img src="figures/mlp_before_after.png" alt="Сравнение CV и test log-loss исходного и нового MLP">',
-                 '<h2>Выбор числа эпох</h2><img src="figures/inner_learning_curves.png" alt="Кривые log-loss на внутреннем train и validation">',
-                 '<h2>Все варианты CV</h2><div class="table">', candidates.to_html(index=False, border=0, float_format=lambda x: f'{x:.6f}'), '</div>',
-                 '<h2>Ограничения</h2><ul>'])
+    body.extend(['<h2>Before and after</h2><div class="table">', short.to_html(index=False, border=0, float_format=lambda x: f'{x:.6f}', na_rep='—'), '</div>',
+                 '<img src="figures/mlp_before_after.png" alt="Comparison of original and updated MLP CV and test log-loss">',
+                 '<h2>Epoch selection</h2><img src="figures/inner_learning_curves.png" alt="Log-loss curves on inner training and validation data">',
+                 '<h2>All CV variants</h2><div class="table">', candidates.to_html(index=False, border=0, float_format=lambda x: f'{x:.6f}'), '</div>',
+                 '<h2>Limitations</h2><ul>'])
     body.extend('<li>' + html.escape(s) + '</li>' for s in LIMITATIONS)
-    body.append('</ul><h2>Файлы</h2><ul>')
+    body.append('</ul><h2>Files</h2><ul>')
     for name in ('before_after.csv', 'cv_results.csv', 'candidate_summary.csv', 'inner_learning_curves.csv',
                  'frozen_plan.json', 'frozen_selection.json', 'report_manifest.json', 'results_report.txt'):
         body.append(f'<li><a href="{name}">{name}</a></li>')

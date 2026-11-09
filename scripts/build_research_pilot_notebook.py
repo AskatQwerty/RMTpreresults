@@ -1,7 +1,7 @@
-"""Создать отдельный notebook исследовательского пилота 20k / 5 конфигураций.
+"""Create a separate research-pilot notebook: 20k clients / 5 configurations.
 
-Builder только записывает notebook; обучение выполняется отдельным явным запуском.
-Существующий notebooks/02_model_training.ipynb не изменяется.
+The builder only writes the notebook; training requires a separate explicit run.
+The existing notebooks/02_model_training.ipynb is unchanged.
 """
 from pathlib import Path
 
@@ -20,15 +20,15 @@ def code(source, **metadata):
     cells.append(nbf.v4.new_code_cell(source, metadata=metadata))
 
 
-md("""# 03. Исследовательский пилот: 20 000 заявок, 5 конфигураций
+md("""# 03. Research pilot: 20,000 applications, 5 configurations
 
-Этот notebook описывает отдельный эксперимент со scope **`pilot_20k_5config`**. Он использует готовые признаки четырёх уровней и одну сохранённую стратифицированную подвыборку из development. Исходные X, development/test, пять основных train-подвыборок и CV-folds полного исследования остаются прежними.
+This notebook describes a separate experiment with scope **`pilot_20k_5config`**. It uses the prepared features at four levels and one saved stratified development subsample. The original X, development/test split, five main training subsamples, and full-study CV folds remain unchanged.
 
-Для каждой из 28 пар «модель + уровень» выполняется один RandomizedSearchCV: **5 конфигураций × 3 CV-фолда**, выбор по `neg_log_loss`, затем **один встроенный refit** лучшего Pipeline на всей пилотной train-выборке. Результат — 420 внешних CV-fit и 28 итоговых refit при успешном выполнении без повторов прерванных этапов. Внутренние обучения voting/stacking учитываются отдельно: всего 1 344 примитивных fit.
+Each of the 28 model–level pairs runs one RandomizedSearchCV: **5 configurations × 3 CV folds**, selected by `neg_log_loss`, followed by **one automatic refit** of the best Pipeline on the entire pilot training sample. Successful execution without retries produces 420 outer CV fits and 28 final refits. Internal voting/stacking fits are counted separately: 1,344 primitive fits in total.
 
-Полный план Assignment 2 — 28 поисков по 20 конфигураций и 140 основных обучений — сохраняется отдельно в notebook 02. Здесь нет пяти повторных обучений каждой пары. Пилот позволяет получить предварительные сравнения, но не измеряет устойчивость результатов по пяти train-подвыборкам.
+The full Assignment 2 plan—28 searches with 20 configurations and 140 main fits—is retained separately in notebook 02. This pilot does not include five repeated fits per pair. It provides preliminary comparisons but does not measure stability across five training subsamples.
 
-`RUN_PILOT=False` по умолчанию. Создание notebook, инициализация ID/CV и чтение отчётов не запускают обучение. Для чтения существующих результатов достаточно конфигурации и последней отчётной ячейки.""")
+`RUN_PILOT=False` by default. Creating the notebook, initializing IDs/CV folds, and reading reports do not start training. To read existing results, run only the configuration and final reporting cells.""")
 
 code("""from pathlib import Path
 import json, sys
@@ -50,42 +50,42 @@ REPORT_DIR=ROOT/'reports/pilot_20k_5config'
 SCOPE='pilot_20k_5config'
 SAMPLE_N=20000
 THREADS=2
-RUN_PILOT=False  # True только для явного запуска или продолжения этого пилота.
+RUN_PILOT=False  # Set True only to explicitly start or resume this pilot.
 
 print('Scope:',SCOPE)
-print('Артефакты:',PILOT_ROOT)
-print('Отчёты:',REPORT_DIR)
-print('Запуск обучения включён:',RUN_PILOT)""", tags=['pilot_configuration'])
+print('Artifacts:',PILOT_ROOT)
+print('Reports:',REPORT_DIR)
+print('Training enabled:',RUN_PILOT)""", tags=['pilot_configuration'])
 
-md("""## 1. Одна общая пилотная выборка и собственные CV-folds
+md("""## 1. One shared pilot sample and its own CV folds
 
-`initialize_pilot` создаёт и сохраняет стратифицированную выборку из 20 000 development-ID, общую для всех моделей и уровней. Для неё один раз создаётся собственная `StratifiedKFold(n_splits=3, shuffle=True, random_state=42)`; назначения сохраняются в `cv_folds.parquet` внутри каталога пилота. При продолжении используются уже сохранённые ID и фолды.
+`initialize_pilot` creates and saves a stratified sample of 20,000 development IDs shared by all models and levels. Its own `StratifiedKFold(n_splits=3, shuffle=True, random_state=42)` is created once; assignments are saved in `cv_folds.parquet` inside the pilot directory. Resumed runs reuse the saved IDs and folds.
 
-Это новые пилотные CV-folds; назначения полного development не переписываются. Test не участвует в выборе пилотной выборки или формировании фолдов. На этом этапе допускаются чтение схем, ID и проверка принадлежности разбиениям; модели не обучаются.
+These are new pilot CV folds; assignments for the full development set are not overwritten. Test data are not used to select the pilot sample or create folds. This stage reads schemas and IDs and verifies split membership; it does not fit models.
 
-Следующая ячейка показывает фактический состав выборки из `cohort_summary.json`. Значения не выводятся из запланированного размера и не подменяются ожидаемыми числами.""")
+The next cell displays the actual sample composition from `cohort_summary.json`. Values are not inferred from the planned sample size or replaced by expected counts.""")
 
 code("""pilot_context=initialize_pilot(PREPARED,PILOT_ROOT,threads=THREADS,sample_n=SAMPLE_N)
 cohort_path=PILOT_ROOT/'cohort_summary.json'
 with cohort_path.open(encoding='utf-8') as stream:
     cohort_summary=json.load(stream)
-print('Размер пилотной выборки:',cohort_summary['sample_n'])
-print('Стратифицированный выбор, seed:',cohort_summary['random_state'])
-print('Баланс TARGET в пилотной выборке:')
+print('Pilot sample size:',cohort_summary['sample_n'])
+print('Stratified selection seed:',cohort_summary['random_state'])
+print('Pilot TARGET balance:')
 display(pd.DataFrame(cohort_summary['cohort_balance']))
-print('Общие пилотные CV-folds:')
+print('Shared pilot CV folds:')
 display(pd.DataFrame([{key:fold[key] for key in ['fold','train_rows','validation_rows']}
                       for fold in cohort_summary['cv']]))
 print('Manifest:',PILOT_ROOT/'experiment_manifest.json')
-print('Сохранённые пилотные CV-folds:',PILOT_ROOT/'cv_folds.parquet')""", tags=['pilot_initialize_without_fit'])
+print('Saved pilot CV folds:',PILOT_ROOT/'cv_folds.parquet')""", tags=['pilot_initialize_without_fit'])
 
-md("""## 2. Порядок выполнения и бюджет
+md("""## 2. Execution order and budget
 
-Сначала выполняются четыре уровня Logistic Regression, затем четыре уровня LightGBM, XGBoost, soft voting, stacking, MLP и Random Forest. Пары запускаются последовательно в отдельных worker-процессах. Сначала обрабатываются более быстрые семейства; порядок не зависит от результатов test.
+The four Logistic Regression levels run first, followed by the four levels of LightGBM, XGBoost, soft voting, stacking, MLP, and Random Forest. Pairs run sequentially in separate worker processes. Faster model families run first; the order is independent of test results.
 
-Полные Pipeline и заранее заданные пространства гиперпараметров сохраняются в manifest. Каждый поиск получает необученный Pipeline целиком. `refit=True` обучает выбранный Pipeline один раз после CV; отдельный ручной `fit` после поиска не требуется.
+Complete Pipelines and predefined hyperparameter spaces are saved in the manifest. Each search receives the entire unfitted Pipeline. `refit=True` fits the selected Pipeline once after CV; no separate manual `fit` is needed after the search.
 
-Числа ниже — план успешного исполнения. Если прерванный поиск приходится повторить, фактическое число попыток больше; это должно быть видно в сохранённых событиях и отчёте.""")
+The counts below describe successful execution. Retrying an interrupted search increases the actual number of attempts; saved events and reports must make this visible.""")
 
 code("""MODEL_ORDER=['logistic_regression','lightgbm','xgboost','soft_voting','stacking','mlp','random_forest']
 plan_rows=[]
@@ -100,51 +100,51 @@ assert int(pilot_plan['searches'].sum())==28
 assert int(pilot_plan['candidate_cv_fits'].sum())==420
 assert int(pilot_plan['final_refits'].sum())==28
 assert int(pilot_plan['primitive_fits_including_ensembles'].sum())==1344
-print('Всего: 28 поисков, 420 CV-fit, 28 встроенных refit; 1 344 примитивных fit.')""")
+print('Total: 28 searches, 420 CV fits, 28 automatic refits; 1 344 primitive fits.')""")
 
-md("""## 3. Предобработка и итоговая оценка
+md("""## 3. Preprocessing and final evaluation
 
-Числовые медианы, обработка полностью пустого train-столбца, индикаторы пропусков, заполнение категорий, OneHotEncoder и необходимое масштабирование входят в Pipeline. На каждом CV-fit они обучаются только на обучающей части фолда. Validation и test преобразуются сохранёнными статистиками; неизвестные категории обрабатываются без повторного fit.
+Numeric medians, handling of entirely missing training columns, missingness indicators, categorical imputation, OneHotEncoder, and required scaling are included in the Pipeline. During every CV fit, they are fitted only on the training fold. Validation and test data use the saved statistics; unknown categories are handled without refitting.
 
-У stacking каждая базовая модель содержит собственную предобработку также во внутренних OOF-fit. Параметры выбираются только по средней CV log-loss. TARGET и ID не являются входными признаками; пол и возраст остаются вне X согласно подготовке A2.
+For stacking, every base model includes its own preprocessing during internal OOF fits as well. Parameters are selected solely by mean CV log-loss. TARGET and IDs are not input features; sex and age remain outside X, as specified in A2 preparation.
 
-После поиска fitted `best_estimator_` сохраняется **до обращения к test для прогнозирования**. Итоговые вероятности и метрики рассчитываются на существующем test; параметры, правила обработки и порог классификации по этим результатам не подбираются. Сравнения пилота следует интерпретировать с учётом единственной train-выборки и ограниченного поиска пяти конфигураций.
+After search, the fitted `best_estimator_` is saved **before accessing test data for prediction**. Final probabilities and metrics use the existing test set; they are not used to select parameters, processing rules, or the classification threshold. Pilot comparisons must account for the single training sample and limited five-configuration search.
 
-**RQ1 в A2 — выбор модели при совместной оценке точности, прибыли и fairness.** Пилот предоставляет описательные сравнения моделей, Brier score и калибровочные частоты. Для Level 4 из уже сохранённых вероятностей дополнительно вычисляются заранее заданные сценарии прибыли и групповых различий. Они не требуют нового обучения или вызова `predict`.
+**RQ1 in A2 concerns model selection through joint assessment of accuracy, profit, and fairness.** The pilot provides descriptive model comparisons, Brier score, and calibration frequencies. Predefined profit and group-disparity scenarios are additionally computed for Level 4 from saved probabilities. These require no new training or `predict` calls.
 
-Нормировка: доход от погашенного кредита `m=1`, убыток при дефолте `L/m` равен **1, 5 или 10**. Для каждого отношения сравниваются фиксированный порог **0.5** и порог безубыточности **`1/(1+L/m)`**. Заявка одобряется строго при `p(default)<t`; при равенстве порогу отклоняется. Средняя реализованная прибыль по test считается по всем заявителям: `mean(approve * ((1-TARGET) - (L/m)*TARGET))`. Это условные единицы при заданных допущениях, а не реальные денежные доходы кредитора. При `L/m=1` оба правила намеренно совпадают.
+Normalization: revenue from a repaid loan is `m=1`, and the default loss ratio `L/m` is **1, 5, or 10**. For each ratio, the fixed threshold **0.5** is compared with the break-even threshold **`1/(1+L/m)`**. An application is approved strictly when `p(default)<t`; equality results in rejection. Mean realized test profit is calculated across all applicants: `mean(approve * ((1-TARGET) - (L/m)*TARGET))`. These are conditional units under stated assumptions, not the lender's actual monetary returns. At `L/m=1`, both rules intentionally coincide.
 
-Fairness-группы берутся из сохранённого файла: пол F/M и возраст **`<25` / `>=25`**, поэтому ровно 25 лет относится к старшей группе. В A2 равенство границе отдельно не определено; здесь сохраняется уже принятое правило подготовки. Неизвестные группы показываются отдельно и не входят в бинарные разрывы. Approval-rate gap и TPR gap — абсолютные разности долей. Положительный класс — дефолт (`TARGET=1`), поэтому TPR означает долю обнаруженных дефолтов среди фактических дефолтов группы. При нулевом знаменателе показатель остаётся неопределённым. Калибровочная таблица использует 10 фиксированных интервалов вероятности без обучения калибратора.
+Fairness groups come from the saved file: sex F/M and age **`<25` / `>=25`**, so exactly 25 years belongs to the older group. A2 does not separately specify equality at the boundary; the existing preparation rule is retained. Unknown groups are shown separately and excluded from binary gaps. Approval-rate gap and TPR gap are absolute differences in rates. The positive class is default (`TARGET=1`), so TPR is the fraction of actual group defaults detected. A metric with a zero denominator remains undefined. The calibration table uses 10 fixed probability intervals without fitting a calibrator.
 
-Показываются все семь моделей Level 4 без фильтра допустимости по точности. Полное правило A2 сначала проверяет точность, затем выбирает прибыль при ограничении fairness; этот выбор **не выполняется** в пилоте. Итоговый победитель, значимость различий, bootstrap CI, DeLong, Bonferroni и fairness-коррекции остаются для последующего полного анализа.
+All seven Level 4 models are shown without an accuracy eligibility filter. The full A2 rule first checks accuracy and then selects profit subject to fairness; this selection **is not performed** in the pilot. The final winner, significance tests, bootstrap CIs, DeLong, Bonferroni, and fairness corrections are deferred to the subsequent full analysis.
 
-**RQ2 — польза кредитной и платёжной истории и способность моделей её использовать.** Ему соответствуют приросты метрик каждого типа модели при добавлении истории, прежде всего Levels 2–4 относительно application-only Level 1. Соседние уровни дают дополнительное описательное сравнение. Единичный пилотный прирост не доказывает значимость или устойчивость после повторных обучений. SHAP и RQ3 в этот пилот не входят.""")
+**RQ2 concerns the value of credit and payment history and the models' ability to use it.** It is addressed by changes in each model's metrics when history is added, primarily Levels 2–4 versus application-only Level 1. Adjacent levels provide additional descriptive comparisons. A gain from one pilot run does not establish significance or stability across repeated fits. SHAP and RQ3 are outside this pilot.""")
 
-md("""## 4. Явный запуск / продолжение пилота
+md("""## 4. Explicit pilot start / resume
 
-Для запуска из чистого ядра установите `RUN_PILOT=True` в конфигурационной ячейке, выполните конфигурацию и ячейку ниже. Инициализация данных также выполняется контроллером, если ещё необходима. Массовый эксперимент notebook 02 этим вызовом не запускается.
+To start from a clean kernel, set `RUN_PILOT=True` in the configuration cell, then execute the configuration and the cell below. The controller also initializes data if needed. This call does not start the full experiment in notebook 02.
 
-Контрольные точки поиска и оценки разделены. Сначала сохраняются fitted Pipeline, выбранные параметры, CV-результаты и диагностика обучения. Затем выполняются прогнозирование и экспорт. Если прогнозирование или экспорт прерваны, уже сохранённая модель загружается без нового fit. Если прерван сам поиск до его контрольной точки, повторяется тот же поиск; завершённые пары пропускаются после проверки сохранённых артефактов.
+Search and evaluation checkpoints are separate. The fitted Pipeline, selected parameters, CV results, and training diagnostics are saved first. Prediction and export follow. If prediction or export is interrupted, the saved model is loaded without another fit. If the search itself is interrupted before its checkpoint, the same search is repeated; completed pairs are skipped after saved-artifact validation.
 
-Используйте тот же `PILOT_ROOT` для продолжения. Несовместимые данные, параметры или код нельзя смешивать в одном каталоге. Существующие результаты сохраняются, а состояние запуска определяется по артефактам на диске.""")
+Use the same `PILOT_ROOT` to resume. Incompatible data, parameters, or code must not be mixed in one directory. Existing results are preserved, and run status is determined from artifacts on disk.""")
 
 code("""if RUN_PILOT:
     pilot_run_summary=run_research_pilot(PREPARED,PILOT_ROOT,REPORT_DIR,threads=THREADS)
     display(pilot_run_summary)
 else:
-    print('Обучение не запускалось этой ячейкой: RUN_PILOT=False.')
-    print('Для запуска/продолжения: изменить флаг в конфигурации и выполнить эту ячейку.')
-print('Артефакты пилота:',PILOT_ROOT)""", tags=['research_pilot_explicit_opt_in'])
+    print('This cell did not start training: RUN_PILOT=False.')
+    print('To start/resume: change the configuration flag and run this cell.')
+print('Pilot artifacts:',PILOT_ROOT)""", tags=['research_pilot_explicit_opt_in'])
 
-md("""## 5. Независимая сводка сохранённых результатов
+md("""## 5. Independent summary of saved results
 
-Ячейка ниже использует только пути из конфигурации и файлы на диске. Ей не нужны `pilot_context`, `cohort_summary`, `pilot_plan` или `pilot_run_summary` в памяти; её можно выполнить после конфигурации из чистого ядра. Она не загружает Pipeline для обучения и не запускает fit.
+The cell below uses only configuration paths and files on disk. It does not require `pilot_context`, `cohort_summary`, `pilot_plan`, or `pilot_run_summary` in memory and can run after configuration from a clean kernel. It does not load Pipelines for training or start any fit.
 
-Таблица `metrics.csv` содержит реальные завершённые оценки; `metrics.tex` предназначена для включения в отчёт. `report_metadata.json` фиксирует scope и полноту результата. Ниже показываются компактная сводка, предварительное сравнение RQ1 на Level 4 и RQ2 по четырём уровням. Значения и готовые разности берутся из CSV; метрики и прогнозы здесь не пересчитываются. Отсутствующие пары остаются незавершёнными и отображаются пропусками.
+`metrics.csv` contains actual completed evaluations; `metrics.tex` is intended for the report. `report_metadata.json` records scope and completeness. The displays below provide a compact summary, preliminary RQ1 comparisons at Level 4, and RQ2 across four levels. Values and precomputed differences are read from CSV; metrics and predictions are not recomputed here. Missing pairs remain incomplete and appear as missing values.
 
-Для RQ1 AP, ROC-AUC, log-loss и Brier показывают только predictive accuracy и качество вероятностей. Таблицы сценариев прибыли и fairness сохранены отдельно в `decision_scenarios.csv` и `decision_groups.csv`; core-модель по этим результатам не выбирается. В RQ2 меньший log-loss и больший AP означают лучшее значение на данном test. Один refit на пару не даёт оснований для вывода о статистической значимости. При наличии завершённых MLP показываются фактические `n_iter_`, длина `loss_curve_` и сохранённые предупреждения.
+For RQ1, AP, ROC-AUC, log-loss, and Brier describe predictive accuracy and probability quality only. Profit and fairness scenarios are saved separately in `decision_scenarios.csv` and `decision_groups.csv`; these results do not select a core model. For RQ2, lower log-loss and higher AP indicate better performance on this test set. One refit per pair does not support a significance claim. Completed MLP runs display actual `n_iter_`, `loss_curve_` length, and saved warnings.
 
-Большие артефакты моделей, вероятностей и контрольных точек хранятся в `artifacts/`, уже исключённом из Git. Небольшие отчётные таблицы находятся в `reports/pilot_20k_5config/`.""")
+Large model, probability, and checkpoint artifacts are stored in `artifacts/`, which is already excluded from Git. Small reporting tables are in `reports/pilot_20k_5config/`.""")
 
 code("""if (PILOT_ROOT/'experiment_manifest.json').exists():
     pilot_disk_report=export_pilot_reports(PILOT_ROOT,REPORT_DIR)
@@ -154,8 +154,8 @@ code("""if (PILOT_ROOT/'experiment_manifest.json').exists():
             report_metadata=json.load(stream)
     else:
         report_metadata=pilot_disk_report
-    status_fields={'scope':'Scope','status':'Состояние','completed_pairs':'Завершено пар',
-                   'pending_pairs':'Ожидают','invalid_pairs':'Повреждено'}
+    status_fields={'scope':'Scope','status':'Status','completed_pairs':'Completed pairs',
+                   'pending_pairs':'Pending','invalid_pairs':'Invalid'}
     display(pd.DataFrame([{title:report_metadata.get(key) for key,title in status_fields.items()}]))
 
     def read_report_csv(name):
@@ -169,65 +169,65 @@ code("""if (PILOT_ROOT/'experiment_manifest.json').exists():
 
     comparison=read_report_csv('rq1_model_comparison.csv')
     saved_metrics=read_report_csv('metrics.csv')
-    print('RQ1 — Level 4: предварительное сравнение качества, без выбора core-модели.')
+    print('RQ1 — Level 4: preliminary performance comparison; no core-model selection.')
     if not comparison.empty:
         level4=comparison.loc[comparison['level']==4].copy()
         if not saved_metrics.empty and 'search_and_refit_seconds' in saved_metrics:
             runtime=saved_metrics.loc[saved_metrics['level']==4,['model','search_and_refit_seconds']]
             level4=level4.merge(runtime,on='model',how='left',validate='one_to_one')
-        rq1_labels={'model_label':'Модель','status':'Статус','test_pr_auc_average_precision':'AP',
+        rq1_labels={'model_label':'Model','status':'Status','test_pr_auc_average_precision':'AP',
             'test_roc_auc':'ROC-AUC','test_log_loss':'Log-loss','test_brier_score':'Brier',
-            'search_and_refit_seconds':'Поиск + refit, с'}
+            'search_and_refit_seconds':'Search + refit, s'}
         rq1_table=level4[[name for name in rq1_labels if name in level4]].rename(columns=rq1_labels)
         formats={name:'{:.4f}' for name in ['AP','ROC-AUC','Log-loss','Brier'] if name in rq1_table}
-        if 'Поиск + refit, с' in rq1_table:
-            formats['Поиск + refit, с']='{:.1f}'
+        if 'Search + refit, s' in rq1_table:
+            formats['Search + refit, s']='{:.1f}'
         display(rq1_table.style.format(formats,na_rep='—'))
     else:
-        print('Сохранённой таблицы RQ1 пока нет.')
+        print('No saved RQ1 table yet.')
 
     history=read_report_csv('rq2_history_gains.csv')
-    print('RQ2 — сравнение четырёх уровней; разности Δ L4−L1 уже сохранены в CSV.')
+    print('RQ2 — comparison of four levels; Δ L4−L1 differences are already saved in CSV.')
     if not history.empty:
         model_order=history['model_label'].drop_duplicates().tolist()
         for metric,delta,title in [
-            ('test_log_loss','delta_log_loss_vs_level1','Log-loss: меньше — лучше'),
-            ('test_pr_auc_average_precision','delta_pr_auc_average_precision_vs_level1','AP: больше — лучше')]:
+            ('test_log_loss','delta_log_loss_vs_level1','Log-loss: lower is better'),
+            ('test_pr_auc_average_precision','delta_pr_auc_average_precision_vs_level1','AP: higher is better')]:
             table=history.pivot(index='model_label',columns='level',values=metric)
             table=table.reindex(index=model_order,columns=[1,2,3,4])
             table.columns=['Level 1','Level 2','Level 3','Level 4']
             table['Δ L4−L1']=history.loc[history['level']==4].set_index('model_label')[delta]
-            table.index.name='Модель'
+            table.index.name='Model'
             print(title)
             display(table.style.format('{:.4f}',na_rep='—'))
     else:
-        print('Сохранённой таблицы RQ2 пока нет.')
+        print('No saved RQ2 table yet.')
 
     mlp_diagnostics=read_report_csv('mlp_diagnostics.csv')
     if not mlp_diagnostics.empty:
-        print('MLP — фактические эпохи и сохранённая кривая обучения:')
-        diagnostic_labels={'model':'Модель','level':'Level','n_iter_':'Фактически эпох',
-            'max_iter':'Лимит эпох','loss_curve_points':'Точек loss_curve_',
-            'loss_curve_length_matches_n_iter':'Длина кривой = n_iter_'}
+        print('MLP — actual epochs and saved training curve:')
+        diagnostic_labels={'model':'Model','level':'Level','n_iter_':'Actual epochs',
+            'max_iter':'Epoch limit','loss_curve_points':'loss_curve_ points',
+            'loss_curve_length_matches_n_iter':'Curve length = n_iter_'}
         display(mlp_diagnostics[[name for name in diagnostic_labels if name in mlp_diagnostics]]
                 .rename(columns=diagnostic_labels))
     else:
-        print('Сохранённой диагностики завершённых MLP пока нет.')
+        print('No saved diagnostics for completed MLP runs yet.')
     saved_warnings=read_report_csv('warnings.csv')
     mlp_warnings=saved_warnings.loc[saved_warnings['model']=='mlp'] if not saved_warnings.empty else pd.DataFrame()
     if not mlp_warnings.empty:
-        print('Сохранённые предупреждения MLP (полный текст — warnings.csv):')
+        print('Saved MLP warnings (full text in warnings.csv):')
         with pd.option_context('display.max_colwidth',140):
             display(mlp_warnings[['level','stage','category','count','message']])
     elif not mlp_diagnostics.empty:
-        print('Предупреждений MLP в сохранённом warnings.csv нет.')
-    print('Один refit на пару: победитель и статистическая значимость здесь не определяются.')
-    print('Сохранённые отчётные файлы:')
+        print('No MLP warnings in the saved warnings.csv.')
+    print('One refit per pair: no winner or statistical significance is established here.')
+    print('Saved report files:')
     for report_path in sorted(REPORT_DIR.glob('*')):
         if report_path.is_file():
             print(report_path)
 else:
-    print('Пилот ещё не инициализирован; отчётных результатов нет.')""", tags=['pilot_disk_reports_independent'])
+    print('The pilot is not initialized yet; no report results are available.')""", tags=['pilot_disk_reports_independent'])
 
 notebook = nbf.v4.new_notebook(cells=cells, metadata={
     'kernelspec': {'display_name': 'Python 3 (ipykernel)', 'language': 'python', 'name': 'python3'},

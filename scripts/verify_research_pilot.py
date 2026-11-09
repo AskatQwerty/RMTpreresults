@@ -1,8 +1,8 @@
-"""Read-only проверка фактических артефактов pilot_20k_5config.
+"""Read-only verification of actual pilot_20k_5config artifacts.
 
-Не загружает joblib, не вызывает fit/predict/transform и не создаёт разбиения/X.
-По умолчанию печатает JSON; --output сохраняет этот JSON только внутри reports/.
-При работающем эксперименте проверяет снимок уже завершённых этапов.
+Does not load joblib, call fit/predict/transform, or create splits/X.
+Prints JSON by default; --output saves that JSON only within reports/.
+If the experiment is running, verifies a snapshot of completed stages.
 """
 from __future__ import annotations
 

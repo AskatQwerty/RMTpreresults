@@ -1,4 +1,4 @@
-"""Дополнительный аудит development без изменения X, разбиений и без fit()."""
+"""Additional development audit without modifying X or splits and without fit()."""
 from __future__ import annotations
 
 import hashlib
@@ -46,7 +46,7 @@ def _save(frame, report_dir, name):
 
 
 def development_profile(prepared_dir, report_dir):
-    """Точные линейные процентили; читаем 24 столбца, затем только development."""
+    """Exact linear percentiles; read 24 columns at a time, then retain development only."""
     prepared_dir, report_dir = Path(prepared_dir), Path(report_dir)
     development, positions = development_context(prepared_dir)
     levels = json.loads((prepared_dir/'feature_levels.json').read_text(encoding='utf-8'))
@@ -86,7 +86,7 @@ def development_profile(prepared_dir, report_dir):
     diagnostic = _save(pd.DataFrame(diagnostics),report_dir,'column_development_diagnostics.csv')
     special = diagnostic[diagnostic.all_missing | diagnostic.constant_among_observed]
     _save(special,report_dir,'empty_and_constant_columns.csv')
-    # По уровням фиксируем одни и те же статистики общих признаков, без 4 копий X.
+    # Record identical shared-feature statistics across levels without four copies of X.
     per_level = []
     for level, cols in levels.items():
         subset = stats[stats.feature.isin(cols)]
@@ -118,45 +118,45 @@ def _connection(data_dir, prepared_dir, report_dir):
 
 
 def semantic_checks(data_dir, prepared_dir, report_dir):
-    """Разделяет строгие ограничения, допустимые значения и вопросы учёта."""
+    """Distinguish hard constraints, allowed values and accounting questions."""
     prepared_dir,report_dir = Path(prepared_dir),Path(report_dir)
     con = _connection(data_dir,prepared_dir,report_dir)
     # condition, action and rationale are defined before examining tail magnitudes.
     specs = {
       'application':[
-        ('AMT_INCOME_TOTAL','AMT_INCOME_TOTAL<=0','hard','NULL при доходе <=0; сейчас не требуется','Положительный доход необходим для интерпретации отношений; редкий большой доход не нарушает это правило.'),
-        ('AMT_CREDIT','AMT_CREDIT<=0','hard','NULL при кредите <=0; сейчас не требуется','Текущая выдаваемая сумма должна быть положительной.'),
-        ('AMT_ANNUITY','AMT_ANNUITY<0','hard','NULL для отрицательного аннуитета; сейчас не требуется','Отрицательная сумма регулярного обязательства не соответствует описанию поля.'),
-        ('AMT_GOODS_PRICE','AMT_GOODS_PRICE<0','hard','NULL для отрицательной стоимости; сейчас не требуется','Стоимость приобретаемого товара неотрицательна.'),
-        ('CNT_FAM_MEMBERS','CNT_FAM_MEMBERS<1 OR CNT_FAM_MEMBERS<>floor(CNT_FAM_MEMBERS)','hard','NULL при числе членов семьи <1 или нецелом; сейчас не требуется','Число членов семьи включает заявителя и является счётчиком.'),
-        ('CNT_CHILDREN','CNT_CHILDREN<0 OR CNT_CHILDREN<>floor(CNT_CHILDREN)','hard','NULL для отрицательного/дробного счётчика; сейчас не требуется','Число детей — неотрицательное целое.'),
-        ('CNT_FAM_MEMBERS/CNT_CHILDREN','CNT_FAM_MEMBERS<=CNT_CHILDREN','review','Проверить состав семьи, не исправлять автоматически','Условие предполагает включение заявителя и детей в одну семью; при ином определении нужна интерпретация.'),
+        ('AMT_INCOME_TOTAL','AMT_INCOME_TOTAL<=0','hard','NULL for income <=0; currently unnecessary','Positive income is required to interpret ratios; rare high income does not violate this rule.'),
+        ('AMT_CREDIT','AMT_CREDIT<=0','hard','NULL for credit <=0; currently unnecessary','The current issued amount must be positive.'),
+        ('AMT_ANNUITY','AMT_ANNUITY<0','hard','NULL for negative annuity; currently unnecessary','A negative regular obligation amount is inconsistent with the field description.'),
+        ('AMT_GOODS_PRICE','AMT_GOODS_PRICE<0','hard','NULL for negative price; currently unnecessary','The price of purchased goods is nonnegative.'),
+        ('CNT_FAM_MEMBERS','CNT_FAM_MEMBERS<1 OR CNT_FAM_MEMBERS<>floor(CNT_FAM_MEMBERS)','hard','NULL for family size <1 or noninteger; currently unnecessary','Family size includes the applicant and is a count.'),
+        ('CNT_CHILDREN','CNT_CHILDREN<0 OR CNT_CHILDREN<>floor(CNT_CHILDREN)','hard','NULL for a negative/fractional count; currently unnecessary','The number of children is a nonnegative integer.'),
+        ('CNT_FAM_MEMBERS/CNT_CHILDREN','CNT_FAM_MEMBERS<=CNT_CHILDREN','review','Review family composition; do not correct automatically','This condition assumes the applicant and children belong to the same family; other definitions require interpretation.'),
       ],
       'previous':[
-        ('AMT_APPLICATION','AMT_APPLICATION<0','hard','NULL для отрицательной запрошенной суммы; сейчас не требуется','Номинальная запрошенная сумма неотрицательна.'),
-        ('AMT_CREDIT','AMT_CREDIT<0','hard','NULL для отрицательной одобренной суммы; сейчас не требуется','Номинальная сумма кредита неотрицательна.'),
-        ('AMT_APPLICATION','AMT_APPLICATION=0','allowed','Сохранить','Отменённые/отклонённые заявки и иной тип продукта могут не иметь запрошенной суммы.'),
-        ('AMT_CREDIT','AMT_CREDIT=0','allowed','Сохранить','Нулевая выдача допустима для невыданного кредита.'),
-        ('AMT_DOWN_PAYMENT','AMT_DOWN_PAYMENT<0','review','Предложение: NULL до агрегации после подтверждения смысла знака; пока сохранено','Отрицательный первоначальный взнос подозрителен, но может быть учётной корректировкой. Ни округление, ни замена на 0 не обоснованы.'),
+        ('AMT_APPLICATION','AMT_APPLICATION<0','hard','NULL for a negative requested amount; currently unnecessary','The nominal requested amount is nonnegative.'),
+        ('AMT_CREDIT','AMT_CREDIT<0','hard','NULL for a negative approved amount; currently unnecessary','The nominal credit amount is nonnegative.'),
+        ('AMT_APPLICATION','AMT_APPLICATION=0','allowed','Retain','Canceled/rejected applications and other product types may have no requested amount.'),
+        ('AMT_CREDIT','AMT_CREDIT=0','allowed','Retain','A zero disbursement is allowed for a loan that was not issued.'),
+        ('AMT_DOWN_PAYMENT','AMT_DOWN_PAYMENT<0','review','Proposal: NULL before aggregation after confirming the sign semantics; retained for now','A negative down payment is suspicious but may be an accounting adjustment. Neither rounding nor replacement with 0 is justified.'),
       ],
       'bureau':[
-        ('AMT_CREDIT_SUM','AMT_CREDIT_SUM<0','hard','NULL для отрицательной номинальной суммы; сейчас не требуется','Номинальная сумма кредита неотрицательна.'),
-        ('AMT_CREDIT_SUM_DEBT','AMT_CREDIT_SUM_DEBT<0','review','Сохранить до уточнения учёта переплаты','Отрицательный остаток долга может обозначать переплату; нельзя применять общее правило AMT<0.'),
-        ('AMT_CREDIT_SUM_LIMIT','AMT_CREDIT_SUM_LIMIT<0','review','Сохранить; уточнить трактовку лимита','Для номинального лимита знак необычен, но словарь не раскрывает правила передачи корректировок.'),
+        ('AMT_CREDIT_SUM','AMT_CREDIT_SUM<0','hard','NULL for a negative nominal amount; currently unnecessary','The nominal credit amount is nonnegative.'),
+        ('AMT_CREDIT_SUM_DEBT','AMT_CREDIT_SUM_DEBT<0','review','Retain until overpayment accounting is clarified','Negative outstanding debt may indicate overpayment; a blanket AMT<0 rule is inappropriate.'),
+        ('AMT_CREDIT_SUM_LIMIT','AMT_CREDIT_SUM_LIMIT<0','review','Retain; clarify the interpretation of the limit','The sign is unusual for a nominal limit, but the dictionary does not explain how adjustments are recorded.'),
       ],
       'cc':[
-        ('AMT_BALANCE','AMT_BALANCE<0','allowed','Сохранить как возможный кредитовый остаток','Остаток по карте может быть отрицательным после переплаты/возврата.'),
-        ('AMT_RECIVABLE','AMT_RECIVABLE<0','allowed','Сохранить как возможную корректировку остатка','Это учётный остаток, а не номинальная выдача.'),
-        ('AMT_DRAWINGS_ATM_CURRENT','AMT_DRAWINGS_ATM_CURRENT<0','review','Сохранить; проверить возможное сторно','Отрицательная выдача наличных может быть исправлением операции; данных о транзакции нет.'),
-        ('AMT_DRAWINGS_CURRENT','AMT_DRAWINGS_CURRENT<0','review','Сохранить; проверить возможное сторно','Знак движения не равнозначен отрицательной сумме номинального кредита.'),
-        ('AMT_PAYMENT_CURRENT','AMT_PAYMENT_CURRENT<0','review','Сохранить; уточнить возвраты платежей','У отрицательного движения может быть допустимое учётное объяснение.'),
-        ('AMT_CREDIT_LIMIT_ACTUAL','AMT_CREDIT_LIMIT_ACTUAL=0','already_handled','Знаменатель 0 -> NULL для utilization','Нулевой лимит нельзя использовать в делении; сама исходная величина остаётся 0.'),
+        ('AMT_BALANCE','AMT_BALANCE<0','allowed','Retain as a possible credit balance','A card balance may be negative after overpayment/refund.'),
+        ('AMT_RECIVABLE','AMT_RECIVABLE<0','allowed','Retain as a possible balance adjustment','This is an accounting balance, not a nominal disbursement.'),
+        ('AMT_DRAWINGS_ATM_CURRENT','AMT_DRAWINGS_ATM_CURRENT<0','review','Retain; check for a possible reversal','A negative cash withdrawal may correct a transaction; transaction details are unavailable.'),
+        ('AMT_DRAWINGS_CURRENT','AMT_DRAWINGS_CURRENT<0','review','Retain; check for a possible reversal','The sign of a cash flow is not equivalent to a negative nominal loan amount.'),
+        ('AMT_PAYMENT_CURRENT','AMT_PAYMENT_CURRENT<0','review','Retain; clarify payment refunds','A negative cash flow may have a valid accounting explanation.'),
+        ('AMT_CREDIT_LIMIT_ACTUAL','AMT_CREDIT_LIMIT_ACTUAL=0','already_handled','Denominator 0 -> NULL utilization','A zero limit cannot be a divisor; the original value remains 0.'),
       ],
       'installments':[
-        ('AMT_INSTALMENT','AMT_INSTALMENT<0','hard','NULL при отрицательном обязательстве; сейчас не требуется','Предписанная сумма взноса неотрицательна.'),
-        ('AMT_PAYMENT','AMT_PAYMENT<0','review','Проверить возвраты; сейчас отрицательных значений нет','Отрицательный фактический платёж потребовал бы отдельной трактовки.'),
-        ('AMT_INSTALMENT','AMT_INSTALMENT=0','allowed','Сохранить, отношение при нулевой сумме обязательств -> NULL','Нулевые строки графика не тождественны ошибке.'),
-        ('AMT_PAYMENT','AMT_PAYMENT=0','allowed','Сохранить как наблюдаемую нулевую оплату','Не заменять отсутствующую оплату нулём; здесь значение реально записано.'),
+        ('AMT_INSTALMENT','AMT_INSTALMENT<0','hard','NULL for a negative obligation; currently unnecessary','The scheduled installment amount is nonnegative.'),
+        ('AMT_PAYMENT','AMT_PAYMENT<0','review','Check refunds; no negative values are currently present','A negative actual payment would require separate interpretation.'),
+        ('AMT_INSTALMENT','AMT_INSTALMENT=0','allowed','Retain; ratio with a zero obligation amount -> NULL','Zero-valued schedule rows are not necessarily errors.'),
+        ('AMT_PAYMENT','AMT_PAYMENT=0','allowed','Retain as an observed zero payment','Do not replace an absent payment with zero; this value was actually recorded.'),
       ]}
     filters={'application':'true','previous':'DAYS_DECISION<0',
              'bureau':'DAYS_CREDIT<0 AND DAYS_CREDIT_UPDATE<0','cc':'MONTHS_BALANCE<0',
@@ -174,7 +174,7 @@ def semantic_checks(data_dir, prepared_dir, report_dir):
                          'classification':status,'proposed_action_ru':action,'reason_ru':reason,
                          'applied_now':False})
     raw_checks=_save(pd.DataFrame(rows),report_dir,'semantic_source_checks.csv')
-    # Точное влияние единственного конкретного предложения — отрицательный взнос -> NULL.
+    # Exact impact of the sole concrete proposal: negative down payment -> NULL.
     proposed=con.execute(f"""WITH alt AS (
       SELECT SK_ID_CURR,avg(CASE WHEN AMT_DOWN_PAYMENT>=0 THEN AMT_DOWN_PAYMENT END) a,
       min(CASE WHEN AMT_DOWN_PAYMENT>=0 THEN AMT_DOWN_PAYMENT END) n,
@@ -192,9 +192,9 @@ def semantic_checks(data_dir, prepared_dir, report_dir):
             'changed_aggregate_cells':int(sum(mask.sum() for mask in differences.values())),
             'changed_clients':int(np.logical_or.reduce(list(differences.values())).sum()),
             'per_feature_changed_cells':{k:int(v.sum()) for k,v in differences.items()},
-            'applied':False,'reason':'Сначала требуется подтвердить, что -0.9 не является допустимой учётной корректировкой.'}
+            'applied':False,'reason':'First confirm that -0.9 is not a valid accounting adjustment.'}
     dump_json(report_dir/'proposed_fix_impact.json',impact)
-    # Все рассчитанные отношения и доли проверяются на development.
+    # All computed ratios and shares are checked on development.
     dev,positions=development_context(prepared_dir)
     cols=json.loads((prepared_dir/'features_level_4.json').read_text(encoding='utf-8'))
     ratios=[s for s in cols if s.startswith('APP_') and s!='APP_EMPLOYMENT_DATE_UNKNOWN'
@@ -205,23 +205,23 @@ def semantic_checks(data_dir, prepared_dir, report_dir):
         share=name.endswith('_SHARE')
         nonnegative=name.startswith('APP_') or name in ['PREVIOUS_CREDIT_TO_REQUEST_AVG','INSTALLMENTS_PAID_TO_DUE']
         invalid=int(((x<0)|(x>1)).sum()) if share else int((x<0).sum()) if nonnegative else 0
-        explanation=('Доля должна лежать в [0,1].' if share else
-          'Положительное отношение сумм не обязано быть <=1; доход и аннуитет могут иметь разные периоды.' if name.startswith('APP_') else
-          'Utilization>1 означает превышение лимита, <0 возможно при кредитовом остатке; не ограничивать автоматически.' if 'UTILIZATION' in name else
-          'Отрицательный долг возможен при переплате; долг/кредит не обязан лежать в [0,1].' if name=='BUREAU_DEBT_TO_CREDIT' else
-          'Оплата/обязательство>1 может означать переплату; одобренный кредит также может превышать первоначальный запрос.')
+        explanation=('A share must lie in [0,1].' if share else
+          'A positive amount ratio need not be <=1; income and annuity may refer to different periods.' if name.startswith('APP_') else
+          'Utilization>1 indicates an exceeded limit; <0 is possible for a credit balance. Do not clip automatically.' if 'UTILIZATION' in name else
+          'Negative debt is possible after overpayment; debt/credit need not lie in [0,1].' if name=='BUREAU_DEBT_TO_CREDIT' else
+          'Payment/obligation>1 may indicate overpayment; approved credit may also exceed the original request.')
         ratio_rows.append({'feature':name,'missing':int(x.isna().sum()),'negative':int((x<0).sum()),
                            'above_one':int((x>1).sum()),'infinite':int(np.isinf(x).sum()),
                            'rule_violations':invalid,'rule_ru':explanation,'applied_correction':False})
     ratio_report=_save(pd.DataFrame(ratio_rows),report_dir,'ratio_checks_development.csv')
-    # Экстремумы только описываем, не используем как пороги удаления.
+    # Describe extrema only; do not use them as removal thresholds.
     stats=pd.read_csv(report_dir/'numeric_development_summary.csv')
     focus=['AMT_INCOME_TOTAL','AMT_CREDIT','AMT_ANNUITY','AMT_GOODS_PRICE','CNT_FAM_MEMBERS','CNT_CHILDREN']+ratios
     _save(stats[stats.feature.isin(focus)],report_dir,'financial_and_ratio_distribution.csv')
     tail=pd.read_parquet(prepared_dir/'X_level_4.parquet',columns=['AMT_INCOME_TOTAL']).iloc[positions].AMT_INCOME_TOTAL
     income_tail={'p99':float(tail.quantile(.99)),'p999':float(tail.quantile(.999)),
                  'max':float(tail.max()),'above_p999':int((tail>tail.quantile(.999)).sum()),
-                 'removed':0,'winsorized':0,'note':'Квантили вычислены только на development и не являются порогами очистки.'}
+                 'removed':0,'winsorized':0,'note':'Quantiles were computed on development only and are not cleaning thresholds.'}
     dump_json(report_dir/'income_tail_review.json',income_tail)
     con.close()
     return {'hard_rule_violations':int(raw_checks.loc[raw_checks.classification=='hard','affected_values'].sum()),
@@ -232,7 +232,7 @@ def semantic_checks(data_dir, prepared_dir, report_dir):
 
 
 def sentinel_checks(data_dir, prepared_dir, report_dir):
-    """Проверка источника, правила и реально сохранённых application/previous."""
+    """Check the source, rule and actually saved application/previous data."""
     prepared_dir, report_dir=Path(prepared_dir),Path(report_dir)
     con=_connection(data_dir,prepared_dir,report_dir)
     result=[]
@@ -308,4 +308,4 @@ def sentinel_checks(data_dir, prepared_dir, report_dir):
             'employment_indicator_mismatches':indicator_bad,'saved_previous_aggregate_mismatches':0,
             'development_saved_date_placeholders':0,
             'all_prepared_saved_date_placeholders':remaining_all,
-            'note':'Число NULL до/после приводится для исходных строк; проверка агрегатов сохранена отдельно. У исключённых полей после=не применимо.'}
+            'note':'Before/after NULL counts refer to original rows; aggregate checks are saved separately. After-processing counts for excluded fields are not applicable.'}

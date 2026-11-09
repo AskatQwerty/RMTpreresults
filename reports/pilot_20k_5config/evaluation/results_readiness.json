@@ -379,17 +379,17 @@
   },
   "blockers": [],
   "limitations": [
-    "Пилот обучен на 20 000 development-заявках: остальные development-заявки в этом обучении не использованы.",
-    "На пару проверены 5 конфигураций и выполнен один refit; основной A2 предусматривает 20 конфигураций и пять повторных обучений.",
-    "Общие парные bootstrap-повторы отражают неопределённость состава test для фиксированных моделей, но не вариативность повторного обучения.",
-    "95% percentile bootstrap-интервалы являются pointwise, unadjusted, exploratory; они не равны среднему ± SD пяти запусков.",
-    "Парный DeLong и Bonferroni относятся только к семейству шести сравнений ROC-AUC с LR на Level 4; выводы не переносятся на AP.",
-    "Отсутствие значимой разницы не доказывает эквивалентность. Формальное правило A2 «не хуже лучшего по AP» этим пилотом не подтверждается.",
-    "Прибыль измеряется в условных единицах m=1 по заданной модели затрат; это не фактическая денежная прибыль банка.",
-    "Percentile CI абсолютных fairness-разрывов не является тестом bias: неотрицательность и излом абсолютной величины в нуле требуют осторожной интерпретации, даже если нижняя граница выше нуля.",
-    "Fairness-коррекции, обучение калибратора, SHAP и оценка устойчивости по пяти train-подвыборкам отложены.",
-    "Методы текущего анализа зафиксированы для этого этапа, но не объявляются предварительно зарегистрированными.",
-    "Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется."
+    "The pilot was trained on 20 000 development applications; other development applications were not used in this training.",
+    "Each pair evaluated 5 configurations and one refit; the main A2 plan specifies 20 configurations and five training repeats.",
+    "Common paired bootstrap replicates describe test-composition uncertainty for fixed models, not retraining variability.",
+    "95% percentile bootstrap intervals are pointwise, unadjusted and exploratory; they are not mean ± SD across five runs.",
+    "Paired DeLong and Bonferroni apply only to the family of six Level 4 ROC-AUC comparisons with LR; conclusions do not extend to AP.",
+    "Absence of a significant difference does not establish equivalence. This pilot does not establish the formal A2 rule of being no worse than the best model in AP.",
+    "Profit is measured in conditional units with m=1 under the specified cost model; it is not the bank's realized monetary profit.",
+    "A percentile CI for absolute fairness gaps is not a bias test: nonnegativity and the kink at zero require cautious interpretation even when the lower bound is above zero.",
+    "Fairness adjustments, calibrator fitting, SHAP and stability evaluation across five training subsets are deferred.",
+    "The methods of this analysis are fixed for this stage but are not claimed to have been preregistered.",
+    "The CPU model and total RAM were not recorded in the pilot training logs; current evaluation hardware is not substituted."
   ],
   "methods": {
     "primary_pr_metric": "PR-AUC (average precision, AP); sklearn average_precision_score",

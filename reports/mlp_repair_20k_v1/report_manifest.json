@@ -11,14 +11,14 @@
   "bootstrap_calls": 0,
   "original_main_experiment_replaced": false,
   "limitations": [
-    "Это отдельный последующий исследовательский эксперимент MLP. Основные 28 Pipeline, 1680 CV-результатов и прежние RQ1/RQ2 не заменяются.",
-    "Использованы прежние 20 000 клиентов с естественным балансом классов и сохранённые внешние CV-фолды. Test ранее уже просматривался; он не является новой независимой проверкой.",
-    "Вариант выбирается по среднему log-loss внешней CV. Внутри каждого train-фолда отдельные 15% используются только для выбора числа эпох по validation log-loss.",
-    "Предобработка внутреннего этапа обучается только на его train. Затем новая предобработка и новая сеть обучаются на всём предоставленном train ровно выбранное число эпох.",
-    "Ограничение z-значений до ±5 применяется только к масштабированным числовым значениям. Это отдельный вариант преобразования, а не удаление клиентов или изменение сохранённых X.",
-    "Здесь показаны точечные оценки. Bootstrap, доверительные интервалы и проверки значимости различий не вычислялись; стандартное отклонение трёх CV-фолдов не является CI.",
-    "В sklearn partial_fit значение n_iter_ относится к последнему вызову. Реальное число эпох записывается отдельно по циклу обучения, loss_curve_ и t_.",
-    "Изменение правила остановки и исполнительного цикла partial_fit ограничивает строго причинное толкование сравнения с исходным MLP. Улучшение на уже использованном test остаётся исследовательским результатом."
+    "This is a separate post-hoc exploratory MLP experiment. The main 28 Pipelines, 1680 CV results and previous RQ1/RQ2 results are not replaced.",
+    "The same 20 000 clients with the natural class balance and saved outer CV folds are used. The test set had already been inspected; it is not a new independent validation.",
+    "The variant is selected by mean outer-CV log-loss. Within each training fold, a separate 15% is used only to select the epoch count by validation log-loss.",
+    "Preprocessing in the inner stage is fitted only on its training partition. Fresh preprocessing and a fresh network are then fitted on all supplied training rows for exactly the selected number of epochs.",
+    "Clipping z-values to ±5 applies only to standardized numeric values. It is a separate transformation variant; clients are not removed and saved X is not modified.",
+    "Only point estimates are shown. Bootstrap, confidence intervals and significance tests were not computed; the standard deviation across three CV folds is not a CI.",
+    "In sklearn partial_fit, n_iter_ refers to the most recent call. Actual epochs are recorded separately from the training loop, loss_curve_ and t_.",
+    "Changes to the stopping rule and partial_fit execution loop limit strict causal interpretation of comparisons with the original MLP. Improvement on the previously used test remains exploratory."
   ],
   "sources": [
     {

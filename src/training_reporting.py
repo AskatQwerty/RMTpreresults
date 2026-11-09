@@ -1,7 +1,7 @@
-"""Независимые отчёты из артефактов: не требуют состояния технического notebook.
+"""Independent artifact-based reports: no technical notebook state is required.
 
-Модели не загружаются и не обучаются. Сводки technical/full пишутся раздельно;
-завершёнными считаются только этапы с корректным complete.json и SHA-256.
+Models are neither loaded nor trained. Technical and full summaries are saved separately;
+only stages with valid complete.json and SHA-256 hashes count as complete.
 """
 from __future__ import annotations
 
@@ -41,16 +41,16 @@ def _hash(path):
 
 
 def _check_stage(stage,fingerprint):
-    """Вернуть ошибку проверки или None; никаких изменений в этапах эксперимента."""
+    """Return a validation error or None without modifying experiment stages."""
     try:
         record=_load(stage/'complete.json')
-        if record.get('fingerprint')!=fingerprint: return 'fingerprint не совпадает с manifest'
+        if record.get('fingerprint')!=fingerprint: return 'fingerprint does not match the manifest'
         hashes=record.get('artifact_sha256',{})
-        if not hashes: return 'complete.json не содержит хэшей артефактов'
+        if not hashes: return 'complete.json contains no artifact hashes'
         for name,expected in hashes.items():
             path=stage/name
-            if not path.is_file(): return f'Нет файла {name}'
-            if _hash(path)!=expected: return f'SHA-256 не совпадает: {name}'
+            if not path.is_file(): return f'Missing file: {name}'
+            if _hash(path)!=expected: return f'SHA-256 mismatch: {name}'
     except (OSError,ValueError,KeyError,TypeError) as exc:
         return f'{type(exc).__name__}: {exc}'
     return None
@@ -64,14 +64,14 @@ def _lock_info(root):
         pid=record.get('pid')
         alive=bool(pid and psutil.pid_exists(int(pid)))
         return {'present':True,'pid':pid,'owner_alive':alive,
-                'note':'Живой PID не доказывает прогресс fit; lock не удаляется отчётом.'}
+                'note':'A live PID does not prove fit progress; the report does not remove the lock.'}
     except (OSError,ValueError,TypeError):
-        return {'present':True,'owner_alive':None,'note':'Lock не удалось прочитать; отчёт его не изменяет.'}
+        return {'present':True,'owner_alive':None,'note':'The lock could not be read; the report does not modify it.'}
 
 
 def _input_check(manifest,prepared_dir):
-    if prepared_dir is None: return {'checked':False,'unchanged':None,'reason':'Не передан prepared_dir'}
-    if 'inputs' not in manifest: return {'checked':False,'unchanged':None,'reason':'В manifest нет снимка inputs'}
+    if prepared_dir is None: return {'checked':False,'unchanged':None,'reason':'prepared_dir was not provided'}
+    if 'inputs' not in manifest: return {'checked':False,'unchanged':None,'reason':'The manifest contains no input snapshot'}
     actual=artifact_manifest(Path(prepared_dir))
     return {'checked':True,'unchanged':actual==manifest['inputs'],
             'files_checked':len(actual),'baseline':'experiment_manifest.inputs'}
@@ -84,7 +84,7 @@ def _collect(root,expected_scope):
                 'searches':[],'fits':[],'invalid_stages':[],'manifest':None,'lock':_lock_info(root)}
     manifest=_load(manifest_path)
     if manifest.get('mode')!=expected_scope:
-        raise ValueError(f'Ожидался {expected_scope}, но manifest имеет mode={manifest.get("mode")}')
+        raise ValueError(f'Expected {expected_scope}, but manifest has mode={manifest.get("mode")}')
     searches=[]; fits=[]; invalid=[]
     for marker in sorted(root.glob('level_*/*/*/complete.json')):
         stage=marker.parent
@@ -94,11 +94,11 @@ def _collect(root,expected_scope):
         try:
             if stage.name=='search':
                 record=_load(stage/'best_params.json')
-                if record.get('scope')!=expected_scope: raise ValueError('scope поиска не совпадает')
+                if record.get('scope')!=expected_scope: raise ValueError('Search scope does not match')
                 searches.append(record)
             elif stage.name.startswith('seed_'):
                 record=_load(stage/'metrics.json')
-                if record.get('scope')!=expected_scope: raise ValueError('scope fit не совпадает')
+                if record.get('scope')!=expected_scope: raise ValueError('Fit scope does not match')
                 fits.append(record)
         except (OSError,ValueError,KeyError,TypeError) as exc:
             invalid.append({'stage':str(stage.relative_to(root)),'error':str(exc)})
@@ -138,7 +138,7 @@ def _tables(state,report_dir,prefix):
 
 
 def write_full_report(full_output,report_dir,*,prepared_dir=None):
-    """Сформировать полный/частичный отчёт без technical и иных notebook-переменных."""
+    """Generate a full or partial report without technical or other notebook variables."""
     root=Path(full_output); report_dir=Path(report_dir)
     state=_collect(root,'full')
     expected_search={(level,model) for level in range(1,5) for model in MODELS}
@@ -166,7 +166,7 @@ def write_full_report(full_output,report_dir,*,prepared_dir=None):
 
 
 def write_technical_report(technical_root,report_dir,*,prepared_dir=None):
-    """Отдельная сводка одного технического запуска; она не оценивает полный план."""
+    """Separate summary of one technical run; it does not assess the full experiment plan."""
     root=Path(technical_root); report_dir=Path(report_dir)
     state=_collect(root,'technical')
     summary_path=root/'technical_summary.json'
@@ -187,7 +187,7 @@ def write_technical_report(technical_root,report_dir,*,prepared_dir=None):
 
 
 def write_technical_reports(technical_parent,report_dir,*,prepared_dir=None):
-    """Найти сохранённые технические запуски по конфигурационному пути."""
+    """Find saved technical runs using the configured path."""
     parent=Path(technical_parent); report_dir=Path(report_dir)
     roots=sorted(p.parent for p in parent.glob('*/experiment_manifest.json')) if parent.exists() else []
     runs=[write_technical_report(root,report_dir/root.name,prepared_dir=prepared_dir) for root in roots]
@@ -198,7 +198,7 @@ def write_technical_reports(technical_parent,report_dir,*,prepared_dir=None):
 
 
 def _resource_rows(saved,run):
-    """Строки из атомарного summary: Parquet может отставать после interruption."""
+    """Rows from the atomic summary: Parquet may lag after interruption."""
     rows=[]; warnings=[]
     for item in saved.get('results',[]):
         peak=item.get('peak_ram_bytes')
@@ -220,14 +220,14 @@ def _resource_rows(saved,run):
 
 
 def write_resource_reports(resource_parent,report_dir):
-    """Сводка отдельных пилотов из summary.results, без повторного fit или test."""
+    """Summarize separate pilots from summary.results without refitting or test evaluation."""
     parent=Path(resource_parent); report_dir=Path(report_dir)
     summaries=sorted(parent.glob('*/resource_summary.json')) if parent.exists() else []
     runs=[]; all_rows=[]; all_warnings=[]
     for source in summaries:
         saved=_load(source)
         if saved.get('scope')!='resource_pilot':
-            raise ValueError(f'В {source} ожидался scope=resource_pilot')
+            raise ValueError(f'In {source}, expected scope=resource_pilot')
         root=source.parent
         destination=report_dir/root.name
         _write(destination/'resource_summary.json',saved)

@@ -1,8 +1,8 @@
-"""RQ1/RQ2: отдельный pilot_20k_5config, 420 CV-fit + 28 автоматических refit.
+"""RQ1/RQ2: separate pilot_20k_5config with 420 CV fits and 28 automatic refits.
 
-Полные X/сплиты и код A2 не изменяются. Все fit принадлежат RandomizedSearchCV
-с refit=True; ручного дополнительного fit здесь нет. Test загружается только
-после сохранения fit-checkpoint. Одна пара выполняется в отдельном процессе.
+Full X, splits, and A2 code are unchanged. All fits belong to RandomizedSearchCV
+with refit=True; no additional manual fit is performed. Test is loaded only
+after the fit checkpoint has been saved. Each pair runs in a separate process.
 """
 from __future__ import annotations
 
@@ -67,11 +67,11 @@ def _balance(labels):
 
 
 def load_pilot_split(data,root):
-    """Прочитать общие сохранённые ID и назначения фолдов без нового split."""
+    """Read shared saved IDs and fold assignments without creating a new split."""
     root=Path(root)
     contract=read_json(root/'cohort_contract.json')
     for name,digest in contract['artifact_sha256'].items():
-        assert sha256(root/name)==digest,f'Изменён пилотный split: {name}'
+        assert sha256(root/name)==digest,f'Pilot split has changed: {name}'
     ids=pd.read_parquet(root/'cohort_ids.parquet').SK_ID_CURR.to_numpy()
     target=pd.read_parquet(root/'cohort_targets.parquet')
     folds=pd.read_parquet(root/'cv_folds.parquet')
@@ -94,14 +94,14 @@ def load_pilot_split(data,root):
 
 
 def initialize_pilot(prepared_dir,output_root,*,threads=2,sample_n=20000):
-    """Один раз выбрать cohort и собственные CV-folds; существующие не пересоздавать."""
+    """Select the cohort and its CV folds once; do not recreate existing artifacts."""
     data=PreparedData(prepared_dir)
     root=Path(output_root); root.mkdir(parents=True,exist_ok=True)
     assert 6<=sample_n<len(data.development)
     threads=max(1,min(int(threads),2))
     if not (root/'cohort_contract.json').exists():
         assert not any((root/name).exists() for name in COHORT_FILES), \
-            'Незавершённая инициализация cohort: сохраните каталог и используйте новый.'
+            'Incomplete cohort initialization: retain the directory and use a new one.'
         ids,_=train_test_split(data.development,train_size=sample_n,
             stratify=data.target.loc[data.development],random_state=42)
         ids=np.sort(ids)
@@ -117,7 +117,7 @@ def initialize_pilot(prepared_dir,output_root,*,threads=2,sample_n=20000):
         atomic_json(root/'cohort_contract.json',{'sample_n':sample_n,'selection_seed':42,
             'cv_seed':42,'artifact_sha256':{name:sha256(root/name) for name in COHORT_FILES}})
     contract=read_json(root/'cohort_contract.json')
-    assert contract['sample_n']==sample_n,'Размер существующего cohort нельзя менять.'
+    assert contract['sample_n']==sample_n,'The existing cohort size cannot be changed.'
     ids,splits=load_pilot_split(data,root)
     source=Path(__file__).resolve().parent
     context={'scope':SCOPE,'mode':SCOPE,'protocol':pilot_plan(sample_n),
@@ -168,12 +168,12 @@ def _cv_results(search):
 
 
 def run_pair(prepared_dir,root,model,level):
-    """Один search.fit с автоматическим refit; test только после fit-checkpoint."""
+    """One search.fit with automatic refit; test access only after the fit checkpoint."""
     assert model in MODEL_ORDER and level in LEVELS
     root=Path(root); context=read_json(root/'experiment_manifest.json')
     assert context['mode']==SCOPE and context['protocol']['refit'] is True
     for name,digest in context['code_sha256'].items():
-        assert sha256(Path(__file__).resolve().parent/name)==digest,f'Источник изменился: {name}'
+        assert sha256(Path(__file__).resolve().parent/name)==digest,f'Source has changed: {name}'
     stage=root/model/f'level_{level}'; stage.mkdir(parents=True,exist_ok=True)
     if _complete(stage,context): return read_json(stage/'metrics.json')
     started=time.perf_counter()
@@ -209,7 +209,7 @@ def run_pair(prepared_dir,root,model,level):
                 begin=time.perf_counter()
                 search.fit(X,y)
                 search_seconds=time.perf_counter()-begin
-            fitted=search.best_estimator_  # Это уже обученный refit, дополнительного fit нет.
+            fitted=search.best_estimator_  # This is already the fitted refit estimator; no additional fit is performed.
             selected={'scope':SCOPE,'model':model,'level':level,'params':search.best_params_,
                 'best_cv_log_loss':float(-search.best_score_),
                 'best_cv_neg_log_loss':float(search.best_score_),
@@ -232,7 +232,7 @@ def run_pair(prepared_dir,root,model,level):
             _events(root,'search_and_refit_completed',model=model,level=level,
                 search_and_refit_seconds=search_seconds,refit_seconds=fit_summary['refit_seconds'])
             del X,y,search,estimator; gc.collect()
-            # Проверка реальной сериализации не вызывает fit.
+            # Actual serialization validation does not call fit.
             del fitted; gc.collect()
             fitted=joblib.load(fit/'pipeline.joblib')
             assert extract_fit_diagnostics(fitted)==diagnostics
@@ -298,7 +298,7 @@ def _completed_summary(root,context,started):
 
 
 def run_research_pilot(prepared_dir,output_root,report_dir,*,threads=2):
-    """Последовательные worker-процессы; экспорт сразу после каждой готовой пары."""
+    """Sequential worker processes; export immediately after each completed pair."""
     from .pilot_reporting import export_pilot_reports
     root=Path(output_root)
     context=initialize_pilot(prepared_dir,root,threads=threads)

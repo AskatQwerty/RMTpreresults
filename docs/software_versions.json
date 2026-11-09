@@ -19,7 +19,7 @@
     "pre_dispatch": 1,
     "hardware_recorded": false,
     "hardware": null,
-    "hardware_note": "Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется."
+    "hardware_note": "The pilot training logs did not record CPU model or total RAM; hardware from the current evaluation is not substituted."
   },
   "evaluation": {
     "numpy": "2.3.5",

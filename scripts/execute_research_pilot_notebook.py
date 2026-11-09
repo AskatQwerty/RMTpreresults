@@ -1,7 +1,7 @@
-"""Обновить отчётные ячейки notebook 03 без исполнения ячейки обучения.
+"""Refresh notebook 03 reporting cells without executing the training cell.
 
-По умолчанию используется чистый Python-процесс с общим namespace ячеек.
-Настоящее ядро Jupyter запускается только с --backend jupyter.
+By default, use a clean Python process with a shared cell namespace.
+An actual Jupyter kernel starts only with --backend jupyter.
 """
 from pathlib import Path
 import argparse
@@ -30,7 +30,7 @@ def selected_cells(notebook,reports_only=False):
 
 
 class CellStream(io.TextIOBase):
-    """Сохраняет порядок print/stderr/display в outputs текущей ячейки."""
+    """Preserve print/stderr/display order in the current cell outputs."""
     def __init__(self,cell,name):
         self.cell=cell
         self.name=name
@@ -56,7 +56,7 @@ class CellStream(io.TextIOBase):
 
 
 def execute_namespace(notebook,selected,on_cell_executed):
-    """Обычный Python exec без Jupyter/ZMQ; отчётные ячейки не имеют magic/await."""
+    """Plain Python exec without Jupyter/ZMQ; reporting cells use no magic/await."""
     import IPython.display as ipython_display
     from IPython.core.formatters import DisplayFormatter
 

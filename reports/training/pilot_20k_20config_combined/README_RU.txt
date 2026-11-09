@@ -1,27 +1,27 @@
-﻿Проверка и объединение сохранённых CV-результатов RMT
+﻿Validation and consolidation of saved RMT CV results
 
-Готово: 1680 / 1680 CV-обучений (7 моделей × 4 уровня × 20 конфигураций × 3 фолда).
-По каждой партии 01–05, 06–10, 11–15, 16–20: 420 результатов; пропусков и повторов ключей нет.
-Train: прежние 20 000 клиентов, классы 18 385 / 1 615. Сохранённые ID и CV-фолды совпадают.
-Это расширенный пилот на 20 000, а не эксперимент на всём development из A2.
+Completed: 1680 / 1680 CV fits (7 models × 4 levels × 20 configurations × 3 folds).
+Each batch 01–05, 06–10, 11–15, 16–20 contains 420 results; there are no missing or duplicate keys.
+Training: the same 20 000 clients, class counts 18 385 / 1 615. Saved IDs and CV folds match.
+This is an expanded pilot on 20 000 clients, not the full-development A2 experiment.
 
-Лучший средний CV log-loss: 0.247222941, soft_voting, Level 4, конфигурация 9.
-Это результат выбора по CV, не итоговая тестовая метрика.
+Best mean CV log-loss: 0.247222941, soft_voting, Level 4, configuration 9.
+This is a CV selection result, not a final test metric.
 
-Файлы:
-all_1680_cv_folds.csv — точные оценки каждого сохранённого фолда и источник.
-all_560_candidates.csv — среднее и стандартное отклонение трёх фолдов по каждому кандидату.
-best_28_by_cv.csv / selected_parameters.json — лучшие параметры для каждой модели и уровня.
-best_cv_log_loss_by_level.csv — таблица 7 × 4.
-warnings.csv — сохранённые предупреждения с указанием доступной точности атрибуции.
-import_audit.json — контрольные суммы, проверки, источники и ограничения.
+Files:
+all_1680_cv_folds.csv — exact scores for each saved fold and their sources.
+all_560_candidates.csv — mean and standard deviation across three folds for each candidate.
+best_28_by_cv.csv / selected_parameters.json — best parameters for each model and level.
+best_cv_log_loss_by_level.csv — a 7 × 4 table.
+warnings.csv — saved warnings with the available attribution detail.
+import_audit.json — checksums, checks, sources and limitations.
 
-Особенность партии 11–15: для 60 RF-fit после WinError 5 заменён механизм joblib threading на ThreadPoolExecutor с прежними n_jobs=2.
-Код моделей, параметры и разбиения не менялись. Адаптация не входила в исходный fingerprint пакета; её текст и SHA сохранены отдельно.
-Побитовая эквивалентность механизмов не проверялась. Время разных компьютеров нельзя непосредственно сравнивать как скорость моделей.
-Остановленные незавершённые попытки не считаются дополнительными завершёнными CV-fit.
+Batch 11–15 exception: for 60 RF fits after WinError 5, joblib threading was replaced with ThreadPoolExecutor while retaining n_jobs=2.
+Model code, parameters and splits were unchanged. The adaptation was outside the original package fingerprint; its text and SHA are saved separately.
+Bitwise equivalence of the execution mechanisms was not checked. Timings from different computers cannot be directly compared as model speeds.
+Stopped incomplete attempts are not counted as additional completed CV fits.
 
-Сейчас только прочитаны и объединены существующие результаты: новых fit/predict/bootstrap нет.
-Для итоговой оценки победителей по 20 конфигурациям потребуется отдельное обучение выбранных Pipeline на train и оценка на неизменном test.
-Старые 28 Pipeline и их тестовые отчёты относятся к поиску по 5 конфигурациям; их нельзя выдавать за новые результаты.
-Пять повторов из A2 здесь не выполнялись. Исходные результаты, X, test и разбиения сохранены без изменений.
+Only existing results were read and combined here: no new fit/predict/bootstrap calls.
+Final evaluation of winners selected from 20 configurations requires separate training of the selected Pipelines on train and evaluation on the unchanged test.
+The old 28 Pipelines and their test reports come from the 5-configuration search; they must not be presented as new results.
+The five A2 repeats were not performed here. Original results, X, test and splits were preserved unchanged.

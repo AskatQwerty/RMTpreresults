@@ -1,7 +1,7 @@
-"""Проверка неполных ключей и сохранности частичных платежей.
+"""Check incomplete keys and preservation of partial payments.
 
-Не изменяет CSV, X, признаки, TARGET и сохранённые разбиения. В отчёты попадают
-только агрегированные количества; идентификаторы отдельных клиентов не выводятся.
+Does not modify CSV files, X, features, TARGET, or saved splits. Reports contain
+only aggregate counts; individual client identifiers are not exposed.
 """
 from __future__ import annotations
 
@@ -27,10 +27,10 @@ def _path(path):
 
 
 def audit_payment_keys(data_dir, prepared_dir, report_dir):
-    """Аудировать весь installments CSV и существующие полные артефакты.
+    """Audit the complete installments CSV and existing full-data artifacts.
 
-    Development/test используются только для разбивки числа дефектных строк,
-    без повторной генерации split и без анализа целевого исхода.
+    Development/test are used only to break down counts of incomplete rows,
+    without regenerating splits or analyzing the target outcome.
     """
     started = time.perf_counter()
     data_dir, prepared_dir, report_dir = map(Path, (data_dir, prepared_dir, report_dir))
@@ -81,7 +81,7 @@ def audit_payment_keys(data_dir, prepared_dir, report_dir):
             patterns = c.execute(f"SELECT {pattern} AS null_pattern, count(*) AS rows FROM incomplete GROUP BY ALL ORDER BY rows DESC").df()
             patterns["null_pattern"] = patterns.null_pattern.str.split(';').map(lambda x: '; '.join(y for y in x if y))
             save(patterns, "installments_incomplete_key_patterns.csv")
-            # Неизвестная дата оплаты => предикат UNKNOWN; WHERE не включает строку.
+            # An unknown payment date yields UNKNOWN; WHERE excludes the row.
             scoped = c.execute(f"""SELECT split, count(*) AS incomplete_rows,
                 count(DISTINCT SK_ID_CURR) AS clients,
                 count(*) FILTER(WHERE {PAYMENT_RULE}) AS rows_eligible,
@@ -115,7 +115,7 @@ def audit_payment_keys(data_dir, prepared_dir, report_dir):
             for level in range(1,5):
                 assert c.execute(f"SELECT count(*) FROM read_parquet({_path(prepared_dir/f'X_level_{level}.parquet')})").fetchone()[0] == n_applicants
 
-            # У платежных событий нет уникального ID: проверяем два разных понятия дубля.
+            # Payment events have no unique ID: check two distinct definitions of duplicates.
             exact_unique = c.execute("SELECT count(*) FROM (SELECT DISTINCT * FROM raw)").fetchone()[0]
             candidate = ",".join(CANDIDATE_KEY)
             duplicate_stats = c.execute(f"""WITH g AS (SELECT {candidate},count(*) AS n,
@@ -129,8 +129,8 @@ def audit_payment_keys(data_dir, prepared_dir, report_dir):
             saved = c.execute("""SELECT count(*),sum(PAYMENT_ROWS),sum(AMOUNT_PAID),
                 count(*) FILTER(WHERE PAYMENT_ROWS>1),sum(PAYMENT_ROWS) FILTER(WHERE PAYMENT_ROWS>1),
                 max(PAYMENT_ROWS) FROM saved_obligations""").fetchone()
-            assert int(eligible[0]) == int(saved[1]), "Потеря/повтор строк при объединении частичных платежей"
-            assert eligible[2] == saved[2], "Сумма фактических оплат изменилась при агрегации"
+            assert int(eligible[0]) == int(saved[1]), "Rows were lost or duplicated while combining partial payments"
+            assert eligible[2] == saved[2], "The actual payment total changed during aggregation"
             duplicate_report = {
                 "raw_rows":raw_rows, "exact_duplicate_row_surplus":raw_rows-exact_unique,
                 "repeated_candidate_key_groups":int(duplicate_stats[0]),
@@ -150,7 +150,7 @@ def audit_payment_keys(data_dir, prepared_dir, report_dir):
             }
             save(pd.DataFrame([duplicate_report]), "installments_partial_payments_preservation.csv")
             report = {
-                "scope":"Все строки installments_payments; существующие development/test только для разбивки диагностик",
+                "scope":"All installments_payments rows; existing development/test assignments are used only to stratify diagnostics",
                 "candidate_key":CANDIDATE_KEY, "obligation_key":OBLIGATION_KEY,
                 "missing_key_rows":incomplete_rows,
                 "null_fields":[col for col,n in zip(cols,null_counts) if n],
@@ -160,12 +160,12 @@ def audit_payment_keys(data_dir, prepared_dir, report_dir):
                 "client_retention":client_retention.to_dict('records'),
                 "partial_payment_preservation":duplicate_report,
                 "interpretation_ru":[
-                    "Кандидатный ключ включает дату фактической оплаты, но не является гарантированно уникальным ID события.",
-                    "Ключ обязательства состоит из текущей заявки, предыдущего договора, версии графика и номера взноса; дата оплаты в него не входит.",
-                    "Строки без даты фактической оплаты не проходят временной фильтр. Их сумма оплаты не заполняется; факт неоплаты не выводится из отсутствия даты.",
-                    "Текущие заявки сохраняются независимо от наличия пригодных платежей; другие платежи того же взноса/клиента остаются доступными.",
-                    "Полные дубли только диагностируются. Повторения кандидатного ключа и частичные оплаты не удаляются; AMT_PAYMENT суммируется в DECIMAL(24,3), AMT_INSTALMENT учитывается один раз на взнос.",
-                    "Повтор суммы AMT_INSTALMENT по нескольким платежным строкам не означает несколько обязательств.",
+                    "The candidate key includes the actual payment date but is not a guaranteed unique event ID.",
+                    "The obligation key consists of the current application, previous contract, schedule version and installment number; the payment date is not part of it.",
+                    "Rows without an actual payment date fail the temporal filter. Their payment amount is not imputed; a missing date is not interpreted as nonpayment.",
+                    "Current applications are retained regardless of usable payment history; other payments for the same installment/client remain available.",
+                    "Exact duplicates are diagnosed only. Repeated candidate keys and partial payments are not removed; AMT_PAYMENT is summed in DECIMAL(24,3), and AMT_INSTALMENT is counted once per installment.",
+                    "Repeating AMT_INSTALMENT across multiple payment rows does not imply multiple obligations.",
                 ],
                 "artifacts":artifacts,
                 "elapsed_seconds":round(time.perf_counter()-started,3),

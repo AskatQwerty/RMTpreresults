@@ -1,9 +1,9 @@
-"""Исполнить notebook04 в чистом Python namespace и сохранить реальные outputs.
+"""Execute notebook 04 in a clean Python namespace and save actual outputs.
 
-Расчёты bootstrap уже выполнены CLI. Notebook исполняет все свои code cells с
-RUN_ANALYSIS=False, читает готовые результаты и не создаёт новых повторов.
---backend jupyter запускает отдельное ядро; backend и факт запуска ядра
-явно сохраняются в metadata. Python namespace не требует Jupyter/ZMQ.
+Bootstrap calculations have already been completed by the CLI. The notebook executes all code cells with
+RUN_ANALYSIS=False, reads existing results, and creates no new replicates.
+--backend jupyter starts a separate kernel; the backend and whether a kernel was started
+are explicitly saved in metadata. A Python namespace does not require Jupyter/ZMQ.
 """
 from pathlib import Path
 import argparse

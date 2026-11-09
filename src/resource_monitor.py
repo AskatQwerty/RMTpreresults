@@ -1,9 +1,9 @@
-"""Наблюдение за собственным worker-процессом ресурсного пилота.
+"""Monitor the resource pilot worker process launched by this runner.
 
-RSS дерева — сумма рабочих наборов живых процессов; общие страницы могут быть
-учтены несколько раз. Это не USS. Пик RSS измеряется с заданным интервалом и
-является наблюдаемым пиком, а Windows peak_wset — отдельным high-water mark.
-Функция не останавливает посторонние процессы и не задаёт таймаут обучения.
+Tree RSS is the sum of working sets of live processes; shared pages may be
+counted multiple times. This is not USS. Peak RSS is sampled at a fixed interval and
+is an observed peak; Windows peak_wset is a separate high-water mark.
+The function neither stops unrelated processes nor sets a training timeout.
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ def _utc():
 
 
 def _same_process(pid, create_time):
-    """PID недостаточен: проверка времени создания защищает от его переиспользования."""
+    """PID alone is insufficient: checking creation time guards against PID reuse."""
     try:
         process = psutil.Process(pid)
         if abs(process.create_time() - create_time) > 1e-6:
@@ -39,10 +39,10 @@ def _same_process(pid, create_time):
 
 
 def _terminate_owned_tree(owned, root_pid):
-    """Завершить только процессы, чьи (PID, create_time) ранее наблюдал монитор."""
+    """Terminate only processes whose (PID, create_time) were previously observed by the monitor."""
     details = {'terminated_pids': [], 'killed_pids': [], 'identity_missing_or_changed': [],
                'termination_errors': []}
-    # Потомки сначала, корневой worker последним; чужие PID сюда не добавляются.
+    # Children first, root worker last; unrelated PIDs are never added.
     order = [pid for pid in owned if pid != root_pid] + ([root_pid] if root_pid in owned else [])
     targets = []
     for pid in order:
@@ -72,7 +72,7 @@ def _terminate_owned_tree(owned, root_pid):
 
 def _phase(path, start_wall_ns, previous):
     try:
-        # Старый phase.json от прежней попытки не должен пометить импорт как fit.
+        # A stale phase.json from an earlier attempt must not mark import time as fit time.
         if path.stat().st_mtime_ns < start_wall_ns:
             return previous
         value = json.loads(path.read_text(encoding='utf-8')).get('phase')
@@ -84,22 +84,22 @@ def _phase(path, start_wall_ns, previous):
 def monitor_subprocess(command, cwd, log_path, phase_path, samples_path,
                        sample_interval=.1, min_available_bytes=512*1024**2,
                        low_memory_grace_seconds=3):
-    """Запустить и измерить свой worker; вернуть JSON-совместимую сводку.
+    """Launch and monitor this runner worker; return a JSON-compatible summary.
 
-    command — список аргументов, shell=False. Windows worker скрыт. stdout/stderr
-    направляются в log_path. JSON phase_path с phase='fit' выделяет фазу обучения;
-    CSV samples_path записывается по мере работы. При доступной системной RAM ниже
-    порога непрерывно в течение grace останавливается только этот worker и ранее
-    наблюдавшиеся потомки с совпавшим временем создания. Лимита времени fit нет.
+    command is an argument list, with shell=False. The Windows worker is hidden. stdout/stderr
+    are sent to log_path. JSON phase_path with phase='fit' identifies the training phase;
+    CSV samples_path is written incrementally. If available system RAM remains below
+    the threshold throughout the grace interval, stop only this worker and previously
+    observed children with matching creation times. There is no fit time limit.
 
-    Завершение корневого worker завершает наблюдение. remaining_child_pids покажет
-    неожиданных живых потомков; при штатном завершении они не убиваются молча.
-    Измерения, которые не удалось наблюдать, имеют значение None, а не ноль.
+    Monitoring ends when the root worker exits. remaining_child_pids identifies
+    unexpected surviving children; they are not silently killed after a normal exit.
+    Unobserved measurements are recorded as None, not zero.
     """
     if isinstance(command, (str, bytes)) or not command:
-        raise TypeError('command должен быть непустым списком аргументов, без shell')
+        raise TypeError('command must be a nonempty argument list without a shell')
     if sample_interval <= 0 or low_memory_grace_seconds < 0 or min_available_bytes < 0:
-        raise ValueError('Некорректные интервалы/порог памяти')
+        raise ValueError('Invalid intervals or memory threshold')
     log_path, phase_path, samples_path = map(Path, (log_path, phase_path, samples_path))
     log_path.parent.mkdir(parents=True, exist_ok=True)
     samples_path.parent.mkdir(parents=True, exist_ok=True)
@@ -156,7 +156,7 @@ def monitor_subprocess(command, cwd, log_path, phase_path, samples_path,
                         current.extend(root_process.children(recursive=True))
                     except (psutil.NoSuchProcess, psutil.AccessDenied):
                         pass
-                # Сохраняем известные PID, включая уже осиротевшего потомка этого worker.
+                # Retain known PIDs, including children of this worker that have become orphaned.
                 for process in current:
                     try:
                         created = process.create_time()
@@ -239,8 +239,8 @@ def monitor_subprocess(command, cwd, log_path, phase_path, samples_path,
                     peak_text = '?' if peak_tree_rss is None else f'{peak_tree_rss/GIB:.3f}'
                     print(f'[resource] phase={phase} elapsed={elapsed:.1f}s RSS={tree_rss/GIB:.3f} GiB peak={peak_text} GiB available={available/GIB:.3f} GiB CPU={cpu_seconds:.1f}s', flush=True)
                     last_progress = now
-                # Интервал относится к началу соседних выборок, а не к паузе
-                # после уже потраченного на psutil времени.
+                # The interval refers to the starts of consecutive samples, not to a pause
+                # after time already spent in psutil.
                 time.sleep(max(0, sample_interval-(time.perf_counter()-now)))
         except KeyboardInterrupt:
             status = 'interrupted'
@@ -253,7 +253,7 @@ def monitor_subprocess(command, cwd, log_path, phase_path, samples_path,
             try:
                 final_exit_code = worker.wait(timeout=5)
             except subprocess.TimeoutExpired:
-                # Только после ошибки/защитного завершения; не общий таймаут fit.
+                # Only after an error or protective termination; not a general fit timeout.
                 if status in {'resource_guard', 'interrupted', 'monitor_error'}:
                     more = _terminate_owned_tree(owned, worker.pid)
                     termination_details = {'initial': termination_details, 'retry': more}
@@ -286,6 +286,6 @@ def monitor_subprocess(command, cwd, log_path, phase_path, samples_path,
         'termination_details': termination_details, 'monitor_error': monitor_error,
         'remaining_child_pids': remaining_children,
         'log_path': str(log_path.resolve()), 'samples_path': str(samples_path.resolve()),
-        'memory_method_ru': 'RSS дерева = сумма рабочих наборов наблюдаемых живых процессов; разделяемые страницы могут считаться несколько раз. fit-пик — максимум выборок в фазе fit, baseline — первая выборка этой фазы.',
-        'windows_highwater_note_ru': 'peak_wset относится ко всему времени жизни процесса; сумма индивидуальных high-water marks не является одновременным пиком дерева. peak_pagefile — commit, а не физическая RAM.',
+        'memory_method_ru': 'Tree RSS is the sum of working sets of observed live processes; shared pages may be counted multiple times. The fit peak is the maximum sample during the fit phase, and the baseline is its first sample.',
+        'windows_highwater_note_ru': 'peak_wset covers the entire process lifetime; the sum of individual high-water marks is not the simultaneous peak of the process tree. peak_pagefile measures commit, not physical RAM.',
     }

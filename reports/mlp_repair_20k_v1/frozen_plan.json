@@ -17,7 +17,7 @@
     "resource_monitor.py": "d9091b4269e3a7f3a9ac428adfcae03baa5bfd799583a21fa5a27608ba110def"
   },
   "cv_folds": 3,
-  "data_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\handoff\\RMT_batch_11_15\\data",
+  "data_root": "./handoff/RMT_batch_11_15/data",
   "expected_cv_optimizer_trajectories": 96,
   "expected_outer_cv_evaluations": 48,
   "fingerprint": "2bb884673500177f5d369b1dcb98888290a69a56b1141bc6a1d838eb4a2d3bf5",
@@ -158,13 +158,13 @@
     }
   ],
   "original_final_fingerprint": "61fab735901a017fd066d480c597bca5728af85841b3a3d9522aedf3d3fa6a5b",
-  "original_final_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_20config_final",
+  "original_final_root": "./artifacts/training/pilot_20k_20config_final",
   "original_mlp_selected_candidate": 13,
-  "original_pilot": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\artifacts\\training\\pilot_20k_5config",
+  "original_pilot": "./artifacts/training/pilot_20k_5config",
   "original_pilot_fingerprint": "76694fae1518c109858188e2c343e71ac9348e6528f70b7be098ac26016c729d",
   "original_results_replaced": false,
   "posthoc_supplemental": true,
-  "prepared_dir": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT\\data\\processed\\full",
+  "prepared_dir": "./data/processed/full",
   "prepared_inputs": [
     {
       "bytes": 23202644,
@@ -312,7 +312,7 @@
       "sha256": "ccb29e5ba1fd15ef535466eb75dc42dddc547fb742e036b091c15efa683aacba"
     }
   ],
-  "project_root": "C:\\Users\\askat\\Documents\\ChatGPT\\RMT",
+  "project_root": ".",
   "python": "3.13.9",
   "scope": "mlp_repair_20k_v1",
   "selection_metric": "mean outer CV log_loss",
@@ -361,5 +361,6 @@
     "scipy": "1.16.3",
     "threadpoolctl": "3.5.0",
     "xgboost": "3.2.0"
-  }
+  },
+  "publication_note": "Machine-specific paths are shown relative to the project root. The fingerprint identifies the original training-time plan preserved in release v1.0."
 }

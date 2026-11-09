@@ -99,23 +99,23 @@
     "candidate_cv_fits": 420,
     "refits": 28,
     "repeat_trainings": 0,
-    "ensemble_internal_fits": "учитываются отдельно"
+    "ensemble_internal_fits": "counted separately"
   },
   "deviations_from_a2": [
-    "Это отдельный исследовательский пилот на 20 000 development-заявках, стратифицированных с seed=42.",
-    "Для каждой пары выполняются 5 конфигураций × 3 CV-фолда и один автоматический refit; основной план A2 20 конфигураций и 5 повторов этим не заменяется.",
-    "Используются полные рабочие настройки моделей (technical=False). SHAP в пилоте не вычисляется."
+    "This is a separate exploratory pilot on 20 000 development applications, selected by stratified sampling with seed=42.",
+    "Each pair evaluates 5 configurations × 3 CV folds and one automatic refit; this does not replace the main A2 plan of 20 configurations and 5 repeats.",
+    "Full working model settings are used (technical=False). SHAP is not computed in this pilot."
   ],
   "interpretation": [
-    "Выбор параметров проводится по CV log-loss. Test используется для итоговой оценки, без изменения параметров, правил обработки или выбора конфигураций по качеству test.",
-    "RQ1 в Assignment 2 рассматривает core-модель при совместном учёте accuracy, profit и fairness. Таблица rq1_model_comparison даёт только предварительное описательное сравнение predictive accuracy и качества вероятностей; окончательная core-модель по пилоту не выбирается.",
-    "RQ2 показывает прирост от исторической информации: разности Level 2/3/4 − Level 1 внутри одной модели. Положительная разность AP/ROC-AUC и отрицательная разность log-loss/Brier означают улучшение на данном test; Level 1 имеет нулевую разность как baseline.",
-    "Порядок моделей фиксирован; победитель, eligibility и пороги по test не выбираются.",
-    "Один refit на пару не даёт оценки вариабельности по повторам: доверительные интервалы, p-values и утверждения о статистической значимости не формируются.",
-    "Pending/invalid не имеют test-результатов в отчёте; отсутствующие метрики и baseline Level 1 остаются пустыми, а в LaTeX обозначены --.",
-    "search_and_refit_seconds включает CV и автоматический refit; refit_seconds — его часть, поэтому эти столбцы нельзя суммировать. total_pair_seconds включает загрузку test, оценку и сохранение.",
-    "Полные loss_curve_ и n_iter_ MLP читаются только из проверенного fit_diagnostics.json; CSV содержит компактную сводку, JSON — исходные атрибуты.",
-    "LaTeX использует UTF-8 и booktabs: в документе необходим пакет booktabs и поддержка русского текста."
+    "Parameters are selected by CV log-loss. The test set is used for final evaluation without changing parameters, preprocessing rules or selecting configurations based on test performance.",
+    "RQ1 in Assignment 2 considers a core model jointly using accuracy, profit and fairness. rq1_model_comparison provides only a preliminary descriptive comparison of predictive accuracy and probability quality; the pilot does not select a final core model.",
+    "RQ2 shows gains from historical information: Level 2/3/4 − Level 1 differences within each model. Positive AP/ROC-AUC differences and negative log-loss/Brier differences indicate improvement on this test set; Level 1 has zero difference as the baseline.",
+    "Model order is fixed; a winner, eligibility and thresholds are not selected on the test set.",
+    "One refit per pair does not estimate variability across training repeats: confidence intervals, p-values and statistical-significance claims are not produced.",
+    "Pending/invalid stages have no test results in the report; missing metrics and a missing Level 1 baseline remain empty and are displayed as -- in LaTeX.",
+    "search_and_refit_seconds includes CV and automatic refit; refit_seconds is part of it, so these columns must not be summed. total_pair_seconds includes test loading, evaluation and saving.",
+    "Full MLP loss_curve_ and n_iter_ are read only from verified fit_diagnostics.json; CSV contains a compact summary and JSON retains the original attributes.",
+    "LaTeX uses UTF-8 and booktabs: the document requires the booktabs package and English text support."
   ],
   "test_used_for_tuning": false,
   "statistical_significance_claimed": false,

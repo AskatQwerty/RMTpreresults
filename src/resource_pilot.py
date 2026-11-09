@@ -1,7 +1,7 @@
-"""Отдельный ресурсный пилот: один заранее заданный full fit на тип, без test/search.
+"""Separate resource pilot: one predefined full fit per model type, with no test or search.
 
-Каждый тип обучается в новом дочернем процессе. Это освобождает память предыдущей
-модели и позволяет измерять peak working set/RSS, включая реальную предобработку.
+Each type trains in a fresh child process. This releases memory from the preceding
+model and measures peak working set/RSS including actual preprocessing.
 """
 from __future__ import annotations
 
@@ -43,11 +43,11 @@ def _plain_config(value):
     if hasattr(value,'get_n_splits'):
         return {'class':type(value).__name__,'n_splits':value.n_splits,
                 'shuffle':value.shuffle,'random_state':value.random_state}
-    raise TypeError(f'Неожиданная настройка модели: {type(value)}')
+    raise TypeError(f'Unexpected model setting: {type(value)}')
 
 
 def describe_configuration(estimator):
-    """Полные фиксированные настройки classifier и каждой базы, до fit."""
+    """Complete fixed settings of the classifier and every base estimator before fit."""
     if isinstance(estimator,Pipeline):
         return {'pipeline_steps':[name for name,_ in estimator.steps],
                 'final':describe_configuration(estimator.steps[-1][1])}
@@ -91,7 +91,7 @@ def _phase(stage,name,**extras):
 
 
 def worker(prepared_dir,root,model):
-    """Один fit; не вызываются RandomizedSearchCV, predict на test или выбор параметров."""
+    """One fit; no RandomizedSearchCV, test predictions, or parameter selection."""
     root,prepared_dir=Path(root),Path(prepared_dir)
     stage=root/model
     context=read_json(root/'experiment_manifest.json')
@@ -104,7 +104,7 @@ def worker(prepared_dir,root,model):
         ids=data.repeats[42]
         assert set(ids)<=set(data.development) and set(ids).isdisjoint(data.test)
         X,y=data.load(4,ids,purpose='technical_resource_train_seed_42')
-        # Префикс technical в purpose включает запрет test, но рабочие настройки full.
+        # The technical prefix in purpose forbids test access, while model settings remain full.
         assert np.array_equal(X.index,ids) and X.index.equals(y.index)
         numeric,categorical=data.columns(4)
         estimator=make_estimator(model,numeric,categorical,seed=42,
@@ -131,8 +131,8 @@ def worker(prepared_dir,root,model):
         begin=time.perf_counter()
         _atomic_model(estimator,stage/'pipeline.joblib')
         serialization_seconds=time.perf_counter()-begin
-        # Проверяем, что фактические атрибуты MLP переживают joblib-сериализацию.
-        # Удаляем оригинал до загрузки, чтобы не удваивать память большой RF.
+        # Verify that actual MLP attributes survive joblib serialization.
+        # Delete the original before loading to avoid doubling memory for a large RF.
         del estimator; gc.collect()
         restored=joblib.load(stage/'pipeline.joblib')
         assert extract_fit_diagnostics(restored)==diagnostics
@@ -179,10 +179,10 @@ def _metrics_frame(results):
 
 
 def run_resource_pilot(prepared_dir,output_parent,*,threads=2):
-    """Выполнить семь отдельных полных fit, сохраняя каждый независимо от остальных.
+    """Run seven separate full fits, saving each independently of the others.
 
-    Никакого поиска/оценки по test. При interruption завершённые worker-этапы
-    проверяются и пропускаются. Неуспешная конфигурация не заменяется более лёгкой.
+    No search or test evaluation. After interruption, completed worker stages are
+    verified and skipped. A failed configuration is not replaced with a lighter one.
     """
     from .resource_monitor import monitor_subprocess
     data=PreparedData(prepared_dir)
@@ -200,8 +200,8 @@ def run_resource_pilot(prepared_dir,output_parent,*,threads=2):
                 result=read_json(stage/'resource_result.json'); result['resumed']=True
             else:
                 atomic_json(stage/'selected_configuration.json',context['selected_configurations'][model])
-                # Удаляется только устаревший промежуточный outcome этого незавершённого этапа.
-                # Модель/diagnostics сохраняются до успешной атомарной перезаписи.
+                # Delete only the stale intermediate outcome of this incomplete stage.
+                # Retain the model and diagnostics until successful atomic replacement.
                 (stage/'worker_result.json').unlink(missing_ok=True)
                 _phase(stage,'launch_pending')
                 print(f'Resource pilot: {model}; available RAM {psutil.virtual_memory().available/1024**3:.2f} GiB',flush=True)

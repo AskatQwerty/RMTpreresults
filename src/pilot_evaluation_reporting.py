@@ -29,16 +29,16 @@ REQUIRED_TABLES=('quality_point','quality_ci','rq2_deltas','ap_vs_lr','delong',
     'threshold_metrics','calibration_bins')
 CI_NOTE='Pointwise, unadjusted, exploratory 95% percentile bootstrap CI; fixed trained models.'
 LIMITATIONS=[
-    'Пилот обучен на 20 000 development-заявках: остальные development-заявки в этом обучении не использованы.',
-    'На пару проверены 5 конфигураций и выполнен один refit; основной A2 предусматривает 20 конфигураций и пять повторных обучений.',
-    'Общие парные bootstrap-повторы отражают неопределённость состава test для фиксированных моделей, но не вариативность повторного обучения.',
-    '95% percentile bootstrap-интервалы являются pointwise, unadjusted, exploratory; они не равны среднему ± SD пяти запусков.',
-    'Парный DeLong и Bonferroni относятся только к семейству шести сравнений ROC-AUC с LR на Level 4; выводы не переносятся на AP.',
-    'Отсутствие значимой разницы не доказывает эквивалентность. Формальное правило A2 «не хуже лучшего по AP» этим пилотом не подтверждается.',
-    'Прибыль измеряется в условных единицах m=1 по заданной модели затрат; это не фактическая денежная прибыль банка.',
-    'Percentile CI абсолютных fairness-разрывов не является тестом bias: неотрицательность и излом абсолютной величины в нуле требуют осторожной интерпретации, даже если нижняя граница выше нуля.',
-    'Fairness-коррекции, обучение калибратора, SHAP и оценка устойчивости по пяти train-подвыборкам отложены.',
-    'Методы текущего анализа зафиксированы для этого этапа, но не объявляются предварительно зарегистрированными.',
+    'The pilot was trained on 20 000 development applications; other development applications were not used in this training.',
+    'Each pair evaluated 5 configurations and one refit; the main A2 plan specifies 20 configurations and five training repeats.',
+    'Common paired bootstrap replicates describe test-composition uncertainty for fixed models, not retraining variability.',
+    '95% percentile bootstrap intervals are pointwise, unadjusted and exploratory; they are not mean ± SD across five runs.',
+    'Paired DeLong and Bonferroni apply only to the family of six Level 4 ROC-AUC comparisons with LR; conclusions do not extend to AP.',
+    'Absence of a significant difference does not establish equivalence. This pilot does not establish the formal A2 rule of being no worse than the best model in AP.',
+    'Profit is measured in conditional units with m=1 under the specified cost model; it is not the bank’s realized monetary profit.',
+    'A percentile CI for absolute fairness gaps is not a bias test: nonnegativity and the kink at zero require cautious interpretation even when the lower bound is above zero.',
+    'Fairness adjustments, calibrator fitting, SHAP and stability evaluation across five training subsets are deferred.',
+    'The methods of this analysis are fixed for this stage but are not claimed to have been preregistered.',
 ]
 
 
@@ -139,8 +139,8 @@ def saved_protocol(pilot_root):
         'python_version_training':manifest.get('python'),'software_versions_training':manifest.get('versions',{}),
         'threads_configured':manifest.get('threads'),'search_n_jobs':manifest.get('search_n_jobs'),'pre_dispatch':manifest.get('pre_dispatch'),
         'hardware_recorded':recorded_hardware is not None,'hardware':recorded_hardware,
-        'hardware_note':'Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется.'
-                        if recorded_hardware is None else 'Прочитано из сохранённого manifest/summary обучения.',
+        'hardware_note':'The CPU model and total RAM were not recorded in the pilot training logs; current evaluation hardware is not substituted.'
+                        if recorded_hardware is None else 'Read from the saved training manifest/summary.',
         'completed_candidate_cv_fits':summary.get('candidate_cv_fits_completed'),
         'completed_refits':summary.get('completed_final_refits'),
         'completed_primitive_fits':summary.get('primitive_fits_completed'),
@@ -149,8 +149,8 @@ def saved_protocol(pilot_root):
         'training_last_event_utc':events[-1].get('utc') if events else None,
         'search_and_refit_seconds_sum':sum(r['search_and_refit_seconds'] for r in timings),
         'refit_seconds_sum':sum(r['refit_seconds'] for r in timings),
-        'timing_note':'refit_seconds входит в search_and_refit_seconds; их нельзя суммировать. Время invocation также включает IO и отчёты.',
-        'mlp_warning_note':'Предупреждения относятся ко всему search+refit, включая кандидатов CV; они не доказывают достижение max_iter выбранной моделью.',
+        'timing_note':'refit_seconds is included in search_and_refit_seconds; they must not be summed. Invocation time also includes IO and reports.',
+        'mlp_warning_note':'Warnings cover the entire search+refit, including CV candidates; they do not establish that the selected model reached max_iter.',
         'sources':[{'path':str(p.resolve()),'sha256':_hash(p)} for p in source_paths]}
     return protocol,pd.DataFrame(timings),pd.DataFrame(mlp),pd.DataFrame(warnings)
 
@@ -339,59 +339,59 @@ def _make_figures(tables,output,*,pdf_authorized):
 
 def _narrative(tables,protocol,mlp,evaluation_summary):
     quality=tables['quality_point']; l4=quality.loc[quality['level']==4]
-    paragraphs=[f"Оценены 28 сохранённых сочетаний семи моделей и четырёх уровней на общем test из {protocol['test_rows']:,} клиентов. "
-        'Основная PR-метрика: PR-AUC (average precision, AP). В этом этапе новые обучения, predict, подбор параметров, калибратор и fairness-коррекции не выполнялись.']
+    paragraphs=[f"Evaluated 28 saved combinations of seven models and four levels on a shared test set of {protocol['test_rows']:,} clients. "
+        'The primary PR metric is PR-AUC (average precision, AP). This stage performed no new training, predictions, parameter selection, calibration fitting, or fairness corrections.']
     best=[]
     for metric in ['ap','roc_auc','log_loss','brier']:
         row=l4.loc[l4[metric].idxmax() if metric in ['ap','roc_auc'] else l4[metric].idxmin()]
         best.append(f"{METRIC_LABELS[metric]}: {MODEL_LABELS[row['model']]} ({row[metric]:.4f})")
-    paragraphs.append('Лучшие отдельные точечные значения на Level 4: '+'; '.join(best)+'. Это описательное сравнение, а не формальный выбор core-модели по A2.')
+    paragraphs.append('Best individual point estimates at Level 4: '+'; '.join(best)+'. This is a descriptive comparison, not a formal core-model selection under A2.')
     vs=tables['ap_vs_lr']
     above=vs.loc[vs['ci_low']>0,'model'].map(MODEL_LABELS).tolist()
     overlap=vs.loc[(vs['ci_low']<=0)&(vs['ci_high']>=0),'model'].map(MODEL_LABELS).tolist()
     below=vs.loc[vs['ci_high']<0,'model'].map(MODEL_LABELS).tolist()
-    paragraphs.append('Exploratory pointwise интервалы разности AP с LR полностью выше нуля для: '+(', '.join(above) or 'ни одной модели')+
-        '; полностью ниже нуля для: '+(', '.join(below) or 'ни одной модели')+
-        '. Ноль входит в интервал для: '+(', '.join(overlap) or 'ни одной модели')+'. Bootstrap p-values не вычислялись.')
+    paragraphs.append('Exploratory pointwise intervals for the AP difference versus LR are entirely above zero for: '+(', '.join(above) or 'no models')+
+        '; entirely below zero for: '+(', '.join(below) or 'no models')+
+        '. The interval includes zero for: '+(', '.join(overlap) or 'no models')+'. Bootstrap p-values were not computed.')
     delong=tables['delong']; rejected=delong.loc[delong['reject_bonferroni_0_05']==True]
-    rejected_text=[f"{MODEL_LABELS[row.model]} (ROC-AUC {'выше' if row.delta_roc_auc>0 else 'ниже'} LR; "
+    rejected_text=[f"{MODEL_LABELS[row.model]} (ROC-AUC {'higher than' if row.delta_roc_auc>0 else 'lower than'} LR; "
                    f"Δ={row.delta_roc_auc:+.4f}, p_adj={row.p_bonferroni:.3g})" for row in rejected.itertuples()]
-    paragraphs.append('Парный DeLong с Bonferroni в семействе шести сравнений ROC-AUC с LR дал p_adj<0.05 для: '+
-        ('; '.join(rejected_text) or 'ни одной модели')+'. Это вывод только о ROC-AUC; он не доказывает различия AP или эквивалентность остальных моделей.')
+    paragraphs.append('Paired DeLong with Bonferroni correction across six ROC-AUC comparisons versus LR gave p_adj<0.05 for: '+
+        ('; '.join(rejected_text) or 'no models')+'. This conclusion applies only to ROC-AUC; it establishes neither AP differences nor equivalence of the remaining models.')
     gains=tables['rq2_deltas'].loc[(tables['rq2_deltas']['kind']=='baseline')&(tables['rq2_deltas']['to_level']==4)]
     gain_text=[]
     for model in MODELS:
         row=_matching(gains,model=model)
         gain_text.append(f"{MODEL_LABELS[model]}: {row['delta_ap']:+.4f} [{row['ci_low']:+.4f}, {row['ci_high']:+.4f}]")
-    paragraphs.append('RQ2, прирост AP Level 4 относительно Level 1: '+'; '.join(gain_text)+'. Все интервалы парные; дополнительные baseline и последовательные сравнения приведены в таблицах.')
+    paragraphs.append('RQ2, AP gain from Level 1 to Level 4: '+'; '.join(gain_text)+'. All intervals are paired; additional baseline and consecutive-level comparisons are shown in the tables.')
     negative=tables['rq2_deltas'].loc[(tables['rq2_deltas']['kind']=='sequential')&(tables['rq2_deltas']['delta_ap']<0)]
     if not negative.empty:
         pieces=[f"{MODEL_LABELS[row.model]} L{int(row.to_level)}-L{int(row.from_level)}: {row.delta_ap:+.4f} "
                 f"[{row.ci_low:+.4f}, {row.ci_high:+.4f}]" for row in negative.itertuples()]
-        paragraphs.append('Отрицательные точечные последовательные изменения AP: '+'; '.join(pieces)+
-            '. Добавление истории не гарантирует улучшения каждой модели на каждом шаге; интервалы остаются exploratory.')
+        paragraphs.append('Negative point estimates of consecutive-level AP changes: '+'; '.join(pieces)+
+            '. Adding history does not guarantee improvement for every model at every step; intervals remain exploratory.')
     gaps=tables['fairness_gaps']; pass_both=gaps.loc[gaps['both_approval_gaps_le_0_05']==True]
-    paragraphs.append(f"Наблюдаемому ограничению approval-rate gap ≤5 п.п. одновременно по полу и возрасту соответствуют {len(pass_both)} "
-        f"из {len(gaps)} уникальных сочетаний модели и порога. "+
-        ('Подходящих вариантов нет; ограничение не ослабляется. ' if pass_both.empty else '')+
-        'Половые и возрастные разрывы показаны отдельно; TPR-gap не подменяет approval-gap. Эти отметки не являются подтверждением общего правила отбора A2.')
-    paragraphs.append('Интервалы абсолютных fairness-разрывов описательны. Из-за неотрицательности и излома абсолютной величины в нуле нижняя граница выше нуля сама по себе не является формальным тестом наличия bias.')
+    paragraphs.append(f"The observed approval-rate gap limit of ≤5 percentage points for both gender and age is met by {len(pass_both)} "
+        f"of {len(gaps)} unique model-threshold combinations. "+
+        ('No options meet the constraint; it is not relaxed. ' if pass_both.empty else '')+
+        'Gender and age gaps are shown separately; TPR gap is not substituted for approval gap. These flags do not confirm the overall A2 selection rule.')
+    paragraphs.append('Intervals for absolute fairness gaps are descriptive. Because the absolute value is nonnegative and has a kink at zero, a lower bound above zero is not in itself a formal test for bias.')
     threshold_pass=[]
     for threshold in [0.5,1/6,1/11]:
         rows=gaps.loc[np.isclose(gaps['threshold'],threshold,atol=1e-12,rtol=0)]
         names=rows.loc[rows['both_approval_gaps_le_0_05']==True,'model'].map(MODEL_LABELS).tolist()
-        threshold_pass.append(f"t={threshold:.4f}: "+(', '.join(names) if names else 'подходящих вариантов нет'))
-    paragraphs.append('По фиксированным порогам оба наблюдаемых approval-gap ограничения выполняют: '+'; '.join(threshold_pass)+
-        '. Это проверка точечных разрывов, не гарантия ограничения в популяции; интервалы разрывов приведены отдельно.')
+        threshold_pass.append(f"t={threshold:.4f}: "+(', '.join(names) if names else 'no options meet the constraint'))
+    paragraphs.append('At the fixed thresholds, both observed approval-gap constraints are met by: '+'; '.join(threshold_pass)+
+        '. This checks point estimates of gaps, not a population-level guarantee; gap intervals are reported separately.')
     profit=tables['profit_point']
     for loss in [1,5,10]:
         rows=profit.loc[profit['loss_to_margin']==loss]
         maximum=rows.loc[rows['realized_profit_per_applicant'].idxmax()]
-        paragraphs.append(f"При L/m={loss} наблюдаемая прибыль семи моделей и фиксированных порогов лежит от "
-            f"{rows['realized_profit_per_applicant'].min():.3f} до {rows['realized_profit_per_applicant'].max():.3f} m на заявителя; "
-            f"доля одобрений — от {100*rows['approval_rate'].min():.1f}% до {100*rows['approval_rate'].max():.1f}%. "
-            f"Наибольшее точечное значение среди этих фиксированных вариантов: {MODEL_LABELS[maximum['model']]}, t={maximum['threshold']:.4f}. "
-            'Это описательный максимум, не статистически установленный победитель; порог по test не оптимизировался. Approve-all/reject-all приведены как ориентиры.')
+        paragraphs.append(f"At L/m={loss}, observed profit across seven models and fixed thresholds ranges from "
+            f"{rows['realized_profit_per_applicant'].min():.3f} to {rows['realized_profit_per_applicant'].max():.3f} m per applicant; "
+            f"approval rate ranges from {100*rows['approval_rate'].min():.1f}% to {100*rows['approval_rate'].max():.1f}%. "
+            f"The highest point estimate among these fixed options: {MODEL_LABELS[maximum['model']]}, t={maximum['threshold']:.4f}. "
+            'This is a descriptive maximum, not a statistically established winner; no threshold was optimized on test. Approve-all/reject-all are provided as reference policies.')
     groups=tables['fairness_groups']
     unknown=groups.loc[groups['included_in_binary_gap']==False]
     details=[]
@@ -400,33 +400,33 @@ def _narrative(tables,protocol,mlp,evaluation_summary):
         by_key=sample.groupby(['model','threshold'])['n'].sum() if not sample.empty else pd.Series(dtype=float)
         values=sorted(set(int(x) for x in by_key))
         details.append(f'{attribute}: '+('/'.join(map(str,values)) if values else '0'))
-    paragraphs.append('Неизвестные fairness-группы сохранены отдельно ('+'; '.join(details)+
-        ' заявок на общей test-выборке), исключены из бинарных разрывов, но остаются в общих метриках и прибыли. Ровно 25 лет относится к группе >=25.')
+    paragraphs.append('Unknown fairness groups are retained separately ('+'; '.join(details)+
+        ' applications in the shared test set), excluded from binary gaps but retained in overall metrics and profit. Age exactly 25 belongs to the >=25 group.')
     mlp_point=_matching(quality,model='mlp',level=4)
     lr=_matching(quality,model='logistic_regression',level=4)
-    paragraphs.append(f"При t=0.5 LR пропускает {int(lr['fn'])} дефолтов и ошибочно отклоняет {int(lr['fp'])} заявок TARGET=0; "
-        f"MLP — соответственно {int(mlp_point['fn'])} и {int(mlp_point['fp'])}. Ошибки всех моделей приведены рядом с precision/recall/F1. "
-        'Изменение порога меняет этот баланс, поэтому дополнительные фиксированные пороги сохранены отдельно.')
+    paragraphs.append(f"At t=0.5, LR misses {int(lr['fn'])} defaults and incorrectly declines {int(lr['fp'])} applications with TARGET=0; "
+        f"MLP respectively misses/declines {int(mlp_point['fn'])} and {int(mlp_point['fp'])}. Errors for every model are shown alongside precision/recall/F1. "
+        'Changing the threshold changes this balance, so additional fixed thresholds are saved separately.')
     candidate_errors=[]
     for model in ['soft_voting','stacking']:
         row=_matching(quality,model=model,level=4)
         candidate_errors.append(f"{MODEL_LABELS[model]}: FN={int(row['fn'])}, FP={int(row['fp'])}")
-    paragraphs.append('Для ансамблей при том же пороге: '+'; '.join(candidate_errors)+
-        '. Разный баланс пропущенных дефолтов и ошибочных отказов не означает превосходства по всем метрикам. '
-        'Random forest при t=0.5 одобряет всех: нулевые групповые разрывы сочетаются с нулевым обнаружением дефолтов и не являются свидетельством полезного решения кредитного риска.')
+    paragraphs.append('For ensembles at the same threshold: '+'; '.join(candidate_errors)+
+        '. Different balances of missed defaults and false declines do not imply superiority across all metrics. '
+        'At t=0.5, random forest approves everyone: zero group gaps coexist with zero default detection and do not indicate a useful credit-risk decision rule.')
     undefined=l4.loc[l4['precision'].isna(),'model'].map(MODEL_LABELS).tolist()
     if undefined:
-        paragraphs.append('Precision при t=0.5 не определена для: '+', '.join(undefined)+
-            ', поскольку модель не предсказывает ни одного дефолта. Это пропуск с нулевым знаменателем, а не precision=0; соответствующий bootstrap CI может иметь 0 допустимых повторов. '
-            'Нулевые recall/F1 при наличии фактических дефолтов сохраняются как нули.')
+        paragraphs.append('Precision at t=0.5 is undefined for: '+', '.join(undefined)+
+            ', because the model predicts no defaults. This is a missing value due to a zero denominator, not precision=0; the corresponding bootstrap CI may have 0 valid replicates. '
+            'Zero recall/F1 values in the presence of actual defaults remain zero.')
     epochs=', '.join(f"L{int(row.level)}={int(row.n_iter_)}" for row in mlp.itertuples())
     warning_counts=', '.join(f"L{int(row.level)}={int(row.warning_count_search_and_refit)}" for row in mlp.itertuples())
-    paragraphs.append(f"MLP сохраняется во всех таблицах, несмотря на слабые значения AP и log-loss. Фактические n_iter_: {epochs}; "
-        f"агрегированные ConvergenceWarning за search+refit: {warning_counts}. Предупреждения включают CV-кандидатов, поэтому не равны числу ошибок выбранного refit. "
-        'Train loss_ содержит особенности оптимизации и регуляризацию и не тождественен внешней log-loss. Эти наблюдения не устанавливают переобучение, ошибку предобработки или лимит итераций как причину слабого качества.')
+    paragraphs.append(f"MLP is retained in all tables despite weak AP and log-loss. Actual n_iter_: {epochs}; "
+        f"aggregated ConvergenceWarning counts for search+refit: {warning_counts}. Warnings include CV candidates, so they do not equal the number of errors in the selected refit. "
+        'Training loss_ reflects optimization details and regularization and is not identical to external log-loss. These observations do not establish overfitting, preprocessing errors, or the iteration limit as the cause of poor performance.')
     completed=evaluation_summary.get('completed_bootstrap')
-    paragraphs.append(f'Вычислено {completed} общих парных bootstrap-повторов test, seed=42. При каждом повторе одни и те же клиентские веса применены ко всем моделям и уровням. '
-        'Интервалы описывают test-неопределённость фиксированных обученных моделей; новые train-повторы не выполнялись.')
+    paragraphs.append(f'Computed {completed} shared paired test bootstrap replicates, seed=42. Each replicate applies the same client weights to every model and level. '
+        'Intervals describe test uncertainty for fixed trained models; no new training repeats were performed.')
     return paragraphs
 
 
@@ -457,37 +457,37 @@ def export_evaluation_report(pilot_root,evaluation_dir,*,previous_reports=None,t
     protocol,timing,mlp,warnings=saved_protocol(root)
     output.mkdir(parents=True,exist_ok=True)
     _json(output/'actual_training_protocol.json',protocol)
-    _atomic_text(output/'latex_usage.txt',r'''Подключение таблиц в статью
+    _atomic_text(output/'latex_usage.txt',r'''Including tables in the manuscript
 
-Требуемые пакеты в преамбуле:
+Required preamble packages:
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{graphicx}
 
-Пример включения готового фрагмента:
+Example of including a prepared fragment:
 \input{tables/rq1_level4.tex}
 
-Короткие таблицы с пятью и более столбцами используют
-\resizebox{\linewidth}{!}{...}; подпись остаётся вне масштабирования.
-В двухколоночной статье для широких основных таблиц замените окружение
-table на table* (и соответствующий end). Тогда linewidth относится
-к полной ширине двух колонок. Проверьте итоговую читаемость шрифта
-в шаблоне журнала; не растягивайте таблицы вручную за границы полосы.
+Short tables with five or more columns use
+\resizebox{\linewidth}{!}{...}; the caption remains outside the scaling.
+In a two-column manuscript, replace the environment for wide main tables
+from table to table* (and the matching end). linewidth then refers
+to the full width of both columns. Check final font legibility
+in the journal template; do not manually stretch tables beyond the text area.
 
-Таблицы longtable не масштабируются: они используют локальные
-\scriptsize и \tabcolsep=3pt. Размещайте их в одноколоночном разделе
-приложения; не вкладывайте longtable в table/table* или resizebox.
+longtable tables are not scaled: they use local
+\scriptsize and \tabcolsep=3pt. Place them in a single-column
+appendix section; do not nest longtable inside table/table* or resizebox.
 
-Точечная оценка находится на первой строке ячейки, 95% CI — на второй.
-CI является pointwise, unadjusted, exploratory percentile bootstrap
-интервалом при фиксированных обученных моделях. Он не учитывает
-вариативность повторного обучения и не заменяет среднее ± SD пяти запусков.
-Знак -- означает неопределённое значение, а не ноль.
+The point estimate is on the first cell line; the 95% CI is on the second.
+The CI is a pointwise, unadjusted, exploratory percentile bootstrap
+interval conditional on fixed fitted models. It does not capture
+retraining variability and does not replace mean ± SD across five runs.
+The -- marker denotes an undefined value, not zero.
 
-Названия моделей и подписи английские. Для исходного текста статьи
-используйте кодировку UTF-8 и стандартную настройку её шрифтов.
-Эти фрагменты не компилировались в локальный TeX: проверьте окончательную
-верстку в целевом шаблоне статьи. PDF/SVG рисунки проверяются отдельно.
+Model names and captions are in English. For the manuscript source,
+use UTF-8 encoding and its standard font configuration.
+These fragments were not compiled in a local TeX installation: check final
+typesetting in the target manuscript template. PDF/SVG figures are checked separately.
 ''')
     for name,frame in [('training_timings',timing),('mlp_actual_diagnostics',mlp),('saved_training_warnings',warnings)]:
         _atomic_text(output/f'{name}.csv',frame.to_csv(index=False))
@@ -515,21 +515,21 @@ CI является pointwise, unadjusted, exploratory percentile bootstrap
     statistical_path=output/'statistical_validation.json'
     statistical=_read_json(statistical_path)
     blockers=[]
-    if summary.get('completed_bootstrap')!=1000: blockers.append('Не подтверждены все 1000 bootstrap-повторов.')
+    if summary.get('completed_bootstrap')!=1000: blockers.append('Not all 1,000 bootstrap replicates have been confirmed.')
     main_ci=supplied['quality_ci'].loc[(supplied['quality_ci']['metric']=='ap')|
         ((supplied['quality_ci']['level']==4)&supplied['quality_ci']['metric'].isin(['roc_auc','log_loss','brier']))]
     if len(main_ci)!=49 or not (main_ci['bootstrap_n_valid']==1000).all():
-        blockers.append('Для основных AP/ROC-AUC/log-loss/Brier интервалов не подтверждены 1000 допустимых повторов.')
+        blockers.append('The primary AP/ROC-AUC/log-loss/Brier intervals do not have 1,000 confirmed valid replicates.')
     if summary.get('input_integrity_unchanged') is not True or integrity.get('unchanged') is not True:
-        blockers.append('Не подтверждена неизменность входных артефактов после анализа.')
-    if summary.get('alignment_verified') is not True: blockers.append('Не подтверждено согласование test-ID/TARGET.')
-    if summary.get('existing_metrics_match') is not True: blockers.append('Не подтверждено согласие с прежними метриками.')
-    if summary.get('new_fit_calls')!=0 or summary.get('new_predict_calls')!=0: blockers.append('Не подтверждено отсутствие новых fit/predict.')
-    if len(figure_files)!=4: blockers.append('Не готовы обе пары PDF/SVG рисунков.')
+        blockers.append('Input artifact integrity after analysis has not been confirmed.')
+    if summary.get('alignment_verified') is not True: blockers.append('Test-ID/TARGET alignment has not been confirmed.')
+    if summary.get('existing_metrics_match') is not True: blockers.append('Agreement with previous metrics has not been confirmed.')
+    if summary.get('new_fit_calls')!=0 or summary.get('new_predict_calls')!=0: blockers.append('The absence of new fits/predictions has not been confirmed.')
+    if len(figure_files)!=4: blockers.append('The two PDF/SVG figure pairs are not ready.')
     visual_ok=graphics.get('passed') is True or graphics.get('all_passed') is True
-    if not visual_ok: blockers.append('Финальная визуальная проверка PDF ещё не зафиксирована.')
+    if not visual_ok: blockers.append('Final visual inspection of the PDF has not yet been recorded.')
     if statistical is not None and statistical.get('status')!='passed':
-        blockers.append('Независимая статистическая проверка сохранена, но не имеет статуса passed.')
+        blockers.append('An independent statistical review is saved but does not have passed status.')
     readiness={'scope':'pilot_20k_5config_evaluation','status':'ready' if not blockers else 'pending_checks',
         'ready_for_article':not blockers,'generated_utc':datetime.now(timezone.utc).isoformat(),
         'new_fit_calls':0,'new_predict_calls':0,'completed_bootstrap':summary.get('completed_bootstrap'),
@@ -552,42 +552,42 @@ CI является pointwise, unadjusted, exploratory percentile bootstrap
             'previous_reports':str(previous.resolve()),'evaluation_tables':{name:str((output/f'{name}.csv').resolve()) for name in REQUIRED_TABLES}},
         'a2_selection_formally_confirmed':False,'preregistered_claim':False}
     _json(output/'results_readiness.json',readiness)
-    protocol_text=(f"Исходная размеченная выборка: {protocol['original_labelled_rows']:,}; development {protocol['development_rows']:,}, "
-        f"test {protocol['test_rows']:,}; пилот {protocol['pilot_train_rows']:,}; не использовано в обучении {protocol['unused_development_rows']:,} development-заявок. "
-        f"Число исходных подготовленных признаков по уровням: {protocol['feature_counts']}. "
-        f"Завершено CV-fit {protocol['completed_candidate_cv_fits']}, refit {protocol['completed_refits']}; "
-        f"последний invocation {protocol['last_invocation_elapsed_seconds']:.1f} с. {protocol['timing_note']} "
+    protocol_text=(f"Original labeled sample: {protocol['original_labelled_rows']:,}; development {protocol['development_rows']:,}, "
+        f"test {protocol['test_rows']:,}; pilot {protocol['pilot_train_rows']:,}; unused in training: {protocol['unused_development_rows']:,} development applications. "
+        f"Number of original prepared features by level: {protocol['feature_counts']}. "
+        f"Completed CV fits: {protocol['completed_candidate_cv_fits']}, refit {protocol['completed_refits']}; "
+        f"last invocation: {protocol['last_invocation_elapsed_seconds']:.1f} s. {protocol['timing_note']} "
         f"Python {protocol['python_version_training']}; software versions: {protocol['software_versions_training']}. "
         f"Threads={protocol['threads_configured']}, search_n_jobs={protocol['search_n_jobs']}, pre_dispatch={protocol['pre_dispatch']}. {protocol['hardware_note']}")
-    protocol_text+=' Seeds: выбор пилотных клиентов '+str(protocol['pilot_selection_seed'])+', CV '+str(protocol['pilot_cv_seed'])+', поиск '+str(protocol['search_seed'])+'. '
-    protocol_text+='Размеры train/validation CV-фолдов: '+', '.join(f"fold {fold['fold']}: {fold['train_rows']}/{fold['validation_rows']}" for fold in protocol['cv_folds'])+'. '
-    protocol_text+='Баланс классов (0/1): '+', '.join(f"{row['sample']}: {row['class_0']}/{row['class_1']}" for row in protocol['class_balance'])+'.'
-    text='Результаты исследовательского пилота 20k / 5 конфигураций\n\n'+'\n\n'.join(paragraphs)+\
-        '\n\nФактический протокол\n'+protocol_text+'\n\nОграничения и отклонения от A2\n'+'\n'.join('- '+item for item in LIMITATIONS)+\
-        '\n\nГотовность материалов\n'+('Материалы готовы для предварительного раздела статьи.' if not blockers else '\n'.join('- '+b for b in blockers))+\
-        '\n\nCSV и LaTeX: tables/. Рисунки PDF/SVG: figures/. Полные рассчитанные результаты: CSV в evaluation/.\n'
+    protocol_text+=' Seeds: pilot client selection '+str(protocol['pilot_selection_seed'])+', CV '+str(protocol['pilot_cv_seed'])+', search '+str(protocol['search_seed'])+'. '
+    protocol_text+='CV fold train/validation sizes: '+', '.join(f"fold {fold['fold']}: {fold['train_rows']}/{fold['validation_rows']}" for fold in protocol['cv_folds'])+'. '
+    protocol_text+='Class balance (0/1): '+', '.join(f"{row['sample']}: {row['class_0']}/{row['class_1']}" for row in protocol['class_balance'])+'.'
+    text='Research pilot results: 20k / 5 configurations\n\n'+'\n\n'.join(paragraphs)+\
+        '\n\nActual protocol\n'+protocol_text+'\n\nLimitations and deviations from A2\n'+'\n'.join('- '+item for item in LIMITATIONS)+\
+        '\n\nMaterial readiness\n'+('The materials are ready for a preliminary paper section.' if not blockers else '\n'.join('- '+b for b in blockers))+\
+        '\n\nCSV and LaTeX: tables/. PDF/SVG figures: figures/. Complete calculated results: CSV files in evaluation/.\n'
     _atomic_text(output/'results_report.txt',text)
     css='body{font-family:Segoe UI,Arial,sans-serif;max-width:1180px;margin:38px auto;color:#172b3a;line-height:1.55;padding:0 24px}h1,h2{color:#123e5b}h1{font-size:28px}h2{margin-top:35px;font-size:21px}p{max-width:1050px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0 8px}th{background:#edf3f7;text-align:left}td,th{border-bottom:1px solid #d7e0e7;padding:7px;white-space:pre-line;vertical-align:top}caption,small{color:#536979}figure{margin:20px 0}img{max-width:100%;height:auto}.note{background:#f2f6f8;padding:12px 16px;border-left:4px solid #6089a4}a{color:#14699c}.scroll{overflow-x:auto}'
-    parts=['<!doctype html><html lang="ru"><meta charset="utf-8"><title>Пилот: оценка RQ1/RQ2</title><style>'+css+'</style><body>',
-        '<h1>Предварительные результаты RQ1/RQ2</h1>',
-        '<p class="note">20 000 train-клиентов, 5 конфигураций, один refit на пару. Только оценка сохранённых вероятностей; новых обучений нет.</p>']
+    parts=['<!doctype html><html lang="en"><meta charset="utf-8"><title>Pilot: RQ1/RQ2 evaluation</title><style>'+css+'</style><body>',
+        '<h1>Preliminary RQ1/RQ2 results</h1>',
+        '<p class="note">20,000 training clients, 5 configurations, one refit per pair. Saved probabilities are evaluated; no new training is performed.</p>']
     for paragraph in paragraphs: parts.append('<p>'+html.escape(paragraph)+'</p>')
-    parts.append('<h2>Таблицы для статьи</h2>')
+    parts.append('<h2>Tables for the paper</h2>')
     main_names=['rq1_level4','rq2_ap_levels','rq2_baseline_gains','rq2_sequential_gains',
                 'profit_fairness_L1','profit_fairness_L5','profit_fairness_L10','errors_level4','ap_vs_lr_level4','delong_level4']
     for name in main_names:
         frame,caption,_=prepared_tables[name]
         parts.extend(['<h3>'+html.escape(caption)+'</h3>','<div class="scroll">'+frame.to_html(index=False,border=0,escape=True)+'</div>',
             f'<small><a href="tables/{name}.csv">CSV</a> · <a href="tables/{name}.tex">LaTeX</a></small>'])
-    parts.append('<h2>Рисунки</h2>')
-    for name,title in [('ap_by_level','PR-AUC (average precision, AP) по уровням'),('calibration_level4','Калибровка Level 4')]:
+    parts.append('<h2>Figures</h2>')
+    for name,title in [('ap_by_level','PR-AUC (average precision, AP) by level'),('calibration_level4','Level 4 calibration')]:
         if (output/'figures'/f'{name}.svg').exists():
             parts.append(f'<figure><img src="figures/{name}.svg" alt="{html.escape(title)}"><figcaption>{html.escape(title)}. <a href="figures/{name}.pdf">PDF</a></figcaption></figure>')
-    parts.extend(['<h2>Фактический протокол</h2>','<p>'+html.escape(protocol_text)+'</p>',balance.to_html(index=False,border=0),cv.to_html(index=False,border=0),
-        '<h3>MLP: сохранённые атрибуты обучения</h3>',mlp.drop(columns=['selected_params_json','fitted_config_json']).to_html(index=False,border=0),
-        '<h2>Ограничения и отклонения от A2</h2>','<ul>'+''.join('<li>'+html.escape(item)+'</li>' for item in LIMITATIONS)+'</ul>',
-        '<h2>Готовность</h2>','<p>'+html.escape('Материалы готовы для предварительного раздела статьи.' if not blockers else ' '.join(blockers))+'</p>',
-        '<p>Полные сценарии, TPR-разрывы и ориентиры прибыли находятся в приложении tables/; все числовые результаты и промежуточные bootstrap-файлы сохранены отдельно.</p>',
+    parts.extend(['<h2>Actual protocol</h2>','<p>'+html.escape(protocol_text)+'</p>',balance.to_html(index=False,border=0),cv.to_html(index=False,border=0),
+        '<h3>MLP: saved training attributes</h3>',mlp.drop(columns=['selected_params_json','fitted_config_json']).to_html(index=False,border=0),
+        '<h2>Limitations and deviations from A2</h2>','<ul>'+''.join('<li>'+html.escape(item)+'</li>' for item in LIMITATIONS)+'</ul>',
+        '<h2>Readiness</h2>','<p>'+html.escape('The materials are ready for a preliminary paper section.' if not blockers else ' '.join(blockers))+'</p>',
+        '<p>Complete scenarios, TPR gaps, and profit reference policies are available in the tables/ supplement; all numeric results and intermediate bootstrap files are saved separately.</p>',
         '</body></html>'])
     _atomic_text(output/'results_report.html','\n'.join(parts))
     readiness['readable_reports']=[str((output/'results_report.html').resolve()),str((output/'results_report.txt').resolve())]
@@ -595,13 +595,13 @@ CI является pointwise, unadjusted, exploratory percentile bootstrap
     if notebook_execution:
         readiness['notebook_execution']=notebook_execution
         if notebook_execution.get('backend')=='python_namespace':
-            note=('Все code-ячейки notebook исполнены в чистом Python-процессе; реальные outputs сохранены. '
-                'Попытка запуска Jupyter-ядра не вернула outputs и была прервана. '
-                'Это подтверждает исполнение Python-кода, но не проверку notebook в Jupyter kernel. '
-                'Готовые bootstrap-повторы переиспользованы; новых fit/predict не было.')
-            _atomic_text(output/'results_report.txt',text+'\nИсполнение notebook\n'+note+'\n')
+            note=('All notebook code cells were executed in a clean Python process; actual outputs were saved. '
+                'The attempted Jupyter kernel run returned no outputs and was interrupted. '
+                'This confirms Python code execution, but not notebook validation in a Jupyter kernel. '
+                'Existing bootstrap replicates were reused; no new fits or predictions were performed.')
+            _atomic_text(output/'results_report.txt',text+'\nNotebook execution\n'+note+'\n')
             report_html='\n'.join(parts).replace('</body></html>',
-                '<h2>Исполнение notebook</h2><p>'+html.escape(note)+'</p></body></html>')
+                '<h2>Notebook execution</h2><p>'+html.escape(note)+'</p></body></html>')
             _atomic_text(output/'results_report.html',report_html)
     _json(output/'results_readiness.json',readiness)
     return readiness

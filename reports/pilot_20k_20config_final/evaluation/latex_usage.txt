@@ -1,3 +1,3 @@
-Пакеты: booktabs, longtable, graphicx. Пример: \input{tables/rq1_level4.tex}.
-В таблице точечная оценка и затем [95% CI]. Интервалы описывают фиксированные модели, не пять train-повторов.
-Фрагменты LaTeX не компилировались; итоговую верстку проверяйте в шаблоне статьи.
+Packages: booktabs, longtable, graphicx. Example: \input{tables/rq1_level4.tex}.
+The table gives the point estimate followed by [95% CI]. Intervals describe fixed models, not five training repeats.
+The LaTeX fragments were not compiled; check the final layout in the paper template.

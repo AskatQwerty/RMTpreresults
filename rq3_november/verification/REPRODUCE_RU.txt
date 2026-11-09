@@ -1,18 +1,18 @@
-Повтор SHAP для ноябрьского RQ3
-Исходный репозиторий: https://github.com/AskatQwerty/RMTpreresults/tree/f431692a194381c1e5fd28af4235a7597dcc37a1
-Официальные модели: model_bundles/RMT_active_28_models.zip в указанном коммите. SHA-256 архива 33bc897cfee188810a15ce4850a2e59144f6f523b45ebb3ce56cea152f37e355. Сценарий prepare.py проверяет все элементы и извлекает Pipeline уровня 4.
-Данные: фиксированная когорта из 20 000 клиентов (RMT_batch_11_15/data) и прежний пакет SHAP с таблицами test из Home Credit и закреплёнными выборками rq3/out. Исходные данные предоставляются отдельно.
+Reproducing November RQ3 SHAP
+Source repository: https://github.com/AskatQwerty/RMTpreresults/tree/f431692a194381c1e5fd28af4235a7597dcc37a1
+Official models: model_bundles/RMT_active_28_models.zip at that commit. Archive SHA-256: 33bc897cfee188810a15ce4850a2e59144f6f523b45ebb3ce56cea152f37e355. prepare.py verifies all members and extracts the Level 4 Pipelines.
+Data: the fixed 20,000-applicant cohort (RMT_batch_11_15/data) and the earlier SHAP package with Home Credit test tables and fixed rq3/out selections. Customer data are supplied separately.
 
-Все семь моделей, каждый из пяти повторов и проверки разных seed объяснителя используют одинаковые 1 000 test ID, по 500 в каждой группе HAS_BUREAU. Фон содержит прежние 100 train ID.
+All seven models, each of five retrainings, and the explainer-seed checks use the same 1,000 test IDs, with 500 in each HAS_BUREAU group. The background retains the same 100 train IDs.
 
-Как воспроизвести
-1. Из корня репозитория скопируйте model_bundles/RMT_active_28_models.zip в rq3_november/active_models.zip. Поместите ноябрьские входные данные в RMT_batch_11_15/data рядом с каталогом rq3_november. Исходные параметры, октябрьские сводные таблицы и контрольные суммы входят в этот репозиторий.
-2. Установите версии зависимостей из requirements.txt и Python 3.13.9. Укажите в SHAP_PROJECT путь к каталогу, где находятся Get-FileHash pilot_20k_5config_shap/data/handoff/pilot_20k_5config и rq3/out с архивными выборками explained_ids.parquet и background_ids.parquet, старым фиксированным MLP и selection.json. В нашем проекте этот каталог назывался rmt claude 3 assignment.
-3. Из rq3_november запустите python prepare.py. Обученные модели не передавайте в fit: скрипт full.py загружает все семь исходных моделей через joblib и проверяет их SHA-256. Для повторов r1–r5 строятся новые модели с выбранными ноябрьскими параметрами.
-4. Установите OMP_NUM_THREADS, MKL_NUM_THREADS, OPENBLAS_NUM_THREADS и NUMEXPR_NUM_THREADS равными 2. Выполните:
+Procedure
+1. From the repository root, copy model_bundles/RMT_active_28_models.zip to rq3_november/active_models.zip. Place the November inputs in RMT_batch_11_15/data alongside rq3_november. Original parameters, October aggregate tables and checksums are included in this repository.
+2. Install Python 3.13.9 and the pinned dependencies from rq3_november/verification/requirements.txt, including SHAP. Set SHAP_PROJECT to the directory containing pilot_20k_5config_shap/data/handoff/pilot_20k_5config and rq3/out with the archived explained_ids.parquet, background_ids.parquet, original fixed MLP and selection.json. Use your own local directory path.
+3. Run python prepare.py from rq3_november. Do not fit the already trained models: full.py loads all seven original models with joblib and verifies their SHA-256. Repeats r1–r5 construct new models with the selected November parameters.
+4. Set OMP_NUM_THREADS, MKL_NUM_THREADS, OPENBLAS_NUM_THREADS and NUMEXPR_NUM_THREADS to 2. Run:
 python full.py logistic_regression,random_forest,xgboost,lightgbm,mlp,soft_voting,stacking fixed,r1,r2,r3,r4,r5,noise_a,noise_b
-После прерывания повторите эту команду: готовые результаты в rq3/out/runs пропускаются. Для зачётного независимого повтора используйте пустой каталог результатов и fits. На нашем компьютере включался адаптер forest_runtime/sitecustomize.py через PYTHONPATH, RMT_THREAD_EXECUTOR=1, RMT_EXECUTOR_TEST=1, чтобы Windows могла исполнять Random Forest с двумя потоками.
-5. Запустите python rq3/rq3_analyze.py. Таблицы и рисунки сохраняются в rq3/out. Чтобы провести дополнительные сверки и сравнение с октябрём, запустите python check_results.py.
+After interruption, repeat the command: completed rq3/out/runs results are skipped. An independent reproduction requires empty output and fits directories. On the original machine, forest_runtime/sitecustomize.py was enabled through PYTHONPATH with RMT_THREAD_EXECUTOR=1 and RMT_EXECUTOR_TEST=1 so that Windows could run Random Forest with two threads.
+5. Run python rq3/rq3_analyze.py. Tables and figures are written to rq3/out. Run python check_results.py for additional checks and October comparisons.
 
-Контрольные файлы и интерпретация
-verification/BUNDLE.json фиксирует SHA-256 оригинального архива и каждой модели. Все fixed-оценки и повторы разных seed объяснителя используют эти исходные модели. runs/fixed/*_verification.json сравнивают AP, ROC-AUC, log loss и Brier с публикацией. В verification/explanation_checks.csv показана максимальная невязка между суммой вкладов с базой и predict_proba у каждого объяснения. Таблица rq3_explainer_noise.csv показывает, насколько похожи топ-5 при смене одного только seed перестановок.
+Verification and interpretation
+verification/BUNDLE.json records SHA-256 values for the original archive and every model. All fixed evaluations and alternative explainer seeds use those original models. runs/fixed/*_verification.json compares AP, ROC-AUC, log loss and Brier with the publication. verification/explanation_checks.csv reports each explanation's maximum residual between summed contributions plus baseline and predict_proba. rq3_explainer_noise.csv reports how personal top-5 overlap changes when only the permutation seed changes.

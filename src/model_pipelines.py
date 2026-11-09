@@ -1,8 +1,8 @@
-"""Полные Pipeline семи моделей RMT; никакого fit при создании объектов.
+"""Complete Pipelines for seven RMT models; constructing objects never calls fit.
 
-Все обучаемые преобразования находятся внутри estimator, передаваемого в CV.
-У ансамблей каждый базовый estimator содержит собственную предобработку;
-особенно важно, что stacking не получает заранее преобразованный development.
+All learned transformations are inside the estimator passed to CV.
+Each ensemble base estimator contains its own preprocessing;
+in particular, stacking never receives pre-transformed development data.
 """
 from __future__ import annotations
 
@@ -33,10 +33,10 @@ MISSING_CATEGORY = "__RMT_MISSING__"
 
 
 def normalize_category_missing(values):
-    """Строковые категории (включая Boolean из Parquet), None/pd.NA -> np.nan.
+    """String categories (including Parquet Booleans), None/pd.NA -> np.nan.
 
-    Детерминированное приведение типов не обучает словарь. Оно предотвращает
-    смешение bool и строкового маркера пропуска внутри одного OHE-столбца.
+    Deterministic type conversion does not learn a vocabulary. It prevents
+    mixing bool and a string missing-value marker within one OHE column.
     """
     if isinstance(values, pd.DataFrame):
         result = values.astype('string').astype(object)
@@ -49,18 +49,18 @@ def normalize_category_missing(values):
 
 
 def to_float32_csr(values):
-    """Единый компактный формат результата; это детерминированное преобразование."""
+    """A common compact output format; this is a deterministic transformation."""
     result = sparse.csr_matrix(values, dtype=np.float32)
     result.sort_indices()
     return result
 
 
 def to_float32_dense(values):
-    """Явно хранить нули для XGBoost: CSR-отсутствие иначе означает missing.
+    """Store zeros explicitly for XGBoost: absent CSR entries otherwise mean missing.
 
-    Минимальный размер dense-массива n_rows*n_encoded_features*4 байт,
-    без дополнительных рабочих копий бустинга. Не переключаемся незаметно на
-    CSR при нехватке RAM: такая замена изменила бы семантику нулевых значений.
+    Minimum dense-array size is n_rows*n_encoded_features*4 bytes,
+    excluding additional boosting working copies. Never silently switch to
+    CSR when RAM is insufficient: that would change the semantics of zero values.
     """
     if sparse.issparse(values):
         return values.astype(np.float32, copy=False).toarray(order="C")
@@ -69,26 +69,26 @@ def to_float32_dense(values):
 
 def make_preprocessor(numeric_columns, categorical_columns, *, scale=False,
                       dense_output=False):
-    """Независимые train-only ветки, float32 CSR или явный dense для XGBoost.
+    """Independent train-only branches, float32 CSR or explicit dense for XGBoost.
 
-    Медианы, параметры scaler и категории OneHotEncoder появляются только
-    при fit текущего train. Неизвестная категория получает нулевой OHE-вектор.
-    Числовые индикаторы идут для каждого исходного числового поля, включая
-    столбцы, полностью пустые в train, как в fold_preprocessing.py. Для XGBoost
-    dense_output=True сохраняет различие между числовым 0 и missing: tree booster
-    трактует отсутствующие CSR-элементы как missing (официальный XGBoost FAQ).
+    Medians, scaler parameters and OneHotEncoder categories are created only
+    when fitting the current train. An unknown category receives an all-zero OHE vector.
+    Numeric indicators cover every original numeric field, including
+    columns entirely missing in train, as in fold_preprocessing.py. For XGBoost,
+    dense_output=True preserves the distinction between numeric 0 and missing: the tree booster
+    treats absent CSR entries as missing (official XGBoost FAQ).
     """
     numeric_columns, categorical_columns = list(numeric_columns), list(categorical_columns)
     if not numeric_columns and not categorical_columns:
-        raise ValueError("Не заданы признаки")
+        raise ValueError("No features specified")
     if set(numeric_columns) & set(categorical_columns):
-        raise ValueError("Числовые и категориальные признаки пересекаются")
+        raise ValueError("Numeric and categorical features overlap")
     all_columns = numeric_columns + categorical_columns
     if len(set(all_columns)) != len(all_columns):
-        raise ValueError("Повторяющиеся имена входных признаков")
+        raise ValueError("Duplicate input feature names")
     forbidden = {"TARGET", "CODE_GENDER", "DAYS_BIRTH", "AGE_YEARS", "AGE_GROUP", "GENDER_GROUP"}
     if forbidden & set(all_columns) or any(name.startswith("SK_ID_") for name in all_columns):
-        raise ValueError("TARGET, ID и прямые fairness-поля не могут быть признаками модели")
+        raise ValueError("TARGET, IDs and direct fairness fields cannot be model features")
     categories = Pipeline([
         ("normalize_missing", FunctionTransformer(normalize_category_missing,
             validate=False, feature_names_out="one-to-one")),
@@ -110,7 +110,7 @@ def make_preprocessor(numeric_columns, categorical_columns, *, scale=False,
 
 
 def _base_classifier(name, seed, technical, threads):
-    """Classifier без предобработки; используется только внутри полного Pipeline."""
+    """Classifier without preprocessing; used only inside a complete Pipeline."""
     if name == "logistic_regression":
         return LogisticRegression(penalty="l2", C=1.0, solver="lbfgs",
             max_iter=500 if technical else 2000, tol=1e-4,
@@ -120,7 +120,7 @@ def _base_classifier(name, seed, technical, threads):
             max_depth=8 if technical else 16, min_samples_leaf=2 if technical else 10,
             max_features="sqrt", class_weight=None, random_state=seed, n_jobs=threads)
     if name == "xgboost":
-        # Ленивый импорт: сама проверка схем не требует установленного бустинга.
+        # Lazy import: schema checking alone does not require installed boosting packages.
         from xgboost import XGBClassifier
         return XGBClassifier(n_estimators=30 if technical else 300,
             max_depth=3 if technical else 5, learning_rate=0.08 if technical else 0.05,
@@ -144,21 +144,21 @@ def _base_classifier(name, seed, technical, threads):
             max_iter=60 if technical else 300, tol=1e-4,
             n_iter_no_change=10 if technical else 20, early_stopping=False,
             shuffle=True, random_state=seed)
-    raise ValueError(f"Неизвестная базовая модель: {name}")
+    raise ValueError(f"Unknown base model: {name}")
 
 
 def make_estimator(name, numeric_columns, categorical_columns, *, seed=42,
                    technical=False, threads=2):
-    """Создать полный необученный Pipeline для одной пары модель/уровень.
+    """Create a complete unfitted Pipeline for one model/level pair.
 
-    Внешняя параллельность поиска и ансамблей равна 1; отдельное дерево/бустинг
-    может использовать не более двух потоков. У stacking каждый внутренний
-    OOF-fit клонирует базовый Pipeline вместе с imputer/scaler/encoder.
-    Метамодель обучается на трёх OOF-вероятностях; исходные признаки ей
-    не передаются. Внешний test никогда не нужен для fit этого объекта.
+    Outer search and ensemble parallelism is 1; an individual tree/booster
+    may use at most two threads. In stacking, each internal
+    OOF fit clones the base Pipeline with its imputer/scaler/encoder.
+    The meta-model is fitted on three OOF probabilities; original features
+    are not passed to it. Fitting this object never requires the outer test set.
     """
     if name not in MODEL_NAMES:
-        raise ValueError(f"Неизвестная модель {name!r}; допустимы {MODEL_NAMES}")
+        raise ValueError(f"Unknown model {name!r}; allowed values: {MODEL_NAMES}")
     threads = max(1, min(int(threads),2))
     numeric_columns, categorical_columns = list(numeric_columns), list(categorical_columns)
     if name in {"soft_voting", "stacking"}:
@@ -179,7 +179,7 @@ def make_estimator(name, numeric_columns, categorical_columns, *, seed=42,
                     max_iter=2000, class_weight=None, random_state=seed),
                 cv=StratifiedKFold(n_splits=INNER_STACKING_FOLDS, shuffle=True, random_state=seed),
                 stack_method="predict_proba", passthrough=False, n_jobs=1)
-        # Принципиально нет общего preprocess перед ансамблем.
+        # There is deliberately no shared preprocessing before the ensemble.
         return Pipeline([("model",model)])
     return Pipeline([
         ("preprocess", make_preprocessor(numeric_columns, categorical_columns,
@@ -190,14 +190,14 @@ def make_estimator(name, numeric_columns, categorical_columns, *, seed=42,
 
 
 def parameter_space(name, *, technical=False):
-    """Конечные заранее заданные пространства; RandomizedSearchCV берёт 20 из них.
+    """Finite predeclared spaces; RandomizedSearchCV samples 20 configurations.
 
-    Все значения — обычные JSON-совместимые скаляры/списки/кортежи, без объектов
-    scipy distribution с нестабильным repr. В техническом режиме ровно две
-    конфигурации: это проверка механизма, не результат подбора для эксперимента.
+    Values are ordinary JSON-compatible scalars/lists/tuples, without
+    scipy distribution objects with unstable repr. Technical mode has exactly two
+    configurations: a mechanism check, not experiment parameter selection.
     """
     if name not in MODEL_NAMES:
-        raise ValueError(f"Неизвестная модель: {name}")
+        raise ValueError(f"Unknown model: {name}")
     if technical:
         return {
             "logistic_regression":{"model__C":[0.1,1.0]},
@@ -248,9 +248,9 @@ def parameter_space(name, *, technical=False):
 
 
 def experiment_spec(name):
-    """Структура модели и честный подсчёт внутренних обучений на один outer fit."""
+    """Model structure and explicit internal-fit accounting per outer fit."""
     if name not in MODEL_NAMES:
-        raise ValueError(f"Неизвестная модель: {name}")
+        raise ValueError(f"Unknown model: {name}")
     is_ensemble = name in {"soft_voting","stacking"}
     base_full = 3 if is_ensemble else 1
     base_oof = 9 if name=="stacking" else 0

@@ -1,8 +1,8 @@
-"""Парный DeLong ROC-AUC по сохранённым вероятностям; без обучения моделей.
+"""Paired DeLong ROC-AUC from saved probabilities; no model training.
 
-Ковариация DeLong (1988), рассчитанная через mid-ranks Sun & Xu (2014).
-Равные scores дают вклад 1/2. Строки всех моделей должны соответствовать одним
-и тем же клиентам в одинаковом порядке; ID проверяет вызывающий слой ввода.
+DeLong (1988) covariance computed using Sun & Xu (2014) mid-ranks.
+Tied scores contribute 1/2. Rows for every model must represent the same
+clients in the same order; the calling input layer validates IDs.
 """
 from __future__ import annotations
 
@@ -56,23 +56,23 @@ DELONG_METADATA={
 
 
 def _midranks(values):
-    """Средние 1-based ранги: сортировка и линейное заполнение блоков ties."""
+    """Average 1-based ranks: sorting and linear filling of tie blocks."""
     order=np.argsort(values,kind='stable')
     ordered=values[order]
     starts=np.r_[0,np.flatnonzero(ordered[1:]!=ordered[:-1])+1]
     stops=np.r_[starts[1:],len(values)]
     ranks=np.empty(len(values),dtype=np.float64)
-    # В блоке [start,stop) средний 1-based ранг равен (start+stop+1)/2.
+    # Within [start,stop), the average 1-based rank is (start+stop+1)/2.
     ranks[order]=np.repeat((starts+stops+1)/2.0,stops-starts)
     return ranks
 
 
 def delong_auc_covariance(y,scores):
-    """Возвращает (K ROC-AUC, K×K paired covariance) для scores формы K×N.
+    """Return (K ROC-AUC values, K×K paired covariance) for scores of shape K×N.
 
-    В отличие от публичной таблицы, scores могут быть любыми конечными
-    вещественными оценками. Нужно минимум два positive и два negative клиента.
-    Никаких матриц positive×negative: память O(KN), ранжирование O(KN log N).
+    Unlike the public table, scores may be arbitrary finite
+    real-valued scores. At least two positive and two negative clients are required.
+    No positive×negative matrices: O(KN) memory and O(KN log N) ranking.
     """
     labels=np.asarray(y)
     if labels.ndim!=1 or not np.isin(labels,[0,1]).all():
@@ -104,11 +104,11 @@ def delong_auc_covariance(y,scores):
 
 
 def paired_delong_table(y,probabilities_by_model:dict[str,np.ndarray],reference='logistic_regression'):
-    """Шесть парных сравнений Level 4 с общей reference и Bonferroni family=6.
+    """Six paired Level 4 comparisons with a shared reference and Bonferroni family=6.
 
-    Возвращает DataFrame; описание метода и библиография находятся в attrs.
-    Уровень и ID не выводятся из scores: вызывающий код обязан передать именно
-    семь заранее заданных Level-4 моделей на одних сохранённых test ID.
+    Return a DataFrame; method description and references are stored in attrs.
+    Level and IDs cannot be inferred from scores: the caller must supply exactly
+    the seven predefined Level 4 models evaluated on the same saved test IDs.
     """
     if reference not in probabilities_by_model:
         raise ValueError(f'Reference model is missing: {reference}')
@@ -142,7 +142,7 @@ def paired_delong_table(y,probabilities_by_model:dict[str,np.ndarray],reference=
         if variance<0:
             if variance < -tolerance:
                 raise ArithmeticError(f'Negative paired DeLong variance: {name}')
-            variance=0.0  # Только отрицательная погрешность округления, не положительная variance.
+            variance=0.0  # Only a negative rounding error, not a positive variance.
         se=math.sqrt(variance)
         if se==0 and delta==0:
             z,p_raw,status=0.0,1.0,'zero_difference_zero_variance'

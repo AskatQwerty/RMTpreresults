@@ -1,13 +1,13 @@
-"""Продолжение фиксированного пилота: новые CV-fit, checkpoint каждого фолда.
+"""Extend the fixed pilot with new CV fits and a checkpoint for each fold.
 
-Первые пять конфигураций и их оценки читаются из pilot_20k_5config. Следующая
-партия по умолчанию — конфигурации 6–10: 7 моделей × 4 уровня × 5 × 3 = 420.
-Общий список из 20 конфигураций фиксируется до обучения. Используются прежние
-20 000 ID и именно сохранённые пилотные folds, без повторного выбора клиентов.
-Ручной последовательный обход фиксированных кандидатов использует тот же
-sklearn scorer neg_log_loss, что и исходный RandomizedSearchCV. Полный Pipeline
-создаётся заново для каждого train-фолда, включая внутренние базы stacking.
-Test и итоговые refit в этой партии не выполняются.
+The first five configurations and their scores are read from pilot_20k_5config. The next
+default batch covers configurations 6–10: 7 models × 4 levels × 5 × 3 = 420.
+The shared list of 20 configurations is fixed before training. The same
+20,000 IDs and saved pilot folds are used, without resampling clients.
+Manual sequential iteration over fixed candidates uses the same
+sklearn neg_log_loss scorer as the original RandomizedSearchCV. A full Pipeline
+is recreated for every training fold, including the internal stacking bases.
+This batch performs neither test evaluation nor final refits.
 """
 from __future__ import annotations
 
@@ -45,9 +45,9 @@ def _utc():
 def _batch_numbers(numbers):
     values = tuple(int(value) for value in numbers)
     if len(values) != 5 or values != tuple(range(values[0], values[0] + 5)):
-        raise ValueError('Одна партия — пять последовательных номеров конфигураций')
+        raise ValueError('Each batch must contain five consecutive configuration numbers')
     if values[0] not in (6, 11, 16):
-        raise ValueError('Допустимые партии: 6–10, 11–15, 16–20')
+        raise ValueError('Allowed batches: 6–10, 11–15, 16–20')
     return values
 
 
@@ -99,11 +99,11 @@ def _read_completed(root, context, plan):
                     record = read_json(stage / 'result.json')
                     identity = (model, level, number, fold)
                     if (record['model'], record['level'], record['candidate_number'], record['fold']) != identity:
-                        raise RuntimeError(f'Неверная принадлежность checkpoint: {stage}')
+                        raise RuntimeError(f'Checkpoint belongs to an incorrect context: {stage}')
                     if record['config_sha256'] != config['config_sha256']:
-                        raise RuntimeError(f'Изменены параметры checkpoint: {stage}')
+                        raise RuntimeError(f'Checkpoint parameters have changed: {stage}')
                     if not np.isfinite(record['neg_log_loss']):
-                        raise RuntimeError(f'Нечисловой score: {stage}')
+                        raise RuntimeError(f'Nonnumeric score: {stage}')
                     records[identity] = record
     return records
 
@@ -170,7 +170,7 @@ def _combined_pair(root, plan, model, level, records):
     old_path = Path(plan['pilot_root']) / model / f'level_{level}' / 'fit_checkpoint' / 'cv_results.parquet'
     frame = pd.read_parquet(old_path).copy()
     if len(frame) != 5 or frame.candidate.tolist() != list(range(5)):
-        raise RuntimeError(f'Неверные исходные пять кандидатов: {old_path}')
+        raise RuntimeError(f'Incorrect original five candidates: {old_path}')
     frame['candidate_number'] = frame.candidate + 1
     frame['origin'] = 'legacy_pilot_20k_5config'
     new_rows = []
@@ -256,7 +256,7 @@ def run_extension(prepared_dir, pilot_root, output_root, *, threads=2,
     """Execute only the next explicitly requested five-candidate batch (420 fits)."""
     numbers = _batch_numbers(candidate_numbers)
     if int(threads) != 2:
-        raise ValueError('Сохранённый пилот использует threads=2; не менять контекст')
+        raise ValueError('The saved pilot uses threads=2; do not change its context')
     root = Path(output_root)
     if root.resolve() == Path(pilot_root).resolve():
         raise ValueError('Extension output must not overwrite the original pilot')
@@ -273,7 +273,7 @@ def run_extension(prepared_dir, pilot_root, output_root, *, threads=2,
             for model in MODEL_ORDER for level in LEVELS
             for number in range(6, numbers[0]) for fold in range(3)
         ):
-            raise RuntimeError('Предыдущая партия ещё не завершена; пропускать кандидатов нельзя')
+            raise RuntimeError('The previous batch is incomplete; candidates cannot be skipped')
         batch_root = root / 'batches' / _batch_name(numbers)
         atomic_json(batch_root / 'batch_manifest.json', {
             'scope': SCOPE, 'fingerprint': context['fingerprint'],

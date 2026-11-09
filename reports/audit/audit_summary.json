@@ -1,5 +1,5 @@
 {
-  "scope": "Полный аудит всех восьми обязательных исходных CSV",
+  "scope": "Full audit of all eight required source CSV files",
   "elapsed_seconds": 97.229,
   "tables": [
     {
@@ -71,9 +71,9 @@
     "source_manifest": "reports\\audit\\source_manifest.csv"
   },
   "notes": [
-    "Нет автоматического удаления дублей или повторяющихся частичных платежей.",
-    "Положительные даты и 365243 лишь посчитаны; решения об их доступности принимаются отдельно по смыслу поля.",
-    "Отсутствие клиента в application_train отличается от отсутствующего родительского договора.",
-    "Типы определены DuckDB по sample_size=100000; остальные строки читаются строго без ignore_errors."
+    "No automatic removal of duplicates or repeated partial payments.",
+    "Positive dates and 365243 are only counted; availability decisions are made separately according to each field's meaning.",
+    "A client absent from application_train is different from a missing parent contract.",
+    "DuckDB inferred types using sample_size=100000; all remaining rows are read strictly without ignore_errors."
   ]
 }

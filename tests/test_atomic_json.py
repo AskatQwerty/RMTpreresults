@@ -1,4 +1,4 @@
-"""Атомарная JSON-запись при краткой Windows-блокировке читателем."""
+"""Atomic JSON writes during a brief Windows reader lock."""
 from pathlib import Path
 import tempfile
 import unittest

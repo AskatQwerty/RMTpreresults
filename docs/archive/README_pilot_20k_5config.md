@@ -1,104 +1,74 @@
-# RMT: кредитный риск Home Credit
+# Archived RMT five-configuration pilot
 
-Предварительное исследование **RQ1** — сравнение качества моделей кредитного риска — и **RQ2** — изменение качества при добавлении кредитной истории. Единица анализа — одна текущая заявка. Положительный класс `TARGET=1` означает дефолт; основная PR-метрика — **PR-AUC (average precision, AP)**, вычисляемая через `average_precision_score`.
+This page documents the earlier **`pilot_20k_5config`** results. For the active models and November RQ3, see the [current repository README](../../README.md).
 
-Источник: [Home Credit Default Risk на Kaggle](https://www.kaggle.com/competitions/home-credit-default-risk/data). Исходные данные, таблицы отдельных клиентов, прогнозы и модели в Git не публикуются. Завершённый исследовательский запуск имеет единственное имя **`pilot_20k_5config`**. Старый ресурсный пилот и незавершённый полный A2 — отдельные эксперименты.
+RQ1 compares credit-risk models; RQ2 measures the effect of adding credit history. The unit of analysis is one current application, `TARGET=1` denotes default, and the primary PR metric is average precision (AP), computed with `average_precision_score`. The [Home Credit Default Risk data](https://www.kaggle.com/competitions/home-credit-default-risk/data), individual records, predictions and the original fitted models were excluded from this pilot's Git publication. The resource pilot and unfinished full A2 experiment are separate.
 
-## Модели и уровни информации
+## Models and information levels
 
-Семь моделей: Logistic Regression L2, Random Forest, XGBoost, LightGBM, MLP, soft voting и stacking. Базовые модели двух ансамблей — LR, XGBoost и LightGBM. Обучаемая предобработка входит в полные Pipeline, включая базовые модели stacking при построении OOF-прогнозов.
+Seven model types were used: L2 Logistic Regression, Random Forest, XGBoost, LightGBM, MLP, soft voting and stacking. Both ensembles use LR, XGBoost and LightGBM. Trainable preprocessing is part of every full Pipeline, including stacking's OOF base models.
 
-| Уровень | Источники, добавленные к предыдущему уровню | Число исходных подготовленных признаков |
+| Level | Added sources | Raw prepared features |
 |---|---|---:|
-| 1 | `application` и детерминированные признаки анкеты | 124 |
+| 1 | `application` and deterministic application features | 124 |
 | 2 | `bureau`, `bureau_balance` | 178 |
 | 3 | `POS_CASH_balance`, `credit_card_balance` | 264 |
 | 4 | `installments_payments`, `previous_application` | 322 |
 
-Клиенты одинаковы на всех уровнях. История агрегируется до присоединения к заявке; отсутствие истории сохраняется пропусками и индикаторами. TARGET, ID, пол и прямые признаки возраста исключены из входов модели. Пол и возраст хранятся отдельно для fairness. Медианы, кодирование и масштабирование обучались только на train соответствующего фолда или итогового refit.
+Applicants are identical across levels. Historical records are aggregated before joins; absent history retains missing values and indicators. TARGET, IDs, gender and direct age features are excluded from X. Gender/age are stored separately for fairness. Imputation, encoding and scaling are fitted only on the current fold's train or final refit train.
 
-## Фактически выполненный пилот
+## Completed pilot protocol
 
-Из 307 511 размеченных заявок один раз сохранены development **246 008** и test **61 503** (стратификация, seed 42). Пилот использовал **20 000** development-клиентов: **18 385** класса 0 и **1 615** класса 1, без изменения соотношения классов. Остальные **226 008** development-заявок в этом обучении не использовались. Test содержит **56 538 / 4 965** заявок классов 0/1.
+The 307,511 labelled applications were split once into **246,008 development** and **61,503 test** applicants, stratified with seed 42. The pilot used **20,000** development applicants: **18,385** class 0 and **1,615** class 1, with no class resampling. The other **226,008** development applicants were unused. Test class counts are **56,538 / 4,965**.
 
-- Для каждой из 28 пар «модель + уровень»: пять случайных конфигураций, `RandomizedSearchCV(scoring="neg_log_loss", refit=True, random_state=42)`.
-- Общие сохранённые три `StratifiedKFold`, `shuffle=True`, seed 42: train/validation 13 333/6 667, 13 333/6 667 и 13 334/6 666.
-- **28 полных Pipeline, 420 внешних CV-fit и 28 refit**; один итоговый fit каждой пары на всех 20 000 клиентах, без пяти повторных обучений. С учётом внутренних обучений ансамблей — 1 344 primitive fit.
-- Последовательный поиск: `n_jobs=1`, `pre_dispatch=1`, до двух потоков внутри моделей. Сохранённое время запуска с IO и отчётами — **10 640,14 с** (около 2 ч 57 мин). Время refit уже входит во время поиска и повторно к нему не прибавляется.
-- Оценка использовала сохранённые вероятности: **1 000 общих paired bootstrap** test-клиентов, `default_rng(42)`. 95% percentile CI — **pointwise, unadjusted, exploratory**, при фиксированных обученных моделях.
-- Парный двухсторонний **DeLong для ROC-AUC**, шесть сравнений с LR на Level 4, коррекция **Bonferroni** в этом семействе. Это не тест AP; bootstrap p-values не вычислялись.
+- Each of 28 model–level pairs used five random configurations with `RandomizedSearchCV(scoring="neg_log_loss", refit=True, random_state=42)`.
+- Three common saved `StratifiedKFold` splits, `shuffle=True`, seed 42: train/validation sizes 13,333/6,667, 13,333/6,667 and 13,334/6,666.
+- **28 full Pipelines, 420 outer CV fits and 28 refits**. Each pair was fitted once on all 20,000 applicants, without five repeated training samples. Including internal ensemble training, the count was 1,344 primitive fits.
+- Sequential search used `n_jobs=1`, `pre_dispatch=1` and at most two model threads. Saved wall time including I/O and reporting was **10,640.14 s**, about 2 h 57 min. Refit time is already included in search time and is not added twice.
+- Evaluation reused saved probabilities and **1,000 common paired bootstrap** samples of test applicants with `default_rng(42)`. The 95% percentile intervals are **pointwise, unadjusted and exploratory**, conditional on fixed models.
+- Two-sided paired **DeLong ROC-AUC** tests compare six models with LR at Level 4, with **Bonferroni** correction within that family. This is not an AP test; no bootstrap p-values were calculated.
 
-Фактический протокол, версии и источники чисел: [actual_training_protocol.json](../../reports/pilot_20k_5config/evaluation/actual_training_protocol.json), [software_versions.json](../../docs/software_versions.json) и [итоговый отчёт](../../reports/pilot_20k_5config/evaluation/results_report.html).
+Sources: [actual protocol](../../reports/pilot_20k_5config/evaluation/actual_training_protocol.json), [software versions](../../docs/software_versions.json), [report](../../reports/pilot_20k_5config/evaluation/results_report.html).
 
-## Основные предварительные результаты
+## Preliminary findings
 
-Числа ниже взяты из сохранённых таблиц [RQ1](../../reports/pilot_20k_5config/evaluation/tables/rq1_level4.csv) и [RQ2](../../reports/pilot_20k_5config/evaluation/tables/rq2_baseline_gains.csv), без нового пересчёта.
+The values below come from the saved [RQ1](../../reports/pilot_20k_5config/evaluation/tables/rq1_level4.csv) and [RQ2](../../reports/pilot_20k_5config/evaluation/tables/rq2_baseline_gains.csv) tables, without recalculation.
 
-- На Level 4 у stacking наибольшие точечные **AP 0,2603 [0,2493; 0,2727]** и **ROC-AUC 0,7707**. У soft voting наименьшие **log-loss 0,2426** и **Brier 0,0671**. Это разные критерии, не универсальное превосходство одной модели.
-- Прирост AP L4−L1 имеет интервал выше нуля у шести моделей; у MLP интервал включает ноль. Добавление Level 2 снижает AP MLP: **−0,0088 [−0,0145; −0,0031]**. Слабый результат MLP сохранён; причинный диагноз по этим данным не установлен.
-- У soft voting наибольшая наблюдаемая условная прибыль в каждом из заданных сценариев `m=1`, `L=1,5,10`. Прибыль использует фактический TARGET, а не вероятность вместо исхода; пороги 0,5 и `m/(m+L)` не оптимизировались на test.
-- При `t=1/11` ни одна модель не выполняет оба наблюдаемых ограничения approval-rate gap ≤5 п.п. по полу и возрасту. При `t=1/6` проходит только MLP; это не делает его лучшей моделью по качеству или прибыли. При `t=0,5` RF одобряет всех, поэтому нулевые fairness-разрывы не свидетельствуют о полезном обнаружении дефолтов.
+- At Level 4, stacking has the highest point estimates of **AP 0.2603 [0.2493, 0.2727]** and **ROC-AUC 0.7707**. Soft voting has the lowest **log-loss 0.2426** and **Brier 0.0671**. These criteria do not establish one universally best model.
+- The AP gain L4−L1 has an interval above zero for six models; the MLP interval includes zero. Adding Level 2 lowers MLP AP by **−0.0088 [−0.0145, −0.0031]**. The weak MLP result was retained without a causal diagnosis.
+- Soft voting has the highest observed conditional profit in each specified `m=1`, `L=1,5,10` scenario. Profit uses observed TARGET, not probability substituted for outcome. Thresholds 0.5 and `m/(m+L)` were not optimized on test.
+- At `t=1/11`, no model satisfies both observed gender and age approval-gap constraints of ≤5 percentage points. At `t=1/6`, only this archived MLP passes, which does not make it best in quality or profit. At `t=0.5`, RF approves everyone; zero fairness gaps do not imply useful default detection.
 
-## Структура
+## Files and environment
 
-```text
-notebooks/                       подготовка, план A2, пилот и оценка
-src/                             предобработка, модели, контроллеры, оценка
-scripts/                         исполнение notebook, проверки и экспорт
-tests/                           проверки логики подготовки и оценки
-reports/pilot_20k_5config/        агрегированные результаты пилота
-  evaluation/tables/            компактные CSV и LaTeX для статьи
-  evaluation/figures/            PDF/SVG
-docs/SHAP_HANDOFF.md              инструкция следующему участнику RQ3
-data/                            локальные данные, исключены из Git
-artifacts/                       локальные Pipeline и прогнозы, исключены из Git
-handoff/                         локальный пакет передачи, исключён из Git
-tmp/                             временные файлы, исключены из Git
-```
+`notebooks/` contains preparation, the A2 plan, pilot and evaluation; `src/` contains preprocessing, models and evaluation; `scripts/` contains execution/check/export tools; `tests/` checks preparation and evaluation logic. Aggregate results are under `reports/pilot_20k_5config/`, with article CSV/LaTeX in `evaluation/tables/` and PDF/SVG in `evaluation/figures/`. The original RQ3 handoff is documented in [SHAP_HANDOFF.md](../../docs/SHAP_HANDOFF.md). Local `data/`, `artifacts/`, `handoff/` and `tmp/` are excluded from Git.
 
-## Окружение и пути
-
-Обучение выполнено на **Python 3.13.9**. Установите эту версию и выполняйте команды из корня проекта. Сохранённые `joblib`-модели требуют совместимых версий библиотек и доступного пакета `src`.
+Use **Python 3.13.9** from the repository root. Saved joblib models require compatible dependencies and an importable `src` package.
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pip install -r requirements-reporting.txt
-```
-
-Для исходных данных задайте `HOME_CREDIT_DATA_DIR` до запуска notebook 01, например:
-
-```powershell
 $env:HOME_CREDIT_DATA_DIR = 'D:/datasets/home-credit-default-risk'
 ```
 
-Notebook определяют `ROOT` из корня проекта или каталога `notebooks/`. Готовые данные полного набора ожидаются в `data/processed/full`, пилотные артефакты — в `artifacts/training/pilot_20k_5config`. Персональный путь из исходной конфигурации notebook 01 является только запасным значением; на другой машине используйте переменную окружения. Git-клон содержит код и агрегированные отчёты, но не данные для повторного обучения. Для SHAP используйте отдельный пакет по [инструкции передачи](../../docs/SHAP_HANDOFF.md).
+Set `HOME_CREDIT_DATA_DIR` before running notebook 01; its original machine path is only a fallback. Notebooks resolve ROOT from the project root or `notebooks/`. Prepared data are expected at `data/processed/full` and pilot artifacts at `artifacts/training/pilot_20k_5config`. A Git clone supplies code and aggregate reports, not training data. The separate SHAP package provides the original fitted Pipelines and agreed inputs.
 
-## Последовательность notebook
+## Archived notebooks
 
-1. `01_data_preparation.ipynb`: аудит, подготовка, четыре уровня, фиксированные разбиения и дополнительный контроль качества. Это создание данных; для чтения готовых результатов повторно не требуется.
-2. `02_model_training.ipynb`: исходный полный план A2 и технические проверки. Полный эксперимент **не завершён** и не является источником результатов пилота. Не включайте `RUN_FULL_EXPERIMENT` или `RUN_RESOURCE_PILOT` при просмотре отчётов.
-3. `03_pilot_20k_5config.ipynb`: фактически выполненный пилот. Для просмотра существующих результатов оставьте `RUN_PILOT=False`, выполните конфигурацию и независимую отчётную ячейку.
-4. `04_pilot_results_analysis.ipynb`: оценка сохранённых вероятностей. Оставьте `RUN_ANALYSIS=False` для просмотра готовых таблиц и графиков; конфигурация и последняя отчётная ячейка не требуют нового обучения или bootstrap.
+1. `01_data_preparation.ipynb`: audits, preparation, four feature levels, fixed splits and additional quality checks. It need not be rerun to read results.
+2. `02_model_training.ipynb`: original A2 plan and technical checks. The original full experiment was unfinished and was not the source of this pilot. Keep `RUN_FULL_EXPERIMENT` and `RUN_RESOURCE_PILOT` disabled when viewing reports.
+3. `03_pilot_20k_5config.ipynb`: the completed pilot. Keep `RUN_PILOT=False` and run configuration plus the independent reporting cell to read existing results.
+4. `04_pilot_results_analysis.ipynb`: saved-probability evaluation. Keep `RUN_ANALYSIS=False` when viewing tables/figures; configuration and final reporting do not retrain or bootstrap.
 
-Не запускайте все ячейки notebook 01–03 заново ради оформления. В outputs публикуемых notebook индивидуальные записи клиентов не обнаружены; агрегированные результаты и научные графики сохранены. Из notebook 01 удалены только 48 временных widget-outputs и связанная metadata. Локальные оригиналы всех четырёх notebook сохранены в исключённом из Git каталоге `local_private/publication_originals/2026-10-25`; проверка и хэши — в `docs/publication_audit.json`. Notebook 04 был исполнен в чистом Python-процессе; зависшая попытка запуска Jupyter-ядра прервана. Это не подтверждение выполнения в Jupyter kernel; способ исполнения указан в metadata и отчёте.
+Do not rerun notebooks 01–03 for presentation changes. Publication checks found no individual customer records in their outputs. Aggregate results and scientific figures were preserved. Only 48 temporary widget outputs and associated metadata were removed from notebook 01. Local originals are in the excluded `local_private/publication_originals/2026-10-25`; checksums are in `docs/publication_audit.json`. Notebook 04 ran in a clean Python process after a stalled Jupyter-kernel attempt was stopped; this is not a claim that it executed in a Jupyter kernel. The actual method is recorded in metadata and the report.
 
-Готовые материалы: [читаемый HTML](../../reports/pilot_20k_5config/evaluation/results_report.html), [TXT](../../reports/pilot_20k_5config/evaluation/results_report.txt), [готовность](../../reports/pilot_20k_5config/evaluation/results_readiness.json), [таблицы](../../reports/pilot_20k_5config/evaluation/tables), [графики](../../reports/pilot_20k_5config/evaluation/figures). Отчётные ячейки при обновлении из файлов требуют доступных локальных метаданных пилота; сохранённые outputs и HTML читаются без них.
+Read the [HTML](../../reports/pilot_20k_5config/evaluation/results_report.html), [TXT](../../reports/pilot_20k_5config/evaluation/results_report.txt), [readiness](../../reports/pilot_20k_5config/evaluation/results_readiness.json), [tables](../../reports/pilot_20k_5config/evaluation/tables) and [figures](../../reports/pilot_20k_5config/evaluation/figures). Refreshing notebook reports requires local metadata; saved outputs and HTML are readable without it.
 
-## Ограничения и продолжение работы
+## Historical limitations and continuation
 
-Это предварительные результаты Assignment 3. Первоначальный A2 (20 конфигураций и пять повторных обучений на пару) полностью не выполнен: текущий пилот — 20k train, пять конфигураций, один refit. Вариативность повторного обучения не оценивалась; bootstrap CI не заменяет среднее ± SD пяти запусков. Отсутствие статистически значимого различия не доказывает эквивалентность; формальное правило A2 «не хуже лучшего по AP» не подтверждено.
+These were preliminary Assignment 3 results. The full A2 plan of 20 configurations and five repeated fits per pair was not complete at that stage: this pilot used 20k train, five configurations and one refit. Training variability was not estimated, and bootstrap intervals do not replace mean ± SD over five runs. Lack of a significant difference does not prove equivalence; the A2 AP non-inferiority selection rule was not confirmed.
 
-Fairness-коррекции и обучение калибратора отложены. Условная прибыль не равна денежной прибыли банка. Новые детали анализа не объявляются заранее зарегистрированными. CPU и общий объём RAM исторического обучения пилота не записаны; текущая машина не подставляется вместо этих сведений. LaTeX-фрагменты ещё нужно проверить в целевом шаблоне статьи ([latex_usage.txt](../../reports/pilot_20k_5config/evaluation/latex_usage.txt)).
+Fairness correction and a fitted calibrator were deferred. Conditional profit is not a bank's monetary profit. Newly introduced analysis details were not presented as preregistered. Training CPU and total RAM were not logged, so current evaluation hardware is not substituted. LaTeX fragments require review in the article template ([usage notes](../../reports/pilot_20k_5config/evaluation/latex_usage.txt)).
 
-Следующий участник выполняет SHAP/RQ3 по [SHAP_HANDOFF.md](../../docs/SHAP_HANDOFF.md). Пакет содержит все 28 готовых Pipeline; сохранён один fit каждой пары. Подготовка публикации и пакета не запускает новые обучения, поиск, bootstrap или SHAP.
-
-Для сопровождающего проекта сборка пакета отделена от фиксации кода:
-
-```powershell
-python scripts/build_shap_handoff_package.py --prepare
-# Проверить публикационные файлы и создать обычный локальный Git commit.
-python scripts/build_shap_handoff_package.py --finalize
-```
-
-`--prepare` выбирает строки готовых Parquet по сохранённым ID и собирает локальные артефакты. `--finalize` связывает архив с уже созданным commit и включает зафиксированный код/документацию. Пакет и его промежуточные файлы остаются в исключённом каталоге `handoff/`. Готовому получателю повторная сборка не нужна.
+The original next step was the separate SHAP/RQ3 handoff, containing all 28 Pipelines with one fit per pair. Publication and packaging do not run new training, search, bootstrap or SHAP. Maintainers use `python scripts/build_shap_handoff_package.py --prepare`, review and commit the publication files, then run the same script with `--finalize`. Preparation selects saved Parquet rows by ID; finalization links the package to an existing commit. Archives/intermediates stay in excluded `handoff/`; recipients do not rebuild them.

@@ -1,7 +1,7 @@
-"""Описательные profit/fairness/calibration-таблицы пилота из сохранённых прогнозов.
+"""Descriptive pilot profit, fairness, and calibration tables from saved predictions.
 
-Нет загрузки моделей, fit, predict или выбора порогов по test. Числа являются
-предварительными свидетельствами для RQ1, а не итоговым правилом выбора A2.
+No model loading, fit, predict, or threshold selection on test data. The numbers provide
+preliminary evidence for RQ1, not a final A2 selection rule.
 """
 from __future__ import annotations
 
@@ -49,8 +49,8 @@ def _atomic_text(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + '.tmp')
-    # pandas.to_csv(None) уже использует системные окончания строк. Не переводим
-    # LF повторно при записи, иначе Windows превращает CRLF в CRCRLF.
+    # pandas.to_csv(None) already uses system line endings. Do not translate
+    # LF again when writing, otherwise Windows converts CRLF to CRCRLF.
     temporary.write_text(value, encoding='utf-8', newline='')
     for attempt in range(6):
         try:
@@ -64,7 +64,7 @@ def _atomic_text(path, value):
 
 def _required_hash(path, expected, description):
     if not isinstance(expected, str) or not path.is_file() or _hash(path) != expected:
-        raise ValueError(f'Не совпадает SHA-256: {description}')
+        raise ValueError(f'SHA-256 mismatch: {description}')
 
 
 def _load_fairness(root, prepared, manifest):
@@ -77,24 +77,24 @@ def _load_fairness(root, prepared, manifest):
     test_ids = pd.read_parquet(root / 'test_ids.parquet').SK_ID_CURR.to_numpy()
     original = pd.read_parquet(prepared / 'splits/test_ids.parquet').SK_ID_CURR.to_numpy()
     if not np.array_equal(test_ids, original) or len(np.unique(test_ids)) != len(test_ids):
-        raise ValueError('Пилотные test ID отличаются от сохранённого test или повторяются')
+        raise ValueError('Pilot test IDs differ from the saved test set or contain duplicates')
     fairness = pd.read_parquet(prepared / 'fairness.parquet', columns=[
         'SK_ID_CURR', 'CODE_GENDER', 'GENDER_GROUP', 'AGE_YEARS', 'AGE_GROUP'])
     target = pd.read_parquet(prepared / 'target.parquet', columns=['SK_ID_CURR', 'TARGET'])
     if not fairness.SK_ID_CURR.is_unique or not target.SK_ID_CURR.is_unique:
-        raise ValueError('ID в fairness/target не уникальны')
+        raise ValueError('IDs in fairness/target are not unique')
     frame = fairness.set_index('SK_ID_CURR').reindex(test_ids)
     labels = target.set_index('SK_ID_CURR').TARGET.reindex(test_ids)
     if not labels.isin([0, 1]).all() or not set(test_ids) <= set(fairness.SK_ID_CURR):
-        raise ValueError('Test ID не полностью покрыты fairness/target')
+        raise ValueError('Fairness/target do not cover all test IDs')
     gender = frame.CODE_GENDER.where(frame.CODE_GENDER.isin(['F', 'M']), 'unknown')
     if not np.array_equal(gender.to_numpy(), frame.GENDER_GROUP.to_numpy()):
-        raise ValueError('Сохранённый GENDER_GROUP не соответствует CODE_GENDER')
+        raise ValueError('Saved GENDER_GROUP does not match CODE_GENDER')
     age = pd.to_numeric(frame.AGE_YEARS, errors='coerce').to_numpy(dtype=float)
     expected_age = np.where(np.isfinite(age), np.where(age < 25, '<25', '>=25'), 'unknown')
     if not np.array_equal(frame.AGE_GROUP.to_numpy(), expected_age):
-        raise ValueError('Сохранённый AGE_GROUP нарушает существующее правило <25 / >=25')
-    # Группы берём из существующего fairness; равенство 25 явно относится к >=25.
+        raise ValueError('Saved AGE_GROUP violates the existing <25 / >=25 rule')
+    # Use groups from existing fairness data; age exactly 25 explicitly belongs to >=25.
     return test_ids, labels.to_numpy(dtype=int), {
         'CODE_GENDER': gender.to_numpy(), 'AGE_GROUP': frame.AGE_GROUP.to_numpy()}, {
         name: inputs[name] for name in ('fairness.parquet', 'target.parquet', 'splits/test_ids.parquet')}
@@ -103,32 +103,32 @@ def _load_fairness(root, prepared, manifest):
 def _validated_probabilities(stage, model, manifest, test_ids, target):
     marker = _read(stage / 'complete.json')
     if marker.get('fingerprint') != manifest.get('fingerprint'):
-        raise ValueError('Fingerprint пары не совпадает с manifest')
+        raise ValueError('Pair fingerprint does not match the manifest')
     hashes = marker.get('artifact_sha256', {})
     for name in ('probabilities.parquet', 'metrics.json'):
         _required_hash(stage / name, hashes.get(name), f'{model}/level_4/{name}')
     record = _read(stage / 'metrics.json')
     if (record.get('scope'), record.get('model'), record.get('level')) != (SCOPE, model, 4):
-        raise ValueError('Неверные scope/model/level в metrics.json')
+        raise ValueError('Invalid scope/model/level in metrics.json')
     frame = pd.read_parquet(stage / 'probabilities.parquet')
     required = {'SK_ID_CURR', 'TARGET', 'probability_default', 'scope', 'model', 'level', 'evaluation_split'}
     if not required <= set(frame.columns):
-        raise ValueError('Неполная схема probabilities.parquet')
+        raise ValueError('Incomplete probabilities.parquet schema')
     if not frame.SK_ID_CURR.is_unique or not np.array_equal(frame.SK_ID_CURR, test_ids):
-        raise ValueError('ID/порядок прогнозов не совпадают с сохранённым test')
+        raise ValueError('Prediction IDs or order do not match the saved test set')
     if not np.array_equal(frame.TARGET, target):
-        raise ValueError('TARGET прогнозов отличается от сохранённого target')
+        raise ValueError('Prediction TARGET differs from saved target')
     for field, expected in [('scope', SCOPE), ('model', model), ('level', 4), ('evaluation_split', 'test')]:
         if not (frame[field] == expected).all():
-            raise ValueError(f'Неверное поле {field} в прогнозах')
+            raise ValueError(f'Invalid field {field} in predictions')
     probabilities = frame.probability_default.to_numpy(dtype=float)
     if not np.isfinite(probabilities).all() or not ((0 <= probabilities) & (probabilities <= 1)).all():
-        raise ValueError('Вероятности должны быть конечными и лежать в [0,1]')
+        raise ValueError('Probabilities must be finite and within [0,1]')
     if record.get('test_rows') != len(test_ids) or record.get('metrics', {}).get('rows') != len(test_ids):
-        raise ValueError('Количество test-строк не совпадает с metrics.json')
+        raise ValueError('Test row count does not match metrics.json')
     brier = float(np.mean((probabilities - target)**2))
     if not math.isclose(brier, record['metrics']['brier_score'], rel_tol=1e-10, abs_tol=1e-12):
-        raise ValueError('Brier в metrics.json не соответствует сохранённым прогнозам')
+        raise ValueError('Brier score in metrics.json does not match saved predictions')
     return probabilities
 
 
@@ -181,7 +181,7 @@ def _decision_rows(model, target, probabilities, groups):
 
 
 def _calibration_rows(model, target, probabilities):
-    # Фиксированные интервалы [k/10,(k+1)/10); последнее включает p=1.
+    # Fixed intervals [k/10,(k+1)/10); the last includes p=1.
     bins = np.minimum(np.floor(probabilities * 10).astype(int), 9)
     rows = []
     for index in range(10):
@@ -222,17 +222,17 @@ def _latex(frame, columns, caption):
 
 
 def export_decision_metrics(root, report_dir, prepared_dir=None):
-    """Экспортировать фиксированные сценарии для завершённых Level4, без fit/predict.
+    """Export fixed scenarios for completed Level 4 models without fit or predict.
 
-    Возвращает JSON-safe metadata. Неполные пары pending; неверные SHA/ID/target
-    отмечаются invalid и исключаются из числовых таблиц. Повреждённые общие
-    fairness/target/test ID вызывают ошибку, а не создают правдоподобный отчёт.
+    Returns JSON-safe metadata. Incomplete pairs remain pending; invalid SHA/ID/target
+    are marked invalid and excluded from numeric tables. Corrupt shared
+    fairness/target/test IDs cause an error rather than a plausible-looking report.
     """
     root, report_dir = Path(root), Path(report_dir)
     prepared = Path(prepared_dir) if prepared_dir is not None else Path(__file__).resolve().parents[1] / 'data/processed/full'
     manifest = _read(root / 'experiment_manifest.json')
     if manifest.get('mode') != SCOPE:
-        raise ValueError(f'Ожидался scope {SCOPE}')
+        raise ValueError(f'Expected scope {SCOPE}')
     test_ids, target, groups, input_hashes = _load_fairness(root, prepared, manifest)
     completed, pending, invalid = [], [], []
     scenarios, details, calibration = [], [], []

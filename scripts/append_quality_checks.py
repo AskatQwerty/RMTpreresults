@@ -1,4 +1,4 @@
-"""Добавить и выполнить только новые ячейки; старую подготовку не перезапускать."""
+"""Append and execute only new cells; do not rerun the existing preparation."""
 from pathlib import Path
 import asyncio
 import sys

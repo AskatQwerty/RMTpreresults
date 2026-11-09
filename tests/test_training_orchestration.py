@@ -1,6 +1,6 @@
-"""Небольшие синтетические Parquet: ID/CV, атомарные этапы и resume.
+"""Small synthetic Parquet files: IDs/CV, atomic stages and resume.
 
-Полный эксперимент и настоящие подготовленные X не читаются и не обучаются.
+The full experiment and actual prepared X are neither loaded nor used for training.
 """
 from __future__ import annotations
 
@@ -181,11 +181,11 @@ class TrainingOrchestrationTests(unittest.TestCase):
         self.search()
         stage=self.root/'level_4/logistic_regression/search'
         (stage/'best_params.json').write_text('{"unexpected":"corruption"}',encoding='utf-8')
-        with self.assertRaisesRegex(RuntimeError,'Повреждён'):
+        with self.assertRaisesRegex(RuntimeError,'corrupted'):
             self.search()
 
     def test_mlp_repeat_persists_actual_diagnostics_warnings_and_reload(self):
-        # Только синтетический тест: короткий fit гарантированно достигает лимита.
+        # Synthetic test only: the short fit is guaranteed to reach the limit.
         selected={'params':{'model__max_iter':3,'model__tol':0.0,
                             'model__n_iter_no_change':100,'model__batch_size':12}}
         with patch.object(RandomizedSearchCV,'fit',side_effect=AssertionError('No search in repeat')):
@@ -218,9 +218,9 @@ class TrainingOrchestrationTests(unittest.TestCase):
         self.search()
         other=copy.deepcopy(self.context)
         other['fingerprint']='different_context_fingerprint'
-        with self.assertRaisesRegex(RuntimeError,'Контекст'):
+        with self.assertRaisesRegex(RuntimeError,'Experiment context'):
             initialize_run(self.root,other)
-        with self.assertRaisesRegex(RuntimeError,'Несовместимый'):
+        with self.assertRaisesRegex(RuntimeError,'Incompatible'):
             _complete(self.root/'level_4/logistic_regression/search',other)
 
     def test_unfinished_search_restarts_instead_of_trusting_partial_json(self):

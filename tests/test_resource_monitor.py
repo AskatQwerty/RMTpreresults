@@ -1,4 +1,4 @@
-"""Небольшие собственные дочерние процессы; никаких обучений Home Credit."""
+"""Small child processes created by the test; no Home Credit training."""
 import csv
 import json
 import os

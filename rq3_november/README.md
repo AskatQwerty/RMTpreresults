@@ -1,23 +1,23 @@
-# RQ3. Устойчивость SHAP на 1 000 клиентах
+# RQ3: SHAP stability on 1,000 applicants
 
-В ноябрьском расчёте сравнивались объяснения вероятности дефолта для семи моделей уровня 4 с 322 исходными признаками. Во всех 50 наборах объяснений совпадают 1 000 тестовых ID и их порядок: 500 клиентов с записью в кредитном бюро и 500 без неё. Общий фон — 100 клиентов из обучающей когорты. Проверки подтвердили принадлежность всех 1 000 ID официальному тесту из 61 503 клиентов. [Модели и контрольные суммы](verification/BUNDLE.json) · [Контрольные суммы входных данных](verification/input_checksums.json)
+The November analysis compares default-probability explanations for seven Level 4 models with 322 original features. All 50 explanation sets use the same 1,000 test IDs in the same order: 500 applicants with a bureau record and 500 without one. The common background contains 100 training applicants. Checks confirmed that all 1,000 IDs belong to the official 61,503-applicant test set. [Models and checksums](verification/BUNDLE.json) · [Input checksums](verification/input_checksums.json)
 
-Для каждой модели проведено пять переобучений на стратифицированных выборках по 18 000 из 20 000 обучающих клиентов (seed 1–5). В таблице доля общих признаков в пяти самых важных объяснениях клиента усреднена по клиентам и десяти парам переобучений.
+Each model was retrained five times on stratified samples of 18,000 out of 20,000 training applicants (seeds 1–5). The table averages the fraction of shared personal top-5 features over applicants and the ten pairs of retrainings.
 
-| Модель | Совпадение личного топ-5 между переобучениями | Корреляция Спирмена общих рейтингов |
+| Model | Personal top-5 overlap across retrainings | Spearman correlation of global rankings |
 |---|---:|---:|
-| Логистическая регрессия | 85,74% | 0,935 |
-| Случайный лес | 80,82% | 0,974 |
-| XGBoost | 72,13% | 0,911 |
-| LightGBM | 74,57% | 0,894 |
-| MLP | 58,90% | 0,578 |
-| Soft voting | 80,20% | 0,919 |
-| Stacking | 74,12% | 0,888 |
+| Logistic regression | 85.74% | 0.935 |
+| Random forest | 80.82% | 0.974 |
+| XGBoost | 72.13% | 0.911 |
+| LightGBM | 74.57% | 0.894 |
+| MLP | 58.90% | 0.578 |
+| Soft voting | 80.20% | 0.919 |
+| Stacking | 74.12% | 0.888 |
 
-У soft voting 95%-й бутстреп-интервал для совпадения топ-5 составляет 79,66–80,73% и включает порог 80%. [Таблица устойчивости с интервалами](rq3/out/tables/rq3_stability.csv) · [Сравнение с логистической регрессией](rq3/out/tables/rq3_consistency_with_LR.csv) · [Графики](rq3/out/figures/) · [Полный текст результатов](RESULTS_RU.txt)
+For soft voting, the 95% bootstrap interval for top-5 overlap is 79.66–80.73%, which includes the 80% threshold. [Stability and intervals](rq3/out/tables/rq3_stability.csv) · [Agreement with logistic regression](rq3/out/tables/rq3_consistency_with_LR.csv) · [Figures](rq3/out/figures/) · [Full results](RESULTS_RU.txt)
 
-## Воспроизведение
+## Reproduction
 
-Код использует официальный [архив моделей](../model_bundles/README.md), зафиксированные пакеты и переданные команде входные данные. В [инструкции](verification/REPRODUCE_RU.txt) указаны структура каталогов, переменная SHAP_PROJECT и команды для расчёта. Для запуска из этой папки скопируйте архив моделей в неё под именем `active_models.zip`. Папка с входными данными `RMT_batch_11_15/data` должна находиться рядом с `rq3_november`.
+The code uses the official [model bundle](../model_bundles/README.md), pinned packages and the input data supplied to the team. The [instructions](verification/REPRODUCE_RU.txt) describe directory layout, `SHAP_PROJECT` and execution commands. To run from this directory, copy the model bundle here as `active_models.zip`. The input directory `RMT_batch_11_15/data` must be alongside `rq3_november`.
 
-Использованы seed 42 для выборки и бутстрепа, 1–5 для переобучений, 0, 11 и 12 для перестановок. Пересчёт с проверками на Intel Core i5-10300H занял около 33 минут с использованием сохранённых моделей переобучений. [Версии](verification/environment.json) · [Оборудование и границы замера времени](verification/run_environment.json) · [Проверки объяснений](verification/explanation_checks.csv) · [Октябрьский эксперимент](../rq3/README_RQ3.md)
+Seeds: 42 for sampling/bootstrap, 1–5 for retraining, and 0, 11, 12 for permutations. Recalculation and checks on an Intel Core i5-10300H took about 33 minutes using the saved retrained models. [Versions](verification/environment.json) · [Hardware and timing scope](verification/run_environment.json) · [Explanation checks](verification/explanation_checks.csv) · [October experiment](../rq3/README_RQ3.md)

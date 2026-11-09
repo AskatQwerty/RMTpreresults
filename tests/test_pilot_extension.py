@@ -149,7 +149,7 @@ class PilotExtensionTests(unittest.TestCase):
         self.assertEqual(result['new_fits_this_invocation'], 0)
         checkpoint = next(self.output.glob('*/level_*/candidate_*/fold_*/result.json'))
         checkpoint.write_text('{}', encoding='utf-8')
-        with self.assertRaisesRegex(RuntimeError, 'артефакт'):
+        with self.assertRaisesRegex(RuntimeError, 'artifact'):
             self.run_batch()
 
     def test_fit_helper_uses_fresh_full_estimator_train_then_saved_scorer(self):

@@ -18,19 +18,19 @@ from .pilot_evaluation_reporting import (MODEL_LABELS, MODELS, REQUIRED_TABLES,
 
 SCOPE = 'pilot_20k_20config_mlp_updated'
 LIMITATIONS = [
-    'Обучение выполнено на прежних 20 000 development-заявках; это расширенный пилот, а не обучение на полном development из A2.',
-    '24 Pipeline шести остальных типов сохранены из поиска 20 конфигураций на трёх CV-фолдах. Четыре MLP заменены моделями отдельного дополнительного эксперимента: четыре заранее заданных варианта × четыре уровня × три прежних фолда = 48 внешних CV-оценок.',
-    'MLP выбирается по среднему внешнему CV log-loss; число эпох — по внутреннему validation log-loss на 15% текущего train. Затем новая предобработка и сеть обучаются на всём train. Итоговые MLP используют 20 000 клиентов, clipping числовых z-значений до ±5 и, на уровнях 2–4, alpha=0.1.',
-    'Изменение MLP выполнено после просмотра прежнего test. Хотя новый вариант и число эпох выбраны без использования test, это последующий исследовательский анализ, а не независимое подтверждение первоначального протокола A2.',
-    'На каждую активную пару приходится один итоговый Pipeline; пять train-повторов A2 не выполнены. Исходные 1680 CV-результатов, 28 моделей до замены и пререзультаты поиска пяти конфигураций сохранены отдельно.',
-    '1000 общих парных bootstrap-повторов отражают состав test при фиксированных моделях, а не вариативность повторного обучения.',
-    '95% percentile CI являются pointwise, unadjusted, exploratory; SD пяти train-повторов здесь нет.',
-    'Bonferroni применяется к шести парным DeLong-сравнениям ROC-AUC с LR на Level 4. Это не проверка различий AP или эквивалентности.',
-    'Test совпадает с ранее использованным в пререзультатах; это обновлённый исследовательский анализ, не новая внешняя проверка.',
-    'Прибыль дана в условных единицах m=1 по фиксированной модели затрат. Пороги по test не подбирались, калибратор не обучался.',
-    'Fairness-разрывы описательны; отсутствие разницы не доказывает отсутствие bias, а CI абсолютного разрыва не является отдельным тестом bias.',
-    'Для партии CV 11–15 задокументирована замена исполнителя потоков Random Forest при прежних n_jobs=2; времена разных компьютеров напрямую не сравниваются.',
-    'SHAP, пять train-повторов и формальное правило отбора A2 по неухудшению AP этим анализом не выполняются.',
+    'Training used the same 20 000 development applications; this is an extended pilot, not training on the full development set specified by A2.',
+    'The 24 Pipelines of the other six model types are retained from the search over 20 configurations on three CV folds. Four MLPs are replaced by models from a separate supplemental experiment: four predefined variants × four levels × three existing folds = 48 outer CV evaluations.',
+    'MLP is selected by mean outer CV log-loss; the number of epochs is selected by inner validation log-loss on 15% of the current training data. New preprocessing and a new network are then fitted on all training data. Final MLPs use 20 000 clients, clip numeric z-scores to ±5 and, at levels 2–4, use alpha=0.1.',
+    'MLP was changed after the previous test results had been inspected. Although the new variant and epoch count were selected without using test, this is a subsequent exploratory analysis, not an independent confirmation of the original A2 protocol.',
+    'Each active pair has one final Pipeline; the five A2 training repeats were not performed. The original 1680 CV results, 28 models before replacement, and preliminary results from the five-configuration search are preserved separately.',
+    'The 1000 common paired bootstrap replicates reflect test composition with fixed models, not variation across repeated training.',
+    'The 95% percentile CIs are pointwise, unadjusted, and exploratory; no SD across five training repeats is available here.',
+    'Bonferroni correction is applied to six paired DeLong ROC-AUC comparisons with LR at Level 4. This does not test AP differences or equivalence.',
+    'The test set is the same as in the preliminary results; this is an updated exploratory analysis, not a new external validation.',
+    'Profit is expressed in relative units m=1 under a fixed cost model. Thresholds were not tuned on test, and no calibrator was fitted.',
+    'Fairness gaps are descriptive; absence of a difference does not establish absence of bias, and an absolute-gap CI is not a separate test for bias.',
+    'The CV batch 11–15 documents a change to the Random Forest thread executor while retaining n_jobs=2; timings from different computers are not directly comparable.',
+    'This analysis does not perform SHAP, five training repeats, or the formal A2 selection rule based on AP noninferiority.',
 ]
 
 
@@ -186,46 +186,46 @@ def export_final_report(pilot_root, evaluation_dir, *, previous_reports, create_
     best_ap = l4.loc[l4.ap.idxmax()]
     best_loss = l4.loc[l4.log_loss.idxmin()]
     paragraphs = [
-        'Актуальный набор содержит 28 Pipeline: 24 прежние модели и четыре новых MLP, заменивших неудачные исходные версии. '
-        'Все обучены на тех же 20 000 клиентах и оценены на прежних 61 503 test-клиентах. '
-        'После замены MLP пересчитаны RQ1/RQ2, прибыль, fairness, калибровка и парные сравнения. '
-        'В этом этапе новых fit или predict не выполнялось: использованы сохранённые вероятности.',
-        f'RQ1: максимальное точечное AP на Level 4 — {MODEL_LABELS[best_ap.model]} ({best_ap.ap:.6f}); '
-        f'минимальный log-loss — {MODEL_LABELS[best_loss.model]} ({best_loss.log_loss:.6f}). '
-        'Это описательные тестовые результаты, не доказательство превосходства по всем метрикам.',
+        'The active set contains 28 Pipelines: 24 retained models and four updated MLPs replacing the poorly performing original versions. '
+        'All were trained on the same 20,000 clients and evaluated on the same 61,503 test clients. '
+        'After replacing MLP, RQ1/RQ2, profit, fairness, calibration, and paired comparisons were recomputed. '
+        'This stage performed no new fits or predictions: saved probabilities were used.',
+        f'RQ1: highest point estimate of AP at Level 4: {MODEL_LABELS[best_ap.model]} ({best_ap.ap:.6f}); '
+        f'lowest log-loss: {MODEL_LABELS[best_loss.model]} ({best_loss.log_loss:.6f}). '
+        'These are descriptive test results, not evidence of superiority across all metrics.',
     ]
     rejected = d[d.reject_bonferroni_0_05 == True]
-    paragraphs.append('DeLong, ROC-AUC против LR, p Bonferroni <0.05: '+
-        ('; '.join(f'{MODEL_LABELS[r.model]}: Δ={r.delta_roc_auc:+.6f}, p_adj={r.p_bonferroni:.5g}' for r in rejected.itertuples()) or 'нет')+
-        '. Семейство включает шесть сравнений; AP этим тестом не проверяется.')
+    paragraphs.append('DeLong, ROC-AUC versus LR, Bonferroni p <0.05: '+
+        ('; '.join(f'{MODEL_LABELS[r.model]}: Δ={r.delta_roc_auc:+.6f}, p_adj={r.p_bonferroni:.5g}' for r in rejected.itertuples()) or 'none')+
+        '. The family contains six comparisons; this test does not assess AP.')
     gains = tables['rq2_deltas'].query('kind=="baseline" and to_level==4')
     paragraphs.append('RQ2, ΔAP Level 4 − Level 1 [95% CI]: '+ '; '.join(
         f'{MODEL_LABELS[r.model]} {r.delta_ap:+.5f} [{r.ci_low:+.5f}, {r.ci_high:+.5f}]' for r in gains.itertuples())+'.')
-    paragraphs.append('Новые MLP, фактическое итоговое обучение: '+ '; '.join(
-        f'L{r.level}: {r.epochs_completed} эпох, alpha={r.alpha:g}, clipping ±{r.clip_z:g}, '
+    paragraphs.append('Updated MLPs, actual final training: '+ '; '.join(
+        f'L{r.level}: {r.epochs_completed} epochs, alpha={r.alpha:g}, clipping ±{r.clip_z:g}, '
         f'CV log-loss={r.best_cv_log_loss:.5f}, test log-loss={r.test_log_loss:.5f}' for r in mlp.itertuples())+
-        '. Число эпох выбиралось внутри train по log-loss: максимум 120, patience=12, min_delta=0.0001. '
-        'Счётчик sklearn n_iter_ при partial_fit равен 1; фактические эпохи подтверждены loss_curve_ и числом просмотренных обучающих строк.')
-    paragraphs.append('Дополнительный поиск MLP включал 48 внешних CV-оценок; все четыре решения были зафиксированы до нового обращения к test. '
-        'Предобработка внутренней проверки обучалась только на внутреннем train, затем новая сеть и предобработка обучались на всех 20 000 клиентах. '
-        'Улучшение после изменения остановки, ограничения экстремальных z-значений и регуляризации согласуется с уменьшением переобучения, '
-        'но не доказывает единственную причину прежней неудачи. Test уже просматривался, поэтому замена явно обозначена как последующий исследовательский анализ.')
-    paragraphs.append('Исходные 28 моделей до замены и отчёты сохранены в pilot_20k_20config_final; пререзультаты пяти конфигураций также сохранены. '
-        'comparison_to_preserved_20config_before_mlp.csv показывает изменения метрик: у всех 24 Pipeline остальных типов изменения равны нулю. '
-        'Новые 1000 общих парных bootstrap-повторов используют тот же seed=42 и обновлённые вероятности, поэтому интервалы прибыли и fairness согласованы с активными MLP.')
+        '. Epoch count was selected within train by log-loss: maximum 120, patience=12, min_delta=0.0001. '
+        'The sklearn n_iter_ counter equals 1 under partial_fit; actual epochs are confirmed by loss_curve_ and the number of training rows seen.')
+    paragraphs.append('The additional MLP search included 48 outer CV evaluations; all four decisions were fixed before accessing test again. '
+        'Preprocessing for inner validation was fitted only on inner train, then a new network and preprocessing were fitted on all 20,000 clients. '
+        'Improvement after changing the stopping rule, clipping extreme z-values, and regularization is consistent with reduced overfitting, '
+        'but does not establish a single cause of the earlier failure. Test had already been inspected, so the replacement is explicitly labeled as a post hoc exploratory analysis.')
+    paragraphs.append('The original 28 models and reports before replacement are preserved in pilot_20k_20config_final; the five-configuration preliminary results are also preserved. '
+        'comparison_to_preserved_20config_before_mlp.csv shows metric changes: all 24 Pipelines of other model types have zero changes. '
+        'The new 1,000 shared paired bootstrap replicates use the same seed=42 and updated probabilities, so profit and fairness intervals are consistent with the active MLPs.')
     main_ci = tables['quality_ci'][(tables['quality_ci'].metric=='ap') |
         ((tables['quality_ci'].level==4)&tables['quality_ci'].metric.isin(['roc_auc','log_loss','brier']))]
     blockers = []
     if summary.get('completed_bootstrap') != 1000 or len(main_ci)!=49 or not main_ci.bootstrap_n_valid.eq(1000).all():
-        blockers.append('Не подтверждены все 1000 повторов для основных интервалов.')
+        blockers.append('Not all 1,000 replicates for the primary intervals have been confirmed.')
     if integrity.get('unchanged') is not True or integrity.get('old_preresults_unchanged') is not True:
-        blockers.append('Не подтверждена сохранность исходных файлов и старых пререзультатов.')
+        blockers.append('Preservation of source files and previous preliminary results has not been confirmed.')
     graphics_path = output/'graphics_validation.json'
     graphics = read(graphics_path) if graphics_path.exists() else {}
     if graphics.get('passed') is not True:
-        blockers.append('Визуальная проверка новых рисунков ещё не зафиксирована.')
+        blockers.append('Visual inspection of the new figures has not yet been recorded.')
     if len(figure_files)!=6:
-        blockers.append('Не готовы три пары рисунков PNG/SVG.')
+        blockers.append('The three PNG/SVG figure pairs are not ready.')
     readiness = dict(scope=SCOPE, status='ready' if not blockers else 'pending_checks',
         generated_utc=datetime.now(timezone.utc).isoformat(), blockers=blockers,
         original_completed_cv_fits=1680, supplemental_mlp_outer_cv_evaluations=48,
@@ -237,16 +237,16 @@ def export_final_report(pilot_root, evaluation_dir, *, previous_reports, create_
         original_reports=str(previous.resolve()), metrics_are_new_final_predictions=True)
     _json(output/'results_readiness.json',readiness)
     _atomic_text(output/'latex_usage.txt',
-        'Пакеты: booktabs, longtable, graphicx. Пример: \\input{tables/rq1_level4.tex}.\n'
-        'В таблице точечная оценка и затем [95% CI]. Интервалы описывают фиксированные модели, не пять train-повторов.\n'
-        'Фрагменты LaTeX не компилировались; итоговую верстку проверяйте в шаблоне статьи.\n')
-    report_text = 'RQ1/RQ2, прибыль и fairness: актуальный пилот 20k после замены MLP\n\n'+'\n\n'.join(paragraphs)+\
-        '\n\nОграничения\n'+'\n'.join('- '+x for x in LIMITATIONS)+\
-        '\n\nГотовность\n'+('Числовые результаты и рисунки проверены.' if not blockers else '\n'.join(blockers))+'\n'
+        'Packages: booktabs, longtable, graphicx. Example: \\input{tables/rq1_level4.tex}.\n'
+        'The table gives the point estimate followed by [95% CI]. Intervals describe fixed models, not five training repeats.\n'
+        'The LaTeX fragments were not compiled; check the final layout in the paper template.\n')
+    report_text = 'RQ1/RQ2, profit and fairness: current 20k pilot after MLP replacement\n\n'+'\n\n'.join(paragraphs)+\
+        '\n\nLimitations\n'+'\n'.join('- '+x for x in LIMITATIONS)+\
+        '\n\nReadiness\n'+('Numeric results and figures have been checked.' if not blockers else '\n'.join(blockers))+'\n'
     _atomic_text(output/'results_report.txt',report_text)
     css='body{font:16px/1.55 Segoe UI,Arial,sans-serif;max-width:1180px;margin:35px auto;padding:0 22px;color:#173248}h1,h2{color:#123e5b}table{border-collapse:collapse;font-size:12px;width:100%}th,td{padding:7px;border-bottom:1px solid #d9e2e8;text-align:left;white-space:pre-line}th{background:#eef4f8}.scroll{overflow:auto}img{max-width:100%}small{color:#536979}'
-    parts=['<!doctype html><html lang="ru"><meta charset="utf-8"><title>RMT: итоговые RQ1/RQ2</title><style>'+css+'</style><body>',
-        '<h1>RQ1/RQ2, прибыль и fairness: пилот 20k после замены MLP</h1>']
+    parts=['<!doctype html><html lang="en"><meta charset="utf-8"><title>RMT: final RQ1/RQ2 results</title><style>'+css+'</style><body>',
+        '<h1>RQ1/RQ2, profit, and fairness: 20k pilot after MLP replacement</h1>']
     parts.extend('<p>'+html.escape(p)+'</p>' for p in paragraphs)
     for name in ['rq1_level4','rq2_ap_levels','rq2_baseline_gains','rq2_sequential_gains','ap_vs_lr_level4',
                  'delong_level4','profit_fairness_L1','profit_fairness_L5','profit_fairness_L10','errors_level4']:
@@ -255,8 +255,8 @@ def export_final_report(pilot_root, evaluation_dir, *, previous_reports, create_
                       f'<small><a href="tables/{name}.csv">CSV</a> · <a href="tables/{name}.tex">LaTeX</a></small>'])
     for name in ('rq1_quality_level4','ap_by_level','calibration_level4'):
         parts.append(f'<figure><img src="figures/{name}.png" alt="{name}"><figcaption><a href="figures/{name}.svg">SVG</a></figcaption></figure>')
-    parts.extend(['<h2>Фактическое обучение MLP</h2>',mlp.drop(columns=['selected_params_json','fitted_config_json']).to_html(index=False,border=0),
-        '<h2>Ограничения</h2><ul>'+''.join('<li>'+html.escape(x)+'</li>' for x in LIMITATIONS)+'</ul>',
-        '<h2>Готовность</h2><p>'+html.escape('Проверено.' if not blockers else ' '.join(blockers))+'</p></body></html>'])
+    parts.extend(['<h2>Actual MLP training</h2>',mlp.drop(columns=['selected_params_json','fitted_config_json']).to_html(index=False,border=0),
+        '<h2>Limitations</h2><ul>'+''.join('<li>'+html.escape(x)+'</li>' for x in LIMITATIONS)+'</ul>',
+        '<h2>Readiness</h2><p>'+html.escape('Verified.' if not blockers else ' '.join(blockers))+'</p></body></html>'])
     _atomic_text(output/'results_report.html','\n'.join(parts))
     return readiness

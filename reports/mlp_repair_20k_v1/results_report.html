@@ -1,16 +1,16 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RMT: дополнительный эксперимент MLP</title><style>body{font:16px/1.55 system-ui,sans-serif;color:#173041;max-width:1200px;margin:32px auto;padding:0 20px}h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:13px;min-width:650px}th,td{padding:7px 9px;border-bottom:1px solid #dce5ea;text-align:right}th{background:#edf3f7}td:first-child,th:first-child{text-align:left}.table{overflow-x:auto}img{display:block;width:100%;height:auto;margin:20px 0}.notice{border-left:4px solid #c47d16;padding:12px 16px;background:#fff8e9}a{color:#1769aa}</style></head><body>
-<h1>RMT: дополнительный эксперимент MLP</h1>
-<p class="notice">Результаты основного эксперимента сохранены отдельно. Этот анализ выполнен после просмотра прежнего test и имеет исследовательский характер.</p>
-<p>Проверены четыре заранее заданных варианта MLP на четырёх уровнях и трёх сохранённых внешних CV-фолдах: 48 внешних CV-оценок.</p>
-<p>Каждая процедура включает внутренний выбор эпох по log-loss и отдельное обучение с нуля на всём доступном train. Поэтому 48 CV-оценок соответствуют 96 траекториям оптимизатора, а не 48 вызовам partial_fit.</p>
-<p>По заранее записанному CV-критерию к итоговой оценке допущено 4 из четырёх уровней. Число итоговых процедур: 4; они добавляют 8 траекторий оптимизатора.</p>
-<p>Level 1: выбран stop_clipped; CV log-loss 0.388510 → 0.256627. Test log-loss 0.371204 → 0.252460; AP 0.144538 → 0.219154; выбрано 27 эпох.</p>
-<p>Level 2: выбран stop_clipped_regularized; CV log-loss 0.479511 → 0.257432. Test log-loss 0.470858 → 0.251954; AP 0.136435 → 0.220370; выбрано 24 эпох.</p>
-<p>Level 3: выбран stop_clipped_regularized; CV log-loss 0.569388 → 0.254466. Test log-loss 0.548138 → 0.249881; AP 0.142688 → 0.233265; выбрано 16 эпох.</p>
-<p>Level 4: выбран stop_clipped_regularized; CV log-loss 0.639396 → 0.253838. Test log-loss 0.691036 → 0.249034; AP 0.138913 → 0.235569; выбрано 21 эпох.</p>
-<p>Уменьшение CV/test log-loss описывает результат этого дополнительного эксперимента. Оно не доказывает, что найдена единственная причина исходной неудачи MLP.</p>
-<h2>До и после</h2><div class="table">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RMT: supplemental MLP experiment</title><style>body{font:16px/1.55 system-ui,sans-serif;color:#173041;max-width:1200px;margin:32px auto;padding:0 20px}h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:13px;min-width:650px}th,td{padding:7px 9px;border-bottom:1px solid #dce5ea;text-align:right}th{background:#edf3f7}td:first-child,th:first-child{text-align:left}.table{overflow-x:auto}img{display:block;width:100%;height:auto;margin:20px 0}.notice{border-left:4px solid #c47d16;padding:12px 16px;background:#fff8e9}a{color:#1769aa}</style></head><body>
+<h1>RMT: supplemental MLP experiment</h1>
+<p class="notice">The main experiment results are preserved separately. This analysis was conducted after the previous test results were inspected and is exploratory.</p>
+<p>Four predeclared MLP variants were evaluated at four levels using three saved outer CV folds: 48 outer CV evaluations.</p>
+<p>Each procedure includes inner epoch selection by log-loss and a separate fresh fit on all available training rows. Thus, 48 CV evaluations correspond to 96 optimizer trajectories, not 48 partial_fit calls.</p>
+<p>The predeclared CV criterion admitted 4 of four levels to final evaluation. Number of final procedures: 4; these add 8 optimizer trajectories.</p>
+<p>Level 1: selected stop_clipped; CV log-loss 0.388510 → 0.256627. Test log-loss 0.371204 → 0.252460; AP 0.144538 → 0.219154; selected 27 epochs.</p>
+<p>Level 2: selected stop_clipped_regularized; CV log-loss 0.479511 → 0.257432. Test log-loss 0.470858 → 0.251954; AP 0.136435 → 0.220370; selected 24 epochs.</p>
+<p>Level 3: selected stop_clipped_regularized; CV log-loss 0.569388 → 0.254466. Test log-loss 0.548138 → 0.249881; AP 0.142688 → 0.233265; selected 16 epochs.</p>
+<p>Level 4: selected stop_clipped_regularized; CV log-loss 0.639396 → 0.253838. Test log-loss 0.691036 → 0.249034; AP 0.138913 → 0.235569; selected 21 epochs.</p>
+<p>Lower CV/test log-loss describes the result of this supplemental experiment. It does not establish a single cause of the original MLP failure.</p>
+<h2>Before and after</h2><div class="table">
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -78,9 +78,9 @@
   </tbody>
 </table>
 </div>
-<img src="figures/mlp_before_after.png" alt="Сравнение CV и test log-loss исходного и нового MLP">
-<h2>Выбор числа эпох</h2><img src="figures/inner_learning_curves.png" alt="Кривые log-loss на внутреннем train и validation">
-<h2>Все варианты CV</h2><div class="table">
+<img src="figures/mlp_before_after.png" alt="CV and test log-loss comparison of the original and new MLP">
+<h2>Epoch selection</h2><img src="figures/inner_learning_curves.png" alt="Inner training and validation log-loss curves">
+<h2>All CV variants</h2><div class="table">
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -241,16 +241,16 @@
   </tbody>
 </table>
 </div>
-<h2>Ограничения</h2><ul>
-<li>Это отдельный последующий исследовательский эксперимент MLP. Основные 28 Pipeline, 1680 CV-результатов и прежние RQ1/RQ2 не заменяются.</li>
-<li>Использованы прежние 20 000 клиентов с естественным балансом классов и сохранённые внешние CV-фолды. Test ранее уже просматривался; он не является новой независимой проверкой.</li>
-<li>Вариант выбирается по среднему log-loss внешней CV. Внутри каждого train-фолда отдельные 15% используются только для выбора числа эпох по validation log-loss.</li>
-<li>Предобработка внутреннего этапа обучается только на его train. Затем новая предобработка и новая сеть обучаются на всём предоставленном train ровно выбранное число эпох.</li>
-<li>Ограничение z-значений до ±5 применяется только к масштабированным числовым значениям. Это отдельный вариант преобразования, а не удаление клиентов или изменение сохранённых X.</li>
-<li>Здесь показаны точечные оценки. Bootstrap, доверительные интервалы и проверки значимости различий не вычислялись; стандартное отклонение трёх CV-фолдов не является CI.</li>
-<li>В sklearn partial_fit значение n_iter_ относится к последнему вызову. Реальное число эпох записывается отдельно по циклу обучения, loss_curve_ и t_.</li>
-<li>Изменение правила остановки и исполнительного цикла partial_fit ограничивает строго причинное толкование сравнения с исходным MLP. Улучшение на уже использованном test остаётся исследовательским результатом.</li>
-</ul><h2>Файлы</h2><ul>
+<h2>Limitations</h2><ul>
+<li>This is a separate post-hoc exploratory MLP experiment. The main 28 Pipelines, 1680 CV results and previous RQ1/RQ2 results are not replaced.</li>
+<li>The same 20 000 clients with the natural class balance and saved outer CV folds are used. The test set had already been inspected; it is not a new independent validation.</li>
+<li>The variant is selected by mean outer-CV log-loss. Within each training fold, a separate 15% is used only to select the epoch count by validation log-loss.</li>
+<li>Preprocessing in the inner stage is fitted only on its training partition. Fresh preprocessing and a fresh network are then fitted on all supplied training rows for exactly the selected number of epochs.</li>
+<li>Clipping z-values to ±5 applies only to standardized numeric values. It is a separate transformation variant; clients are not removed and saved X is not modified.</li>
+<li>Only point estimates are shown. Bootstrap, confidence intervals and significance tests were not computed; the standard deviation across three CV folds is not a CI.</li>
+<li>In sklearn partial_fit, n_iter_ refers to the most recent call. Actual epochs are recorded separately from the training loop, loss_curve_ and t_.</li>
+<li>Changes to the stopping rule and partial_fit execution loop limit strict causal interpretation of comparisons with the original MLP. Improvement on the previously used test remains exploratory.</li>
+</ul><h2>Files</h2><ul>
 <li><a href="before_after.csv">before_after.csv</a></li>
 <li><a href="cv_results.csv">cv_results.csv</a></li>
 <li><a href="candidate_summary.csv">candidate_summary.csv</a></li>

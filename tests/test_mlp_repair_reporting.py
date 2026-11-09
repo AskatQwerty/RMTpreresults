@@ -58,7 +58,7 @@ class MLPRepairReportingTests(unittest.TestCase):
         self.assertEqual(len(result['figure_files']), 4)
         self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob('*') if p.is_file()})
         text = (self.report / 'results_report.html').read_text(encoding='utf-8')
-        self.assertIn('исследовательский', text)
+        self.assertIn('exploratory', text)
         self.assertIn('figures/inner_learning_curves.png', text)
         self.assertEqual(len(pd.read_csv(self.report / 'before_after.csv')), 4)
 

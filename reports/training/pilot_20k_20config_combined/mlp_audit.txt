@@ -1,17 +1,17 @@
-﻿Проверка MLP перед итоговым обучением
+﻿MLP audit before final training
 
-Статус: ошибок реализации Pipeline не обнаружено. Новых обучений классификатора: 0; test не использован.
-Проверено 240 CV-оценок, 180 индивидуальных диагностик; 12 проверок предобработки только внутри сохранённых train-фолдов.
-Достигли max_iter=300: 61/180; предупреждения сходимости: 61.
-Для выбранной конфигурации train objective: 0.017265–0.116404; CV log-loss отдельных фолдов: 0.377170–0.643913.
-Все 12 выбранных CV-fit достигли max_iter. Константный риск по train даёт CV log-loss около 0.280597.
-Максимальное конечное абсолютное стандартизованное значение validation: 65250.000; подробности по признакам в mlp_preprocessing_audit.csv.
-Выбранная конфигурация MLP №13 одинакова для четырёх уровней; средний CV log-loss: L1: 0.388510, L2: 0.479511, L3: 0.569388, L4: 0.639396.
+Status: no Pipeline implementation errors found. New classifier fits: 0; test was not used.
+Checked 240 CV evaluations and 180 individual diagnostics; 12 preprocessing checks used only saved training folds.
+Reached max_iter=300: 61/180; convergence warnings: 61.
+For the selected configuration, training objective: 0.017265–0.116404; individual-fold CV log-loss: 0.377170–0.643913.
+All 12 selected CV fits reached max_iter. Constant training-prior risk gives CV log-loss of approximately 0.280597.
+Maximum finite absolute standardized validation value: 65250.000; feature details are in mlp_preprocessing_audit.csv.
+Selected MLP configuration №13 is the same across four levels; mean CV log-loss: L1: 0.388510, L2: 0.479511, L3: 0.569388, L4: 0.639396.
 
-Структурной ошибки Pipeline не обнаружено: масштабирование есть, медианы и scaler обучаются на train фолда, validation только transform.
-Все проверенные матрицы train/validation конечны, их ширина совпадает; тестовые данные не загружались.
-Низкая сохранённая обучающая целевая функция при высоком CV log-loss согласуется с сильным переобучением; это диагностический вывод, а не доказательство единственной причины.
-MLP loss_curve содержит обучающую целевую функцию с регуляризацией и minibatch-агрегацией; она не является отдельной оценкой train log-loss.
-Масштабирование сохраняет редкие экстремальные значения validation. Их наличие само по себе не ошибка; clipping/отбор по CV или test сейчас не вводились.
-Для исходных конфигураций1–5 индивидуальные CV loss_curve отсутствуют; сохранённые диаграммы итоговых refit не подставлялись вместо них.
-Гиперпараметры и правило остановки сохранены. Улучшение MLP через early stopping или новую регуляризацию потребовало бы отдельного заранее объявленного эксперимента.
+No structural Pipeline error was found: scaling is present, medians and the scaler are fitted on the fold's training rows, and validation is transformed only.
+All checked training/validation matrices are finite and have matching widths; test data were not loaded.
+A low saved training objective with high CV log-loss is consistent with substantial overfitting; this is a diagnostic interpretation, not proof of a single cause.
+MLP loss_curve records a training objective with regularization and minibatch aggregation; it is not a separate evaluation of training log-loss.
+Scaling retains rare extreme validation values. Their presence alone is not an error; clipping/selection using CV or test was not introduced here.
+Individual CV loss_curve records are unavailable for original configurations 1–5; final-refit curves were not substituted for them.
+Hyperparameters and the stopping rule were retained. Improving MLP through early stopping or new regularization would require a separate predeclared experiment.

@@ -315,7 +315,7 @@
   "pre_dispatch": 1,
   "hardware_recorded": false,
   "hardware": null,
-  "hardware_note": "Модель CPU и общий объём RAM не сохранены в журналах обучения пилота; оборудование текущей оценки не подставляется.",
+  "hardware_note": "The CPU model and total RAM were not recorded in the pilot training logs; current evaluation hardware is not substituted.",
   "completed_candidate_cv_fits": 420,
   "completed_refits": 28,
   "completed_primitive_fits": 1344,
@@ -324,8 +324,8 @@
   "training_last_event_utc": "2026-10-25T12:18:52.224898+00:00",
   "search_and_refit_seconds_sum": 10276.388108100004,
   "refit_seconds_sum": 1573.0965704917908,
-  "timing_note": "refit_seconds входит в search_and_refit_seconds; их нельзя суммировать. Время invocation также включает IO и отчёты.",
-  "mlp_warning_note": "Предупреждения относятся ко всему search+refit, включая кандидатов CV; они не доказывают достижение max_iter выбранной моделью.",
+  "timing_note": "refit_seconds is included in search_and_refit_seconds; they must not be summed. Invocation time also includes IO and reports.",
+  "mlp_warning_note": "Warnings cover the entire search+refit, including CV candidates; they do not establish that the selected model reached max_iter.",
   "sources": [
     {
       "path": "artifacts\\training\\pilot_20k_5config\\experiment_manifest.json",

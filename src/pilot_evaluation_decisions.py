@@ -1,7 +1,7 @@
-"""Чистые формулы evaluation: фиксированные решения и общий клиентский bootstrap.
+"""Pure evaluation formulas: fixed decisions and shared client bootstrap.
 
-Никаких файлов, моделей, fit или predict. TARGET=1 — дефолт; одобрение p<t,
-поэтому p==t отклоняется. Неизвестные группы остаются в общих показателях.
+No files, models, fit, or predict. TARGET=1 denotes default; approval uses p<t,
+so p==t is declined. Unknown groups remain in overall metrics.
 """
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ THRESHOLDS = (0.5, 1 / 6, 1 / 11)
 ATTRIBUTES = ('gender', 'age')
 GROUP_LABELS = (('F', 'M', 'unknown'), ('<25', '>=25', 'unknown'))
 LOSS_RATIOS = (1, 5, 10)
-# (L/m, индекс порога): общий L/m=1,t=.5 не дублируется.
+# (L/m, threshold index): the shared L/m=1,t=.5 scenario is not duplicated.
 SCENARIOS = ((1, 0), (5, 0), (5, 1), (10, 0), (10, 2))
 SCENARIO_NAMES = ('L1_t0.5', 'L5_t0.5', 'L5_t1/6', 'L10_t0.5', 'L10_t1/11')
 CONFUSION_ORDER = ('TN', 'FP', 'FN', 'TP')
@@ -23,17 +23,17 @@ BASELINE_ORDER = ('approve_all', 'reject_all')
 def _validate_data(y, probabilities_by_model):
     target = np.asarray(y)
     if target.ndim != 1 or len(target) == 0 or not np.isin(target, [0, 1]).all():
-        raise ValueError('y должен быть непустым одномерным массивом TARGET 0/1')
+        raise ValueError('y must be a nonempty one-dimensional array of binary TARGET values')
     if not isinstance(probabilities_by_model, dict) or not probabilities_by_model:
-        raise ValueError('Нужен непустой dict model -> probability array')
+        raise ValueError('A nonempty dict of model -> probability array is required')
     models = tuple(probabilities_by_model)
     values = []
     for model in models:
         probability = np.asarray(probabilities_by_model[model], dtype=np.float64)
         if probability.shape != target.shape:
-            raise ValueError(f'Неверный размер вероятностей: {model}')
+            raise ValueError(f'Invalid probability array size: {model}')
         if not np.isfinite(probability).all() or not ((0 <= probability) & (probability <= 1)).all():
-            raise ValueError(f'Вероятности вне [0,1] или не конечны: {model}')
+            raise ValueError(f'Probabilities are nonfinite or outside [0,1]: {model}')
         values.append(probability)
     return target.astype(np.float64), models, np.stack(values)
 
@@ -50,12 +50,12 @@ def _observed_approval_flag(gap):
 
 
 class DecisionEvaluator:
-    """Предвычислить маски один раз и применять общие веса клиентов много раз.
+    """Precompute masks once and apply shared client weights repeatedly.
 
-    weighted(weights) возвращает только numpy-массивы. Оси указаны в coordinates.
-    Веса относятся ко всем исходным клиентам, одинаковы для каждой модели и
-    группы. Группы НЕ ресемплируются отдельно. Нулевые знаменатели дают NaN.
-    Параметры модели и вероятности не меняются между bootstrap-репликациями.
+    weighted(weights) returns only NumPy arrays. Axes are specified in coordinates.
+    Weights refer to all original clients and are shared across every model and
+    group. Groups are NOT resampled separately. Zero denominators produce NaN.
+    Model parameters and probabilities do not change between bootstrap replicates.
     """
 
     def __init__(self, y, probabilities_by_model, groups):
@@ -66,16 +66,16 @@ class DecisionEvaluator:
         self.scenarios = SCENARIOS
         self.group_values = {}
         self._group_cache = []
-        # Кэшируются только наблюдаемые строки каждой группы. Это уменьшает
-        # работу dot по сравнению с плотной матрицей с нулями для всех групп.
+        # Cache only observed rows of each group. This reduces
+        # dot-product work compared with a dense matrix containing zeros for all groups.
         approve = (self.probabilities[:, None, :] < self.thresholds[None, :, None])
         flat_approve = approve.reshape(-1, self.n)
         for attribute, labels in zip(ATTRIBUTES, GROUP_LABELS):
             if attribute not in groups:
-                raise ValueError(f'Не переданы группы {attribute}')
+                raise ValueError(f'Missing groups for {attribute}')
             raw = np.asarray(groups[attribute], dtype=str)
             if raw.shape != (self.n,):
-                raise ValueError(f'Неверный размер групп {attribute}')
+                raise ValueError(f'Invalid group array size for {attribute}')
             normalized = np.where(np.isin(raw, labels[:2]), raw, 'unknown')
             self.group_values[attribute] = normalized
             cached = []
@@ -108,13 +108,13 @@ class DecisionEvaluator:
         }
 
     def weighted(self, weights):
-        """Одни клиентские веса для всех моделей; нули разрешены, сумма положительна."""
+        """Shared client weights for all models; zeros are allowed and the sum must be positive."""
         weights = np.asarray(weights, dtype=np.float64)
         if weights.shape != (self.n,) or not np.isfinite(weights).all() or (weights < 0).any():
-            raise ValueError('Веса должны быть конечными, неотрицательными и соответствовать клиентам')
+            raise ValueError('Weights must be finite, nonnegative, and aligned with clients')
         total = float(weights.sum())
         if total <= 0:
-            raise ValueError('Сумма весов должна быть положительна')
+            raise ValueError('The sum of weights must be positive')
         group_n = np.zeros((2, 3), dtype=np.float64)
         group_default_n = np.zeros((2, 3), dtype=np.float64)
         group_approved = np.zeros((*self.shape, 2, 3), dtype=np.float64)
@@ -128,7 +128,7 @@ class DecisionEvaluator:
                 counts = approval_matrix @ np.column_stack((group_weights, weighted_default))
                 group_approved[:, :, attribute_index, group_index] = counts[:, 0].reshape(self.shape)
                 group_approved_default[:, :, attribute_index, group_index] = counts[:, 1].reshape(self.shape)
-        # Все клиенты принадлежат одной gender-группе, включая unknown.
+        # Every client belongs to one gender group, including unknown.
         approved = group_approved[:, :, 0, :].sum(axis=-1)
         approved_default = group_approved_default[:, :, 0, :].sum(axis=-1)
         total_default = group_default_n[0].sum()
@@ -216,12 +216,12 @@ def decision_point_tables(y, probabilities_by_model, groups):
 
 
 def decision_bootstrap(y, probabilities_by_model, groups, weights):
-    """Удобная одиночная оценка; для 1000 повторов переиспользуйте DecisionEvaluator."""
+    """Convenience function for one evaluation; reuse DecisionEvaluator for 1000 repeats."""
     return DecisionEvaluator(y, probabilities_by_model, groups).weighted(weights)
 
 
 def calibration_point_table(y, probabilities_by_model):
-    """Те же фиксированные 10 bins, что в старом отчёте; никаких калибровочных fit."""
+    """The same fixed 10 bins as in the previous report; no calibration fits."""
     from .pilot_decision_metrics import _calibration_rows
     target, models, probabilities = _validate_data(y, probabilities_by_model)
     rows = []

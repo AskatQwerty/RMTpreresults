@@ -1,7 +1,7 @@
-"""Сериализуемая диагностика уже обученных Pipeline без повторного fit/transform.
+"""Serializable diagnostics of fitted Pipelines without repeating fit or transform.
 
-Функции только читают атрибуты estimator. Настройки не меняются, исходные данные
-не требуются; предупреждения fit сохраняются вызывающим кодом отдельно.
+Functions only read estimator attributes. Settings are unchanged, and the original data
+are not required; the calling code saves fit warnings separately.
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ ACTUAL_FIELDS = (
 
 
 def _plain(value):
-    """JSON-safe значения; нечисловой результат не маскируется нулём."""
+    """JSON-safe values; nonnumeric results are not replaced with zero."""
     if isinstance(value, np.ndarray):
         return [_plain(item) for item in value.tolist()]
     if isinstance(value, np.generic):
@@ -41,8 +41,8 @@ def _plain(value):
 
 
 def _safe_n_features(estimator):
-    # LightGBM и XGBoost предоставляют это как fitted property, а sklearn —
-    # обычно как атрибут. Не опираемся на внутренние объекты booster.
+    # LightGBM and XGBoost expose this as a fitted property, while sklearn
+    # usually uses an attribute. Do not depend on internal booster objects.
     value = getattr(estimator, 'n_features_in_', None)
     return int(value) if value is not None else None
 
@@ -63,18 +63,18 @@ def _preprocess_description(preprocessor):
 
 
 def extract_fit_diagnostics(fitted_pipeline):
-    """Вернуть actual итерации/кривые и размеры каждой обученной базы/метамодели.
+    """Return actual iterations, curves, and dimensions for each fitted base or meta-model.
 
-    Схема результата:
+    Result schema:
     - root_class / root_model_class / raw_feature_count;
-    - estimators: плоский список leaf-оценивателей с path, role, class_name,
+    - estimators: a flat list of leaf estimators with path, role, class_name,
       config, fitted, model_input_features, preprocessing, checks;
-    - processed_feature_counts: компактная таблица баз и метамодели;
-    - mlp: только записи MLP с actual n_iter_, loss_curve_, loss_, best_loss_.
+    - processed_feature_counts: a compact table of base estimators and the meta-model;
+    - mlp: MLP entries only, with actual n_iter_, loss_curve_, loss_, best_loss_.
 
-    Для Voting/Stacking читаются fitted named_estimators_, а не исходные
-    необученные estimators. Внутренние OOF-клоны StackingClassifier не хранятся
-    sklearn после fit; здесь отражены сохранённые полные базы и метамодель.
+    For Voting/Stacking, read fitted named_estimators_ rather than the original
+    unfitted estimators. The internal OOF clones of StackingClassifier are not retained
+    by sklearn after fit; this describes the saved full-data base estimators and meta-model.
     """
     check_is_fitted(fitted_pipeline)
     records = []

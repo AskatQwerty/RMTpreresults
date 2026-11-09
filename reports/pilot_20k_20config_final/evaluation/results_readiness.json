@@ -11,16 +11,16 @@
   "new_predict_calls_in_evaluation": 0,
   "old_preresults_preserved": true,
   "limitations": [
-    "Обучение выполнено на прежних 20 000 development-заявках; это расширенный пилот, а не обучение на полном development из A2.",
-    "Для каждой из 28 пар выбран минимум среднего log-loss среди 20 конфигураций на трёх сохранённых CV-фолдах; затем выполнен один итоговый fit, а не пять train-повторов A2.",
-    "1000 общих парных bootstrap-повторов отражают состав test при фиксированных моделях, а не вариативность повторного обучения.",
-    "95% percentile CI являются pointwise, unadjusted, exploratory; SD пяти train-повторов здесь нет.",
-    "Bonferroni применяется к шести парным DeLong-сравнениям ROC-AUC с LR на Level 4. Это не проверка различий AP или эквивалентности.",
-    "Test совпадает с ранее использованным в пререзультатах; это обновлённый исследовательский анализ, не новая внешняя проверка.",
-    "Прибыль дана в условных единицах m=1 по фиксированной модели затрат. Пороги по test не подбирались, калибратор не обучался.",
-    "Fairness-разрывы описательны; отсутствие разницы не доказывает отсутствие bias, а CI абсолютного разрыва не является отдельным тестом bias.",
-    "Для партии CV 11–15 задокументирована замена исполнителя потоков Random Forest при прежних n_jobs=2; времена разных компьютеров напрямую не сравниваются.",
-    "SHAP, пять train-повторов и формальное правило отбора A2 по неухудшению AP этим анализом не выполняются."
+    "Training used the same 20 000 development applications; this is an extended pilot, not training on the full development set specified by A2.",
+    "For each of the 28 pairs, the configuration with the lowest mean log-loss among 20 configurations on the three saved CV folds was selected; one final fit was then performed, rather than the five A2 training repeats.",
+    "The 1000 common paired bootstrap replicates reflect test composition with fixed models, not variation across repeated training.",
+    "The 95% percentile CIs are pointwise, unadjusted, and exploratory; no SD across five training repeats is available here.",
+    "Bonferroni correction is applied to six paired DeLong ROC-AUC comparisons with LR at Level 4. This does not test AP differences or equivalence.",
+    "The test set is the same as in the preliminary results; this is an updated exploratory analysis, not a new external validation.",
+    "Profit is expressed in relative units m=1 under a fixed cost model. Thresholds were not tuned on test, and no calibrator was fitted.",
+    "Fairness gaps are descriptive; absence of a difference does not establish absence of bias, and an absolute-gap CI is not a separate test for bias.",
+    "The CV batch 11–15 documents a change to the Random Forest thread executor while retaining n_jobs=2; timings from different computers are not directly comparable.",
+    "This analysis does not perform SHAP, five training repeats, or the formal A2 selection rule based on AP noninferiority."
   ],
   "table_files": {
     "rq1_level4": {

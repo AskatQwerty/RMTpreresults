@@ -9,5 +9,5 @@
     "max": 0
   },
   "applied": false,
-  "reason": "Сначала требуется подтвердить, что -0.9 не является допустимой учётной корректировкой."
+  "reason": "First confirm that -0.9 is not a valid accounting adjustment."
 }

@@ -1,4 +1,4 @@
-"""Независимый verifier проверяется на маленьких сохранённых артефактах."""
+"""The independent verifier is tested on small saved artifacts."""
 from __future__ import annotations
 
 from contextlib import ExitStack, redirect_stdout
@@ -54,7 +54,7 @@ class ResearchPilotVerifierTests(unittest.TestCase):
         cls.baseline=cls.base/'baseline_pilot'
         make_prepared_fixture(cls.prepared)
         initialize_pilot(cls.prepared,cls.baseline,threads=1,sample_n=60)
-        # Одна синтетическая пара (15 CV-fit + refit) создаёт файлы для всех тестов.
+        # One synthetic pair (15 CV-fit + refit) creates files for all tests.
         with redirect_stdout(io.StringIO()):
             run_pair(cls.prepared,cls.baseline,'logistic_regression',1)
         manifest=read_json(cls.baseline/'experiment_manifest.json')
@@ -71,7 +71,7 @@ class ResearchPilotVerifierTests(unittest.TestCase):
         self.stage=self.root/'logistic_regression/level_1'
 
     def verify(self,*,require_complete=False,prepared=None,require_attempt_logs=False):
-        # Чтение model.joblib для извлечения прогноза тоже не является проверкой файлов.
+        # Reading model.joblib to obtain predictions is not a file-only check either.
         with ExitStack() as stack:
             for model in (Pipeline,LogisticRegression):
                 for method in ('fit','predict','predict_proba'):
@@ -88,7 +88,7 @@ class ResearchPilotVerifierTests(unittest.TestCase):
         return result
 
     def refresh_stage_hashes(self):
-        # Имитируем согласованные SHA, чтобы тест доходил до смысловой проверки.
+        # Simulate matching SHA values so the test reaches the semantic check.
         for directory in (self.stage/'fit_checkpoint',self.stage):
             path=directory/'complete.json'
             marker=read_json(path)

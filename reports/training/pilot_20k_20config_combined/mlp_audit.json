@@ -300,13 +300,13 @@
     }
   ],
   "interpretation_ru": [
-    "Структурной ошибки Pipeline не обнаружено: масштабирование есть, медианы и scaler обучаются на train фолда, validation только transform.",
-    "Все проверенные матрицы train/validation конечны, их ширина совпадает; тестовые данные не загружались.",
-    "Низкая сохранённая обучающая целевая функция при высоком CV log-loss согласуется с сильным переобучением; это диагностический вывод, а не доказательство единственной причины.",
-    "MLP loss_curve содержит обучающую целевую функцию с регуляризацией и minibatch-агрегацией; она не является отдельной оценкой train log-loss.",
-    "Масштабирование сохраняет редкие экстремальные значения validation. Их наличие само по себе не ошибка; clipping/отбор по CV или test сейчас не вводились.",
-    "Для исходных конфигураций1–5 индивидуальные CV loss_curve отсутствуют; сохранённые диаграммы итоговых refit не подставлялись вместо них.",
-    "Гиперпараметры и правило остановки сохранены. Улучшение MLP через early stopping или новую регуляризацию потребовало бы отдельного заранее объявленного эксперимента."
+    "No structural Pipeline error was found: scaling is present, medians and the scaler are fitted on the fold's training rows, and validation is transformed only.",
+    "All checked training/validation matrices are finite and have matching widths; test data were not loaded.",
+    "A low saved training objective with high CV log-loss is consistent with substantial overfitting; this is a diagnostic interpretation, not proof of a single cause.",
+    "MLP loss_curve records a training objective with regularization and minibatch aggregation; it is not a separate evaluation of training log-loss.",
+    "Scaling retains rare extreme validation values. Their presence alone is not an error; clipping/selection using CV or test was not introduced here.",
+    "Individual CV loss_curve records are unavailable for original configurations 1–5; final-refit curves were not substituted for them.",
+    "Hyperparameters and the stopping rule were retained. Improving MLP through early stopping or new regularization would require a separate predeclared experiment."
   ],
   "blocking_issues": [],
   "test_used": false

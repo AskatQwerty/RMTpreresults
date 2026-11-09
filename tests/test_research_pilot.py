@@ -1,4 +1,4 @@
-"""Исследовательский пилот: синтетические ID/CV, бюджет fit и продолжение."""
+"""Research pilot: synthetic IDs/CV, fit budget and resume."""
 from __future__ import annotations
 
 from collections import Counter
@@ -102,7 +102,7 @@ class ResearchPilotTests(unittest.TestCase):
         with patch.object(LogisticRegression,'fit',side_effect=AssertionError('Completed pair must not refit')):
             resumed=run_pair(self.prepared,self.root,'logistic_regression',4)
         self.assertEqual(resumed,metrics)
-        # Другая пара меняет признаки, но использует тот же cohort и те же CV ID.
+        # Another pair changes features but uses the same cohort and CV IDs.
         level_one_records=[]
         with patch.object(LogisticRegression,'fit',new=self.fit_spy(level_one_records)):
             run_pair(self.prepared,self.root,'logistic_regression',1)

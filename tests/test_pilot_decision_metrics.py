@@ -1,4 +1,4 @@
-"""Проверки формул/границ и целостности отчётов; никакого обучения моделей."""
+"""Tests of formulas, boundaries and report integrity; no model training."""
 from pathlib import Path
 import json
 import tempfile
@@ -115,7 +115,7 @@ class PilotDecisionMetricsTests(unittest.TestCase):
         self.refresh_marker()
         metadata = export_decision_metrics(self.root, self.reports, self.prepared)
         self.assertEqual(metadata['completed_level4_models'], [])
-        self.assertIn('ID/порядок', metadata['invalid_models'][0]['reason'])
+        self.assertIn('Prediction IDs or order', metadata['invalid_models'][0]['reason'])
 
     def test_hash_valid_but_wrong_targets_rejected(self):
         self.frame.loc[0, 'TARGET'] = 1

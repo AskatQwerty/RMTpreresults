@@ -1,4 +1,4 @@
-"""Экспорт сохранённых bootstrap-массивов в CSV; без нового ресемплирования."""
+"""Export saved bootstrap arrays to CSV without resampling."""
 from pathlib import Path
 import csv
 import json

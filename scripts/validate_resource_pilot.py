@@ -1,4 +1,4 @@
-"""Проверить сохранённый пилот и обновить небольшие отчёты, без fit/test."""
+"""Verify the saved pilot and update small reports without fit or test evaluation."""
 from pathlib import Path
 import argparse
 import ast
@@ -20,28 +20,28 @@ args=parser.parse_args()
 pilot=args.pilot_root.resolve()
 manifest=read_json(pilot/'experiment_manifest.json')
 summary=read_json(pilot/'resource_summary.json')
-assert not (pilot/'run.lock').exists(),'Пилот ещё работает; дождитесь снятия run.lock.'
+assert not (pilot/'run.lock').exists(),'The pilot is still running; wait until run.lock is removed.'
 plan=full_experiment_plan()
 allowed_models=set(plan['models'])
-assert set(manifest['selected_configurations'])==allowed_models,'Неверный состав моделей в manifest.'
+assert set(manifest['selected_configurations'])==allowed_models,'The manifest contains an incorrect set of models.'
 results=summary['results']
 result_models=[item['model'] for item in results]
-assert len(result_models)==len(set(result_models)),'Модель повторяется в сводке пилота.'
-assert set(result_models)<=allowed_models,'В сводке есть незапланированная модель.'
+assert len(result_models)==len(set(result_models)),'A model is duplicated in the pilot summary.'
+assert set(result_models)<=allowed_models,'The summary includes an unplanned model.'
 assert len(summary['planned_models'])==len(allowed_models) and set(summary['planned_models'])==allowed_models
-assert summary['attempted_models']==len(results),'Счётчик попыток не совпадает с results.'
+assert summary['attempted_models']==len(results),'The attempt counter does not match results.'
 completed_count=sum(item['status']=='completed' for item in results)
-assert summary['completed_models']==completed_count,'Счётчик завершений не совпадает с results.'
+assert summary['completed_models']==completed_count,'The completion counter does not match results.'
 if summary['status']=='completed':
     assert set(result_models)==allowed_models and completed_count==len(allowed_models), \
-        'Для completed требуются все семь завершённых моделей.'
+        'Completed status requires all seven models to be complete.'
 prepared=ROOT/'data/processed/full'
-assert artifact_manifest(prepared)==manifest['inputs'],'Изменились подготовленные входы.'
+assert artifact_manifest(prepared)==manifest['inputs'],'Prepared inputs have changed.'
 sources=pilot/'source_snapshot'
 sources.mkdir(exist_ok=True)
 for name,expected in manifest['code_sha256'].items():
     path=ROOT/'src'/name
-    assert sha256(path)==expected,f'Источник изменился: {name}'
+    assert sha256(path)==expected,f'Source has changed: {name}'
     shutil.copy2(path,sources/name)
 origin=pilot/'origin_pilot'
 migration=None
@@ -62,7 +62,7 @@ if origin.exists():
              if manifest['code_sha256'][name]!=origin_manifest['code_sha256'][name]]
     assert changed==migration['changed_source_files']==['model_training.py']
     for name,expected in origin_manifest['code_sha256'].items():
-        assert sha256(origin/'source_snapshot'/name)==expected,f'Изменён исходный снимок: {name}'
+        assert sha256(origin/'source_snapshot'/name)==expected,f'Original snapshot has changed: {name}'
     def without_atomic_json(path):
         tree=ast.parse(path.read_text(encoding='utf-8'))
         matches=[node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name=='atomic_json']
@@ -80,10 +80,10 @@ imported_models_checked=[]
 for item in results:
     stage=pilot/item['model']
     if item['status']!='completed': continue
-    assert _complete(stage,manifest),f'Неверный checkpoint: {stage}'
+    assert _complete(stage,manifest),f'Invalid checkpoint: {stage}'
     marker=read_json(stage/'complete.json')
     assert 'resource_result.json' in marker['artifact_sha256'], \
-        f'Результат этапа не защищён checkpoint-хэшем: {stage}'
+        f'Stage result is not protected by a checkpoint hash: {stage}'
     provenance_path=stage/'imported_stage_provenance.json'
     if provenance_path.exists():
         assert migration is not None and origin_manifest is not None
@@ -101,14 +101,14 @@ for item in results:
         assert sha256(stage/'original_complete.json')==sha256(origin/item['model']/'complete.json')
         assert _complete(origin/item['model'],origin_manifest)
         for name,expected in original_marker['artifact_sha256'].items():
-            assert sha256(stage/name)==expected,f'Изменён перенесённый артефакт: {stage/name}'
+            assert sha256(stage/name)==expected,f'Migrated artifact has changed: {stage/name}'
         imported_models_checked.append(item['model'])
     stored_result=read_json(stage/'resource_result.json')
     summary_result=dict(item)
-    # Resume добавляет только служебный флаг в новую сводку, не переписывая этап.
+    # Resume adds only an administrative flag to the new summary, without rewriting the stage.
     stored_result.pop('resumed',None)
     summary_result.pop('resumed',None)
-    assert summary_result==stored_result,f'Сводка не совпадает с проверенным результатом: {stage}'
+    assert summary_result==stored_result,f'Summary does not match the verified result: {stage}'
     assert item['rows']==manifest['train_rows'] and item['raw_features']==manifest['raw_features']
     assert item['model_size_bytes']==(stage/'pipeline.joblib').stat().st_size
     assert read_json(stage/'selected_configuration.json')==manifest['selected_configurations'][item['model']]
@@ -169,8 +169,8 @@ for invocation,snapshot,directory in invocations:
         phase=read_json(stage/'phase.json') if (stage/'phase.json').exists() else {}
         fit_seconds=item.get('fit_seconds')
         fit_time_source='resource_result' if fit_seconds is not None else None
-        # phase получает fit_seconds только после успешного estimator.fit.
-        # Это сохраняет факт завершения fit при последующей ошибке записи.
+        # phase receives fit_seconds only after successful estimator.fit.
+        # This preserves fit completion if a later write fails.
         if fit_seconds is None and phase.get('fit_seconds') is not None:
             fit_seconds=phase['fit_seconds']
             fit_time_source='phase_after_successful_fit'
@@ -178,8 +178,8 @@ for invocation,snapshot,directory in invocations:
         fit_started=fit_completed or observed.get('fit_sample_count',0)>0
         peak=item.get('peak_ram_bytes')
         primitive_count=primitive_counts[item['model']]
-        # Для прерванного одиночного RF известен один начатый fit. Число
-        # завершённых баз прерванного ансамбля без дополнительных логов неизвестно.
+        # For an interrupted standalone RF, one started fit is known. The number of
+        # completed bases in an interrupted ensemble is unknown without additional logs.
         finished_primitive=primitive_count if fit_completed else 0 if primitive_count==1 else None
         unfinished_primitive=1 if fit_started and not fit_completed and primitive_count==1 else 0 if fit_completed else None
         attempt_rows.append({'invocation':invocation,'model':item['model'],'status':item['status'],

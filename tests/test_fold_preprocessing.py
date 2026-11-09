@@ -1,4 +1,4 @@
-"""Тесты политики пропусков исключительно на искусственных данных."""
+"""Missing-value policy tests using synthetic data only."""
 import unittest
 
 import numpy as np

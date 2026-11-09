@@ -17,7 +17,7 @@
     "missing__missingindicator_partly_missing",
     "missing__missingindicator_complete_in_train"
   ],
-  "fit_policy_ru": "fit только на train каждого CV-фолда или 90%-ного повтора; test/validation не участвуют",
-  "fallback_policy_ru": "Для полностью пустого train-столбца фиксированный 0 и индикатор пропуска; столбец не удаляется",
-  "category_policy_ru": "Обучаемое кодирование категорий — отдельная ветка полного Pipeline, здесь не выполняется"
+  "fit_policy_ru": "fit only on the training partition of each CV fold or 90% repeat; test/validation are excluded",
+  "fallback_policy_ru": "For a completely empty training column, use a fixed 0 and a missingness indicator; retain the column",
+  "category_policy_ru": "Learned categorical encoding is a separate branch of the complete Pipeline and is not performed here"
 }

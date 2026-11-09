@@ -104,8 +104,8 @@ class FinalPilotEvaluationTests(unittest.TestCase):
             self.assertEqual(len(readiness['figure_files']),6)
             self.assertEqual(readiness['status'],'pending_checks')
             report=(output/'results_report.html').read_text(encoding='utf-8')
-            self.assertIn('20 конфигураций',report)
-            self.assertNotIn('20 000 train-клиентов, 5 конфигураций',report)
+            self.assertIn('20 configurations',report)
+            self.assertNotIn('20,000 training clients, 5 configurations',report)
             self.assertTrue((output/'tables/rq1_level4.tex').exists())
             self.assertTrue((output/'tables/rq2_ap_levels.csv').exists())
 

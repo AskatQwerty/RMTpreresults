@@ -1,7 +1,7 @@
-"""Evaluation Assignment3/RQ1/RQ2: только сохранённые вероятности пилота 20k.
+"""Assignment 3/RQ1/RQ2 evaluation: saved probabilities from the 20k pilot only.
 
-Ни модели, ни X не загружаются. Нет fit, predict, оптимизации порога или
-переопределения train/test. Все новые файлы находятся внутри evaluation.
+Neither models nor X are loaded. No fit, predict, threshold optimization, or
+train/test redefinition. All new files are placed within evaluation.
 """
 from __future__ import annotations
 
@@ -48,7 +48,7 @@ def csv_write(frame, path):
 
 
 def integrity_snapshot(prepared, root, previous):
-    """Хеши готовых файлов; исходные CSV не открываются и не аудируются."""
+    """Hash prepared files; original CSV files are neither opened nor audited."""
     files = {}
     for prefix, folder in [('prepared', prepared), ('training', root), ('previous_reports', previous)]:
         for path in sorted(Path(folder).rglob('*')):
@@ -67,7 +67,7 @@ def _require_hash(path, expected):
 
 
 def load_predictions(prepared, root):
-    """Явные one-to-one merge по ID; общий канонический порядок sorted test ID."""
+    """Explicit one-to-one merges on ID; shared canonical order of sorted test IDs."""
     prepared, root = Path(prepared), Path(root)
     manifest = read_json(root / 'experiment_manifest.json')
     if manifest['mode'] != SCOPE or manifest['train_rows'] != 20000 or manifest['test_rows'] != 61503:
