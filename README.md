@@ -55,3 +55,7 @@ Python **3.13.9**, версии в [requirements.txt](requirements.txt) и [docs
 - `scripts/build_active_model_bundle.py` экспортирует модели без клиентских записей.
 
 Notebook 01–04 сохраняют первоначальную подготовку и пилот пяти конфигураций. Их outputs исторические; для актуальной статьи используйте `reports/pilot_20k_20config_mlp_updated/evaluation/`. Не запускайте обучение заново ради просмотра отчётов.
+
+## Лицензия и зафиксированная версия
+
+Код проекта опубликован под [MIT License](LICENSE). Версия для ссылки в статье: [v1.0](https://github.com/AskatQwerty/RMTpreresults/releases/tag/v1.0).
